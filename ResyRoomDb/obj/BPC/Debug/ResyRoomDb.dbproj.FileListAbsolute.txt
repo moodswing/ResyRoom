@@ -1,9 +1,0 @@
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Script.PreDeployment.sql
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Script.PostDeployment.sql
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqlsettings
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Server.sqlsettings
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqldeployment
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqlcmdvars
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\ResyRoomDb.deploymanifest
-C:\Users\raravena\ResyRoom\ResyRoomDb\sql\debug\ResyRoomDb.dbschema
-C:\Users\raravena\ResyRoom\ResyRoomDb\obj\BPC\Debug\ResyRoomDb.dbschema

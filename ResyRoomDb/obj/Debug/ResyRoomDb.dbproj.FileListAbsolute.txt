@@ -1,9 +1,0 @@
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Script.PreDeployment.sql
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Script.PostDeployment.sql
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqlsettings
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Server.sqlsettings
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqldeployment
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\master_Master.sqlcmdvars
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\ResyRoomDb.deploymanifest
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\sql\debug\ResyRoomDb.dbschema
-D:\Documents\GitHub\ResyRoom\ResyRoomDb\obj\Debug\ResyRoomDb.dbschema
