@@ -1,0 +1,413 @@
+<#
+//*********************************************************
+//
+//    Copyright (c) Microsoft. All rights reserved.
+//    This code is licensed under the Microsoft Public License.
+//    THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+//    ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+//    IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+//    PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+//
+//*********************************************************
+#>
+<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@
+ output extension=".cs"#><#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = @"ResyRoom.edmx";
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+WriteHeader(fileManager);
+
+
+
+//*******	Reglas especiales para generación de modelos
+
+var dataAnnotations = new[] {
+				new { Modelo = "Banda", Campo = "Nombre", Anotacion = "[Required(ErrorMessage = %Dato faltante%)]" },
+				new { Modelo = "Banda", Campo = "Descripcion", Anotacion = "[Required(ErrorMessage = %Dato faltante%)]" },
+				new { Modelo = "Banda", Campo = "Descripcion", Anotacion = "[DataType(DataType.MultilineText)]" },
+				new { Modelo = "Estudio", Campo = "IdComuna", Anotacion = "[DisplayName(%Comuna%)]" },
+				new { Modelo = "Estudio", Campo = "Email", Anotacion = "[DisplayName(%Email de Contacto%)]" },
+				new { Modelo = "Estudio", Campo = "Telefono", Anotacion = "[DisplayName(%Teléfono%)]" },
+				new { Modelo = "Estudio", Campo = "Celular", Anotacion = "[DisplayName(%Teléfono Movil%)]" }
+			};
+
+
+var camposAdicionales = new[] {
+				  new { Modelo = "Estudio", Campo = "NroDeReservas", Tipo = "int" }
+			};
+
+//*******	clases declaradas como partial
+
+var clasesParciales = new []{ "User" };
+
+//*******	Fin de reglas especiales
+
+
+
+foreach (var entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+    fileManager.StartNewFile(entity.Name + ".cs");
+    BeginNamespace(namespaceName, code);
+#>
+<#=Accessibility.ForType(entity)#> <#=code.SpaceAfter(code.AbstractOption(entity))#><# if (clasesParciales.Contains(entity.Name)) { #><#=code.Escape("partial ")#><# } #>class <#=code.Escape(entity)#><#=code.StringBefore(" : ", code.Escape(entity.BaseType))#>
+{
+<#
+    var propertiesWithDefaultValues = entity.Properties.Where(p => p.TypeUsage.EdmType is PrimitiveType && p.DeclaringType == entity && p.DefaultValue != null);
+    var collectionNavigationProperties = entity.NavigationProperties.Where(np => np.DeclaringType == entity && np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many);
+    var complexProperties = entity.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == entity);
+
+    if (propertiesWithDefaultValues.Any() || collectionNavigationProperties.Any() || complexProperties.Any())
+    {
+#>
+    public <#=code.Escape(entity)#>()
+    {
+<#
+        foreach (var edmProperty in propertiesWithDefaultValues)
+        {
+#>
+        <#=code.Escape(edmProperty)#> = <#=code.CreateLiteral(edmProperty.DefaultValue)#>;
+<#
+        }
+
+        foreach (var navigationProperty in collectionNavigationProperties)
+        {
+#>
+        <#=code.Escape(navigationProperty)#> = new HashSet<<#=code.Escape(navigationProperty.ToEndMember.GetEntityType())#>>();
+<#
+        }
+
+        foreach (var complexProperty in complexProperties)
+        {
+#>
+        <#=code.Escape(complexProperty)#> = new <#=code.Escape(complexProperty.TypeUsage)#>();
+<#
+        }
+#>
+    }
+
+<#
+    }
+
+    var primitiveProperties = entity.Properties.Where(p => p.TypeUsage.EdmType is PrimitiveType && p.DeclaringType == entity);
+    if (primitiveProperties.Any())
+    {
+        foreach (var edmProperty in primitiveProperties)
+        {
+			var propiedad = new { Modelo = entity.Name, Campo = edmProperty.ToString() };
+		
+			foreach (var anotacion in dataAnnotations) 
+				if (anotacion.Modelo == propiedad.Modelo && anotacion.Campo == propiedad.Campo) EscribeAnotacion(anotacion.Anotacion);
+			
+			WriteProperty(code, edmProperty);
+        }
+
+		bool campoAdicional = false;
+		var definicion = "";
+
+		foreach (var campo in camposAdicionales)
+			if (campo.Modelo == entity.Name) { campoAdicional = true; definicion = "public " + campo.Tipo + " " + campo.Campo + " { get; set; }"; continue; }
+
+		if (campoAdicional) EscribeValidacion("CampoAdicional", definicion);
+    }
+
+    if (complexProperties.Any())
+    {
+#>
+
+<#
+        foreach(var complexProperty in complexProperties)
+        {
+            WriteProperty(code, complexProperty);
+        }
+    }
+
+    var navigationProperties = entity.NavigationProperties.Where(np => np.DeclaringType == entity);
+    if (navigationProperties.Any())
+    {
+#>
+
+<#
+        foreach (var navigationProperty in navigationProperties)
+        {
+            WriteNavigationProperty(code, navigationProperty);
+        }
+    }
+#>
+}
+<#
+    EndNamespace(namespaceName);
+}
+
+foreach (var complex in ItemCollection.GetItems<ComplexType>().OrderBy(e => e.Name))
+{
+    fileManager.StartNewFile(complex.Name + ".cs");
+    BeginNamespace(namespaceName, code);
+#>
+<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
+{
+<#
+    var complexProperties = complex.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == complex);
+    var propertiesWithDefaultValues = complex.Properties.Where(p => p.TypeUsage.EdmType is PrimitiveType && p.DeclaringType == complex && p.DefaultValue != null);
+
+    if (propertiesWithDefaultValues.Any() || complexProperties.Any())
+    {
+#>
+    public <#=code.Escape(complex)#>()
+    {
+<#
+        foreach (var edmProperty in propertiesWithDefaultValues)
+        {
+#>
+        this.<#=code.Escape(edmProperty)#> = <#=code.CreateLiteral(edmProperty.DefaultValue)#>;
+<#
+        }
+
+        foreach (var complexProperty in complexProperties)
+        {
+#>
+        this.<#=code.Escape(complexProperty)#> = new <#=code.Escape(complexProperty.TypeUsage)#>();
+<#
+        }
+#>
+    }
+
+<#
+    }
+
+    var primitiveProperties = complex.Properties.Where(p => p.TypeUsage.EdmType is PrimitiveType && p.DeclaringType == complex);
+    if (primitiveProperties.Any())
+    {
+        foreach(var edmProperty in primitiveProperties)
+        {
+            WriteProperty(code, edmProperty);
+        }
+    }
+
+    if (complexProperties.Any())
+    {
+#>
+
+<#
+        foreach(var edmProperty in complexProperties)
+        {
+            WriteProperty(code, edmProperty);
+        }
+    }
+#>
+}
+
+<#
+    EndNamespace(namespaceName);
+}
+
+if (!VerifyTypesAreCaseInsensitiveUnique(ItemCollection))
+{
+    return "";
+}
+
+fileManager.Process();
+
+#>
+<#+
+void WriteHeader(EntityFrameworkTemplateFileManager fileManager)
+{
+    fileManager.StartHeader();
+#>
+using System;
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+<#+
+    fileManager.EndBlock();
+}
+
+void BeginNamespace(string namespaceName, CodeGenerationTools code)
+{
+    CodeRegion region = new CodeRegion(this);
+    if (!String.IsNullOrEmpty(namespaceName))
+    {
+#>
+namespace <#=code.EscapeNamespace(namespaceName)#>
+{
+<#+
+        PushIndent(CodeRegion.GetIndent(1));
+    }
+}
+
+void EndNamespace(string namespaceName)
+{
+    if (!String.IsNullOrEmpty(namespaceName))
+    {
+        PopIndent();
+#>
+}
+<#+
+    }
+}
+
+void WriteProperty(CodeGenerationTools code, EdmProperty edmProperty)
+{
+    WriteProperty(Accessibility.ForProperty(edmProperty),
+                  code.Escape(edmProperty.TypeUsage),
+                  code.Escape(edmProperty),
+                  code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
+                  code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
+}
+
+void WriteNavigationProperty(CodeGenerationTools code, NavigationProperty navigationProperty)
+{
+    var endType = code.Escape(navigationProperty.ToEndMember.GetEntityType());
+    WriteProperty(PropertyVirtualModifier(Accessibility.ForProperty(navigationProperty)),
+                  navigationProperty.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
+                  code.Escape(navigationProperty),
+                  code.SpaceAfter(Accessibility.ForGetter(navigationProperty)),
+                  code.SpaceAfter(Accessibility.ForSetter(navigationProperty)));
+}
+
+void WriteProperty(string accessibility, string type, string name, string getterAccessibility, string setterAccessibility)
+{
+	type = type.Replace("System.", "");
+
+	var tipo = ""; 
+
+	var desde = type.IndexOf('<') + 1;
+	var hasta = type.IndexOf('>') - desde;
+	
+	if (desde > 0 && hasta > 0) tipo = type.Substring(desde, hasta);
+
+	if (!string.IsNullOrEmpty(tipo) && type.Equals("Nullable<" + tipo + ">")) type = tipo + "?";
+#>
+    <#=accessibility#> <#=type#> <#=name#> { <#=getterAccessibility#>get; <#=setterAccessibility#>set; }
+<#+
+}
+
+void EscribeValidacion(string validacion, string texto = "")
+{
+	if (validacion.Equals("Required"))
+	{
+		if (!string.IsNullOrEmpty(texto))
+		{
+#>
+	[Required(ErrorMessage = "<#=texto#>")]
+<#+
+		}
+		else 
+		{
+#>
+	[Required]
+<#+
+		}
+	}
+	else if (validacion.Equals("DataType"))
+	{
+#>
+	[DataType(<#=texto#>)]
+<#+
+	}
+	else if (validacion.Equals("CampoAdicional"))
+	{
+#>
+
+	<#=texto#>
+<#+
+	}
+}
+
+void EscribeAnotacion(string anotacion)
+{
+	anotacion = anotacion.Replace("%", "\"");
+	anotacion = ArreglaCaracteresHtml(anotacion);
+#>
+	<#=anotacion#>
+<#+
+}
+
+string PropertyVirtualModifier(string accessibility)
+{
+    //return accessibility + (accessibility != "private" ? " virtual" : "");
+    return accessibility;
+}
+
+bool VerifyTypesAreCaseInsensitiveUnique(EdmItemCollection itemCollection)
+{
+    var alreadySeen = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+    foreach(var type in itemCollection.GetItems<StructuralType>())
+    {
+        if (!(type is EntityType || type is ComplexType))
+        {
+            continue;
+        }
+
+        if (alreadySeen.ContainsKey(type.FullName))
+        {
+            Error(String.Format(CultureInfo.CurrentCulture, "This template does not support types that differ only by case, the types {0} are not supported", type.FullName));
+            return false;
+        }
+        else
+        {
+            alreadySeen.Add(type.FullName, true);
+        }
+    }
+
+    return true;
+}
+
+string ArreglaCaracteresHtml(string extended)
+{
+    extended = extended.Replace("&#128;", "€").Replace("&#129;", "").Replace("&#130;", "‚");
+    extended = extended.Replace("&#131;", "ƒ").Replace("&#132;", "„").Replace("&#133;", "…");
+    extended = extended.Replace("&#134;", "†").Replace("&#135;", "‡").Replace("&#136;", "ˆ");
+    extended = extended.Replace("&#137;", "‰").Replace("&#138;", "Š").Replace("&#139;", "‹");
+    extended = extended.Replace("&#140;", "Œ").Replace("&#141;", "").Replace("&#142;", "Ž");
+    extended = extended.Replace("&#143;", "").Replace("&#144;", "").Replace("&#145;", "‘");
+    extended = extended.Replace("&#146;", "’").Replace("&#147;", "“").Replace("&#148;", "”");
+    extended = extended.Replace("&#149;", "•").Replace("&#150;", "–").Replace("&#151;", "—");
+    extended = extended.Replace("&#152;", "˜").Replace("&#153;", "™").Replace("&#154;", "š");
+    extended = extended.Replace("&#155;", "›").Replace("&#156;", "œ").Replace("&#157;", "");
+    extended = extended.Replace("&#158;", "ž").Replace("&#159;", "Ÿ").Replace("&#161;", "¡");
+    extended = extended.Replace("&#162;", "¢").Replace("&#163;", "£").Replace("&#164;", "¤");
+    extended = extended.Replace("&#165;", "¥").Replace("&#166;", "¦").Replace("&#167;", "§");
+    extended = extended.Replace("&#168;", "¨").Replace("&#169;", "©").Replace("&#170;", "ª");
+    extended = extended.Replace("&#171;", "«").Replace("&#172;", "¬").Replace("&#174;", "®");
+    extended = extended.Replace("&#175;", "¯").Replace("&#176;", "°").Replace("&#177;", "±");
+    extended = extended.Replace("&#178;", "²").Replace("&#179;", "³").Replace("&#180;", "´");
+    extended = extended.Replace("&#181;", "µ").Replace("&#182;", "¶").Replace("&#183;", "·");
+    extended = extended.Replace("&#184;", "¸").Replace("&#185;", "¹").Replace("&#186;", "º");
+    extended = extended.Replace("&#187;", "»").Replace("&#188;", "¼").Replace("&#189;", "½");
+    extended = extended.Replace("&#190;", "¾").Replace("&#191;", "¿").Replace("&#192;", "À");
+    extended = extended.Replace("&#193;", "Á").Replace("&#194;", "Â").Replace("&#195;", "Ã");
+    extended = extended.Replace("&#196;", "Ä").Replace("&#197;", "Å").Replace("&#198;", "Æ");
+    extended = extended.Replace("&#199;", "Ç").Replace("&#200;", "È").Replace("&#201;", "É");
+    extended = extended.Replace("&#202;", "Ê").Replace("&#203;", "Ë").Replace("&#204;", "Ì");
+    extended = extended.Replace("&#205;", "Í").Replace("&#206;", "Î").Replace("&#207;", "Ï");
+    extended = extended.Replace("&#208;", "Ð").Replace("&#209;", "Ñ").Replace("&#210;", "Ò");
+    extended = extended.Replace("&#211;", "Ó").Replace("&#212;", "Ô").Replace("&#213;", "Õ");
+    extended = extended.Replace("&#214;", "Ö").Replace("&#215;", "×").Replace("&#216;", "Ø");
+    extended = extended.Replace("&#217;", "Ù").Replace("&#218;", "Ú").Replace("&#219;", "Û");
+    extended = extended.Replace("&#220;", "Ü").Replace("&#221;", "Ý").Replace("&#222;", "Þ");
+    extended = extended.Replace("&#223;", "ß").Replace("&#224;", "à").Replace("&#225;", "á");
+    extended = extended.Replace("&#226;", "â").Replace("&#227;", "ã").Replace("&#228;", "ä");
+    extended = extended.Replace("&#229;", "å").Replace("&#230;", "æ").Replace("&#231;", "ç");
+    extended = extended.Replace("&#232;", "è").Replace("&#233;", "é").Replace("&#234;", "ê");
+    extended = extended.Replace("&#235;", "ë").Replace("&#236;", "ì").Replace("&#237;", "í");
+    extended = extended.Replace("&#238;", "î").Replace("&#239;", "ï").Replace("&#240;", "ð");
+    extended = extended.Replace("&#241;", "ñ").Replace("&#242;", "ò").Replace("&#243;", "ó");
+    extended = extended.Replace("&#244;", "ô").Replace("&#245;", "õ").Replace("&#246;", "ö");
+    extended = extended.Replace("&#247;", "÷").Replace("&#248;", "ø").Replace("&#249;", "ù");
+    extended = extended.Replace("&#250;", "ú").Replace("&#251;", "û").Replace("&#252;", "ü");
+    extended = extended.Replace("&#38;", "&").Replace("&#34;", "\"").Replace("&nbsp;", "");
+    extended = extended.Replace("&#253;", "ý").Replace("&amp;", "&");
+
+    return extended;
+}
+#>

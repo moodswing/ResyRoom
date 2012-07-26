@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="AccountsConnections-Web.config Connection String" description="AccountsConnections Connection String used in web.config by the application to access the database." defaultvalue="data source=f7efc9a0-4868-4928-97f7-9fd00019b189.sqlserver.sequelizer.com;initial catalog=dbf7efc9a04868492897f79fd00019b189;User ID=yofwlaaiszedqcji;Password=UQZGrzq2EtKAAVZbcZofFznopjmUzsmrBEh3ythEtvwgxH36cieVYrVuCLsgnCzn;MultipleActiveResultSets=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Documents\\GitHub\\ResyRoom\\ResyRoom\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='AccountsConnections']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultvalue="Data Source=.\SQLEXPRESS;Initial Catalog=aspnet-ResyRoom-20120721133458;Integrated Security=SSPI" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Documents\\GitHub\\ResyRoom\\ResyRoom\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="ResyRoomEntities-Web.config Connection String" description="ResyRoomEntities Connection String used in web.config by the application to access the database." defaultvalue="metadata=res://*/Models.ResyRoom.csdl|res://*/Models.ResyRoom.ssdl|res://*/Models.ResyRoom.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=af4be6c5-d03a-4983-af81-a09a0035febe.sqlserver.sequelizer.com;initial catalog=dbaf4be6c5d03a4983af81a09a0035febe;User ID=eiyiwhlfktabudti;Password=DfBNZiqGHR2iFK54jid3iE8FCnp8uiVSFoCxZiUddxTjxrMWXf3MfZk8f5kL2qnz;multipleactiveresultsets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Documents\\GitHub\\ResyRoom\\ResyRoom\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ResyRoomEntities']/@connectionString" />
+  </parameter>
+</parameters>

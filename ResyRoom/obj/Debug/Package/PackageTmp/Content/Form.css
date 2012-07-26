@@ -1,0 +1,11 @@
+﻿/* Estilos para formularios */
+
+.form { padding: 50px 50px 0px; }
+.form .tableForm { margin-left: auto; margin-right: auto; padding: 25px 50px 30px; background-color: white; border: 1px solid gainsboro; border-top-left-radius: 5px;  border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+
+.form table thead th { height: 50px; vertical-align: top; margin-bottom: 30px; text-align: left; }
+.form table tr td { text-align: right !important; padding-right: 20px; }
+.rightLogo { padding: 40px 0px 0px 0px; }
+
+.content { width: 100%; text-align: left !important; top: 10%;  border-top: 1px #eee solid;  border-bottom: 1px #eee solid;  
+           position: absolute; height: 75%; background: url('../../Content/img/bglogo.png') repeat; }

@@ -11,12 +11,7 @@ D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.Razor.dll
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.WebPages.Deployment.dll
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.WebPages.dll
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.WebPages.Razor.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.pdb
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.xml
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.Unity.xml
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.Unity.Configuration.xml
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\EntityFramework.xml
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Newtonsoft.Json.xml
+D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Web.Infrastructure.xml
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.xml
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.Formatting.xml
 D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.WebRequest.xml
@@ -30,4 +25,3 @@ D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.WebPages.Razor.xml
 D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResolveAssemblyReference.cache
 D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
 D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Web.Infrastructure.xml

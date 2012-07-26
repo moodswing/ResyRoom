@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ResyRoom.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DomainName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:2253/</Value>
+    </Setting>
+    <Setting Name="SmtpServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">smtp.gmail.com</Value>
+    </Setting>
+    <Setting Name="ConfirmationUserAccount" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">rob.arav@gmail.com</Value>
+    </Setting>
+    <Setting Name="ConfirmationPasswordAccount" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">glasstones1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

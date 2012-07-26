@@ -1,0 +1,135 @@
+﻿@model ResyRoom.ViewModels.RegisterBandViewModel
+@{
+    ViewBag.Title = "Registrar nuevo usuario";
+}
+<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Usuario_Banda_Descripcion").css('width', '188px');
+    })
+</script>
+<div class="content">
+    <div class="form">
+        @using (Html.BeginForm())
+        {
+            <table class="tableForm">
+                <tr>
+                    <td style="width: 47%">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h1>
+                                            Información del Usuario</h1>
+                                        <div style="border-top: 1px solid gainsboro; margin-top: 5px;" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Usuario)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(u => u.Usuario.Usuario, new { @class = "txt" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Email)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Password)
+                                    </td>
+                                    <td>
+                                        @Html.PasswordFor(u => u.Usuario.Password, new { @class = "txt" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.PasswordConfirmacion)
+                                    </td>
+                                    <td>
+                                        @Html.PasswordFor(u => u.Usuario.PasswordConfirmacion, new { @class = "txt" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <h1>
+                                            Información de la Banda</h1>
+                                        <div style="border-top: 1px solid gainsboro; margin-top: 5px;" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Banda.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(u => u.Usuario.Banda.Nombre, new { @class = "txt", @style = "width:190px" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Banda.Genero)
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(u => u.Usuario.Banda.IdGenero, new SelectList(Model.ListaDeGeneros, "IdGenero", "Descripcion"), new { @style = "width:194px; " })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(u => u.Usuario.Banda.Descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(u => u.Usuario.Banda.Descripcion)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Ingresar" class="boton botonOk" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @Html.ValidationSummary(true, "Revise que los datos hayan sido ingresados correctamente.")
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: left !important;">
+                        <br />
+                        <h2>
+                            Registro</h2>
+                        <p>
+                            En <b>ResyRoom</b> brindamos el servicio para que cada usuario pueda buscar y evaluar
+                            el estudio, ya sea de grabación o de ensayo que mas le acomode a su banda. Por esta
+                            razón el registro como usuario es por <b>banda</b>.
+                            <br />
+                            <br />
+                            Ingrese los datos para su <b>identificación</b> como usuario, y a continuación los
+                            datos básicos de su <b>banda</b>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
