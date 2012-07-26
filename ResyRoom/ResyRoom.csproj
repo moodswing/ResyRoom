@@ -27,27 +27,6 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
-        <ObjectGroup Name="AccountsConnections-Deployment" Order="1">
-          <Destination Path="" />
-          <Object Type="dbFullSql">
-            <PreSource Path="Data Source=f7efc9a0-4868-4928-97f7-9fd00019b189.sqlserver.sequelizer.com%3bInitial Catalog=dbf7efc9a04868492897f79fd00019b189%3bUser ID=yofwlaaiszedqcji%3bPassword=UQZGrzq2EtKAAVZbcZofFznopjmUzsmrBEh3ythEtvwgxH36cieVYrVuCLsgnCzn" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
-            <Source Path="obj\Debug\AutoScripts\AccountsConnections-Deployment_SchemaOnly.sql" Transacted="True" />
-          </Object>
-        </ObjectGroup>
-        <ObjectGroup Name="DefaultConnection-Deployment" Order="2">
-          <Destination Path="" />
-          <Object Type="dbFullSql">
-            <PreSource Path="Data Source=.\SQLEXPRESS%3bInitial Catalog=aspnet-ResyRoom-20120721133458%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
-            <Source Path="obj\Debug\AutoScripts\DefaultConnection-Deployment_SchemaOnly.sql" Transacted="True" />
-          </Object>
-        </ObjectGroup>
-        <ObjectGroup Name="ResyRoomEntities-Deployment" Order="3">
-          <Destination Path="" />
-          <Object Type="dbFullSql">
-            <PreSource Path="Data Source=af4be6c5-d03a-4983-af81-a09a0035febe.sqlserver.sequelizer.com%3bInitial Catalog=dbaf4be6c5d03a4983af81a09a0035febe%3bUser ID=eiyiwhlfktabudti%3bPassword=DfBNZiqGHR2iFK54jid3iE8FCnp8uiVSFoCxZiUddxTjxrMWXf3MfZk8f5kL2qnz%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
-            <Source Path="obj\Debug\AutoScripts\ResyRoomEntities-Deployment_SchemaOnly.sql" Transacted="True" />
-          </Object>
-        </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
