@@ -1,0 +1,72 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:packages.config" caret="0" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Global.asax.cs" caret="476" fromTop="17" />
+      <File id="7B7DD45F-9CB4-4B5C-9841-174FAE4C9807/f:web.config" caret="6980" fromTop="17" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="7B7DD45F-9CB4-4B5C-9841-174FAE4C9807/f:web.config" caret="10994" fromTop="33" />
+      <File id="7B7DD45F-9CB4-4B5C-9841-174FAE4C9807/f:web.config" caret="7763" fromTop="18" />
+    </RecentEdits>
+  </RecentFiles>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="prop" priority="127" />
+      <Item value="string" priority="92" />
+      <Item value="public" priority="127" />
+      <Item value="static" priority="127" />
+      <Item value="void" priority="95" />
+      <Item value="GlobalFilterCollection`0" priority="31" />
+      <Item value="filters" priority="31" />
+      <Item value="new" priority="31" />
+      <Item value="RouteCollection`0" priority="31" />
+      <Item value="routes" priority="63" />
+      <Item value="RegisterRoutes`0" priority="31" />
+      <Item value="RegisterGlobalFilters`0" priority="31" />
+      <Item value="GlobalFilters`0" priority="31" />
+      <Item value="RouteTable`0" priority="31" />
+      <Item value="var" priority="63" />
+      <Item value="GetUnityContainer`0" priority="31" />
+      <Item value="jquery-1.6.2.min.js" priority="22" />
+      <Item value="App_Start" priority="92" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.GlobalFilterCollection">
+      <Item value="Add`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Routing.RouteCollection">
+      <Item value="IgnoreRoute`0" priority="26" />
+      <Item value="MapRoute`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.Routing.RouteTable">
+      <Item value="Routes" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.HtmlHelper`1">
+      <Item value="LabelFor`2" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ResyRoom.Models.Mensaje">
+      <Item value="Texto" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.Mvc.DependencyResolver">
+      <Item value="SetResolver`0" priority="27" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">True</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>

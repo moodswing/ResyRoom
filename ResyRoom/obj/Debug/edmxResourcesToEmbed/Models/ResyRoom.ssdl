@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ResyRoomModelStoreContainer">
+    <EntitySet Name="Applications" EntityType="ResyRoomModel.Store.Applications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Memberships" EntityType="ResyRoomModel.Store.Memberships" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_Comuna" EntityType="ResyRoomModel.Store.par_Comuna" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_EstadoReserva" EntityType="ResyRoomModel.Store.par_EstadoReserva" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_Genero" EntityType="ResyRoomModel.Store.par_Genero" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_Pais" EntityType="ResyRoomModel.Store.par_Pais" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_Region" EntityType="ResyRoomModel.Store.par_Region" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="par_TipoEquipo" EntityType="ResyRoomModel.Store.par_TipoEquipo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Profiles" EntityType="ResyRoomModel.Store.Profiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="ResyRoomModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Banda" EntityType="ResyRoomModel.Store.tb_Banda" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Comentario" EntityType="ResyRoomModel.Store.tb_Comentario" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Equipo" EntityType="ResyRoomModel.Store.tb_Equipo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Estudio" EntityType="ResyRoomModel.Store.tb_Estudio" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Horario" EntityType="ResyRoomModel.Store.tb_Horario" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Noticia" EntityType="ResyRoomModel.Store.tb_Noticia" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Oferta" EntityType="ResyRoomModel.Store.tb_Oferta" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Reserva" EntityType="ResyRoomModel.Store.tb_Reserva" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Sala" EntityType="ResyRoomModel.Store.tb_Sala" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="ResyRoomModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersInRoles" EntityType="ResyRoomModel.Store.UsersInRoles" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_par_Comuna_par_Region" Association="ResyRoomModel.Store.FK_par_Comuna_par_Region">
+      <End Role="par_Region" EntitySet="par_Region" />
+      <End Role="par_Comuna" EntitySet="par_Comuna" />
+    </AssociationSet>
+    <AssociationSet Name="FK_par_Region_par_Pais" Association="ResyRoomModel.Store.FK_par_Region_par_Pais">
+      <End Role="par_Pais" EntitySet="par_Pais" />
+      <End Role="par_Region" EntitySet="par_Region" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Banda_par_Genero" Association="ResyRoomModel.Store.FK_tb_Banda_par_Genero">
+      <End Role="par_Genero" EntitySet="par_Genero" />
+      <End Role="tb_Banda" EntitySet="tb_Banda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Banda_Users" Association="ResyRoomModel.Store.FK_tb_Banda_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="tb_Banda" EntitySet="tb_Banda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Comentario_tb_Banda" Association="ResyRoomModel.Store.FK_tb_Comentario_tb_Banda">
+      <End Role="tb_Banda" EntitySet="tb_Banda" />
+      <End Role="tb_Comentario" EntitySet="tb_Comentario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Comentario_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Comentario_tb_Sala">
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
+      <End Role="tb_Comentario" EntitySet="tb_Comentario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Equipo_par_TipoEquipo" Association="ResyRoomModel.Store.FK_tb_Equipo_par_TipoEquipo">
+      <End Role="par_TipoEquipo" EntitySet="par_TipoEquipo" />
+      <End Role="tb_Equipo" EntitySet="tb_Equipo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Equipo_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Equipo_tb_Sala">
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
+      <End Role="tb_Equipo" EntitySet="tb_Equipo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Estudio_Users" Association="ResyRoomModel.Store.FK_tb_Estudio_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="tb_Estudio" EntitySet="tb_Estudio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Horario_tb_Sala">
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
+      <End Role="tb_Horario" EntitySet="tb_Horario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Noticia_tb_Estudio" Association="ResyRoomModel.Store.FK_tb_Noticia_tb_Estudio">
+      <End Role="tb_Estudio" EntitySet="tb_Estudio" />
+      <End Role="tb_Noticia" EntitySet="tb_Noticia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Ofertas_tb_Horario" Association="ResyRoomModel.Store.FK_tb_Ofertas_tb_Horario">
+      <End Role="tb_Horario" EntitySet="tb_Horario" />
+      <End Role="tb_Oferta" EntitySet="tb_Oferta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Reserva_par_EstadoReserva" Association="ResyRoomModel.Store.FK_tb_Reserva_par_EstadoReserva">
+      <End Role="tb_Banda" EntitySet="tb_Banda" />
+      <End Role="tb_Reserva" EntitySet="tb_Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Reserva_par_EstadoReserva1" Association="ResyRoomModel.Store.FK_tb_Reserva_par_EstadoReserva1">
+      <End Role="par_EstadoReserva" EntitySet="par_EstadoReserva" />
+      <End Role="tb_Reserva" EntitySet="tb_Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Reserva_tb_Horario" Association="ResyRoomModel.Store.FK_tb_Reserva_tb_Horario">
+      <End Role="tb_Horario" EntitySet="tb_Horario" />
+      <End Role="tb_Reserva" EntitySet="tb_Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Sala_tb_Estudio" Association="ResyRoomModel.Store.FK_tb_Sala_tb_Estudio">
+      <End Role="tb_Estudio" EntitySet="tb_Estudio" />
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
+    </AssociationSet>
+    <AssociationSet Name="MembershipApplication" Association="ResyRoomModel.Store.MembershipApplication">
+      <End Role="Applications" EntitySet="Applications" />
+      <End Role="Memberships" EntitySet="Memberships" />
+    </AssociationSet>
+    <AssociationSet Name="MembershipUser" Association="ResyRoomModel.Store.MembershipUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Memberships" EntitySet="Memberships" />
+    </AssociationSet>
+    <AssociationSet Name="RoleApplication" Association="ResyRoomModel.Store.RoleApplication">
+      <End Role="Applications" EntitySet="Applications" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="UserApplication" Association="ResyRoomModel.Store.UserApplication">
+      <End Role="Applications" EntitySet="Applications" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UserProfile" Association="ResyRoomModel.Store.UserProfile">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Profiles" EntitySet="Profiles" />
+    </AssociationSet>
+    <AssociationSet Name="UsersInRoleRole" Association="ResyRoomModel.Store.UsersInRoleRole">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="UsersInRoleUser" Association="ResyRoomModel.Store.UsersInRoleUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Applications">
+    <Key>
+      <PropertyRef Name="ApplicationId" />
+    </Key>
+    <Property Name="ApplicationName" Type="nvarchar" Nullable="false" MaxLength="235" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="Memberships">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordFormat" Type="int" Nullable="false" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+    <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+    <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+    <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+    <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptWindowsStart" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="par_Comuna">
+    <Key>
+      <PropertyRef Name="IdComuna" />
+    </Key>
+    <Property Name="IdComuna" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdRegion" Type="int" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="par_EstadoReserva">
+    <Key>
+      <PropertyRef Name="IdEstadoReserva" />
+    </Key>
+    <Property Name="IdEstadoReserva" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="par_Genero">
+    <Key>
+      <PropertyRef Name="IdGenero" />
+    </Key>
+    <Property Name="IdGenero" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="par_Pais">
+    <Key>
+      <PropertyRef Name="IdPais" />
+    </Key>
+    <Property Name="IdPais" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="par_Region">
+    <Key>
+      <PropertyRef Name="IdRegion" />
+    </Key>
+    <Property Name="IdRegion" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdPais" Type="int" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="par_TipoEquipo">
+    <Key>
+      <PropertyRef Name="IdTIpoEquipo" />
+    </Key>
+    <Property Name="IdTIpoEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Profiles">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PropertyNames" Type="nvarchar" Nullable="false" />
+    <Property Name="PropertyValueStrings" Type="nvarchar" Nullable="false" />
+    <Property Name="PropertyValueBinary" Type="image" Nullable="false" />
+    <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="Description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tb_Banda">
+    <Key>
+      <PropertyRef Name="IdBanda" />
+    </Key>
+    <Property Name="IdBanda" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdGenero" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="tb_Comentario">
+    <Key>
+      <PropertyRef Name="IdComentario" />
+    </Key>
+    <Property Name="IdComentario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdSala" Type="int" />
+    <Property Name="IdBanda" Type="int" />
+    <Property Name="Puntuacion" Type="smallint" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tb_Equipo">
+    <Key>
+      <PropertyRef Name="IdEquipo" />
+    </Key>
+    <Property Name="IdEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdSala" Type="int" />
+    <Property Name="IdTIpoEquipo" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="PrecioAdicional" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_Estudio">
+    <Key>
+      <PropertyRef Name="IdEstudio" />
+    </Key>
+    <Property Name="IdEstudio" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdComuna" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar" MaxLength="300" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Celular" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="tb_Horario">
+    <Key>
+      <PropertyRef Name="IdHorario" />
+    </Key>
+    <Property Name="IdHorario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdSala" Type="int" />
+    <Property Name="DuracionBloque" Type="float" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="Desde" Type="varchar" MaxLength="5" />
+    <Property Name="Hasta" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tb_Noticia">
+    <Key>
+      <PropertyRef Name="IdNoticia" />
+    </Key>
+    <Property Name="IdNoticia" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdEstudio" Type="int" />
+    <Property Name="IdBanda" Type="int" />
+    <Property Name="Titulo" Type="varchar" MaxLength="100" />
+    <Property Name="Contenido" Type="varchar" MaxLength="500" />
+    <Property Name="FechaIngreso" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_Oferta">
+    <Key>
+      <PropertyRef Name="IdOferta" />
+    </Key>
+    <Property Name="IdOferta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdHorario" Type="int" />
+    <Property Name="Titulo" Type="varchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="Desde" Type="datetime" />
+    <Property Name="Hasta" Type="datetime" />
+    <Property Name="Porcentaje" Type="int" />
+    <Property Name="NuevoPrecio" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_Reserva">
+    <Key>
+      <PropertyRef Name="IdReserva" />
+    </Key>
+    <Property Name="IdReserva" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdHorario" Type="int" />
+    <Property Name="IdBanda" Type="int" />
+    <Property Name="IdEstadoRserva" Type="int" />
+    <Property Name="Fecha" Type="datetime" />
+    <Property Name="Desde" Type="varchar" MaxLength="10" />
+    <Property Name="Hasta" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tb_Sala">
+    <Key>
+      <PropertyRef Name="IdSala" />
+    </Key>
+    <Property Name="IdSala" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdEstudio" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Tamaño" Type="varchar" MaxLength="50" />
+    <Property Name="PrecioUnico" Type="bit" />
+    <Property Name="Precio" Type="int" />
+    <Property Name="DoblePedal" Type="bit" />
+    <Property Name="SetDePlatos" Type="bit" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_par_Comuna_par_Region">
+    <End Role="par_Region" Type="ResyRoomModel.Store.par_Region" Multiplicity="0..1" />
+    <End Role="par_Comuna" Type="ResyRoomModel.Store.par_Comuna" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="par_Region">
+        <PropertyRef Name="IdRegion" />
+      </Principal>
+      <Dependent Role="par_Comuna">
+        <PropertyRef Name="IdRegion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_par_Region_par_Pais">
+    <End Role="par_Pais" Type="ResyRoomModel.Store.par_Pais" Multiplicity="0..1" />
+    <End Role="par_Region" Type="ResyRoomModel.Store.par_Region" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="par_Pais">
+        <PropertyRef Name="IdPais" />
+      </Principal>
+      <Dependent Role="par_Region">
+        <PropertyRef Name="IdPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Banda_par_Genero">
+    <End Role="par_Genero" Type="ResyRoomModel.Store.par_Genero" Multiplicity="0..1" />
+    <End Role="tb_Banda" Type="ResyRoomModel.Store.tb_Banda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="par_Genero">
+        <PropertyRef Name="IdGenero" />
+      </Principal>
+      <Dependent Role="tb_Banda">
+        <PropertyRef Name="IdGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Banda_Users">
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="0..1" />
+    <End Role="tb_Banda" Type="ResyRoomModel.Store.tb_Banda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Banda">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Comentario_tb_Banda">
+    <End Role="tb_Banda" Type="ResyRoomModel.Store.tb_Banda" Multiplicity="0..1" />
+    <End Role="tb_Comentario" Type="ResyRoomModel.Store.tb_Comentario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Banda">
+        <PropertyRef Name="IdBanda" />
+      </Principal>
+      <Dependent Role="tb_Comentario">
+        <PropertyRef Name="IdBanda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Comentario_tb_Sala">
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
+    <End Role="tb_Comentario" Type="ResyRoomModel.Store.tb_Comentario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Sala">
+        <PropertyRef Name="IdSala" />
+      </Principal>
+      <Dependent Role="tb_Comentario">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Equipo_par_TipoEquipo">
+    <End Role="par_TipoEquipo" Type="ResyRoomModel.Store.par_TipoEquipo" Multiplicity="0..1" />
+    <End Role="tb_Equipo" Type="ResyRoomModel.Store.tb_Equipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="par_TipoEquipo">
+        <PropertyRef Name="IdTIpoEquipo" />
+      </Principal>
+      <Dependent Role="tb_Equipo">
+        <PropertyRef Name="IdTIpoEquipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Equipo_tb_Sala">
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
+    <End Role="tb_Equipo" Type="ResyRoomModel.Store.tb_Equipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Sala">
+        <PropertyRef Name="IdSala" />
+      </Principal>
+      <Dependent Role="tb_Equipo">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Estudio_Users">
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="0..1" />
+    <End Role="tb_Estudio" Type="ResyRoomModel.Store.tb_Estudio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Estudio">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Horario_tb_Sala">
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
+    <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Sala">
+        <PropertyRef Name="IdSala" />
+      </Principal>
+      <Dependent Role="tb_Horario">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Noticia_tb_Estudio">
+    <End Role="tb_Estudio" Type="ResyRoomModel.Store.tb_Estudio" Multiplicity="0..1" />
+    <End Role="tb_Noticia" Type="ResyRoomModel.Store.tb_Noticia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Estudio">
+        <PropertyRef Name="IdEstudio" />
+      </Principal>
+      <Dependent Role="tb_Noticia">
+        <PropertyRef Name="IdEstudio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Ofertas_tb_Horario">
+    <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="0..1" />
+    <End Role="tb_Oferta" Type="ResyRoomModel.Store.tb_Oferta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Horario">
+        <PropertyRef Name="IdHorario" />
+      </Principal>
+      <Dependent Role="tb_Oferta">
+        <PropertyRef Name="IdHorario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Reserva_par_EstadoReserva">
+    <End Role="tb_Banda" Type="ResyRoomModel.Store.tb_Banda" Multiplicity="0..1" />
+    <End Role="tb_Reserva" Type="ResyRoomModel.Store.tb_Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Banda">
+        <PropertyRef Name="IdBanda" />
+      </Principal>
+      <Dependent Role="tb_Reserva">
+        <PropertyRef Name="IdBanda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Reserva_par_EstadoReserva1">
+    <End Role="par_EstadoReserva" Type="ResyRoomModel.Store.par_EstadoReserva" Multiplicity="0..1" />
+    <End Role="tb_Reserva" Type="ResyRoomModel.Store.tb_Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="par_EstadoReserva">
+        <PropertyRef Name="IdEstadoReserva" />
+      </Principal>
+      <Dependent Role="tb_Reserva">
+        <PropertyRef Name="IdEstadoRserva" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Reserva_tb_Horario">
+    <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="0..1" />
+    <End Role="tb_Reserva" Type="ResyRoomModel.Store.tb_Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Horario">
+        <PropertyRef Name="IdHorario" />
+      </Principal>
+      <Dependent Role="tb_Reserva">
+        <PropertyRef Name="IdHorario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Sala_tb_Estudio">
+    <End Role="tb_Estudio" Type="ResyRoomModel.Store.tb_Estudio" Multiplicity="0..1" />
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Estudio">
+        <PropertyRef Name="IdEstudio" />
+      </Principal>
+      <Dependent Role="tb_Sala">
+        <PropertyRef Name="IdEstudio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MembershipApplication">
+    <End Role="Applications" Type="ResyRoomModel.Store.Applications" Multiplicity="1" />
+    <End Role="Memberships" Type="ResyRoomModel.Store.Memberships" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="Memberships">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MembershipUser">
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="1" />
+    <End Role="Memberships" Type="ResyRoomModel.Store.Memberships" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Memberships">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleApplication">
+    <End Role="Applications" Type="ResyRoomModel.Store.Applications" Multiplicity="1" />
+    <End Role="Roles" Type="ResyRoomModel.Store.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserApplication">
+    <End Role="Applications" Type="ResyRoomModel.Store.Applications" Multiplicity="1" />
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserProfile">
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="1" />
+    <End Role="Profiles" Type="ResyRoomModel.Store.Profiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Profiles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersInRoleRole">
+    <End Role="Roles" Type="ResyRoomModel.Store.Roles" Multiplicity="1" />
+    <End Role="UsersInRoles" Type="ResyRoomModel.Store.UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersInRoleUser">
+    <End Role="Users" Type="ResyRoomModel.Store.Users" Multiplicity="1" />
+    <End Role="UsersInRoles" Type="ResyRoomModel.Store.UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UsersInRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
