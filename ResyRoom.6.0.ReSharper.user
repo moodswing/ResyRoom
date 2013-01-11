@@ -3,18 +3,49 @@
     <RecentFiles>
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:packages.config" caret="0" fromTop="0" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Global.asax.cs" caret="476" fromTop="17" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="5233" fromTop="11" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="9719" fromTop="19" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/f:Web.config" caret="1264" fromTop="19" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="4041" fromTop="8" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Controllers/f:UserController.cs" caret="1040" fromTop="19" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="473" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Controllers/f:StudioController.cs" caret="236" fromTop="11" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="224" fromTop="10" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="47" fromTop="1" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:WebForm1.aspx" caret="232" fromTop="2" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="121" fromTop="6" />
     </RecentFiles>
     <RecentEdits>
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="3003" fromTop="23" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="4041" fromTop="8" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Controllers/f:StudioController.cs" caret="411" fromTop="12" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:WebForm1.aspx" caret="0" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="21" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="21" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="16" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="29" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="28" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="34" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="40" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="47" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="23" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="902" fromTop="7" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="3001" fromTop="29" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="3353" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="2692" fromTop="26" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="1863" fromTop="16" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="852" fromTop="15" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="47" fromTop="1" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="0" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="129" fromTop="7" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="224" fromTop="10" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="121" fromTop="6" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
     <ItemStatistics item="CSharpCodeCompletionContext">
-      <Item value="prop" priority="127" />
-      <Item value="string" priority="92" />
+      <Item value="prop" priority="191" />
+      <Item value="string" priority="123" />
       <Item value="public" priority="127" />
       <Item value="static" priority="127" />
       <Item value="void" priority="95" />
@@ -27,10 +58,13 @@
       <Item value="RegisterGlobalFilters`0" priority="31" />
       <Item value="GlobalFilters`0" priority="31" />
       <Item value="RouteTable`0" priority="31" />
-      <Item value="var" priority="63" />
+      <Item value="var" priority="95" />
       <Item value="GetUnityContainer`0" priority="31" />
       <Item value="jquery-1.6.2.min.js" priority="22" />
       <Item value="App_Start" priority="92" />
+      <Item value="model" priority="29" />
+      <Item value="ResyRoom" priority="31" />
+      <Item value="enum" priority="30" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Web.Mvc.GlobalFilterCollection">
       <Item value="Add`0" priority="26" />
@@ -50,6 +84,29 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Web.Mvc.DependencyResolver">
       <Item value="SetResolver`0" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ResyRoom.Models.ResyRoomEntities">
+      <Item value="Users" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ResyRoom.Models.User">
+      <Item value="ApplicationId" priority="26" />
+      <Item value="UserId" priority="26" />
+      <Item value="UserName" priority="49" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Int32">
+      <Item value="ToString`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Objects.ObjectQuery`1">
+      <Item value="Include`0" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Linq.IQueryable`1">
+      <Item value="Take`1" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="HtmlCodeCompletionContext">
+      <Item value="div" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="RazorTransitionCompletionContext">
+      <Item value="model" priority="9" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <NAntValidationSettings>

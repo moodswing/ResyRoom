@@ -25,7 +25,6 @@ namespace ResyRoom.Models
         public DbSet<TipoEquipo> TiposEquipo { get; set; }
         public DbSet<Profiles> Profiles { get; set; }
         public DbSet<Roles> Roles { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Banda> Bandas { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Equipo> Equipos { get; set; }

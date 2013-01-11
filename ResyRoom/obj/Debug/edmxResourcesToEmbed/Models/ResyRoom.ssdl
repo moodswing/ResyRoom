@@ -11,7 +11,6 @@
     <EntitySet Name="par_TipoEquipo" EntityType="ResyRoomModel.Store.par_TipoEquipo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Profiles" EntityType="ResyRoomModel.Store.Profiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Roles" EntityType="ResyRoomModel.Store.Roles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Banda" EntityType="ResyRoomModel.Store.tb_Banda" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Comentario" EntityType="ResyRoomModel.Store.tb_Comentario" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Equipo" EntityType="ResyRoomModel.Store.tb_Equipo" store:Type="Tables" Schema="dbo" />
@@ -211,16 +210,6 @@
     <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="Description" Type="nvarchar" MaxLength="256" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="tb_Banda">
     <Key>
       <PropertyRef Name="IdBanda" />
@@ -240,6 +229,7 @@
     <Property Name="IdBanda" Type="int" />
     <Property Name="Puntuacion" Type="smallint" />
     <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="Fecha" Type="datetime" />
   </EntityType>
   <EntityType Name="tb_Equipo">
     <Key>

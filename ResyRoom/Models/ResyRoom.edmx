@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ResyRoomModelStoreContainer">
           <EntitySet Name="Applications" EntityType="ResyRoomModel.Store.Applications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Memberships" EntityType="ResyRoomModel.Store.Memberships" store:Type="Tables" Schema="dbo" />
@@ -16,7 +16,6 @@
           <EntitySet Name="par_TipoEquipo" EntityType="ResyRoomModel.Store.par_TipoEquipo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Profiles" EntityType="ResyRoomModel.Store.Profiles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="ResyRoomModel.Store.Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Banda" EntityType="ResyRoomModel.Store.tb_Banda" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Comentario" EntityType="ResyRoomModel.Store.tb_Comentario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Equipo" EntityType="ResyRoomModel.Store.tb_Equipo" store:Type="Tables" Schema="dbo" />
@@ -216,16 +215,6 @@
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
           <Property Name="Description" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="tb_Banda">
           <Key>
             <PropertyRef Name="IdBanda" />
@@ -245,6 +234,7 @@
           <Property Name="IdBanda" Type="int" />
           <Property Name="Puntuacion" Type="smallint" />
           <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="Fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="tb_Equipo">
           <Key>
@@ -624,8 +614,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ResyRoomModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -640,7 +629,6 @@
           <EntitySet Name="TiposEquipo" EntityType="ResyRoomModel.TipoEquipo" />
           <EntitySet Name="Profiles" EntityType="ResyRoomModel.Profiles" />
           <EntitySet Name="Roles" EntityType="ResyRoomModel.Roles" />
-          <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.sysdiagrams" />
           <EntitySet Name="Bandas" EntityType="ResyRoomModel.Banda" />
           <EntitySet Name="Comentarios" EntityType="ResyRoomModel.Comentario" />
           <EntitySet Name="Equipos" EntityType="ResyRoomModel.Equipo" />
@@ -850,16 +838,6 @@
           <NavigationProperty Name="Applications" Relationship="ResyRoomModel.RoleApplication" FromRole="Roles" ToRole="Applications" />
           <NavigationProperty Name="Users" Relationship="ResyRoomModel.UsersInRoles" FromRole="Roles" ToRole="Users" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Banda">
           <Key>
             <PropertyRef Name="IdBanda" />
@@ -885,6 +863,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Banda" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Banda" FromRole="tb_Comentario" ToRole="tb_Banda" />
           <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Comentario" ToRole="tb_Sala" />
+          <Property Type="DateTime" Name="Fecha" />
         </EntityType>
         <EntityType Name="Equipo">
           <Key>
@@ -1330,13 +1309,6 @@
             <ScalarProperty Name="RoleName" ColumnName="RoleName" />
             <ScalarProperty Name="Description" ColumnName="Description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="ResyRoomModel.sysdiagrams"><MappingFragment StoreEntitySet="sysdiagrams">
-            <ScalarProperty Name="name" ColumnName="name" />
-            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-            <ScalarProperty Name="version" ColumnName="version" />
-            <ScalarProperty Name="definition" ColumnName="definition" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Bandas"><EntityTypeMapping TypeName="ResyRoomModel.Banda"><MappingFragment StoreEntitySet="tb_Banda">
             <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
             <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
@@ -1345,7 +1317,8 @@
             <ScalarProperty Name="UserId" ColumnName="UserId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Comentarios"><EntityTypeMapping TypeName="ResyRoomModel.Comentario"><MappingFragment StoreEntitySet="tb_Comentario">
-            <ScalarProperty Name="IdComentario" ColumnName="IdComentario" />
+            <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdComentario" ColumnName="IdComentario" />
             <ScalarProperty Name="IdSala" ColumnName="IdSala" />
             <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
             <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
@@ -1461,9 +1434,8 @@
         <EntityTypeShape EntityType="ResyRoomModel.TipoEquipo" Width="1.5" PointX="15.125" PointY="11.875" Height="1.512553710937496" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Profiles" Width="1.5" PointX="4.875" PointY="1.75" Height="2.0478930664062496" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Roles" Width="1.5" PointX="2.5" PointY="7.875" Height="2.047893066406246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.sysdiagrams" Width="1.5" PointX="7" PointY="1.875" Height="1.8694466145833353" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Banda" Width="1.5" PointX="7.625" PointY="5" Height="2.5832324218750031" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.Comentario" Width="1.5" PointX="9.75" PointY="7.375" Height="2.2263395182291674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResyRoomModel.Comentario" Width="1.5" PointX="9.75" PointY="7.375" Height="2.0853483072916674" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Equipo" Width="1.5" PointX="12.5" PointY="11.375" Height="2.4047859700520888" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Estudio" Width="1.5" PointX="6.75" PointY="9.125" Height="2.9401253255208388" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Horario" Width="1.5" PointX="13.875" PointY="7.5" Height="2.5832324218750031" IsExpanded="true" />
@@ -1521,9 +1493,9 @@
           <ConnectorPoint PointX="7.625" PointY="6.4791162109375016" />
         </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Comentario_tb_Banda" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.375" PointY="7.5832324218750031" />
-          <ConnectorPoint PointX="8.375" PointY="8.5922864700520858" />
-          <ConnectorPoint PointX="9.75" PointY="8.5922864700520858" />
+          <ConnectorPoint PointX="8.375" PointY="7.41404296875" />
+          <ConnectorPoint PointX="8.375" PointY="8.437196138020834" />
+          <ConnectorPoint PointX="9.75" PointY="8.437196138020834" />
         </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Reserva_par_EstadoReserva" ManuallyRouted="false">
           <ConnectorPoint PointX="9.125" PointY="6.13127685546875" />
@@ -1531,7 +1503,7 @@
         </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Comentario_tb_Sala" ManuallyRouted="false">
           <ConnectorPoint PointX="10.625" PointY="10.375" />
-          <ConnectorPoint PointX="10.625" PointY="9.6013395182291674" />
+          <ConnectorPoint PointX="10.625" PointY="9.4603483072916674" />
         </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_tb_Sala" ManuallyRouted="false">
           <ConnectorPoint PointX="11.5" PointY="12.434285888671877" />

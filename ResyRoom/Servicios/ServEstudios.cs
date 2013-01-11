@@ -35,9 +35,9 @@ namespace ResyRoom.Servicios
                             orderby reservas.Count() descending
                             select reservas.Key).Take(numero);
 
-            var resultados = consulta.Include(e => e.Salas.Select(s => s.Comentarios.Select(c => c.Banda))).Take(numero);
-
-            return resultados;
+            //Code Comment: Include Code
+            //return consulta.Include(e => e.Salas.Select(s => s.Comentarios.Select(c => c.Banda)));
+            return consulta;
         }
 
         public IEnumerable<Estudio> EstudiosMejorEvaluados(int numero, DateTime? desde = null, DateTime? hasta = null)
@@ -45,9 +45,13 @@ namespace ResyRoom.Servicios
             var resultados = (from estudio in _context.Estudios
                               join sala in _context.Salas on estudio.IdEstudio equals sala.IdEstudio
                               join comentario in _context.Comentarios on sala.IdSala equals comentario.IdSala
+                              where ((desde != null && hasta != null && comentario.Fecha >= desde && comentario.Fecha <= hasta)
+                                || (desde != null && comentario.Fecha >= desde)
+                                || (hasta != null && comentario.Fecha <= hasta)
+                                || (desde == null && hasta == null))
                               group comentario by estudio into estudios
                               orderby estudios.Average(k => k.Puntuacion) descending
-                              select estudios.Key);
+                              select estudios.Key).Take(numero);
 
             return resultados;
         }

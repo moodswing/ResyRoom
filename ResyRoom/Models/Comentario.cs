@@ -12,6 +12,7 @@ namespace ResyRoom.Models
         public int? IdBanda { get; set; }
         public short? Puntuacion { get; set; }
         public string Descripcion { get; set; }
+        public DateTime? Fecha { get; set; }
     
         public Banda Banda { get; set; }
         public Sala Sala { get; set; }

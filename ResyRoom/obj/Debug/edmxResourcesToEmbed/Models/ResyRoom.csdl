@@ -11,7 +11,6 @@
     <EntitySet Name="TiposEquipo" EntityType="ResyRoomModel.TipoEquipo" />
     <EntitySet Name="Profiles" EntityType="ResyRoomModel.Profiles" />
     <EntitySet Name="Roles" EntityType="ResyRoomModel.Roles" />
-    <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.sysdiagrams" />
     <EntitySet Name="Bandas" EntityType="ResyRoomModel.Banda" />
     <EntitySet Name="Comentarios" EntityType="ResyRoomModel.Comentario" />
     <EntitySet Name="Equipos" EntityType="ResyRoomModel.Equipo" />
@@ -221,16 +220,6 @@
     <NavigationProperty Name="Applications" Relationship="ResyRoomModel.RoleApplication" FromRole="Roles" ToRole="Applications" />
     <NavigationProperty Name="Users" Relationship="ResyRoomModel.UsersInRoles" FromRole="Roles" ToRole="Users" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="Banda">
     <Key>
       <PropertyRef Name="IdBanda" />
@@ -256,6 +245,7 @@
     <Property Name="Descripcion" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Banda" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Banda" FromRole="tb_Comentario" ToRole="tb_Banda" />
     <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Comentario" ToRole="tb_Sala" />
+    <Property Type="DateTime" Name="Fecha" />
   </EntityType>
   <EntityType Name="Equipo">
     <Key>

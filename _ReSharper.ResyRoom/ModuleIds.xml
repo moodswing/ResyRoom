@@ -84,20 +84,6 @@
   <Module PersistentId="System.Workflow.ComponentModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Workflow.ComponentModel" />
   <Module PersistentId="System.Workflow.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Workflow.Activities" />
   <Module PersistentId="System.Workflow.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Workflow.Runtime" />
-  <Module PersistentId="Devtalk.EF.CodeFirst" ModuleId="Devtalk.EF.CodeFirst" />
-  <Module PersistentId="Elmah" ModuleId="Elmah" />
-  <Module PersistentId="Elmah.Mvc" ModuleId="Elmah.Mvc" />
-  <Module PersistentId="Microsoft.Practices.ServiceLocation" ModuleId="Microsoft.Practices.ServiceLocation" />
-  <Module PersistentId="Microsoft.Practices.Unity" ModuleId="Microsoft.Practices.Unity" />
-  <Module PersistentId="Microsoft.Practices.Unity.Configuration" ModuleId="Microsoft.Practices.Unity.Configuration" />
-  <Module PersistentId="MoreLinq" ModuleId="MoreLinq" />
-  <Module PersistentId="System.Web.Providers" ModuleId="System.Web.Providers" />
-  <Module PersistentId="EntityFramework" ModuleId="EntityFramework" />
-  <Module PersistentId="Newtonsoft.Json" ModuleId="Newtonsoft.Json" />
-  <Module PersistentId="System.Web.Optimization" ModuleId="System.Web.Optimization" />
-  <Module PersistentId="WebActivator" ModuleId="WebActivator" />
-  <Module PersistentId="WebGrease" ModuleId="WebGrease" />
-  <Module PersistentId="Antlr3.Runtime" ModuleId="Antlr3.Runtime" />
   <Module PersistentId="Devtalk.EF.CodeFirst, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ModuleId="Devtalk.EF.CodeFirst_1" />
   <Module PersistentId="Elmah, Version=1.2.14706.0, Culture=neutral, PublicKeyToken=null" ModuleId="Elmah_1" />
   <Module PersistentId="Elmah.Mvc, Version=2.0.0.26465, Culture=neutral, PublicKeyToken=null" ModuleId="Elmah.Mvc_1" />
@@ -112,29 +98,6 @@
   <Module PersistentId="WebActivator, Version=1.5.1.0, Culture=neutral, PublicKeyToken=null" ModuleId="WebActivator_1" />
   <Module PersistentId="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="WebGrease_1" />
   <Module PersistentId="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Antlr3.Runtime_1" />
-  <Module PersistentId="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Abstractions_1" />
-  <Module PersistentId="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Routing_1" />
-  <Module PersistentId="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Antlr3.Runtime_2" />
-  <Module PersistentId="Devtalk.EF.CodeFirst, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ModuleId="Devtalk.EF.CodeFirst_2" />
-  <Module PersistentId="Elmah, Version=1.2.14706.0, Culture=neutral, PublicKeyToken=null" ModuleId="Elmah_2" />
-  <Module PersistentId="Elmah.Mvc, Version=2.0.0.26465, Culture=neutral, PublicKeyToken=null" ModuleId="Elmah.Mvc_2" />
-  <Module PersistentId="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="EntityFramework_2" />
-  <Module PersistentId="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Microsoft.Practices.ServiceLocation_2" />
-  <Module PersistentId="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Microsoft.Practices.Unity.Configuration_2" />
-  <Module PersistentId="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Microsoft.Practices.Unity_2" />
-  <Module PersistentId="MoreLinq, Version=1.0.11522.0, Culture=neutral, PublicKeyToken=null" ModuleId="MoreLinq_2" />
-  <Module PersistentId="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" ModuleId="Newtonsoft.Json_2" />
-  <Module PersistentId="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Optimization_2" />
-  <Module PersistentId="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Providers_2" />
-  <Module PersistentId="WebActivator, Version=1.5.1.0, Culture=neutral, PublicKeyToken=null" ModuleId="WebActivator_2" />
-  <Module PersistentId="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="WebGrease_2" />
-  <Module PersistentId="Elmah.Mvc, Version=2.0.0.26465, Culture=neutral, PublicKeyToken=null" ModuleId="Elmah.Mvc_3" />
-  <Module PersistentId="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="EntityFramework_3" />
-  <Module PersistentId="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="Microsoft.Practices.Unity_3" />
-  <Module PersistentId="MoreLinq, Version=1.0.11522.0, Culture=neutral, PublicKeyToken=null" ModuleId="MoreLinq_3" />
-  <Module PersistentId="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" ModuleId="Newtonsoft.Json_3" />
-  <Module PersistentId="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Optimization_3" />
-  <Module PersistentId="WebActivator, Version=1.5.1.0, Culture=neutral, PublicKeyToken=null" ModuleId="WebActivator_3" />
   <Module PersistentId="Microsoft.Vsa, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ModuleId="Microsoft.Vsa" />
   <Module PersistentId="System.Data.SqlXml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="System.Data.SqlXml" />
   <Module PersistentId="System.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ModuleId="System.Deployment" />
@@ -166,4 +129,14 @@
   <Module PersistentId="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="System_1" />
   <Module PersistentId="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ModuleId="System.Web_1" />
   <Module PersistentId="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="mscorlib_1" />
+  <Module PersistentId="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ModuleId="System.Net.Http_1" />
+  <Module PersistentId="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Net.Http.Formatting_1" />
+  <Module PersistentId="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Helpers_1" />
+  <Module PersistentId="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Http_1" />
+  <Module PersistentId="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Http.WebHost_1" />
+  <Module PersistentId="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Mvc_1" />
+  <Module PersistentId="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Razor_1" />
+  <Module PersistentId="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.WebPages_1" />
+  <Module PersistentId="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.WebPages.Deployment_1" />
+  <Module PersistentId="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.WebPages.Razor_1" />
 </Modules>

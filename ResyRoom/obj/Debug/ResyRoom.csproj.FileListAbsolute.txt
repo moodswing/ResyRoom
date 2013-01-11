@@ -1,24 +1,38 @@
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\ResyRoom.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\ResyRoom.pdb
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Antlr3.Runtime.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Devtalk.EF.CodeFirst.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Elmah.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Elmah.Mvc.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\EntityFramework.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.Unity.Configuration.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Microsoft.Practices.Unity.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\MoreLinq.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\Newtonsoft.Json.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.Formatting.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Net.Http.WebRequest.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.Http.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.Http.WebHost.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.Optimization.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\System.Web.Providers.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\WebActivator.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\bin\WebGrease.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResolveAssemblyReference.cache
-D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
-D:\Documents\GitHub\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\ResyRoom.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\ResyRoom.pdb
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Antlr3.Runtime.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Devtalk.EF.CodeFirst.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Elmah.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Elmah.Mvc.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\EntityFramework.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Microsoft.Practices.Unity.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\MoreLinq.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\Newtonsoft.Json.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Net.Http.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Net.Http.Formatting.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Net.Http.WebRequest.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Abstractions.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.ApplicationServices.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.DynamicData.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Entity.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Extensions.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Helpers.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Http.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Http.WebHost.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Mvc.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Optimization.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Providers.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Razor.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Routing.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.Services.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.WebPages.Deployment.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.WebPages.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\System.Web.WebPages.Razor.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\WebActivator.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\bin\WebGrease.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\obj\Debug\ResyRoom.dll
+C:\Documents and Settings\aravenr1\resyroom\ResyRoom\obj\Debug\ResyRoom.pdb
