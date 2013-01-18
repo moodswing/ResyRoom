@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Serialization;
-using ResyRoom.Infraestructura.Extensiones;
 using ResyRoom.Models;
 
 namespace ResyRoom.Servicios
@@ -19,7 +16,8 @@ namespace ResyRoom.Servicios
 
         public User Lee(Guid idUser)
         {
-            var usuario = (from user in _context.Users.Include(u => u.Bandas).Include(u => u.Estudios) where user.UserId == idUser select user).First();
+            var usuarios = (from user in _context.Users where user.UserId == idUser select user).Include(u => u.Estudios).Include(u => u.Bandas);
+            var usuario = usuarios.First();
 
             return usuario;
         }
