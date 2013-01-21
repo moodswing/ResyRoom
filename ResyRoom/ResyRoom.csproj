@@ -181,6 +181,7 @@
     <Content Include="Content\img\mic.png" />
     <Content Include="Content\img\micsmall.png" />
     <Content Include="Content\img\nextsmall.png" />
+    <Content Include="Content\img\unchecked.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />

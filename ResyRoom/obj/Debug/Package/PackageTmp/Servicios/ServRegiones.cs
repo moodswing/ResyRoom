@@ -9,7 +9,7 @@ namespace ResyRoom.Servicios
 {
     public interface IServRegiones
     {
-        IQueryable<Region> TodasDeUnPais(int idPais);
+        IQueryable<Region> RegionesDeUnPais(int idPais);
         IQueryable<Region> RegionesChilenas();
     }
 
@@ -26,7 +26,7 @@ namespace ResyRoom.Servicios
             return r;
         }
 
-        public IQueryable<Region> TodasDeUnPais(int idPais)
+        public IQueryable<Region> RegionesDeUnPais(int idPais)
         {
             var r = from s in _context.Regiones
                     where s.IdPais == idPais

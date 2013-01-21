@@ -1,98 +1,202 @@
-﻿@model ResyRoom.ViewModels.IndexUserViewModel
-
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.IndexUserViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="../../Content/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet"
+    type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        var imagenes = $(['../../Content/img/checked.png']);
+        imagenes.preload();
+
+        $("#divComboRegiones").css("width", $("#BusquedaRapida_Region_IdRegion").width() - 20);
+        $("#divComboComuna").css("width", $("#BusquedaRapida_Comuna_IdComuna").width() - 20);
+
+        $("#divRangoPrecio").slider({
+            range: true,
+            min: 0,
+            max: 30000,
+            step: 500,
+            values: [3000, 7000],
+            slide: function (event, ui) {
+                cambiarPrecios(ui.values[0], ui.values[1]);
+            }
+        });
+
+        cambiarPrecios($("#divRangoPrecio").slider("values", 0), $("#divRangoPrecio").slider("values", 1));
+
+        function cambiarPrecios(desde, hasta) {
+            desde = desde.toString().toMoney(desde);
+            hasta = hasta.toString().toMoney(hasta);
+
+            if (desde > 0 && hasta < 30000) {
+                $("#lblPrefijoPrecio").text("Entre $");
+                $("label[for='BusquedaRapida_PrecioDesde']").text(desde);
+                $("#lblIntermedioPrecio").text(" y $");
+                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta);
+            }
+            else if (desde == 0 && hasta == 30000) {
+                $("#lblPrefijoPrecio").text("Sin rango de precio");
+                $("label[for='BusquedaRapida_PrecioDesde']").text("");
+                $("label[for='BusquedaRapida_PrecioHasta']").text("");
+                $("#lblIntermedioPrecio").text("");
+            }
+            else if (desde == 0) {
+                $("#lblPrefijoPrecio").text("Hasta $");
+                $("label[for='BusquedaRapida_PrecioDesde']").text("");
+                $("#lblIntermedioPrecio").text("");
+                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta);
+            }
+            else if (hasta == 30000) {
+                $("#lblPrefijoPrecio").text("Desde $");
+                $("label[for='BusquedaRapida_PrecioDesde']").text(desde);
+                $("#lblIntermedioPrecio").text("");
+                $("label[for='BusquedaRapida_PrecioHasta']").text("");
+            }
+        }
+
+
+    });
+</script>
 <div class="divInicio">
+    <table class="login right redondo5pxAbajo" style="right: 40px; position: absolute;
+        z-index: 2; top: 60px">
+        <tr>
+            <td class="encabezadoLogin">
+                <h1>
+                    Acceder</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    <table id="tblLogin" runat="server" class="formularioLogin">
+                        <tr>
+                            <td>
+                                Usuario
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(u => u.Usuario.Usuario, new { @width = "100px", @class = "txt" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>@Html.ValidationMessageFor(m => m.Usuario.Usuario)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Password
+                            </td>
+                            <td>
+                                @Html.PasswordFor(u => u.Usuario.Password, new { @width = "100px", @class = "txt" })
+                                @{ Html.ValidateFor(u => u.Usuario.Password); }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="textoALaIzquierda">
+                                <div class="checkbox unchecked">
+                                    @Html.CheckBoxFor(u => u.Usuario.Recordarme)
+                                    @Html.LabelFor(m => m.Usuario.Recordarme)
+                                </div>
+                            </td>
+                            <td>
+                                <input type="submit" value="Entrar" class="boton" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="textoALaIzquierda">
+                                @Html.ActionLink("Registrarse", "RegisterBand", "User")
+                            </td>
+                            <td>
+                                <a href="recuperarclave.aspx">Recuperar contraseña</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.ValidationSummary(true)
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </td>
+        </tr>
+    </table>
     <table class="tblInicio" style="width: 100%;">
         <tr>
             <td>
                 <img src="../../Content/img/biglogo.png" alt=".resyroom" style="padding-left: 50px;" />
             </td>
-            <td>
+            <td style="width: 55%">
                 <div>
                     <h2>
                         .resyroom</h2>
-                    <p>
-                        Busca el estudio de música que mejor te suene
-                    </p>
+                    Busca el estudio de música que mejor te suene
                     <div>
-                        
+                        @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:95%;", @class = "textboxform" })
                     </div>
+                    <table style="margin-top: 10px;">
+                        <tr>
+                            <td>
+                                @Html.LabelFor(v => v.BusquedaRapida.Region)
+                            </td>
+                            <td style="padding-left: 15px;">
+                                <div id="divComboRegiones" class="combobox">
+                                    @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:325px" })
+                                </div>
+                            </td>
+                            <td style="padding-left: 25px;">
+                                @Html.LabelFor(v => v.BusquedaRapida.Comuna)
+                            </td>
+                            <td style="padding-left: 15px;">
+                                <div id="divComboComunas" class="combobox">
+                                    @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td>
+                                @Html.Label("Rango de Precio ")
+                            </td>
+                            <td style="padding-left: 15px;">
+                                <div id="divRangoPrecio">
+                                </div>
+                            </td>
+                            <td style="padding-left: 25px;" colspan="2">
+                                @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
+                                @Html.LabelFor(v => v.BusquedaRapida.PrecioDesde)
+                                @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
+                                @Html.LabelFor(v => v.BusquedaRapida.PrecioHasta)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="checkbox unchecked" style="display: inline-block">
+                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConInstrumentos)
+                                    @Html.LabelFor(v => v.BusquedaRapida.ConInstrumentos)
+                                </div>
+                                <div class="checkbox unchecked" style="display: inline-block">
+                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConDoblePedal)
+                                    @Html.LabelFor(v => v.BusquedaRapida.ConDoblePedal)
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
             <td>
-                <table class="login right redondo5pxAbajo">
-                    <tr>
-                        <td class="encabezadoLogin">
-                            <h1>
-                                Acceder</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @using (Html.BeginForm())
-                            {
-                                <table id="tblLogin" runat="server" class="formularioLogin">
-                                    <tr>
-                                        <td>
-                                            Usuario
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(u => u.Usuario.Usuario, new { @width = "100px", @class = "txt" })
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td>@Html.ValidationMessageFor(m => m.Usuario.Usuario)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Password
-                                        </td>
-                                        <td>
-                                            @Html.PasswordFor(u => u.Usuario.Password, new { @width = "100px", @class = "txt" })
-                                            @{ Html.ValidateFor(u => u.Usuario.Password); }
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="textoALaIzquierda">
-                                            @Html.CheckBoxFor(u => u.Usuario.Recordarme)
-                                            @Html.LabelFor(m => m.Usuario.Recordarme)
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Entrar" class="boton" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="textoALaIzquierda">
-                                            @*<a href="recuperarclave.aspx">Registrarse</a>*@
-                                            @Html.ActionLink("Registrarse", "RegisterBand", "User")
-                                        </td>
-                                        <td>
-                                            <a href="recuperarclave.aspx">Recuperar contraseña</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            @Html.ValidationSummary(true)
-                                        </td>
-                                    </tr>
-                                </table>
-                            }
-                        </td>
-                    </tr>
-                </table>
             </td>
         </tr>
     </table>
@@ -105,9 +209,9 @@
                     <ul>
                         @foreach (var estudio in Model.EstudiosMasPopulares)
                         {
-                            <li>
-                                <a href="@Url.Action("Index", "User")"><img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" /> @estudio.Nombre </a>
-                            </li>
+                            <li><a href="@Url.Action("Index", "User")">
+                                <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                                @estudio.Nombre </a></li>
                         }
                     </ul>
                 </td>
@@ -117,9 +221,9 @@
                     <ul>
                         @foreach (var estudio in Model.EstudiosMejorEvaluados)
                         {
-                            <li>
-                                <a href="@Url.Action("Index", "User")"><img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" /> @estudio.Nombre</a>
-                            </li>
+                            <li><a href="@Url.Action("Index", "User")">
+                                <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                                @estudio.Nombre</a> </li>
                         }
                     </ul>
                 </td>

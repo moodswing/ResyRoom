@@ -39,7 +39,10 @@ namespace ResyRoom.Controllers
             var estudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             var estudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
 
-            return View(new IndexUserViewModel(usuario, estudiosMejorEvaluados, estudiosMasPopulares));
+            var listadoRegiones = ServRegiones.RegionesChilenas();
+            var listadoComunas = new List<Comuna> { Constantes.ComunaSinSeleccion };
+
+            return View(new IndexUserViewModel(usuario, estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas));
         }
 
         [HttpPost]

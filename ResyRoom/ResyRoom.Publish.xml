@@ -5,186 +5,210 @@
     <file relUrl="Content/img/logo.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/img/bglogo.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/Antlr3.Runtime.dll" publishTime="01/04/2013 12:17:17" />
-    <file relUrl="Web.Release.config" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="bin/System.Web.DynamicData.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Content/themes/base/jquery.ui.datepicker.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Views/User/Index.cshtml" publishTime="01/21/2013 09:21:18" />
+    <file relUrl="Infraestructura/Exceptions/ExceptionBase.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/21/2013 07:35:57" />
     <file relUrl="Models/ResyRoom.Context.tt" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Views/User/Index.cshtml" publishTime="01/10/2013 11:41:12" />
+    <file relUrl="Content/smoothness/jquery-ui-1.9.2.custom.min.css" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Content/img/nextsmall.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Sala.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/Microsoft.Practices.Unity.Configuration.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/Form.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/_references.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Infraestructura/Exceptions/ErrorDeCreacionException.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Servicios/ServUsuarios.cs" publishTime="01/10/2013 08:23:57" />
+    <file relUrl="Scripts/_references.js" publishTime="01/14/2013 12:54:41" />
+    <file relUrl="Content/themes/base/jquery.ui.selectable.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Servicios/ServUsuarios.cs" publishTime="01/16/2013 12:15:46" />
     <file relUrl="Models/Horario.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Models/Enums/ETipoBusquedaRapida.cs" publishTime="01/10/2013 12:37:21" />
+    <file relUrl="Models/Enums/ETipoBusquedaRapida.cs" publishTime="01/15/2013 12:31:29" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/Microsoft.Practices.Unity.dll" publishTime="01/04/2013 12:17:17" />
-    <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/04/2013 12:17:18" />
-    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="01/04/2013 12:17:17" />
-    <file relUrl="Servicios/ServEstudios.cs" publishTime="01/10/2013 11:07:15" />
-    <file relUrl="bin/ResyRoom.pdb" publishTime="01/10/2013 12:43:23" />
-    <file relUrl="Content/Control.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="bin/System.Web.Razor.dll" publishTime="01/04/2013 12:17:18" />
+    <file relUrl="Content/img/base.png" publishTime="01/17/2013 07:35:17" />
+    <file relUrl="Servicios/ServEstudios.cs" publishTime="01/16/2013 12:14:45" />
     <file relUrl="bin/System.Web.Abstractions.dll" publishTime="03/18/2010 19:31:26" />
+    <file relUrl="bin/ResyRoom.pdb" publishTime="01/21/2013 09:51:57" />
+    <file relUrl="Content/themes/base/jquery.ui.all.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
+    <file relUrl="Infraestructura/Exceptions/ErrorDeCreacionException.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/System.Web.Razor.dll" publishTime="01/04/2013 12:17:18" />
+    <file relUrl="Content/smoothness/images/ui-icons_454545_256x240.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Servicios/ServGeneros.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Models/Noticia.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.Entity.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Infraestructura/Bootstrapper.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/jquery-1.6.2-vsdoc.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Servicios/ServComunas.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Infraestructura/Bootstrapper.cs" publishTime="01/16/2013 07:58:42" />
+    <file relUrl="Content/img/unchecked.png" publishTime="01/21/2013 09:20:03" />
     <file relUrl="WebForm1.aspx" publishTime="01/07/2013 07:19:38" />
+    <file relUrl="bin/Elmah.Mvc.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/Shared/_Mensaje.cshtml" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Equipo.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/checkbox.js" publishTime="01/21/2013 09:12:17" />
     <file relUrl="Models/Banda.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="App_Start/RouteConfig.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Infraestructura/Extensiones/ListExt.cs" publishTime="01/16/2013 12:34:43" />
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/img/ddl.png" publishTime="01/17/2013 07:35:48" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/themes/base/jquery.ui.selectable.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="ResyRoom.csproj.user" publishTime="01/10/2013 12:42:26" />
+    <file relUrl="ResyRoom.csproj.user" publishTime="01/21/2013 09:51:53" />
     <file relUrl="bin/System.Web.Providers.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Content/themes/base/jquery.ui.resizable.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/img/checked.png" publishTime="01/21/2013 09:19:34" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Net.Http.Formatting.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Content/themes/base/jquery.ui.tabs.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="App_Start/FilterConfig.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="ViewModels/IndexUserViewModel.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/Web.config" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/jquery-ui-1.8.11.min.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Global.asax.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Global.asax.cs" publishTime="01/16/2013 07:18:27" />
     <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/img/logobig.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/04/2013 12:17:18" />
-    <file relUrl="Content/themes/base/jquery.ui.all.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="Content/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="01/04/2013 12:17:17" />
-    <file relUrl="Models/Reserva.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/img/home16.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/TipoEquipo.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Models/Estudio.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Models/ResyRoom.cs" publishTime="01/10/2013 11:05:08" />
     <file relUrl="Content/img/Copy of logo.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/Studio/Configure.cshtml" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/jquery-ui-1.9.2.custom.js" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Global.asax" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/Dropdownlist.css" publishTime="01/17/2013 08:01:58" />
+    <file relUrl="Content/Control.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Properties/Settings.Designer.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="WebForm1.aspx.cs" publishTime="01/07/2013 07:19:38" />
-    <file relUrl="Web.config" publishTime="01/10/2013 12:43:52" />
-    <file relUrl="Scripts/jquery-1.6.2.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Web.config" publishTime="01/21/2013 09:52:18" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Comentario.cs" publishTime="01/10/2013 11:05:08" />
     <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/img/info16.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/img/headphones.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="ViewModels/RegisterBandViewModel.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/images/ui-icons_888888_256x240.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="packages.config" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Models/Applications.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/ResyRoom.Context.cs" publishTime="01/10/2013 11:05:08" />
     <file relUrl="Content/themes/base/jquery.ui.dialog.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Profiles.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/modernizr-2.0.6-development-only.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/ResyRoom.dll" publishTime="01/10/2013 12:43:23" />
+    <file relUrl="Content/smoothness/images/ui-bg_glass_75_dadada_1x400.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="bin/ResyRoom.dll" publishTime="01/21/2013 09:51:57" />
+    <file relUrl="Models/Constantes.cs" publishTime="01/16/2013 07:09:00" />
     <file relUrl="Content/Table.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="ResyRoom.csproj" publishTime="01/10/2013 12:42:26" />
+    <file relUrl="ResyRoom.csproj" publishTime="01/21/2013 09:51:53" />
+    <file relUrl="Content/smoothness/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Controllers/StudioController.cs" publishTime="01/07/2013 06:35:33" />
-    <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Mensaje.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/System.Web.Mvc.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="bin/System.Web.Optimization.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Models/Memberships.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/User/SuccessfulRegister.cshtml" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/jquery-1.8.3.js" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Web.Debug.config" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Controllers/UserController.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Controllers/UserController.cs" publishTime="01/16/2013 07:56:26" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/System.Web.Extensions.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Properties/Settings.Designer.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Servicios/ServBandas.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/Login.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/jquery.ui.autocomplete.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="App_Readme/Elmah.txt" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Servicios/ServBandas.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/jquery-ui-1.9.2.custom.css" publishTime="01/15/2013 12:45:14" />
     <file relUrl="Models/Roles.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Models/ResyRoom.cs" publishTime="01/10/2013 11:05:08" />
+    <file relUrl="Content/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/Validation.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/jquery.ui.theme.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/User/RegisterBand.cshtml" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/jquery-1.6.2.min.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Content/smoothness/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Servicios/IServicio.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Infraestructura/UnityDependencyResolver.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/themes/base/jquery.ui.core.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/modernizr-2.0.6-development-only.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/Elmah.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="WebForm1.aspx.designer.cs" publishTime="01/07/2013 07:19:38" />
     <file relUrl="Models/EstadoReserva.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/img/nextsmall.png" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Models/Reserva.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="ViewModels/RegisterBandViewModel.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/WebGrease.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="App_Start/ElmahMvc_Start.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/Extensiones.js" publishTime="01/21/2013 07:35:22" />
     <file relUrl="Content/themes/base/jquery.ui.accordion.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Enums/ETipoUsuario.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Content/img/biglogo.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/img/mic.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Models/Estudio.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Servicios/ServEmail.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/User/ConfirmEmail.cshtml" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/jquery-ui-1.9.2.custom.min.js" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Content/themes/base/jquery.ui.slider.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/WebActivator.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Properties/AssemblyInfo.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Models/BusquedaRapida.cs" publishTime="01/10/2013 11:41:09" />
+    <file relUrl="Models/BusquedaRapida.cs" publishTime="01/18/2013 11:39:13" />
     <file relUrl="Models/Usuario.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/Header.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Genero.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/jquery-ui-1.8.11.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/Site.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/img/logobig.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/Site.css" publishTime="01/21/2013 06:41:59" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Configuration.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Servicios/ServRegiones.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/smoothness/images/ui-icons_222222_256x240.png" publishTime="01/14/2013 12:43:42" />
+    <file relUrl="Servicios/ServRegiones.cs" publishTime="01/16/2013 07:57:15" />
     <file relUrl="bin/MoreLinq.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Models/Oferta.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/modernizr-1.7.min.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/jquery.ui.datepicker.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Pais.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/Devtalk.EF.CodeFirst.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="Content/smoothness/images/ui-icons_2e83ff_256x240.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="Infraestructura/Extensiones/UnityExt.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/Comuna.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/EntityFramework.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="Content/smoothness/images/ui-icons_cd0a0a_256x240.png" publishTime="01/14/2013 12:43:42" />
     <file relUrl="bin/System.Web.Http.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Infraestructura/Extensiones/ObjectQueryExt.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/img/mic.png" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/jquery.ui.core.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/themes/base/images/ui-icons_888888_256x240.png" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Properties/Settings.settings" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/System.Web.Helpers.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Content/themes/base/jquery.ui.progressbar.css" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.Services.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Infraestructura/Extensiones/ObjectExt.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/Elmah.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="bin/System.Web.Extensions.dll" publishTime="03/18/2010 19:31:26" />
+    <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="01/04/2013 12:17:17" />
-    <file relUrl="Infraestructura/Extensiones/HtmlExt.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="bin/Elmah.Mvc.dll" publishTime="01/04/2013 12:17:17" />
+    <file relUrl="Infraestructura/Extensiones/HtmlExt.cs" publishTime="01/15/2013 12:39:31" />
+    <file relUrl="bin/System.Web.Helpers.dll" publishTime="01/04/2013 12:17:18" />
+    <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.ApplicationServices.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="App_Start/BundleConfig.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Views/User/RegisterStudio.cshtml" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/jquery.elastic.source.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="ViewModels/IndexUserViewModel.cs" publishTime="01/16/2013 06:21:14" />
     <file relUrl="Models/Region.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Models/ResyRoom.tt" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/themes/base/jquery.ui.base.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/jquery.validate.min.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Infraestructura/Extensiones/ObjectExt.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="bin/System.Web.Mvc.dll" publishTime="01/04/2013 12:17:18" />
     <file relUrl="Scripts/modernizr-1.7.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Content/img/mail16.png" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Servicios/ServGeneros.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/jquery.elastic.source.js" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Servicios/ServComunas.cs" publishTime="01/16/2013 07:09:00" />
     <file relUrl="Content/img/micsmall.png" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Content/Login.css" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Infraestructura/Exceptions/ExceptionBase.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Content/themes/base/jquery.ui.base.css" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Scripts/modernizr-1.7.min.js" publishTime="01/04/2013 12:17:16" />
     <file relUrl="bin/System.Net.Http.dll" publishTime="01/04/2013 12:17:17" />
     <file relUrl="Servicios/ServPaises.cs" publishTime="01/04/2013 12:17:16" />
     <file relUrl="Models/User.cs" publishTime="01/04/2013 12:17:16" />
-    <file relUrl="Models/Noticia.cs" publishTime="01/04/2013 12:17:16" />
+    <file relUrl="Web.Release.config" publishTime="01/04/2013 12:17:16" />
   </publishProfile>
 </publishData>
