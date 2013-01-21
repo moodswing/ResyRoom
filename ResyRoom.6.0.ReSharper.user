@@ -9,23 +9,16 @@
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="473" fromTop="0" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="24" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Controllers/f:StudioController.cs" caret="236" fromTop="11" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="224" fromTop="10" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="47" fromTop="1" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:WebForm1.aspx" caret="232" fromTop="2" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="121" fromTop="6" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Scripts/f:Extensiones.js" caret="408" fromTop="11" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="500" fromTop="14" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:Shared/f:_Layout.cshtml" caret="0" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Content/f:Site.css" caret="2376" fromTop="78" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Content/f:Dropdownlist.css" caret="257" fromTop="14" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="0" fromTop="0" />
     </RecentFiles>
     <RecentEdits>
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="3003" fromTop="23" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:Web.config" caret="4041" fromTop="8" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Controllers/f:StudioController.cs" caret="411" fromTop="12" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/f:WebForm1.aspx" caret="0" fromTop="0" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="21" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="21" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="702" fromTop="16" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="29" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="28" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="34" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="40" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="47" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="24" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServUsuarios.cs" caret="709" fromTop="23" />
@@ -35,11 +28,27 @@
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="2692" fromTop="26" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Servicios/f:ServEstudios.cs" caret="1863" fromTop="16" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="852" fromTop="15" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="47" fromTop="1" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="0" fromTop="0" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="129" fromTop="7" />
-      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="224" fromTop="10" />
       <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/d:Enums/f:ETipoBusquedaRapida.cs" caret="121" fromTop="6" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="5893" fromTop="43" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="5376" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="5893" fromTop="35" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Models/f:BusquedaRapida.cs" caret="500" fromTop="14" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9361" fromTop="37" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="3129" fromTop="13" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="0" fromTop="0" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="3129" fromTop="27" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="3129" fromTop="30" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9361" fromTop="17" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="2730" fromTop="13" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="2730" fromTop="13" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9361" fromTop="13" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9361" fromTop="21" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9361" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="9101" fromTop="24" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="3122" fromTop="28" />
+      <File id="C588C57F-8159-47C8-8BC6-C1F24B911342/d:Views/d:User/f:Index.cshtml" caret="8791" fromTop="17" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
@@ -65,6 +74,10 @@
       <Item value="model" priority="29" />
       <Item value="ResyRoom" priority="31" />
       <Item value="enum" priority="30" />
+      <Item value="Html" priority="59" />
+      <Item value="TextAreaExtensions`0" priority="31" />
+      <Item value="v" priority="31" />
+      <Item value="DisplayName" priority="31" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Web.Mvc.GlobalFilterCollection">
       <Item value="Add`0" priority="26" />
@@ -77,7 +90,8 @@
       <Item value="Routes" priority="27" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Web.Mvc.HtmlHelper`1">
-      <Item value="LabelFor`2" priority="26" />
+      <Item value="LabelFor`2" priority="53" />
+      <Item value="CheckBoxFor`1" priority="26" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:ResyRoom.Models.Mensaje">
       <Item value="Texto" priority="27" />
@@ -103,10 +117,37 @@
       <Item value="Take`1" priority="27" />
     </ItemStatistics>
     <ItemStatistics item="HtmlCodeCompletionContext">
-      <Item value="div" priority="5" />
+      <Item value="div" priority="17" />
+      <Item value="tr" priority="6" />
+      <Item value="td" priority="24" />
+      <Item value="colspan" priority="5" />
+      <Item value="input" priority="5" />
+      <Item value="type" priority="5" />
+      <Item value="checkbox" priority="5" />
+      <Item value="squaredFour" priority="6" />
+      <Item value="li" priority="5" />
+      <Item value="class" priority="5" />
+      <Item value="HeaderMenu" priority="5" />
+      <Item value="style" priority="11" />
+      <Item value="display" priority="13" />
+      <Item value="inline-block" priority="8" />
     </ItemStatistics>
     <ItemStatistics item="RazorTransitionCompletionContext">
       <Item value="model" priority="9" />
+      <Item value="Html" priority="15" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ResyRoom.ViewModels.IndexUserViewModel">
+      <Item value="BusquedaRapida" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ResyRoom.Models.BusquedaRapida">
+      <Item value="ConInstrumentos" priority="26" />
+      <Item value="ConDoblePedal" priority="54" />
+    </ItemStatistics>
+    <ItemStatistics item="CssCodeCompletionContext">
+      <Item value="checkbox" priority="4" />
+      <Item value="text-bottom" priority="4" />
+      <Item value="display" priority="1" />
+      <Item value="inline-block" priority="1" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <NAntValidationSettings>

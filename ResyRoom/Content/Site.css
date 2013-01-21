@@ -148,7 +148,34 @@ header, footer, nav, section
     height: 22px;
 }
 
-.buttonset {
+.buttonset
+{
     display: inline;
-    font-size: 1.1em !Important;
+    font-size: 1.1em !important;
+}
+
+.checked
+{
+    background: url(../../Content/img/checked.png) no-repeat left transparent;
+}
+
+.unchecked
+{
+    background: url(../../Content/img/unchecked.png) no-repeat left transparent;
+}
+
+input[type='checkbox']
+{
+    /* Hide the input, but have it still be clickable */
+    opacity: 0;
+    float: left;
+    width: 18px;
+}
+
+.checkbox
+{
+    width: 158px;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: text-bottom;
 }

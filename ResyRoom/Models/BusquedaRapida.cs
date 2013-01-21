@@ -1,4 +1,5 @@
-﻿using ResyRoom.Models.Enums;
+﻿using System.ComponentModel;
+using ResyRoom.Models.Enums;
 
 namespace ResyRoom.Models
 {
@@ -9,7 +10,9 @@ namespace ResyRoom.Models
         public Region Region { get; set; }
         public string PrecioDesde { get; set; }
         public string PrecioHasta { get; set; }
+        [DisplayName("Con Instrumentos")]
         public bool ConInstrumentos { get; set; }
+        [DisplayName("Con Doble Pedal")]
         public bool ConDoblePedal { get; set; }
     }
 }

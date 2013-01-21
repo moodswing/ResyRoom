@@ -166,9 +166,12 @@
     <Content Include="Content\Dropdownlist.css" />
     <Content Include="Content\Form.css" />
     <Content Include="Content\Header.css" />
+    <Content Include="Content\img\base.png" />
     <Content Include="Content\img\bglogo.png" />
     <Content Include="Content\img\biglogo.png" />
+    <Content Include="Content\img\checked.png" />
     <Content Include="Content\img\Copy of logo.png" />
+    <Content Include="Content\img\ddl.png" />
     <Content Include="Content\img\headphones.png" />
     <Content Include="Content\img\home16.png" />
     <Content Include="Content\img\info16.png" />
@@ -225,6 +228,7 @@
     <Content Include="Content\Validation.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\checkbox.js" />
     <Content Include="Scripts\Extensiones.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />

@@ -11,9 +11,11 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <script>
     $(document).ready(function () {
+        var imagenes = $(['../../Content/img/checked.png']);
+        imagenes.preload();
+
         $("#divComboRegiones").css("width", $("#BusquedaRapida_Region_IdRegion").width() - 20);
         $("#divComboComuna").css("width", $("#BusquedaRapida_Comuna_IdComuna").width() - 20);
-
 
         $("#divRangoPrecio").slider({
             range: true,
@@ -57,6 +59,8 @@
                 $("label[for='BusquedaRapida_PrecioHasta']").text("");
             }
         }
+
+
     });
 </script>
 <div class="divInicio">
@@ -98,8 +102,10 @@
                         </tr>
                         <tr>
                             <td class="textoALaIzquierda">
-                                @Html.CheckBoxFor(u => u.Usuario.Recordarme)
-                                @Html.LabelFor(m => m.Usuario.Recordarme)
+                                <div class="checkbox unchecked">
+                                    @Html.CheckBoxFor(u => u.Usuario.Recordarme)
+                                    @Html.LabelFor(m => m.Usuario.Recordarme)
+                                </div>
                             </td>
                             <td>
                                 <input type="submit" value="Entrar" class="boton" />
@@ -112,7 +118,6 @@
                         </tr>
                         <tr>
                             <td class="textoALaIzquierda">
-                                @*<a href="recuperarclave.aspx">Registrarse</a>*@
                                 @Html.ActionLink("Registrarse", "RegisterBand", "User")
                             </td>
                             <td>
@@ -140,7 +145,7 @@
                         .resyroom</h2>
                     Busca el estudio de música que mejor te suene
                     <div>
-                        @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:90%;", @class = "textboxform" })
+                        @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:95%;", @class = "textboxform" })
                     </div>
                     <table style="margin-top: 10px;">
                         <tr>
@@ -174,6 +179,18 @@
                                 @Html.LabelFor(v => v.BusquedaRapida.PrecioDesde)
                                 @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
                                 @Html.LabelFor(v => v.BusquedaRapida.PrecioHasta)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="checkbox unchecked" style="display: inline-block">
+                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConInstrumentos)
+                                    @Html.LabelFor(v => v.BusquedaRapida.ConInstrumentos)
+                                </div>
+                                <div class="checkbox unchecked" style="display: inline-block">
+                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConDoblePedal)
+                                    @Html.LabelFor(v => v.BusquedaRapida.ConDoblePedal)
+                                </div>
                             </td>
                         </tr>
                     </table>
