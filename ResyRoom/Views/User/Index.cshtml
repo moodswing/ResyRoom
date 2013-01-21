@@ -59,13 +59,11 @@
                 $("label[for='BusquedaRapida_PrecioHasta']").text("");
             }
         }
-
-
     });
 </script>
 <div class="divInicio">
     <table class="login right redondo5pxAbajo" style="right: 40px; position: absolute;
-        z-index: 2; top: 60px">
+        z-index: 2; top: 7%">
         <tr>
             <td class="encabezadoLogin">
                 <h1>
@@ -140,60 +138,68 @@
                 <img src="../../Content/img/biglogo.png" alt=".resyroom" style="padding-left: 50px;" />
             </td>
             <td style="width: 55%">
-                <div>
-                    <h2>
-                        .resyroom</h2>
-                    Busca el estudio de música que mejor te suene
-                    <div>
-                        @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:95%;", @class = "textboxform" })
-                    </div>
-                    <table style="margin-top: 10px;">
-                        <tr>
-                            <td>
-                                @Html.LabelFor(v => v.BusquedaRapida.Region)
-                            </td>
-                            <td style="padding-left: 15px;">
-                                <div id="divComboRegiones" class="combobox">
-                                    @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:325px" })
-                                </div>
-                            </td>
-                            <td style="padding-left: 25px;">
-                                @Html.LabelFor(v => v.BusquedaRapida.Comuna)
-                            </td>
-                            <td style="padding-left: 15px;">
-                                <div id="divComboComunas" class="combobox">
-                                    @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
-                                </div>
-                            </td>
-                        </tr>
-                        <tr style="height: 30px;">
-                            <td>
-                                @Html.Label("Rango de Precio ")
-                            </td>
-                            <td style="padding-left: 15px;">
-                                <div id="divRangoPrecio">
-                                </div>
-                            </td>
-                            <td style="padding-left: 25px;" colspan="2">
-                                @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
-                                @Html.LabelFor(v => v.BusquedaRapida.PrecioDesde)
-                                @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
-                                @Html.LabelFor(v => v.BusquedaRapida.PrecioHasta)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="checkbox unchecked" style="display: inline-block">
-                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConInstrumentos)
-                                    @Html.LabelFor(v => v.BusquedaRapida.ConInstrumentos)
-                                </div>
-                                <div class="checkbox unchecked" style="display: inline-block">
-                                    @Html.CheckBoxFor(v => v.BusquedaRapida.ConDoblePedal)
-                                    @Html.LabelFor(v => v.BusquedaRapida.ConDoblePedal)
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                <div style="bottom:5%; position: absolute">
+                    @using (Html.BeginForm("Buscar", "User"))
+                    {
+                        <h2>
+                            .resyroom</h2>
+                        @Html.Label("Busca el estudio de música que mejor te suene")
+                        <div>
+                            @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:99%;", @class = "textboxform" })
+                        </div>
+                        <table style="margin-top: 10px;">
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(v => v.BusquedaRapida.Region)
+                                </td>
+                                <td style="padding-left: 15px;">
+                                    <div id="divComboRegiones" class="combobox">
+                                        @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:325px" })
+                                    </div>
+                                </td>
+                                <td style="padding-left: 25px;">
+                                    @Html.LabelFor(v => v.BusquedaRapida.Comuna)
+                                </td>
+                                <td style="padding-left: 15px;">
+                                    <div id="divComboComunas" class="combobox">
+                                        @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px;">
+                                <td>
+                                    @Html.Label("Rango de Precio ")
+                                </td>
+                                <td style="padding-left: 15px;">
+                                    <div id="divRangoPrecio">
+                                    </div>
+                                </td>
+                                <td style="padding-left: 25px;" colspan="2">
+                                    @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
+                                    @Html.LabelFor(v => v.BusquedaRapida.PrecioDesde)
+                                    @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
+                                    @Html.LabelFor(v => v.BusquedaRapida.PrecioHasta)
+                                </td>
+                            </tr>
+                            <tr style="height: 30px;">
+                                <td colspan="2">
+                                    <div class="checkbox unchecked" style="display: inline-block">
+                                        @Html.CheckBoxFor(v => v.BusquedaRapida.ConInstrumentos)
+                                        @Html.LabelFor(v => v.BusquedaRapida.ConInstrumentos)
+                                    </div>
+                                    <div class="checkbox unchecked" style="display: inline-block">
+                                        @Html.CheckBoxFor(v => v.BusquedaRapida.ConDoblePedal)
+                                        @Html.LabelFor(v => v.BusquedaRapida.ConDoblePedal)
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align: right">
+                                    <input type="submit" value="B U S C A R" class="botonGrande" />
+                                </td>
+                            </tr>
+                        </table>
+                    }
                 </div>
             </td>
             <td>

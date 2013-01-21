@@ -257,5 +257,10 @@ namespace ResyRoom.Controllers
             }
         }
         #endregion
+
+        public ActionResult Buscar()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
