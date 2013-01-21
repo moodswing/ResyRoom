@@ -15,4 +15,5 @@
     background: url(../../Content/img/ddl.png) no-repeat right white;
     border: 1px solid #ddd;
     border-radius: 3px; /* CSS3 */
+    -webkit-appearance: none;
 }
