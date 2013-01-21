@@ -141,14 +141,14 @@
                 <div style="bottom:5%; position: absolute">
                     @using (Html.BeginForm("Buscar", "User"))
                     {
-                        <h2>
+                        <h2 style="margin-bottom: 15px;">
                             .resyroom</h2>
                         @Html.Label("Busca el estudio de música que mejor te suene")
-                        <div>
+                        <div style="margin-top: 5px;">
                             @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @style = "width:99%;", @class = "textboxform" })
                         </div>
                         <table style="margin-top: 10px;">
-                            <tr>
+                            <tr style="height: 35px;">
                                 <td>
                                     @Html.LabelFor(v => v.BusquedaRapida.Region)
                                 </td>
