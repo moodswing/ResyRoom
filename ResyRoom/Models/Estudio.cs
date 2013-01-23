@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ResyRoom.Models
 {
-    public class Estudio
+    public partial class Estudio
     {
         public Estudio()
         {
@@ -31,5 +31,6 @@ namespace ResyRoom.Models
         public User Usuario { get; set; }
         public ICollection<Noticia> Noticias { get; set; }
         public ICollection<Sala> Salas { get; set; }
+        public Comuna Comuna { get; set; }
     }
 }

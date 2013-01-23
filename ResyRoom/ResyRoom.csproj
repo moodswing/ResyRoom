@@ -65,6 +65,7 @@
     <Compile Include="Models\Banda.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\BusquedaRapida.cs" />
     <Compile Include="Models\Comentario.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
@@ -84,7 +85,11 @@
     <Compile Include="Models\Estudio.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstudioExtendido.cs" />
     <Compile Include="Models\Genero.cs">
+      <DependentUpon>ResyRoom.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Grabacion.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Horario.cs">
@@ -152,6 +157,7 @@
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\IndexUserViewModel.cs" />
     <Compile Include="ViewModels\RegisterBandViewModel.cs" />
+    <Compile Include="ViewModels\SearchStudioViewModel.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -170,6 +176,7 @@
     <Content Include="Content\img\bglogo.png" />
     <Content Include="Content\img\biglogo.png" />
     <Content Include="Content\img\checked.png" />
+    <Content Include="Content\img\checkedmini.png" />
     <Content Include="Content\img\Copy of logo.png" />
     <Content Include="Content\img\ddl.png" />
     <Content Include="Content\img\headphones.png" />
@@ -182,6 +189,8 @@
     <Content Include="Content\img\micsmall.png" />
     <Content Include="Content\img\nextsmall.png" />
     <Content Include="Content\img\unchecked.png" />
+    <Content Include="Content\img\uncheckedmini.png" />
+    <Content Include="Content\img\verEstudio.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -298,6 +307,7 @@
     <Content Include="Views\Shared\_Mensaje.cshtml" />
     <Content Include="Views\User\SuccessfulRegister.cshtml" />
     <Content Include="Views\Studio\Configure.cshtml" />
+    <Content Include="Views\Studio\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

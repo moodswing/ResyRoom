@@ -15,4 +15,15 @@ namespace ResyRoom.Models
         [DisplayName("Con Doble Pedal")]
         public bool ConDoblePedal { get; set; }
     }
+
+    public interface IBusquedaRapida
+    {
+        string NombreEstudio { get; set; }
+        Comuna Comuna { get; set; }
+        Region Region { get; set; }
+        string PrecioDesde { get; set; }
+        string PrecioHasta { get; set; }
+        bool ConInstrumentos { get; set; }
+        bool ConDoblePedal { get; set; }
+    }
 }

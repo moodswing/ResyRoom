@@ -47,7 +47,7 @@ var camposAdicionales = new[] {
 
 //*******	clases declaradas como partial
 
-var clasesParciales = new []{ "User" };
+var clasesParciales = new []{ "User", "Estudio" };
 
 //*******	Fin de reglas especiales
 

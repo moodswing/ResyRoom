@@ -9,30 +9,36 @@ namespace ResyRoom.Servicios
 {
     public interface IServRegiones
     {
-        IQueryable<Region> RegionesDeUnPais(int idPais);
-        IQueryable<Region> RegionesChilenas();
+        IList<Region> RegionesDeUnPais(int idPais);
+        IList<Region> RegionesChilenas();
     }
 
     public class ServRegiones : IServRegiones
     {
         private readonly ResyRoomEntities _context = new ResyRoomEntities();
 
-        public IQueryable<Region> RegionesChilenas()
+        public IList<Region> RegionesChilenas()
         {
             var r = from s in _context.Regiones
                     where s.Pais.Descripcion == "Chile"
                     select s;
 
-            return r;
+            var resultado = r.ToList();
+            resultado.Insert(0, Constantes.RegionSinSeleccion);
+
+            return resultado;
         }
 
-        public IQueryable<Region> RegionesDeUnPais(int idPais)
+        public IList<Region> RegionesDeUnPais(int idPais)
         {
             var r = from s in _context.Regiones
                     where s.IdPais == idPais
                     select s;
 
-            return r;
+            var resultado = r.ToList();
+            resultado.Insert(0, Constantes.RegionSinSeleccion);
+
+            return resultado;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using ResyRoom.Models;
 using System.Collections.Generic;
@@ -18,7 +19,13 @@ namespace ResyRoom.Servicios
 
         public ServEstudios(ResyRoomEntities context) { _context = context; }
 
-        public IEnumerable<Estudio> Todas() { return from s in _context.Estudios select s; }
+        public IEnumerable<Estudio> Todas()
+        {
+            var estudios = _context.Estudios.Include(e => e.Comuna.Region).Include(e => e.Salas);
+            var resultado = from s in estudios select s;
+
+            return resultado.ToList();
+        }
 
         public IEnumerable<Estudio> EstudiosMasPopulares(int numero, DateTime? desde = null, DateTime? hasta = null)
         {

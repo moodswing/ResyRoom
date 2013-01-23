@@ -22,10 +22,12 @@ namespace ResyRoom.Models
         public int? Precio { get; set; }
         public bool? DoblePedal { get; set; }
         public bool? SetDePlatos { get; set; }
+        public int? IdGrabacion { get; set; }
     
         public ICollection<Comentario> Comentarios { get; set; }
         public ICollection<Equipo> Equipos { get; set; }
         public Estudio Estudio { get; set; }
         public ICollection<Horario> Horarios { get; set; }
+        public Grabacion tb_Grabacion { get; set; }
     }
 }

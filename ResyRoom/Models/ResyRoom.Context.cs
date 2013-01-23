@@ -35,5 +35,6 @@ namespace ResyRoom.Models
         public DbSet<Reserva> Reservas { get; set; }
         public DbSet<Sala> Salas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Grabacion> Grabacion { get; set; }
     }
 }

@@ -164,6 +164,16 @@ header, footer, nav, section
     background: url(../../Content/img/unchecked.png) no-repeat left transparent;
 }
 
+.checkedmini
+{
+    background: url(../../Content/img/checkedmini.png) no-repeat left transparent;
+}
+
+.uncheckedmini
+{
+    background: url(../../Content/img/uncheckedmini.png) no-repeat left transparent;
+}
+
 input[type='checkbox']
 {
     /* Hide the input, but have it still be clickable */
@@ -174,8 +184,8 @@ input[type='checkbox']
 
 .checkbox
 {
-    width: 158px;
     height: 18px;
     line-height: 18px;
     vertical-align: text-bottom;
+    padding-right: 20px;
 }

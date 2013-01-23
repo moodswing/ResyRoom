@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using ResyRoom.Infraestructura.Exceptions;
+using ResyRoom.Infraestructura.Extensiones;
 using ResyRoom.Models;
 using System.Web.Security;
 using System.Data.SqlClient;
@@ -258,9 +259,26 @@ namespace ResyRoom.Controllers
         }
         #endregion
 
-        public ActionResult Buscar()
+        #region >>> Search Method
+
+        [HttpPost]
+        public ActionResult Buscar(BusquedaRapida busquedaRapida)
         {
-            throw new NotImplementedException();
+            var algo = busquedaRapida;
+
+            return RedirectToAction("Search", "Studio");
         }
+
+        #endregion
+
+        #region >>> Get Comunas xd
+
+        public ActionResult ObtenerComunas(int idItem)
+        {
+            var comunas = ServComunas.TodasDeUnaRegion(idItem);
+            return Json(comunas.ToSelectListItem(), JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }

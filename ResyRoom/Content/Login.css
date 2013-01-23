@@ -1,10 +1,37 @@
 ﻿/* Caja Login */
-table.login {width: 315px; border: 1px gainsboro solid; margin:20px 40px; border-collapse: collapse; box-shadow: rgba(0, 0, 0, 0.068125) 0px 1px 3px 0px;background-color: #fbfbfb; }
-.encabezadoLogin { width: 100%; color:#eee; background-color: gray; border-bottom: 1px gainsboro solid; padding: 0px 5px; margin: 0px; }
-table.formularioLogin { margin: 7px 0px 0px; padding: 0px 0px 5px 17px;width: 100%; }
-table.formularioLogin tr td { padding: 0px 20px 0px 0px; text-align: right; }
-table.formularioLogin tr td input {
-    border-top-left-radius: 3px; 
+table.login
+{
+    width: 315px;
+    border: 1px gainsboro solid;
+    margin: 20px 40px;
+    border-collapse: collapse;
+    /* Commented: not sure yet */
+    /*box-shadow: rgba(0, 0, 0, 0.068125) 0px 1px 3px 0px;*/
+    background-color: #fbfbfb;
+}
+.encabezadoLogin
+{
+    width: 100%;
+    color: #eee;
+    background-color: gray;
+    border-bottom: 1px gainsboro solid;
+    padding: 0px 5px;
+    margin: 0px;
+}
+table.formularioLogin
+{
+    margin: 7px 0px 0px;
+    padding: 0px 0px 5px 17px;
+    width: 100%;
+}
+table.formularioLogin tr td
+{
+    padding: 0px 20px 0px 0px;
+    text-align: right;
+}
+table.formularioLogin tr td input
+{
+    border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;

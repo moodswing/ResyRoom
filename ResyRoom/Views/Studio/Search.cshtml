@@ -1,0 +1,394 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@using ResyRoom.Models
+@model ResyRoom.ViewModels.SearchStudioViewModel
+@{
+    ViewBag.Title = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #lnkGrabacion:hover, #lnkEquipadaCon:hover
+    {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    
+    .grillaResultados
+    {
+        border-collapse: collapse;
+    }
+    
+    .grillaResultados thead
+    {
+        border: 1px solid gainsboro;
+    }
+    
+    .grillaResultados tr
+    {
+        height: 35px;
+    }
+    
+    .grillaResultados td
+    {
+        padding-left: 10px;
+        border-right: 1px solid gainsboro;
+    }
+    
+    .grillaResultados td:last-child
+    {
+        border-right: none;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divRangoPrecio").slider({
+            range: true,
+            min: 0,
+            max: 30000,
+            step: 500,
+            values: [3000, 7000],
+            slide: function (event, ui) {
+                cambiarPrecios(ui.values[0], ui.values[1]);
+            }
+        });
+
+        $("#divRangoPrecioGrabacion").slider({
+            range: true,
+            min: 0,
+            max: 200000,
+            step: 5000,
+            values: [10000, 70000],
+            slide: function (event, ui) {
+                cambiarPreciosGrabacion(ui.values[0], ui.values[1]);
+            }
+        });
+
+        cambiarPrecios($("#divRangoPrecio").slider("values", 0), $("#divRangoPrecio").slider("values", 1));
+        cambiarPreciosGrabacion($("#divRangoPrecioGrabacion").slider("values", 0), $("#divRangoPrecioGrabacion").slider("values", 1));
+
+        $("#trEquipadaCon").hide();
+        $("#lnkEquipadaCon").click(function () {
+            if ($("#trEquipadaCon").is(":visible")) {
+                $("#trEquipadaCon").hide('slow');
+            }
+            else {
+                $("#trEquipadaCon").show('slow');
+            }
+        });
+
+        $('[id^=trGrabacion]').hide();
+        $("#lnkGrabacion").click(function () {
+            if ($('[id^=trGrabacion]').is(":visible")) {
+                $('[id^=trGrabacion]').hide('slow');
+            }
+            else {
+                $('[id^=trGrabacion]').show('slow');
+            }
+        });
+
+        $("[id^=imgVerEstudio]").mouseover(function () {
+            var imagen = $("#" + this.id);
+            imagen.attr("src", "../../Content/img/verEstudioOver.png");
+            $(this).css('cursor', 'pointer');
+        });
+        $("[id^=imgVerEstudio]").mouseout(function () {
+            var imagen = $("#" + this.id);
+            imagen.attr("src", "../../Content/img/verEstudio.png");
+            $(this).css('cursor', 'auto');
+        });
+
+        $("#Busqueda_NroDeMicrofonos").spinner({
+            min: 0,
+            max: 30,
+            start: 0
+        });
+
+        function cambiarPrecios(desde, hasta) {
+            desde = desde.toString();
+            hasta = hasta.toString();
+
+            if (desde > 0 && hasta < 30000) {
+                $("#lblPrefijoPrecio").text("Entre $");
+                $("label[for='Busqueda_PrecioDesde']").text(desde.toMoney());
+                $("#lblIntermedioPrecio").text(" y $");
+                $("label[for='Busqueda_PrecioHasta']").text(hasta.toMoney());
+            }
+            else if (desde == 0 && hasta == 30000) {
+                $("#lblPrefijoPrecio").text("Sin rango de precio");
+                $("label[for='Busqueda_PrecioDesde']").text("");
+                $("label[for='Busqueda_PrecioHasta']").text("");
+                $("#lblIntermedioPrecio").text("");
+            }
+            else if (desde == 0) {
+                $("#lblPrefijoPrecio").text("Hasta $");
+                $("label[for='Busqueda_PrecioDesde']").text("");
+                $("#lblIntermedioPrecio").text("");
+                $("label[for='Busqueda_PrecioHasta']").text(hasta.toMoney());
+            }
+            else if (hasta == 30000) {
+                $("#lblPrefijoPrecio").text("Desde $");
+                $("label[for='Busqueda_PrecioDesde']").text(desde.toMoney());
+                $("#lblIntermedioPrecio").text("");
+                $("label[for='Busqueda_PrecioHasta']").text("");
+            }
+        };
+
+        function cambiarPreciosGrabacion(desde, hasta) {
+            desde = desde.toString();
+            hasta = hasta.toString();
+
+            if (desde > 0 && hasta < 200000) {
+                $("#lblPrefijoPrecioGrabacion").text("Entre $");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionDesde']").text(desde.toMoney());
+                $("#lblIntermedioPreciGrabacion").text(" y $");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text(hasta.toMoney());
+            }
+            else if (desde == 0 && hasta == 200000) {
+                $("#lblPrefijoPrecioGrabacion").text("Sin rango de precio");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionDesde']").text("");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text("");
+                $("#lblIntermedioPrecioGrabacion").text("");
+            }
+            else if (desde == 0) {
+                $("#lblPrefijoPrecioGrabacion").text("Hasta $");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionDesde']").text("");
+                $("#lblIntermedioPrecioGrabacion").text("");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text(hasta.toMoney());
+            }
+            else if (hasta == 200000) {
+                $("#lblPrefijoPrecioGrabacion").text("Desde $");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionDesde']").text(desde.toMoney());
+                $("#lblIntermedioPrecioGrabacion").text("");
+                $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text("");
+            }
+        }
+    });
+</script>
+<div style="width: 100%; text-align: right; z-index: 1">
+    <img src="../../Content/img/logo.png" style="margin-right: 20px" alt="logo" />
+</div>
+<div style="top: 100px; margin-left: 25px; width: 200px; z-index: 2; position: absolute">
+    <table>
+        <tr>
+            <td>
+                <h1>
+                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                    Top 5</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @foreach (var estudio in Model.EstudiosMasPopulares)
+                {
+                    <a href="@Url.Action("Index", "User")" style="color: gray">
+                        @estudio.Nombre </a>
+                    <br />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1>
+                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                    Mejor Evaluados</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @foreach (var estudio in Model.EstudiosMejorEvaluados)
+                {
+                    <a href="@Url.Action("Index", "User")" style="color: gray">
+                        @estudio.Nombre </a>
+                    <br />
+                }
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="position: absolute; left: 220px; z-index: 3; top: 100px; width: 75%;
+    border-left: 1px solid gainsboro; padding-left: 30px;">
+    @using (Html.BeginForm("Buscar", "User"))
+    {
+        <h2 style="margin-bottom: 15px;">
+            .búsqueda</h2>
+        @Html.Label("Busca el estudio de música que mejor te suene")
+        
+        <table style="margin-top: 10px; width: 100%">
+            <tr>
+                <td style="margin-bottom: 7px;">
+                    Nombre del Estudio
+                </td>
+                <td colspan="3" style="padding: 0 0 7px 15px;">
+                    <div style="margin-top: 5px;">
+                        @Html.TextBoxFor(v => v.Busqueda.NombreEstudio, new { @style = "width:99%;", @class = "textboxform" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(v => v.Busqueda.Region)
+                </td>
+                <td style="padding-left: 15px;">
+                    <div id="divComboRegiones" class="combobox">
+                        @Html.DropDownListFor(v => v.Busqueda.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:325px" })
+                    </div>
+                </td>
+                <td style="padding-left: 25px;">
+                    @Html.LabelFor(v => v.Busqueda.Comuna)
+                </td>
+                <td style="padding-left: 15px;">
+                    <div id="divComboComunas" class="combobox">
+                        @Html.DropDownListFor(v => v.Busqueda.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 30px; vertical-align: middle">
+                <td>
+                    @Html.Label("Rango de Precio ")
+                </td>
+                <td style="padding-left: 15px;">
+                    <div id="divRangoPrecio">
+                    </div>
+                </td>
+                <td style="padding-left: 25px;" colspan="2">
+                    @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
+                    @Html.LabelFor(v => v.Busqueda.PrecioDesde)
+                    @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
+                    @Html.LabelFor(v => v.Busqueda.PrecioHasta)
+                </td>
+            </tr>
+            <tr style="height: 30px;">
+                <td colspan="4" style="padding-bottom: 10px; vertical-align: middle">
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConComentarios)
+                        @Html.LabelFor(v => v.Busqueda.ConComentarios)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConFotos)
+                        @Html.LabelFor(v => v.Busqueda.ConFotos)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConReservaOnline)
+                        @Html.LabelFor(v => v.Busqueda.ConReservaOnline)
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 40px; vertical-align: middle; border: 1px solid gainsboro;">
+                <td colspan="4" style="border-top: 1px solid gainsboro;">
+                    <div id="lnkEquipadaCon">
+                        Equipada con >>></div>
+                </td>
+            </tr>
+            <tr id="trEquipadaCon">
+                <td colspan="4" style="height: 30px; padding-bottom: 10px">
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConInstrumentos)
+                        @Html.LabelFor(v => v.Busqueda.ConInstrumentos)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConDoblePedal)
+                        @Html.LabelFor(v => v.Busqueda.ConDoblePedal)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConSetDePlatos)
+                        @Html.LabelFor(v => v.Busqueda.ConSetDePlatos)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
+                        @Html.LabelFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
+                    </div>
+                    <div class="checkbox" style="display: inline-block; border-left: 1px solid gainsboro;
+                        padding-left: 20px;">
+                        @Html.LabelFor(v => v.Busqueda.NroDeMicrofonos, new { style = "padding-right: 10px" })
+                        @Html.TextBoxFor(v => v.Busqueda.NroDeMicrofonos, new { style = "width: 30px;" })
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 40px; vertical-align: middle; border-top: 1px solid gainsboro;">
+                <td colspan="4" style="border-top: 1px solid gainsboro">
+                    <div id="lnkGrabacion">
+                        Grabación >>></div>
+                </td>
+            </tr>
+            <tr id="trGrabacion">
+                <td>
+                    Precio x Canción
+                </td>
+                <td style="padding-left: 15px;">
+                    <div id="divRangoPrecioGrabacion">
+                    </div>
+                </td>
+                <td style="padding-left: 25px;" colspan="2">
+                    @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecioGrabacion" })
+                    @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionDesde)
+                    @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecioGrabacion" })
+                    @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionHasta)
+                </td>
+            </tr>
+            <tr id="trGrabacion2">
+                <td colspan="4" style="height: 30px">
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.Masterizacion)
+                        @Html.LabelFor(v => v.Busqueda.Masterizacion)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.PorPistas)
+                        @Html.LabelFor(v => v.Busqueda.PorPistas)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ExclusivamenteGrabacion)
+                        @Html.LabelFor(v => v.Busqueda.ExclusivamenteGrabacion)
+                    </div>
+                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                        @Html.CheckBoxFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
+                        @Html.LabelFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div style="position: relative">
+                        <input type="submit" value="B U S C A R" class="botonGrande" style="position: absolute;
+                            bottom: -10px; right: 10px;" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table class="grillaResultados" style="margin-top: 10px; width: 100%">
+            <thead>
+                <tr>
+                    <td style="width: 20%;">
+                        Nombre
+                    </td>
+                    <td style="width: 60%;">
+                        Dirección
+                    </td>
+                    <td style="width: 10%;">
+                        Precio Desde
+                    </td>
+                    <td style="width: 10%;">
+                        ver +
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var estudio in Model.Resultados)
+                {
+                    <tr>
+                        <td>
+                            @estudio.Nombre
+                        </td>
+                        <td>
+                            @Html.Label(@estudio.Direccion + ", " + @estudio.Comuna.Descripcion + ", " + @estudio.Comuna.Region.Descripcion)
+                        </td>
+                        <td>
+                            @estudio.PrecioPorHoraDesde
+                        </td>
+                        <td style="text-align: center">
+                            <img id='imgVerEstudio@(estudio.IdEstudio)' src="../../Content/img/verEstudio.png" alt="ver estudio..." />
+                        </td>
+                    </tr>
+                }</tbody>
+        </table>
+    }
+</div>

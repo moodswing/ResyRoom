@@ -1,9 +1,18 @@
 ﻿$("div.checkbox :checkbox").live("change", function () {
-    //    if (!$(this).parent().hasClass("checkbox")) return;
-    if (this.checked) {
-        $(this).parent().removeClass("unchecked").addClass("checked");
+    if ($("#" + this.id).parent().hasClass("uncheckedmini") || $("#" + this.id).parent().hasClass("checkedmini")) {
+        if (this.checked) {
+            $(this).parent().removeClass("uncheckedmini").addClass("checkedmini");
+        }
+        else {
+            $(this).parent().removeClass("checkedmini").addClass("uncheckedmini");
+        }
     }
     else {
-        $(this).parent().removeClass("checked").addClass("unchecked");
+        if (this.checked) {
+            $(this).parent().removeClass("unchecked").addClass("checked");
+        }
+        else {
+            $(this).parent().removeClass("checked").addClass("unchecked");
+        }
     }
 });

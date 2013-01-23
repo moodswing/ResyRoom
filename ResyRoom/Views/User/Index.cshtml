@@ -4,15 +4,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="../../Content/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet"
-    type="text/css" />
-<script src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script>
+<script src="@Url.Content("~/Scripts/IniciarlizarControlesComunes.js")" type="text/javascript"></script>
+<script type="text/javascript">
     $(document).ready(function () {
         var imagenes = $(['../../Content/img/checked.png']);
         imagenes.preload();
+
+        $("#BusquedaRapida_Region_IdRegion").change(function () {
+            $(this).llenaDropDownListHijo('@Url.Action("ObtenerComunas")', '#BusquedaRapida_Comuna_IdComuna');
+        });
+
+        $("#BusquedaRapida_Region_IdRegion").llenaDropDownListHijo('@Url.Action("ObtenerComunas")', '#BusquedaRapida_Comuna_IdComuna');
 
         $("#divComboRegiones").css("width", $("#BusquedaRapida_Region_IdRegion").width() - 20);
         $("#divComboComuna").css("width", $("#BusquedaRapida_Comuna_IdComuna").width() - 20);
@@ -31,14 +33,14 @@
         cambiarPrecios($("#divRangoPrecio").slider("values", 0), $("#divRangoPrecio").slider("values", 1));
 
         function cambiarPrecios(desde, hasta) {
-            desde = desde.toString().toMoney(desde);
-            hasta = hasta.toString().toMoney(hasta);
+            desde = desde.toString();
+            hasta = hasta.toString();
 
             if (desde > 0 && hasta < 30000) {
                 $("#lblPrefijoPrecio").text("Entre $");
-                $("label[for='BusquedaRapida_PrecioDesde']").text(desde);
+                $("label[for='BusquedaRapida_PrecioDesde']").text(desde.toMoney());
                 $("#lblIntermedioPrecio").text(" y $");
-                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta);
+                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta.toMoney());
             }
             else if (desde == 0 && hasta == 30000) {
                 $("#lblPrefijoPrecio").text("Sin rango de precio");
@@ -50,11 +52,11 @@
                 $("#lblPrefijoPrecio").text("Hasta $");
                 $("label[for='BusquedaRapida_PrecioDesde']").text("");
                 $("#lblIntermedioPrecio").text("");
-                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta);
+                $("label[for='BusquedaRapida_PrecioHasta']").text(hasta.toMoney());
             }
             else if (hasta == 30000) {
                 $("#lblPrefijoPrecio").text("Desde $");
-                $("label[for='BusquedaRapida_PrecioDesde']").text(desde);
+                $("label[for='BusquedaRapida_PrecioDesde']").text(desde.toMoney());
                 $("#lblIntermedioPrecio").text("");
                 $("label[for='BusquedaRapida_PrecioHasta']").text("");
             }
@@ -138,7 +140,7 @@
                 <img src="../../Content/img/biglogo.png" alt=".resyroom" style="padding-left: 50px;" />
             </td>
             <td style="width: 55%">
-                <div style="top:35%; position: absolute">
+                <div style="top: 35%; position: absolute">
                     @using (Html.BeginForm("Buscar", "User"))
                     {
                         <h2 style="margin-bottom: 15px;">

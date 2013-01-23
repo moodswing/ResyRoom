@@ -1,6 +1,6 @@
-﻿String.prototype.toMoney = function() {
+﻿String.prototype.toMoney = function () {
     var cnt = this;
-    cnt = cnt.toString().replace( /\$|\,/g , '');
+    cnt = cnt.toString().replace(/\$|\,/g, '');
     if (isNaN(cnt))
         return 0;
     var sgn = (cnt == (cnt = Math.abs(cnt)));
@@ -13,8 +13,24 @@
     return (((sgn) ? '' : '-') + cnt);
 };
 
-$.fn.preload = function() {
-    this.each(function() {
+$.fn.llenaDropDownListHijo = function (accion, ddlHijo) {
+    var idDdl = this.val();
+    if (idDdl != null && idDdl != '') {
+        $.getJSON(accion, { idItem: idDdl }, function (items) {
+            ddlHijo = $(ddlHijo);
+            ddlHijo.empty();
+            $.each(items, function (index, comuna) {
+                ddlHijo.append($('<option/>', {
+                    value: comuna.Value,
+                    text: comuna.Text
+                }));
+            });
+        });
+    }
+};
+
+$.fn.preload = function () {
+    this.each(function () {
         $('<img/>')[0].src = this;
     });
 };

@@ -17,11 +17,11 @@ namespace ResyRoom.Servicios
         {
             var r = from c in _context.Comunas
                     where c.IdRegion == idRegion
+                    orderby c.Descripcion
                     select c;
 
             var resultado = r.ToList();
-
-            if (!resultado.Any()) resultado.Add(Constantes.ComunaSinSeleccion);
+            resultado.Insert(0, Constantes.ComunaSinSeleccion);
 
             return resultado;
         }
