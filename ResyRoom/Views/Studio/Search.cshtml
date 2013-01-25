@@ -93,6 +93,15 @@
             }
         });
 
+        $("#Busqueda_Region_IdRegion").change(function () {
+            $(this).llenaDropDownListHijo('@Url.Action("ObtenerComunas", "User")', '#Busqueda_Comuna_IdComuna');
+        });
+
+        $("#Busqueda_Region_IdRegion").llenaDropDownListHijo('@Url.Action("ObtenerComunas", "User")', '#Busqueda_Comuna_IdComuna');
+
+        $("#divComboRegiones").css("width", $("#Busqueda_Region_IdRegion").width() - 20);
+        $("#divComboComuna").css("width", $("#Busqueda_Comuna_IdComuna").width() - 20);
+
         cambiarPrecios($("#divRangoPrecio").slider("values", 0), $("#divRangoPrecio").slider("values", 1));
         cambiarPreciosGrabacion($("#divRangoPrecioGrabacion").slider("values", 0), $("#divRangoPrecioGrabacion").slider("values", 1));
 
@@ -116,17 +125,6 @@
             }
         });
 
-        $("[id^=imgVerEstudio]").mouseover(function () {
-            var imagen = $("#" + this.id);
-            imagen.attr("src", "../../Content/img/verEstudioOver.png");
-            $(this).css('cursor', 'pointer');
-        });
-        $("[id^=imgVerEstudio]").mouseout(function () {
-            var imagen = $("#" + this.id);
-            imagen.attr("src", "../../Content/img/verEstudio.png");
-            $(this).css('cursor', 'auto');
-        });
-
         $("#Busqueda_NroDeMicrofonos").spinner({
             min: 0,
             max: 30,
@@ -139,27 +137,35 @@
 
             if (desde > 0 && hasta < 30000) {
                 $("#lblPrefijoPrecio").text("Entre $");
-                $("label[for='Busqueda_PrecioDesde']").text(desde.toMoney());
+                $("input#Busqueda_PrecioDesde").val(desde);
+                $("#lblPrecioDesde").text(desde.toMoney());
                 $("#lblIntermedioPrecio").text(" y $");
-                $("label[for='Busqueda_PrecioHasta']").text(hasta.toMoney());
+                $("input#Busqueda_PrecioHasta").val(hasta);
+                $("#lblPrecioHasta").text(hasta.toMoney());
             }
             else if (desde == 0 && hasta == 30000) {
                 $("#lblPrefijoPrecio").text("Sin rango de precio");
-                $("label[for='Busqueda_PrecioDesde']").text("");
-                $("label[for='Busqueda_PrecioHasta']").text("");
+                $("input#Busqueda_PrecioDesde").text("");
+                $("#lblPrecioDesde").text("");
+                $("input#Busqueda_PrecioHasta").text("");
+                $("#lblPrecioHasta").text("");
                 $("#lblIntermedioPrecio").text("");
             }
             else if (desde == 0) {
                 $("#lblPrefijoPrecio").text("Hasta $");
-                $("label[for='Busqueda_PrecioDesde']").text("");
+                $("input#Busqueda_PrecioDesde").text("");
+                $("#lblPrecioDesde").text("");
                 $("#lblIntermedioPrecio").text("");
-                $("label[for='Busqueda_PrecioHasta']").text(hasta.toMoney());
+                $("input#Busqueda_PrecioHasta").val(hasta);
+                $("#lblPrecioHasta").text(hasta.toMoney());
             }
             else if (hasta == 30000) {
                 $("#lblPrefijoPrecio").text("Desde $");
-                $("label[for='Busqueda_PrecioDesde']").text(desde.toMoney());
+                $("input#Busqueda_PrecioDesde").val(desde);
+                $("#lblPrecioDesde").text(desde.toMoney());
                 $("#lblIntermedioPrecio").text("");
-                $("label[for='Busqueda_PrecioHasta']").text("");
+                $("input#Busqueda_PrecioHasta").text("");
+                $("#lblPrecioHasta").text("");
             }
         };
 
@@ -192,22 +198,23 @@
                 $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text("");
             }
         }
-        
-        function reCargarGrilla() {
-//            $('#divGrillaResultados').load("@Url.Action("Search", "Studio")");
-            //            $('#grdResultados').html(data);
 
-            var accion = '@Url.Action("Search", "Studio")' + '/';
 
-//            $.post(accion, null, function(data) {
-//                $('#divGrillaResultados').replaceWith(data);
-//            });
-            
-        }
+        //        function reCargarGrilla() {
+        //            //            $('#divGrillaResultados').load("@Url.Action("Search", "Studio")");
+        //            //            $('#grdResultados').html(data);
 
-        $("#btnBuscar").click(function() {
-            reCargarGrilla();
-        });
+        //            var accion = '@Url.Action("Search", "Studio")' + '/';
+
+        //            //            $.post(accion, null, function(data) {
+        //            //                $('#divGrillaResultados').replaceWith(data);
+        //            //            });
+
+        //        }
+
+        //        $("#btnBuscar").click(function () {
+        //            reCargarGrilla();
+        //        });
     });
 </script>
 <div style="width: 100%; text-align: right; z-index: 1">
@@ -250,6 +257,7 @@
             </td>
         </tr>
     </table>
+    <br />
 </div>
 <div style="position: absolute; left: 220px; z-index: 3; top: 90px; width: 75%; border-left: 1px solid gainsboro;
     padding-left: 30px;">
@@ -298,9 +306,11 @@
                 </td>
                 <td style="padding-left: 25px;" colspan="2">
                     @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
-                    @Html.LabelFor(v => v.Busqueda.PrecioDesde)
+                    @Html.Label("Desde", new { @Id = "lblPrecioDesde" })
+                    @Html.HiddenFor(v => v.Busqueda.PrecioDesde)
                     @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
-                    @Html.LabelFor(v => v.Busqueda.PrecioHasta)
+                    @Html.Label("Hasta", new { @Id = "lblPrecioHasta" })
+                    @Html.HiddenFor(v => v.Busqueda.PrecioHasta)
                 </td>
             </tr>
             <tr style="height: 30px;">
@@ -402,55 +412,6 @@
         </table>
         <br />
         
-        
         @Html.Partial("_ResultadoEstudios", Model.Resultados)
-        
-        <!--<div id="divGrillaResultados">
-            @grid.GetHtml("grillaResultados",
-                          columns: grid.Columns(
-                          grid.Column("Nombre", "Nombre", style: "columna20"),
-                          grid.Column("Direccion", "Dirección", p => p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion, "columna60"),
-                           grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10"),
-                           grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)
-                        )
-                      )
-        </div>-->
-        
-        <!--   <table class="grillaResultados" style="margin-top: 10px; width: 100%">
-            <thead>
-                <tr>
-                    <th style="width: 20%;">
-                        Nombre
-                    </th>
-                    <th style="width: 60%;">
-                        Dirección
-                    </th>
-                    <th style="width: 10%;">
-                        Precio Desde
-                    </th>
-                    <th style="width: 10%;">
-                        ver +
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var estudio in Model.Resultados)
-                {
-                    <tr>
-                        <td>
-                            @estudio.Nombre
-                        </td>
-                        <td>
-                            @Html.Label(@estudio.Direccion + ", " + @estudio.Comuna.Descripcion + ", " + @estudio.Comuna.Region.Descripcion)
-                        </td>
-                        <td>
-                            @estudio.PrecioPorHoraDesde
-                        </td>
-                        <td style="text-align: center">
-                            <img id='imgVerEstudio@(estudio.IdEstudio)' src="../../Content/img/verEstudio.png" alt="ver estudio..." />
-                        </td>
-                    </tr>
-                }</tbody>
-        </table> -->
     }
 </div>

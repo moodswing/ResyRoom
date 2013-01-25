@@ -36,8 +36,8 @@ namespace ResyRoom.Servicios
                             join horario in _context.Horarios on sala.IdSala equals horario.IdSala
                             join reserva in _context.Reservas on horario.IdHorario equals reserva.IdHorario
                             where ((desde != null && hasta != null && reserva.Fecha >= desde && reserva.Fecha <= hasta)
-                                || (desde != null && reserva.Fecha >= desde)
-                                || (hasta != null && reserva.Fecha <= hasta)
+                                || (desde != null && hasta == null && reserva.Fecha >= desde)
+                                || (hasta != null && desde == null && reserva.Fecha <= hasta)
                                 || (desde == null && hasta == null))
                             group reserva by estudio into reservas
                             orderby reservas.Count() descending
@@ -54,8 +54,8 @@ namespace ResyRoom.Servicios
                               join sala in _context.Salas on estudio.IdEstudio equals sala.IdEstudio
                               join comentario in _context.Comentarios on sala.IdSala equals comentario.IdSala
                               where ((desde != null && hasta != null && comentario.Fecha >= desde && comentario.Fecha <= hasta)
-                                || (desde != null && comentario.Fecha >= desde)
-                                || (hasta != null && comentario.Fecha <= hasta)
+                                || (desde != null && hasta == null && comentario.Fecha >= desde)
+                                || (hasta != null && desde == null && comentario.Fecha <= hasta)
                                 || (desde == null && hasta == null))
                               group comentario by estudio into estudios
                               orderby estudios.Average(k => k.Puntuacion) descending
@@ -67,10 +67,9 @@ namespace ResyRoom.Servicios
         public IEnumerable<Estudio> Busqueda(Busqueda param)
         {
             var estudios = _context.Estudios
-                .Include(e => e.Comuna.Region);
-            //.Include(e => e.Salas.Select(s => s.Equipos))
-            //.Include(e => e.Salas.Select(s => s.Comentarios));
-
+                .Include(e => e.Comuna.Region)
+                .Include(e => e.Salas);
+            
             var precioDesde = Convert.ToInt32(param.PrecioDesde);
             var precioHasta = Convert.ToInt32(param.PrecioHasta);
 
@@ -87,8 +86,8 @@ namespace ResyRoom.Servicios
                               && ((param.IdComuna != 0 && estudio.Comuna.IdComuna == param.IdComuna) || param.IdComuna == 0)
 
                               && ((precioDesde != 0 && precioHasta != 0 && estudio.Salas.Any(s => s.Precio >= precioDesde) && estudio.Salas.Any(s => s.Precio <= precioHasta))
-                                || (precioDesde != 0 && estudio.Salas.Any(s => s.Precio >= precioDesde))
-                                || (param.PrecioHasta != null && estudio.Salas.Any(s => s.Precio <= precioHasta))
+                                || (precioDesde != 0 && precioHasta == 0 && estudio.Salas.Any(s => s.Precio >= precioDesde))
+                                || (precioHasta != 0 && precioDesde == 0 && estudio.Salas.Any(s => s.Precio <= precioHasta))
                                 || (precioDesde == 0 && precioHasta == 0))
 
                               && ((param.ConComentarios && estudio.Salas.Select(s => s.Comentarios).Any()) || !param.ConComentarios)
@@ -97,8 +96,8 @@ namespace ResyRoom.Servicios
                               && ((param.NroDeMicrofonos != 0 && estudio.Salas.Select(s => s.Equipos.Where(e => e.TipoEquipo.Descripcion == "Microfonos")).Count() == param.NroDeMicrofonos) || param.NroDeMicrofonos == 0)
 
                               && ((precioGrabacionDesde != 0 && precioGrabacionHasta != 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde) && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
-                                || (precioGrabacionDesde != 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde))
-                                || (param.PrecioHasta != null && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
+                                || (precioGrabacionDesde != 0 && precioGrabacionHasta == 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde))
+                                || (precioGrabacionHasta != 0 && precioGrabacionDesde == 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
                                 || (precioGrabacionDesde == 0 && precioGrabacionHasta == 0))
 
                               && ((param.Masterizacion && estudio.Salas.Select(s => s.Grabacion.Masterizacion).Any()) || !param.Masterizacion)

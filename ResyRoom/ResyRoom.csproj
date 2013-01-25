@@ -186,6 +186,7 @@
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\logobig.png" />
     <Content Include="Content\img\mail16.png" />
+    <Content Include="Content\img\map.png" />
     <Content Include="Content\img\mic.png" />
     <Content Include="Content\img\micsmall.png" />
     <Content Include="Content\img\nextsmall.png" />
@@ -242,6 +243,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\checkbox.js" />
     <Content Include="Scripts\Extensiones.js" />
+    <Content Include="Scripts\gmap3.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />

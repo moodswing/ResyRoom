@@ -4,12 +4,65 @@
     Layout = null;
     var grid = new WebGrid(Model, ajaxUpdateContainerId: "divGrillaResultados", defaultSort: "PrecioPorHoraDesde");
 }
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="../../Scripts/gmap3.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("[id^=imgVerEstudio]").mouseover(function () {
+            var imagen = $("#" + this.id);
+            imagen.attr("src", "../../Content/img/verEstudioOver.png");
+            $(this).css('cursor', 'pointer');
+        });
+        $("[id^=imgVerEstudio]").mouseout(function () {
+            var imagen = $("#" + this.id);
+            imagen.attr("src", "../../Content/img/verEstudio.png");
+        });
 
+        $("[id^=imgVerMapa]").mouseover(function () {
+            $(this).css('cursor', 'pointer');
+        });
+
+        $("#btnCerrarMapa").click(function () {
+            $("#btnCerrarMapa").hide();
+            $("#divMapa").hide("slow");
+        });
+
+        $("[id^=imgVerMapa]").click(function () {
+            $('#divContenedorMapa').gmap3({
+                clear: true,
+                map: { options: { maxZoom: 14} },
+                marker: {
+                    address: $(this).attr("alt"),
+                    options: {
+                        icon: new google.maps.MarkerImage("../../Content/img/map.png", new google.maps.Size(32, 37, "px", "px"))
+                    }
+                }
+            }, "autofit");
+
+            $("#divMapa").show("slow", function () { $("#btnCerrarMapa").show(); });
+        });
+    });
+</script>
+<style>
+    #btnCerrarMapa 
+    {
+        cursor: pointer;
+    }
+</style>
+<div id="divMapa" style="width: 100%; height: 200px; border: 1px solid gainsboro;
+    display: none">
+    <div id="btnCerrarMapa" style="position: absolute; text-align: right; right: -15px; border: 1px solid gainsboro; padding: 1px 3px; display: none;">
+        x
+    </div>
+    <div id="divContenedorMapa" style="width: 100%; height: 100%">
+    </div>
+</div>
 <div id="divGrillaResultados">
     @grid.GetHtml("grillaResultados",
                           columns: grid.Columns(
                           grid.Column("Nombre", "Nombre", style: "columna20"),
-                          grid.Column("Direccion", "Dirección", p => p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion, "columna60"),
+                                                  grid.Column("Direccion", "Dirección", p => @Html.Raw(p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " <img id='imgVerMapa" + p.IdEstudio + "' src=\"../../Content/img/map.png\" alt=' " + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " ' />"), "columna60"),
                            grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10"),
                            grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)
                         )
