@@ -359,7 +359,7 @@
     <NavigationProperty Name="Estudio" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Sala" ToRole="tb_Estudio" />
     <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Horario" />
     <Property Type="Int32" Name="IdGrabacion" />
-    <NavigationProperty Name="tb_Grabacion" Relationship="ResyRoomModel.FK_tb_Sala_tb_Grabacion" FromRole="Sala" ToRole="tb_Grabacion" />
+    <NavigationProperty Name="Grabacion" Relationship="ResyRoomModel.FK_tb_Sala_tb_Grabacion" FromRole="Sala" ToRole="tb_Grabacion" />
   </EntityType>
   <EntityType Name="User">
     <Key>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using ResyRoom.Infraestructura.Extensiones;
 
 namespace ResyRoom.Models
 {
@@ -47,5 +48,7 @@ namespace ResyRoom.Models
 
         #endregion
 
+        public int IdRegion { get { return Comuna == null ? 0 : Comuna.Region == null ? 0 : Comuna.Region.IdRegion; } }
+        public int IdComuna { get { return Comuna == null ? 0 : Comuna.IdComuna; } }
     }
 }

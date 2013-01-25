@@ -1,9 +1,11 @@
 ﻿@using ResyRoom.Infraestructura.Extensiones
 @using ResyRoom.Models
-@model ResyRoom.ViewModels.SearchStudioViewModel
+@using ResyRoom.ViewModels
+@model SearchStudioViewModel
 @{
     ViewBag.Title = "Busqueda";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(Model.Resultados, ajaxUpdateContainerId: "divGrillaResultados", defaultSort: "PrecioPorHoraDesde", ajaxUpdateCallback: "reCargarGrilla");
 }
 <style>
     #lnkGrabacion:hover, #lnkEquipadaCon:hover
@@ -15,11 +17,20 @@
     .grillaResultados
     {
         border-collapse: collapse;
+        margin-top: 10px;
+        width: 100%;
     }
     
-    .grillaResultados thead
+    .grillaResultados thead th
     {
         border: 1px solid gainsboro;
+        text-align: left;
+        padding-left: 10px;
+    }
+    
+    .grillaResultados thead th a
+    {
+        color: gray;
     }
     
     .grillaResultados tr
@@ -36,6 +47,26 @@
     .grillaResultados td:last-child
     {
         border-right: none;
+    }
+    
+    .column20
+    {
+        width: 20%;
+    }
+    
+    .column60
+    {
+        width: 60%;
+    }
+    
+    .column10
+    {
+        width: 10%;
+    }
+    .columnVerMas
+    {
+        width: 10%;
+        text-align: center;
     }
 </style>
 <script type="text/javascript">
@@ -161,6 +192,22 @@
                 $("label[for='Busqueda_PrecioPorGrabacionDeCancionHasta']").text("");
             }
         }
+        
+        function reCargarGrilla() {
+//            $('#divGrillaResultados').load("@Url.Action("Search", "Studio")");
+            //            $('#grdResultados').html(data);
+
+            var accion = '@Url.Action("Search", "Studio")' + '/';
+
+//            $.post(accion, null, function(data) {
+//                $('#divGrillaResultados').replaceWith(data);
+//            });
+            
+        }
+
+        $("#btnBuscar").click(function() {
+            reCargarGrilla();
+        });
     });
 </script>
 <div style="width: 100%; text-align: right; z-index: 1">
@@ -204,9 +251,9 @@
         </tr>
     </table>
 </div>
-<div style="position: absolute; left: 220px; z-index: 3; top: 100px; width: 75%;
-    border-left: 1px solid gainsboro; padding-left: 30px;">
-    @using (Html.BeginForm("Buscar", "User"))
+<div style="position: absolute; left: 220px; z-index: 3; top: 90px; width: 75%; border-left: 1px solid gainsboro;
+    padding-left: 30px;">
+    @using (Ajax.BeginForm("Search", "Studio", new AjaxOptions { UpdateTargetId = "divGrillaResultados" }))
     {
         <h2 style="margin-bottom: 15px;">
             .búsqueda</h2>
@@ -347,28 +394,43 @@
             <tr>
                 <td colspan="4">
                     <div style="position: relative">
-                        <input type="submit" value="B U S C A R" class="botonGrande" style="position: absolute;
-                            bottom: -10px; right: 10px;" />
+                        <input id="btnBuscar" type="submit" value="B U S C A R" class="botonGrande" style="position: absolute;
+                            bottom: -13px; right: 0px;" />
                     </div>
                 </td>
             </tr>
         </table>
         <br />
-        <table class="grillaResultados" style="margin-top: 10px; width: 100%">
+        
+        
+        @Html.Partial("_ResultadoEstudios", Model.Resultados)
+        
+        <!--<div id="divGrillaResultados">
+            @grid.GetHtml("grillaResultados",
+                          columns: grid.Columns(
+                          grid.Column("Nombre", "Nombre", style: "columna20"),
+                          grid.Column("Direccion", "Dirección", p => p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion, "columna60"),
+                           grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10"),
+                           grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)
+                        )
+                      )
+        </div>-->
+        
+        <!--   <table class="grillaResultados" style="margin-top: 10px; width: 100%">
             <thead>
                 <tr>
-                    <td style="width: 20%;">
+                    <th style="width: 20%;">
                         Nombre
-                    </td>
-                    <td style="width: 60%;">
+                    </th>
+                    <th style="width: 60%;">
                         Dirección
-                    </td>
-                    <td style="width: 10%;">
+                    </th>
+                    <th style="width: 10%;">
                         Precio Desde
-                    </td>
-                    <td style="width: 10%;">
+                    </th>
+                    <th style="width: 10%;">
                         ver +
-                    </td>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -389,6 +451,6 @@
                         </td>
                     </tr>
                 }</tbody>
-        </table>
+        </table> -->
     }
 </div>

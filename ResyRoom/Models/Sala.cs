@@ -28,6 +28,6 @@ namespace ResyRoom.Models
         public ICollection<Equipo> Equipos { get; set; }
         public Estudio Estudio { get; set; }
         public ICollection<Horario> Horarios { get; set; }
-        public Grabacion tb_Grabacion { get; set; }
+        public Grabacion Grabacion { get; set; }
     }
 }

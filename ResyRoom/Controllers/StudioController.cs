@@ -35,7 +35,7 @@ namespace ResyRoom.Controllers
         }
         #endregion
 
-        public ActionResult Search(Busqueda busquedaRapida)
+        public ActionResult Search()
         {
             var usuario = new IdentificacionDeUsuario();
             var estudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
@@ -47,6 +47,14 @@ namespace ResyRoom.Controllers
             var resultados = ServEstudios.Todas();
 
             return View(new SearchStudioViewModel(usuario, estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas, resultados));
+        }
+
+        [HttpPost]
+        public ActionResult Search(Busqueda busqueda)
+        {
+            var resultados = ServEstudios.Busqueda(busqueda);
+
+            return PartialView("_ResultadoEstudios", resultados);
         }
     }
 }

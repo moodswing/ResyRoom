@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using ResyRoom.Models;
+using System.Data.Entity;
 using System.Collections.Generic;
+using ResyRoom.Infraestructura.Extensiones;
 
 namespace ResyRoom.Servicios
 {
@@ -11,6 +12,7 @@ namespace ResyRoom.Servicios
     {
         IEnumerable<Estudio> EstudiosMasPopulares(int numero, DateTime? desde = null, DateTime? hasta = null);
         IEnumerable<Estudio> EstudiosMejorEvaluados(int numero, DateTime? desde = null, DateTime? hasta = null);
+        IEnumerable<Estudio> Busqueda(Busqueda param);
     }
 
     public class ServEstudios : IServEstudios
@@ -60,6 +62,51 @@ namespace ResyRoom.Servicios
                               select estudios.Key).Take(numero);
 
             return resultados;
+        }
+
+        public IEnumerable<Estudio> Busqueda(Busqueda param)
+        {
+            var estudios = _context.Estudios
+                .Include(e => e.Comuna.Region);
+            //.Include(e => e.Salas.Select(s => s.Equipos))
+            //.Include(e => e.Salas.Select(s => s.Comentarios));
+
+            var precioDesde = Convert.ToInt32(param.PrecioDesde);
+            var precioHasta = Convert.ToInt32(param.PrecioHasta);
+
+            var precioGrabacionDesde = Convert.ToInt32(param.PrecioPorGrabacionDeCancionDesde);
+            var precioGrabacionHasta = Convert.ToInt32(param.PrecioPorGrabacionDeCancionDesde);
+
+            var buscaPorNombre = !param.NombreEstudio.IsEmptyOrWs();
+
+            var resultados = (from estudio in estudios
+                              where
+                              ((buscaPorNombre && estudio.Nombre.Contains(param.NombreEstudio)) || !buscaPorNombre)
+
+                              && ((param.IdRegion != 0 && estudio.Comuna.IdRegion == param.IdRegion) || param.IdRegion == 0)
+                              && ((param.IdComuna != 0 && estudio.Comuna.IdComuna == param.IdComuna) || param.IdComuna == 0)
+
+                              && ((precioDesde != 0 && precioHasta != 0 && estudio.Salas.Any(s => s.Precio >= precioDesde) && estudio.Salas.Any(s => s.Precio <= precioHasta))
+                                || (precioDesde != 0 && estudio.Salas.Any(s => s.Precio >= precioDesde))
+                                || (param.PrecioHasta != null && estudio.Salas.Any(s => s.Precio <= precioHasta))
+                                || (precioDesde == 0 && precioHasta == 0))
+
+                              && ((param.ConComentarios && estudio.Salas.Select(s => s.Comentarios).Any()) || !param.ConComentarios)
+                              && ((param.ConSetDePlatos && estudio.Salas.Any(s => s.SetDePlatos ?? false)) || !param.ConSetDePlatos)
+                              && ((param.ConDoblePedal && estudio.Salas.Any(s => s.DoblePedal ?? false)) || !param.ConDoblePedal)
+                              && ((param.NroDeMicrofonos != 0 && estudio.Salas.Select(s => s.Equipos.Where(e => e.TipoEquipo.Descripcion == "Microfonos")).Count() == param.NroDeMicrofonos) || param.NroDeMicrofonos == 0)
+
+                              && ((precioGrabacionDesde != 0 && precioGrabacionHasta != 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde) && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
+                                || (precioGrabacionDesde != 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde))
+                                || (param.PrecioHasta != null && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
+                                || (precioGrabacionDesde == 0 && precioGrabacionHasta == 0))
+
+                              && ((param.Masterizacion && estudio.Salas.Select(s => s.Grabacion.Masterizacion).Any()) || !param.Masterizacion)
+                              && ((param.ExclusivamenteGrabacion && estudio.Salas.Select(s => s.Grabacion.SoloGrabacion).Any()) || !param.ExclusivamenteGrabacion)
+
+                              select estudio);
+
+            return resultados.ToList();
         }
 
         public void Guardar(Estudio estudio)

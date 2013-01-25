@@ -15,15 +15,15 @@ namespace ResyRoom.Infraestructura.Extensiones
         /// a lambda expression mentioning the path members.  
         /// </summary>  
         /// <returns>A new System.Data.Objects.ObjectQuery with the defined query path.</returns>  
-        public static DbQuery<T> Include<T>(this DbSet<T> query, Expression<Func<T, object>> path) where T : class
-        {
-            return query.Include(NombrePropiedad(path));
-        }
+        //public static DbQuery<T> Include<T>(this DbSet<T> query, Expression<Func<T, object>> path) where T : class
+        //{
+        //    return query.Include(NombrePropiedad(path));
+        //}
 
-        public static DbQuery<T> Include<T>(this DbQuery<T> query, Expression<Func<T, object>> path) where T : class
-        {
-            return query.Include(NombrePropiedad(path));
-        }
+        //public static DbQuery<T> Include<T>(this DbQuery<T> query, Expression<Func<T, object>> path) where T : class
+        //{
+        //    return query.Include(NombrePropiedad(path));
+        //}
 
         internal static string NombrePropiedad<T>(Expression<Func<T, object>> path) where T : class
         {

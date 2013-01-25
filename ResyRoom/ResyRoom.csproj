@@ -57,6 +57,7 @@
     <Compile Include="Infraestructura\Extensiones\ListExt.cs" />
     <Compile Include="Infraestructura\Extensiones\ObjectExt.cs" />
     <Compile Include="Infraestructura\Extensiones\ObjectQueryExt.cs" />
+    <Compile Include="Infraestructura\Extensiones\StringExt.cs" />
     <Compile Include="Infraestructura\Extensiones\UnityExt.cs" />
     <Compile Include="Infraestructura\UnityDependencyResolver.cs" />
     <Compile Include="Models\Applications.cs">
@@ -309,6 +310,7 @@
     <Content Include="Views\User\SuccessfulRegister.cshtml" />
     <Content Include="Views\Studio\Configure.cshtml" />
     <Content Include="Views\Studio\Search.cshtml" />
+    <Content Include="Views\Shared\_ResultadoEstudios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

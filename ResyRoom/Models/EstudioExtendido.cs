@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -7,14 +8,11 @@ namespace ResyRoom.Models
 {
     public partial class Estudio
     {
-        public decimal PrecioPorHoraDesde
+        public string PrecioPorHoraDesde
         {
             get
             {
-                decimal valor = 0;
-                valor = Convert.ToDecimal(Salas.Select(s => s.Precio).Min());
-
-                return valor;
+                return Convert.ToDecimal(Salas.Select(s => s.Precio).Min()).ToString("C0", CultureInfo.CreateSpecificCulture("es-CL"));
             }
         }
     }
