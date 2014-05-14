@@ -22,10 +22,9 @@ header, footer, nav, section
     margin-top: 0;
 }
 
-.divInicio
+.div-inicio
 {
     overflow: hidden;
-    margin-top: 18px;
     border-top: 1px #eee solid;
     border-bottom: 1px #eee solid;
     height: 85%;
@@ -148,6 +147,9 @@ header, footer, nav, section
     margin: 0 auto;
     height: 85%;
 }
+.page-header {
+    overflow: hidden;
+}
 .header
 {
     position: relative;
@@ -246,9 +248,13 @@ header, footer, nav, section
     background: url(../../Content/img/uncheckedmini.png) no-repeat left transparent;
 }
 
-.div-table {
+.div-table-centered {
     display: table;
     margin: 0 auto;
+}
+
+.div-table {
+    display: table;
 }
 
 .div-cell {
@@ -276,5 +282,25 @@ header, footer, nav, section
 .login-div .remember-cell input,
 .login-div .remember-cell label {
     vertical-align: middle;
+}
+
+.register-user-div {
+    padding-bottom: 40px;    
+}
+
+.facebook-login {
+    vertical-align: bottom;
+    width: 230px;
+    padding-left: 300px;
+}
+
+.facebook-login .facebook-button-login {
+    text-align: right;
+}
+
+.facebook-login .facebook-header {
+     border-bottom: 1px solid lightgray; 
+     padding-bottom: 10px; 
+     margin-bottom: 15px;
 }
 

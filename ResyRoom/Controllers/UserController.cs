@@ -85,7 +85,7 @@ namespace ResyRoom.Controllers
         #region >>> Register User
         public ActionResult RegisterUser()
         {
-            return View(new RegisterBandViewModel(new RegistroDeUsuario(), ServGeneros.ListadoParaCombo()));
+            return View(new RegisterUserViewModel(new RegistroDeUsuario()));
         }
 
         #endregion

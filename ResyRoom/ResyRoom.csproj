@@ -161,6 +161,7 @@
     <Compile Include="Servicios\ServRegiones.cs" />
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\RegisterUserViewModel.cs" />
     <Compile Include="ViewModels\IndexUserViewModel.cs" />
     <Compile Include="ViewModels\RegisterBandViewModel.cs" />
     <Compile Include="ViewModels\SearchStudioViewModel.cs" />
@@ -241,6 +242,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\checkbox.js" />
     <Content Include="Scripts\Extensiones.js" />
+    <Content Include="Scripts\facebook-sdk-v2.js" />
     <Content Include="Scripts\gmap3.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />

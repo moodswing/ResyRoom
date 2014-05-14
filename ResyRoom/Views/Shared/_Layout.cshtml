@@ -27,36 +27,41 @@
 </head>
 <body>
     <div class="page">
-        <div style="height: 10px; background-color: gray;">
-        </div>
-        <div class="HeaderMenu">
-            <ul class="menu">
-                <li>
-                    <img src="../../Content/img/home16.png" alt="Inicio" />
-                    @Html.ActionLink("Inicio", "Index", "User")</li>
-                <li>
-                    <img src="../../Content/img/mic.png" alt="Inicio" />
-                    @Html.ActionLink("Registro", "RegisterUser", "User")</li>
-                <li>
-                    <img src="../../Content/img/info16.png" alt="Inicio" />
-                    @Html.ActionLink("Acerca", "Index", "User")</li>
-                <li>
-                    <img src="../../Content/img/mail16.png" alt="Inicio" />
-                    @Html.ActionLink("Contacto", "Index", "User")</li>
-            </ul>
-        </div>
-        <div class="login-div">
-            @using (Html.BeginForm())
-            {
-                <span class="email-cell">@Html.LabelFor(u => u.Usuario.Email)</span>
-                @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt" })
-                <span class="password-cell">@Html.LabelFor(u => u.Usuario.Password)</span>
-                @Html.TextBoxFor(u => u.Usuario.Password, new { @class = "txt" })
-                <span class="remember-cell">
-                    @Html.CheckBoxFor(u => u.Usuario.Recordarme)
-                    @Html.LabelFor(m => m.Usuario.Recordarme)
-                </span>
-            }
+        <div class="page-header">
+            <div style="height: 10px; background-color: gray;">
+            </div>
+            <div class="HeaderMenu">
+                <ul class="menu">
+                    <li>
+                        <img src="../../Content/img/home16.png" alt="Inicio" />
+                        @Html.ActionLink("Inicio", "Index", "User")</li>
+                    <li>
+                        <img src="../../Content/img/mic.png" alt="Inicio" />
+                        @Html.ActionLink("Registro", "RegisterUser", "User")</li>
+                    <li>
+                        <img src="../../Content/img/mic.png" alt="Inicio" />
+                        @Html.ActionLink("Registro de Estudio", "RegisterStudio", "User")</li>
+                    <li>
+                        <img src="../../Content/img/info16.png" alt="Inicio" />
+                        @Html.ActionLink("Acerca", "Index", "User")</li>
+                    <li>
+                        <img src="../../Content/img/mail16.png" alt="Inicio" />
+                        @Html.ActionLink("Contacto", "Index", "User")</li>
+                </ul>
+            </div>
+            <div class="login-div">
+                @using (Html.BeginForm())
+                {
+                    <span class="email-cell">@Html.LabelFor(u => u.Usuario.Email)</span>
+                    @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt" })
+                    <span class="password-cell">@Html.LabelFor(u => u.Usuario.Password)</span>
+                    @Html.TextBoxFor(u => u.Usuario.Password, new { @class = "txt" })
+                    <span class="remember-cell">
+                        @Html.CheckBoxFor(u => u.Usuario.Recordarme)
+                        @Html.LabelFor(m => m.Usuario.Recordarme)
+                    </span>
+                }
+            </div>
         </div>
         @RenderBody()
     </div>
