@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace ResyRoom.ViewModels
 {
-    public class IndexUserViewModel
+    public class IndexUserViewModel : BaseViewModel
     {
-        public IdentificacionDeUsuario Usuario { get; set; }
-
         public IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
         public IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
         public IEnumerable<Comuna> ListadoComunas { get; set; }

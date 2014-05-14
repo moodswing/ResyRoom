@@ -51,14 +51,14 @@ namespace ResyRoom.Controllers
         {
             if (ModelState.IsValid)
             {
-                var identificado = Membership.ValidateUser(usuario.Usuario, usuario.Password);
-                var user = Membership.GetUser(usuario.Usuario);
+                var identificado = Membership.ValidateUser(usuario.Email, usuario.Password);
+                var user = Membership.GetUser(usuario.Email);
 
                 if (identificado && user != null && user.ProviderUserKey != null)
                 {
                     var usuarioIdentificado = ServUsuarios.Lee((Guid)user.ProviderUserKey);
 
-                    FormsAuthentication.SetAuthCookie(usuario.Usuario, usuario.Recordarme);
+                    FormsAuthentication.SetAuthCookie(usuario.Email, usuario.Recordarme);
 
                     if (usuarioIdentificado.Bandas.Any())
                     {
@@ -75,11 +75,19 @@ namespace ResyRoom.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "Usuario o contraseña no validos.");
+                ModelState.AddModelError("", "Email o contraseña no validos.");
             }
 
             return View(new IndexUserViewModel());
         }
+        #endregion
+
+        #region >>> Register User
+        public ActionResult RegisterUser()
+        {
+            return View(new RegisterBandViewModel(new RegistroDeUsuario(), ServGeneros.ListadoParaCombo()));
+        }
+
         #endregion
 
         #region >>> Register band's view

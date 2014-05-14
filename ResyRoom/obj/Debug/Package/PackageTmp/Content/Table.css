@@ -1,6 +1,0 @@
-﻿/* Estilos para tablas -------------------------------*/
-
-.grilla { font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif; font-size: 12px; margin: 45px; width: 480px; text-align: left; border-collapse: collapse; }
-.grilla th { font-size: 14px; font-weight: normal; padding: 10px 8px; color: #039; }
-.grilla td { padding: 8px; color: #669; }
-.grilla .odd { background: #e8edff; }

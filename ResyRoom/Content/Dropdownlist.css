@@ -5,12 +5,11 @@
     border: none;
     padding: 5px;
     height: 22px;
-    width: 208px;
+    width: 100%;
     -webkit-appearance: none;
 }
 .combobox
 {
-    width: 180px;
     height: 22px;
     overflow: hidden;
     background: url(../../Content/img/ddl.png) no-repeat right white;

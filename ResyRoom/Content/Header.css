@@ -3,6 +3,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#dedede), to(#fff));
     padding:0px 10px;
     height: 35px;
+    overflow: hidden;
 }
 
 ul.menu { padding: 0px; float: left; }

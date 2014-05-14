@@ -7,10 +7,8 @@ using ResyRoom.Models;
 
 namespace ResyRoom.ViewModels
 {
-    public class SearchStudioViewModel
+    public class SearchStudioViewModel : BaseViewModel
     {
-        public IdentificacionDeUsuario Usuario { get; set; }
-
         public IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
         public IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
         public IEnumerable<Comuna> ListadoComunas { get; set; }

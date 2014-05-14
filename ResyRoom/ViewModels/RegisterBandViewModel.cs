@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ResyRoom.ViewModels
 {
-    public class RegisterBandViewModel
+    public class RegisterBandViewModel : BaseViewModel
     {
         public RegistroDeUsuario Usuario { get; private set; }
         public IEnumerable<Genero> ListaDeGeneros { get; private set; }

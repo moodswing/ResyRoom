@@ -8,7 +8,7 @@ body
     font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
-    color: #696969;
+    color: #747474;
     height: 93%;
 }
 header, footer, nav, section
@@ -19,23 +19,96 @@ header, footer, nav, section
 /* this rule styles <h1> and <h2> tags that are the first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .divInicio
 {
-    height: 100%;
-    position: relative;
-}
-.tblInicio
-{
-    top: 6%;
+    overflow: hidden;
+    margin-top: 18px;
     border-top: 1px #eee solid;
     border-bottom: 1px #eee solid;
-    position: absolute;
-    z-index: 1;
-    height: 70%;
+    height: 85%;
     background: url('../../Content/img/bglogo.png') repeat;
+    width: 100%;
+}
+
+.big-logo-index {
+    float: left;
+    height: 100%;
+}
+
+.big-logo-index img {
+    vertical-align: middle;
+}
+
+.search-index-box .search-for {
+    margin-top: 5px;
+}
+
+.search-index-box .search-for input {
+    width: 100%;
+}
+
+.search-index-box {
+    width: 650px;
+    float: right;
+    height: 100%;
+    display: table;
+    padding-right: 35px;
+}
+
+.search-index-box form {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.search-location {
+    margin-top: 10px;
+    display: table;
+    width: 100%;
+}
+
+.search-location div {
+    display: table-cell;
+}
+
+.search-location label {
+    width: 60px;
+}
+
+.search-location div {
+    margin-right: 30px;
+}
+
+.search-location .not-first-inline {
+    padding-left: 30px;
+}
+
+.search-price-range {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.search-price-range div {
+    display: inline-block;
+    width: 300px;
+}
+
+.search-price-range .search-label-price-range {
+    padding-right: 20px;
+}
+
+.search-price-range .search-prefix-price-range {
+    padding-left: 20px;
+}
+
+.search-button input {
+    margin-top: 25px;
+}
+
+.search-button input {
+    float: right;
 }
 
 .invisible
@@ -72,17 +145,17 @@ header, footer, nav, section
 }
 .page
 {
-    margin: 0px auto;
-    height: 100%;
+    margin: 0 auto;
+    height: 85%;
 }
 .header
 {
     position: relative;
-    margin: 0px;
+    margin: 0;
 }
 .leftCol
 {
-    padding: 6px 0px;
+    padding: 6px 0;
     margin: 12px 8px 8px 8px;
     width: 200px;
     min-height: 200px;
@@ -112,15 +185,14 @@ header, footer, nav, section
     font-size: 1.5em;
 }
 
-.ranking tr td
-{
-    padding: 0px 40px;
+.centered {
+    margin: 0 auto;
 }
 
-.ranking table
+.ranking
 {
-    margin-left: auto;
-    margin-right: auto;
+    border-spacing: 30px 0;
+    padding-top: 15px;
 }
 
 .ranking ul
@@ -174,18 +246,35 @@ header, footer, nav, section
     background: url(../../Content/img/uncheckedmini.png) no-repeat left transparent;
 }
 
-input[type='checkbox']
-{
-    /* Hide the input, but have it still be clickable */
-    opacity: 0;
-    float: left;
-    width: 18px;
+.div-table {
+    display: table;
+    margin: 0 auto;
 }
 
-.checkbox
-{
-    height: 18px;
-    line-height: 18px;
-    vertical-align: text-bottom;
-    padding-right: 20px;
+.div-cell {
+    display: table-cell;
 }
+
+.login-div {
+    float: right; 
+    padding-right: 35px; 
+    padding-bottom: 5px;
+}
+
+.login-div .email-cell {
+    padding-right: 15px;
+}
+
+.login-div .password-cell {
+    padding-left: 10px; padding-right: 15px;
+}
+
+.login-div .remember-cell {
+    padding-left: 10px;
+}
+
+.login-div .remember-cell input,
+.login-div .remember-cell label {
+    vertical-align: middle;
+}
+
