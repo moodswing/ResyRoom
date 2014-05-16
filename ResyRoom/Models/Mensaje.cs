@@ -1,6 +1,8 @@
-﻿namespace ResyRoom.Models
+﻿using ResyRoom.ViewModels;
+
+namespace ResyRoom.Models
 {
-    public class Mensaje
+    public class Mensaje : BaseViewModel
     {
         public string TituloPagina { get; set; }
         public string TituloMensaje { get; set; }

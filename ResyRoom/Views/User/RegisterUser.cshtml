@@ -9,24 +9,33 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Usuario_Banda_Descripcion").css('width', '188px');
-    })
+    });
 </script>
 <div class="content">
     <div class="form">
-        @using (Html.BeginForm())
-        {
-            <div class="tableForm">
-                <div class="div-table register-user-div">
-                    <div class="div-cell">
-                        <h1 class="form-header">Información del Usuario</h1>
-                        <div>
+        <div class="tableForm">
+            @if (Model.RegistroExitoso == false)
+            {
+                <div class="error-box">
+                    <div class="error-box-content">
+                        <img src="../../Content/img/error-icon.png" alt="Inicio" class="img-icon"><span class="span-message">@Model.MensajeError</span>
+                    </div>
+                </div>
+            }
+            @Html.Partial("_MessageNotification")
+            <div class="div-table register-user-div">
+                <div class="div-cell">
+                    <h1 class="form-header">Información del Usuario</h1>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="register-user-row">
                             <span class="left-label">
-                                @Html.LabelFor(u => u.RegistroUsuario.Usuario)
+                                @Html.LabelFor(u => u.RegistroUsuario.Nombre)
                             </span><span>
-                                @Html.TextBoxFor(u => u.RegistroUsuario.Usuario, new { @class = "txt" })
+                                @Html.TextBoxFor(u => u.RegistroUsuario.Nombre, new { @class = "txt" })
                             </span>
                         </div>
-                        <div>
+                        <div class="register-user-row">
                             <span class="left-label">
                                 @Html.LabelFor(u => u.Usuario.Email)
                             </span>
@@ -34,7 +43,7 @@
                                 @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt" })
                             </span>
                         </div>
-                        <div>
+                        <div class="register-user-row">
                             <span class="left-label">
                                 @Html.LabelFor(u => u.Usuario.Password)
                             </span>
@@ -42,7 +51,7 @@
                                 @Html.PasswordFor(u => u.Usuario.Password, new { @class = "txt" })
                             </span>
                         </div>
-                        <div>
+                        <div class="register-user-row">
                             <span class="left-label">
                                 @Html.LabelFor(u => u.RegistroUsuario.PasswordConfirmacion)
                             </span>
@@ -50,28 +59,32 @@
                                 @Html.PasswordFor(u => u.RegistroUsuario.PasswordConfirmacion, new { @class = "txt" })
                             </span>
                         </div>
-                    </div>
-                    <div class="div-cell facebook-login">
-                        <h1 class="facebook-header">Usar Facebook para entrar</h1>
-                        <div class="facebook-button-login">
-                            <fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">Iniciar Sesión</fb:login-button>
+                        <div class="register-user-continue">
+                            <input type="submit" value="Continuar" class="botonGrande" />
                         </div>
-                    </div>
+                    }
                 </div>
-                <div>
-                    <h2>Registro</h2>
-                    <p>
-                        En <b>ResyRoom</b> brindamos el servicio para que cada usuario pueda buscar y evaluar
-                        el estudio, ya sea de grabación o de ensayo que mas le acomode a su banda. Por esta
-                        razón el registro como usuario es por <b>banda</b>.
-                        <br />
-                        <br />
-                        Ingrese los datos para su <b>identificación</b> como usuario, y a continuación los
-                        datos básicos de su <b>banda</b>
-                    </p>
+                <div class="div-cell facebook-login">
+                    <h1 class="facebook-header">Usar Facebook para entrar</h1>
+                    <div class="facebook-button-login">
+                        <fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">Iniciar Sesión</fb:login-button>
+                        <div class="facebook-status" id="status">Por favor inicia sesión en facebook.</div>
+                    </div>
                 </div>
             </div>
-        }
+            <div>
+                <h2>Registro</h2>
+                <p>
+                    En <b>ResyRoom</b> brindamos el servicio para que cada usuario pueda buscar y evaluar
+                    el estudio, ya sea de grabación o de ensayo que mas le acomode a su banda. Por esta
+                    razón el registro como usuario es por <b>banda</b>.
+                    <br />
+                    <br />
+                    Ingrese los datos para su <b>identificación</b> como usuario, y a continuación los
+                    datos básicos de su <b>banda</b>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 

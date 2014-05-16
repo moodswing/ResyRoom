@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using ResyRoom.Models;
@@ -7,19 +8,41 @@ namespace ResyRoom.Servicios
 {
     public interface IServUsuarios
     {
-        User Lee(Guid idUser);
+        Usuario Lee(int idUser);
+        bool EsUsuarioNuevo(RegistroDeUsuario usuario);
+        void Guardar(RegistroDeUsuario usuario);
     }
 
     public class ServUsuarios : IServUsuarios
     {
         private readonly ResyRoomEntities _context = new ResyRoomEntities();
 
-        public User Lee(Guid idUser)
+        public Usuario Lee(int idUser)
         {
-            var usuarios = (from user in _context.Users where user.UserId == idUser select user).Include(u => u.Estudios).Include(u => u.Bandas);
+            var usuarios = (from user in _context.Usuarios where user.IdUsuario == idUser select user);
             var usuario = usuarios.First();
 
             return usuario;
+        }
+
+        public bool EsUsuarioNuevo(RegistroDeUsuario usuario)
+        {
+            return !(from user in _context.Usuarios where user.Email == usuario.Email || user.Nombre == usuario.Nombre select user).Any();
+        }
+
+        public void Guardar(RegistroDeUsuario usuario)
+        {
+            var user = new Usuario
+                {
+                    Email = usuario.Email,
+                    EntraPorFacebook = usuario.IsFacebookLogin,
+                    Nombre = usuario.Nombre,
+                    Password = usuario.Password
+                };
+
+
+            _context.Usuarios.Add(user);
+            _context.SaveChanges();
         }
     }
 }

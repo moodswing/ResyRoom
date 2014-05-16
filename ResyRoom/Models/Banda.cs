@@ -23,7 +23,6 @@ namespace ResyRoom.Models
         public Guid? UserId { get; set; }
     
         public Genero Genero { get; set; }
-        public User Usuario { get; set; }
         public ICollection<Comentario> Comentarios { get; set; }
         public ICollection<Reserva> Reservas { get; set; }
     }

@@ -28,7 +28,6 @@ namespace ResyRoom.Models
     
     	public int NroDeReservas { get; set; }
     
-        public User Usuario { get; set; }
         public ICollection<Noticia> Noticias { get; set; }
         public ICollection<Sala> Salas { get; set; }
         public Comuna Comuna { get; set; }

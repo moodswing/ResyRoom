@@ -288,6 +288,15 @@ header, footer, nav, section
     padding-bottom: 40px;    
 }
 
+.register-user-div .register-user-row {
+    padding-bottom: 5px;    
+}
+
+.register-user-div .register-user-continue {
+    text-align: right;
+    padding-top: 15px;
+}
+
 .facebook-login {
     vertical-align: bottom;
     width: 230px;
@@ -302,5 +311,32 @@ header, footer, nav, section
      border-bottom: 1px solid lightgray; 
      padding-bottom: 10px; 
      margin-bottom: 15px;
+}
+
+.facebook-status {
+    padding-top: 5px;
+}
+
+.error-box {
+    background-color: #FFBABA; 
+    padding: 15px 0 15px 30px; 
+    margin-bottom: 22px; 
+    border-radius: 3px;
+}
+
+.error-box .error-box-content {
+    vertical-align: middle; 
+    display: table-cell; 
+    height: 50px; 
+    color: #D8000C; 
+    line-height: 22px;
+}
+
+.error-box .error-box-content .img-icon {
+    float: left;
+}
+
+.error-box .error-box-content .span-message {
+    padding-left: 8px;
 }
 

@@ -32,10 +32,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Usuario.Usuario)
+                                        @Html.LabelFor(u => u.Usuario.Nombre)
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Usuario.Usuario, new { @class = "txt" })
+                                        @Html.TextBoxFor(u => u.Usuario.Nombre, new { @class = "txt" })
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,26 +79,26 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Usuario.Banda.Nombre)
+                                        @*@Html.LabelFor(u => u.Usuario.Banda.Nombre)*@
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Usuario.Banda.Nombre, new { @class = "txt", @style = "width:190px" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(u => u.Usuario.Banda.Genero)
-                                    </td>
-                                    <td>
-                                        @Html.DropDownListFor(u => u.Usuario.Banda.IdGenero, new SelectList(Model.ListaDeGeneros, "IdGenero", "Descripcion"), new { @style = "width:194px; " })
+                                        @*@Html.TextBoxFor(u => u.Usuario.Banda.Nombre, new { @class = "txt", @style = "width:190px" })*@
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Usuario.Banda.Descripcion)
+                                        @*@Html.LabelFor(u => u.Usuario.Banda.Genero)*@
                                     </td>
                                     <td>
-                                        @Html.EditorFor(u => u.Usuario.Banda.Descripcion)
+                                        @*@Html.DropDownListFor(u => u.Usuario.Banda.IdGenero, new SelectList(Model.ListaDeGeneros, "IdGenero", "Descripcion"), new { @style = "width:194px; " })*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @*@Html.LabelFor(u => u.Usuario.Banda.Descripcion)*@
+                                    </td>
+                                    <td>
+                                        @*@Html.EditorFor(u => u.Usuario.Banda.Descripcion)*@
                                     </td>
                                 </tr>
                                 <tr>

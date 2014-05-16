@@ -51,31 +51,31 @@ namespace ResyRoom.Controllers
         {
             if (ModelState.IsValid)
             {
-                var identificado = Membership.ValidateUser(usuario.Email, usuario.Password);
-                var user = Membership.GetUser(usuario.Email);
+                //var identificado = Membership.ValidateUser(usuario.Email, usuario.Password);
+                //var user = Membership.GetUser(usuario.Email);
 
-                if (identificado && user != null && user.ProviderUserKey != null)
-                {
-                    var usuarioIdentificado = ServUsuarios.Lee((Guid)user.ProviderUserKey);
+                //if (identificado && user != null && user.ProviderUserKey != null)
+                //{
+                //    var usuarioIdentificado = ServUsuarios.Lee((Guid)user.ProviderUserKey);
 
-                    FormsAuthentication.SetAuthCookie(usuario.Email, usuario.Recordarme);
+                //    FormsAuthentication.SetAuthCookie(usuario.Email, usuario.Recordarme);
 
-                    if (usuarioIdentificado.Bandas.Any())
-                    {
-                        return RedirectToAction("Index", "User");
-                    }
-                    if (usuarioIdentificado.Estudios.Any())
-                    {
-                        var salasSinConfigurar = usuarioIdentificado.Estudios.Where(e => !e.Salas.Any() || e.Salas.Any(s => !s.Horarios.Any()));
-                        if (salasSinConfigurar.Any())
-                            return RedirectToAction("Configure", "Studio", usuarioIdentificado.Estudios.First());
+                //    if (usuarioIdentificado.Bandas.Any())
+                //    {
+                //        return RedirectToAction("Index", "User");
+                //    }
+                //    if (usuarioIdentificado.Estudios.Any())
+                //    {
+                //        var salasSinConfigurar = usuarioIdentificado.Estudios.Where(e => !e.Salas.Any() || e.Salas.Any(s => !s.Horarios.Any()));
+                //        if (salasSinConfigurar.Any())
+                //            return RedirectToAction("Configure", "Studio", usuarioIdentificado.Estudios.First());
 
-                        // areglar
-                        return RedirectToAction("Configure", "Studio");
-                    }
-                }
+                //        // areglar
+                //        return RedirectToAction("Configure", "Studio");
+                //    }
+                //}
 
-                ModelState.AddModelError("", "Email o contraseña no validos.");
+                //ModelState.AddModelError("", "Email o contraseña no validos.");
             }
 
             return View(new IndexUserViewModel());
@@ -85,7 +85,31 @@ namespace ResyRoom.Controllers
         #region >>> Register User
         public ActionResult RegisterUser()
         {
-            return View(new RegisterUserViewModel(new RegistroDeUsuario()));
+            return View(new RegisterUserViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult RegisterUser(RegistroDeUsuario usuario)
+        {
+            if (ServUsuarios.EsUsuarioNuevo(usuario))
+            {
+                ServUsuarios.Guardar(usuario);
+                return RedirectToAction("Index");
+            }
+
+            if (usuario.IsFacebookLogin)
+            {
+                FormsAuthentication.SetAuthCookie(usuario.Nombre, false /* createPersistentCookie */);
+                return Json(Url.Action("Index", "User"));
+            }
+
+            var model = new RegisterUserViewModel
+            {
+                RegistroExitoso = false,
+                MensajeError = "El Usuario que intenta registrar ya existe"
+            };
+
+            return View(model);
         }
 
         #endregion
@@ -102,21 +126,21 @@ namespace ResyRoom.Controllers
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus createStatus;
-                var membershipUser = Membership.CreateUser(usuario.Usuario, usuario.Password, usuario.Email, null, null, false, null, out createStatus);
+                var membershipUser = Membership.CreateUser(usuario.Nombre, usuario.Password, usuario.Email, null, null, false, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    Roles.AddUserToRole(usuario.Usuario, "Banda");
+                    Roles.AddUserToRole(usuario.Nombre, "Banda");
 
                     if (membershipUser != null && membershipUser.ProviderUserKey != null)
-                        usuario.Banda.UserId = (Guid)membershipUser.ProviderUserKey;
+                        //usuario.Banda.UserId = (Guid)membershipUser.ProviderUserKey;
 
-                    ServBandas.Guardar(usuario.Banda);
-                    ServBandas.Actualizar();
+                        //ServBandas.Guardar(usuario.Banda);
+                        //ServBandas.Actualizar();
 
-                    ServEmail.EnviarEmailDeConfirmacion(membershipUser);
+                        ServEmail.EnviarEmailDeConfirmacion(membershipUser);
 
-                    FormsAuthentication.SetAuthCookie(usuario.Usuario, false /* createPersistentCookie */);
+                    FormsAuthentication.SetAuthCookie(usuario.Nombre, false /* createPersistentCookie */);
 
                     return RedirectToAction("SuccessfulRegister", "User");
                 }
@@ -143,31 +167,31 @@ namespace ResyRoom.Controllers
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus createStatus;
-                var membershipUser = Membership.CreateUser(model.Usuario, model.Password, model.Email, null, null, false, null, out createStatus);
+                var membershipUser = Membership.CreateUser(model.Nombre, model.Password, model.Email, null, null, false, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     try
                     {
-                        Roles.AddUserToRole(model.Usuario, "Estudio");
+                        Roles.AddUserToRole(model.Nombre, "Estudio");
 
                         if (membershipUser != null && membershipUser.ProviderUserKey != null)
-                            model.Estudio.UserId = (Guid)membershipUser.ProviderUserKey;
+                            //model.Estudio.UserId = (Guid)membershipUser.ProviderUserKey;
 
-                        ServEstudios.Guardar(model.Estudio);
+                            //ServEstudios.Guardar(model.Estudio);
+                            ServEstudios.Actualizar();
+
+                        ServEmail.EnviarEmailDeConfirmacion(membershipUser);
+
+                        //if (membershipUser != null && membershipUser.ProviderUserKey != null)
+                        //model.Estudio.UserId = (Guid)membershipUser.ProviderUserKey;
+
+                        //ServEstudios.Guardar(model.Estudio);
                         ServEstudios.Actualizar();
 
                         ServEmail.EnviarEmailDeConfirmacion(membershipUser);
 
-                        if (membershipUser != null && membershipUser.ProviderUserKey != null)
-                            model.Estudio.UserId = (Guid)membershipUser.ProviderUserKey;
-
-                        ServEstudios.Guardar(model.Estudio);
-                        ServEstudios.Actualizar();
-
-                        ServEmail.EnviarEmailDeConfirmacion(membershipUser);
-
-                        FormsAuthentication.SetAuthCookie(model.Usuario, false /* createPersistentCookie */);
+                        FormsAuthentication.SetAuthCookie(model.Nombre, false /* createPersistentCookie */);
 
 
                         return RedirectToAction("SuccessfulRegister", "User");

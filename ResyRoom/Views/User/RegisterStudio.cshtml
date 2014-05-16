@@ -47,11 +47,11 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Usuario)
+                                        @Html.LabelFor(u => u.Nombre)
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Usuario, new { @class = "txt" })
-                                        @Html.ValidationMessageFor(u => u.Usuario)
+                                        @Html.TextBoxFor(u => u.Nombre, new { @class = "txt" })
+                                        @Html.ValidationMessageFor(u => u.Nombre)
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,11 +98,11 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Estudio.Nombre)
+                                        @*@Html.LabelFor(u => u.Estudio.Nombre)*@
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Estudio.Nombre, new { @class = "txt", @style = "width:190px" })
-                                        @Html.ValidationMessageFor(u => u.Estudio.Nombre)
+                                        @*@Html.TextBoxFor(u => u.Estudio.Nombre, new { @class = "txt", @style = "width:190px" })*@
+                                        @*@Html.ValidationMessageFor(u => u.Estudio.Nombre)*@
                                     </td>
                                 </tr>
                                 <tr>
@@ -115,46 +115,46 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Estudio.IdComuna)
+                                        @*@Html.LabelFor(u => u.Estudio.IdComuna)*@
                                     </td>
                                     <td>
-                                        @Html.DropDownListFor(u => u.Estudio.IdComuna, new SelectList(ViewBag.Comunas, "IdComuna", "Descripcion"), new { @style = "width:194px; " })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(u => u.Estudio.Direccion)
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(u => u.Estudio.Direccion, new { @class = "txt", @style = "width:190px" })
-                                        @Html.ValidationMessageFor(u => u.Estudio.Direccion)
+                                        @*@Html.DropDownListFor(u => u.Estudio.IdComuna, new SelectList(ViewBag.Comunas, "IdComuna", "Descripcion"), new { @style = "width:194px; " })*@
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Estudio.Email)
+                                        @*@Html.LabelFor(u => u.Estudio.Direccion)*@
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", @style = "width:190px" })
-                                        @Html.ValidationMessageFor(u => u.Estudio.Email)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(u => u.Estudio.Telefono)
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", @style = "width:190px" })
-                                        @Html.ValidationMessageFor(u => u.Estudio.Telefono)
+                                        @*@Html.TextBoxFor(u => u.Estudio.Direccion, new { @class = "txt", @style = "width:190px" })*@
+                                        @*@Html.ValidationMessageFor(u => u.Estudio.Direccion)*@
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.LabelFor(u => u.Estudio.Celular)
+                                        @*@Html.LabelFor(u => u.Estudio.Email)*@
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", @style = "width:190px" })
-                                        @Html.ValidationMessageFor(u => u.Estudio.Celular)
+                                        @*@Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", @style = "width:190px" })*@
+                                        @*@Html.ValidationMessageFor(u => u.Estudio.Email)*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @*@Html.LabelFor(u => u.Estudio.Telefono)*@
+                                    </td>
+                                    <td>
+                                       @* @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", @style = "width:190px" })
+                                        @Html.ValidationMessageFor(u => u.Estudio.Telefono)*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @*@Html.LabelFor(u => u.Estudio.Celular)*@
+                                    </td>
+                                    <td>
+                                        @*@Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", @style = "width:190px" })
+                                        @Html.ValidationMessageFor(u => u.Estudio.Celular)*@
                                     </td>
                                 </tr>
                                 <tr>

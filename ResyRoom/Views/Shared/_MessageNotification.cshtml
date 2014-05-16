@@ -1,0 +1,45 @@
+﻿<script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    var myViewModel;
+    function notificacion(type, messages) {
+        var self = this;
+        self.Type = ko.observable(type);
+        self.Messages = ko.observable(messages);
+        self.SrcImage = ko.computed(function () {
+            var src = "";
+            if (self.Type() == "error")
+                src = "../../Content/img/error-icon.png";
+            else if (self.Type() == "alert")
+                src = "../../Content/img/alert-icon.png";
+
+            return src;
+        });
+    }
+    
+    function messageNotificacion(message) {
+        this.Message = message;
+    }
+
+    function messageViewModel() {
+        var self = this;
+        self.MostrarNotificaciones = ko.observable(false);
+        self.Notificaciones = ko.observable();
+    }
+
+    $(document).ready(function () {
+        myViewModel = new messageViewModel();
+        ko.applyBindings(myViewModel);
+    });
+</script>
+<div class="error-box" data-bind="visible: MostrarNotificaciones">
+    <div class="error-box-content">
+        <div data-bind="foreach: Notificaciones">
+            <img alt="Inicio" class="img-icon" data-bind="attr: { src: SrcImage }">
+            <div class="div-cell" data-bind="foreach: Messages">
+                <span class="span-message" data-bind="text: Message"></span>
+                <br />
+                @*<br data-bind="visible: $index() != ($parent.Notificaciones().length - 1)" />*@
+            </div>
+        </div>
+    </div>
+</div>
