@@ -165,6 +165,7 @@
     <Content Include="Content\Dropdownlist.css" />
     <Content Include="Content\Form.css" />
     <Content Include="Content\Header.css" />
+    <Content Include="Content\img\alert-icon.png" />
     <Content Include="Content\img\base.png" />
     <Content Include="Content\img\bglogo.png" />
     <Content Include="Content\img\biglogo.png" />
