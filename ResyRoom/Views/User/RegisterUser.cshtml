@@ -49,6 +49,7 @@
                             </span>
                             <span>
                                 @Html.PasswordFor(u => u.Usuario.Password, new { @class = "txt" })
+                                @Html.ValidationMessageFor(u => u.Usuario.Password)
                             </span>
                         </div>
                         <div class="register-user-row">
@@ -61,6 +62,7 @@
                         </div>
                         <div class="register-user-continue">
                             <input type="submit" value="Continuar" class="botonGrande" />
+                        @Html.ValidationSummary(true, "Revise que los datos hayan sido ingresados correctamente.")
                         </div>
                     }
                 </div>
@@ -76,12 +78,12 @@
                 <h2>Registro</h2>
                 <p>
                     En <b>ResyRoom</b> brindamos el servicio para que cada usuario pueda buscar y evaluar
-                    el estudio, ya sea de grabación o de ensayo que mas le acomode a su banda. Por esta
-                    razón el registro como usuario es por <b>banda</b>.
+                    el estudio, ya sea de grabación o de ensayo que mas le acomode a su banda.
                     <br />
                     <br />
-                    Ingrese los datos para su <b>identificación</b> como usuario, y a continuación los
-                    datos básicos de su <b>banda</b>
+                    Ingrese los datos para su <b>identificación</b> como usuario, o puedes también simplemente entrar
+                    con tu cuenta de <b>facebook</b>. Puedes estar seguro que no se accederá a ningun dato de tu cuenta mas que 
+                    tus datos básicos (como tu nombre y correo), ya que de todas formas no se como sacar mas datos <b>:(</b>
                 </p>
             </div>
         </div>
