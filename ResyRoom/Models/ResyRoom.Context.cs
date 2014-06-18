@@ -33,5 +33,6 @@ namespace ResyRoom.Models
         public DbSet<Grabacion> Grabacion { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
     }
 }

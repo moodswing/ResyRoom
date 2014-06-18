@@ -26,8 +26,6 @@ namespace ResyRoom.Models
         public string Celular { get; set; }
         public Guid? UserId { get; set; }
     
-    	public int NroDeReservas { get; set; }
-    
         public ICollection<Noticia> Noticias { get; set; }
         public ICollection<Sala> Salas { get; set; }
         public Comuna Comuna { get; set; }

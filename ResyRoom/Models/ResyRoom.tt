@@ -41,10 +41,6 @@ var dataAnnotations = new[] {
 			};
 
 
-var camposAdicionales = new[] {
-				  new { Modelo = "Estudio", Campo = "NroDeReservas", Tipo = "int" }
-			};
-
 //*******	clases declaradas como partial
 
 var clasesParciales = new []{ "User", "Estudio" };
@@ -109,14 +105,6 @@ foreach (var entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name
 			
 			WriteProperty(code, edmProperty);
         }
-
-		bool campoAdicional = false;
-		var definicion = "";
-
-		foreach (var campo in camposAdicionales)
-			if (campo.Modelo == entity.Name) { campoAdicional = true; definicion = "public " + campo.Tipo + " " + campo.Campo + " { get; set; }"; continue; }
-
-		if (campoAdicional) EscribeValidacion("CampoAdicional", definicion);
     }
 
     if (complexProperties.Any())

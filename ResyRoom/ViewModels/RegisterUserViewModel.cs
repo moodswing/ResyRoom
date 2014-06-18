@@ -6,7 +6,10 @@ namespace ResyRoom.ViewModels
     public class RegisterUserViewModel : BaseViewModel
     {
         public RegistroDeUsuario RegistroUsuario { get; private set; }
-        public bool? RegistroExitoso { get; set; }
-        public string MensajeError { get; set; }
+        
+        public RegisterUserViewModel()
+        {
+            RegistroUsuario = new RegistroDeUsuario();
+        }
     }
 }

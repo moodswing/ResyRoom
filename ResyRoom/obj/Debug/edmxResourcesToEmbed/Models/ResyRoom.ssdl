@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+<Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ResyRoomModelStoreContainer">
     <EntitySet Name="par_Comuna" EntityType="ResyRoomModel.Store.par_Comuna" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="par_EstadoReserva" EntityType="ResyRoomModel.Store.par_EstadoReserva" store:Type="Tables" Schema="dbo" />
@@ -17,6 +17,8 @@
     <EntitySet Name="tb_Noticia" EntityType="ResyRoomModel.Store.tb_Noticia" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Oferta" EntityType="ResyRoomModel.Store.tb_Oferta" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Reserva" EntityType="ResyRoomModel.Store.tb_Reserva" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_Rol" EntityType="ResyRoomModel.Store.tb_Rol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_RolUsuario" EntityType="ResyRoomModel.Store.tb_RolUsuario" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Sala" EntityType="ResyRoomModel.Store.tb_Sala" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tb_Usuario" EntityType="ResyRoomModel.Store.tb_Usuario" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_par_Comuna_par_Region" Association="ResyRoomModel.Store.FK_par_Comuna_par_Region">
@@ -71,9 +73,17 @@
       <End Role="par_EstadoReserva" EntitySet="par_EstadoReserva" />
       <End Role="tb_Reserva" EntitySet="tb_Reserva" />
     </AssociationSet>
-    <AssociationSet Name="FK_tb_Reserva_tb_Horario" Association="ResyRoomModel.Store.FK_tb_Reserva_tb_Horario">
-      <End Role="tb_Horario" EntitySet="tb_Horario" />
+    <AssociationSet Name="FK_tb_Reserva_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Reserva_tb_Sala">
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
       <End Role="tb_Reserva" EntitySet="tb_Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_RolUsuario_tb_Rol" Association="ResyRoomModel.Store.FK_tb_RolUsuario_tb_Rol">
+      <End Role="tb_Rol" EntitySet="tb_Rol" />
+      <End Role="tb_RolUsuario" EntitySet="tb_RolUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_RolUsuario_tb_Usuario" Association="ResyRoomModel.Store.FK_tb_RolUsuario_tb_Usuario">
+      <End Role="tb_Usuario" EntitySet="tb_Usuario" />
+      <End Role="tb_RolUsuario" EntitySet="tb_RolUsuario" />
     </AssociationSet>
     <AssociationSet Name="FK_tb_Sala_tb_Estudio" Association="ResyRoomModel.Store.FK_tb_Sala_tb_Estudio">
       <End Role="tb_Estudio" EntitySet="tb_Estudio" />
@@ -200,8 +210,9 @@
     <Property Name="IdSala" Type="int" />
     <Property Name="DuracionBloque" Type="float" />
     <Property Name="FechaIngreso" Type="datetime" />
-    <Property Name="Desde" Type="varchar" MaxLength="5" />
-    <Property Name="Hasta" Type="varchar" MaxLength="5" />
+    <Property Name="HoraApertura" Type="varchar" MaxLength="5" />
+    <Property Name="HoraCierre" Type="varchar" MaxLength="5" />
+    <Property Name="DíasAbierto" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tb_Noticia">
     <Key>
@@ -232,12 +243,28 @@
       <PropertyRef Name="IdReserva" />
     </Key>
     <Property Name="IdReserva" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="IdHorario" Type="int" />
+    <Property Name="IdSala" Type="int" />
     <Property Name="IdBanda" Type="int" />
     <Property Name="IdEstadoRserva" Type="int" />
     <Property Name="Fecha" Type="datetime" />
     <Property Name="Desde" Type="varchar" MaxLength="10" />
     <Property Name="Hasta" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tb_Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tb_RolUsuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="IdRol" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="tb_Sala">
     <Key>
@@ -262,6 +289,8 @@
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Password" Type="varchar" MaxLength="50" />
     <Property Name="EntraPorFacebook" Type="bit" />
+    <Property Name="FacebookId" Type="varchar" MaxLength="100" />
+    <Property Name="SessionDate" Type="datetime" />
   </EntityType>
   <Association Name="FK_par_Comuna_par_Region">
     <End Role="par_Region" Type="ResyRoomModel.Store.par_Region" Multiplicity="0..1" />
@@ -419,15 +448,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tb_Reserva_tb_Horario">
-    <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="0..1" />
+  <Association Name="FK_tb_Reserva_tb_Sala">
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
     <End Role="tb_Reserva" Type="ResyRoomModel.Store.tb_Reserva" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tb_Horario">
-        <PropertyRef Name="IdHorario" />
+      <Principal Role="tb_Sala">
+        <PropertyRef Name="IdSala" />
       </Principal>
       <Dependent Role="tb_Reserva">
-        <PropertyRef Name="IdHorario" />
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_RolUsuario_tb_Rol">
+    <End Role="tb_Rol" Type="ResyRoomModel.Store.tb_Rol" Multiplicity="1" />
+    <End Role="tb_RolUsuario" Type="ResyRoomModel.Store.tb_RolUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="tb_RolUsuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_RolUsuario_tb_Usuario">
+    <End Role="tb_Usuario" Type="ResyRoomModel.Store.tb_Usuario" Multiplicity="1" />
+    <End Role="tb_RolUsuario" Type="ResyRoomModel.Store.tb_RolUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="tb_RolUsuario">
+        <PropertyRef Name="IdUsuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

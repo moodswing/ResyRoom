@@ -76,14 +76,10 @@
                 @Html.TextBoxFor(v => v.BusquedaRapida.NombreEstudio, new { @class = "textboxform" })
             </div>
             <div class="search-location">
-                @Html.LabelFor(v => v.BusquedaRapida.Region)
-                <div id="divComboRegiones" class="combobox">
-                    @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem())
-                </div>
+                @Html.LabelFor(v => v.BusquedaRapida.Region, new { @class = "first-inline" })
+                @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem())
                 @Html.LabelFor(v => v.BusquedaRapida.Comuna, new { @class = "not-first-inline" })
-                <div id="divComboComunas" class="combobox">
-                    @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
-                </div>
+                @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem(), new { style= "width: 145px;" })
             </div>
             <div class="search-price-range">
                 @Html.Label("Rango de Precio", new { @class = "search-label-price-range" })

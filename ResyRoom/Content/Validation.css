@@ -6,6 +6,7 @@
 
 .input-validation-error {
     background-color: lightyellow;
+    border: 1px solid #FFB6C1;
 }
 
 .validation-summary-errors li {

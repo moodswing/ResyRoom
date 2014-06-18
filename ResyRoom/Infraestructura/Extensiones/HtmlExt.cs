@@ -47,7 +47,7 @@ namespace ResyRoom.Infraestructura.Extensiones
                         };
 
             // If the enum is nullable, add an 'empty' item to the collection
-            
+
             return htmlHelper.DropDownListFor(expression, items, htmlAttributes);
         }
 

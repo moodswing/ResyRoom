@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ResyRoom</RootNamespace>
     <AssemblyName>ResyRoom</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +38,7 @@
     </PublishDatabaseSettings>
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
     <PackageAsSingleFile>true</PackageAsSingleFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -56,7 +59,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infraestructura\BaseController.cs" />
+    <Compile Include="Infraestructura\BaseViewPage.cs" />
     <Compile Include="Infraestructura\Bootstrapper.cs" />
+    <Compile Include="Infraestructura\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Infraestructura\CustomPrincipal.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
     <Compile Include="Infraestructura\Extensiones\HtmlExt.cs" />
@@ -65,6 +72,8 @@
     <Compile Include="Infraestructura\Extensiones\ObjectQueryExt.cs" />
     <Compile Include="Infraestructura\Extensiones\StringExt.cs" />
     <Compile Include="Infraestructura\Extensiones\UnityExt.cs" />
+    <Compile Include="Infraestructura\MvcConfig.cs" />
+    <Compile Include="Infraestructura\UnityControllerActivator.cs" />
     <Compile Include="Infraestructura\UnityDependencyResolver.cs" />
     <Compile Include="Models\Banda.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
@@ -78,9 +87,7 @@
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Constantes.cs" />
-    <Compile Include="Models\RegistroUsuario.cs" />
-    <Compile Include="Models\Enums\ETipoBusquedaRapida.cs" />
-    <Compile Include="Models\Enums\ETipoUsuario.cs" />
+    <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\Equipo.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -90,7 +97,6 @@
     <Compile Include="Models\Estudio.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EstudioExtendido.cs" />
     <Compile Include="Models\Genero.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -100,10 +106,10 @@
     <Compile Include="Models\Horario.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Mensaje.cs" />
     <Compile Include="Models\Noticia.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Models\Oferta.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -113,6 +119,11 @@
     <Compile Include="Models\Region.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegistroUsuario.cs" />
+    <Compile Include="Models\Enums\ETipoBusquedaRapida.cs" />
+    <Compile Include="Models\Enums\ETipoUsuario.cs" />
+    <Compile Include="Models\EstudioExtendido.cs" />
+    <Compile Include="Models\Mensaje.cs" />
     <Compile Include="Models\Reserva.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -124,6 +135,9 @@
     <Compile Include="Models\ResyRoom.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ResyRoom.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rol.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sala.cs">
@@ -144,6 +158,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Servicios\ServReservas.cs" />
     <Compile Include="Servicios\IServicio.cs" />
     <Compile Include="Servicios\ServBandas.cs" />
     <Compile Include="Servicios\ServComunas.cs" />
@@ -154,6 +169,7 @@
     <Compile Include="Servicios\ServRegiones.cs" />
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ViewStudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterUserViewModel.cs" />
     <Compile Include="ViewModels\IndexUserViewModel.cs" />
     <Compile Include="ViewModels\RegisterBandViewModel.cs" />
@@ -311,6 +327,9 @@
     <Content Include="Views\Shared\_ResultadoEstudios.cshtml" />
     <Content Include="Views\User\RegisterUser.cshtml" />
     <Content Include="Views\Shared\_MessageNotification.cshtml" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Views\Studio\ViewStudio.cshtml" />
+    <Content Include="Views\Shared\_RankingSidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -365,6 +384,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Drawing" />
@@ -398,9 +418,7 @@
     <Reference Include="System.Web.Entity">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Extensions">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Helpers.dll</HintPath>

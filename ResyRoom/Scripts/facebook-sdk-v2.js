@@ -1,10 +1,12 @@
-﻿function statusChangeCallback(response) {
+﻿var constantErrorConnecting = "Ha ocurrido un error, por favor vuelva a intentarlo en un momento mas.";
+
+function statusChangeCallback(response) {
     if (response.status === 'connected') {
         SaveFacebookLogin();
     } else {
-        myViewModel.MostrarNotificaciones(true);
-        var notificaciones = [ new notificacion("error", [new messageNotificacion("Ha ocurrido un error, por favor vuelva a intentarlo en un momento mas.")]) ];
-        myViewModel.Notificaciones(notificaciones);
+        viewModel.MostrarNotificacion(true);
+        var notificaciones = [new notificacion(2, [constantErrorConnecting])]; // 2: error
+        viewModel.Notificaciones(notificaciones);
     }
 }
 
@@ -18,8 +20,30 @@ window.fbAsyncInit = function () {
     FB.init({
         appId: '328136124005127',
         cookie: true, 
-        xfbml: true, 
+        xfbml: true,
+        perms: 'user_photos',
         version: 'v2.0'
+    });
+};
+
+function getAlbumPhotos() {
+    var token = FB.getAccessToken();
+    console.log(token);
+    FB.api('/me/albums', function (resp) {
+        console.log(resp);
+        var ul = document.getElementById('albums');
+        for (var i = 0, l = resp.data.length; i < l; i++) {
+            var
+                album = resp.data[i],
+                li = document.createElement('li'),
+                a = document.createElement('a');
+            a.innerHTML = album.name;
+            a.href = album.link;
+            console.log(a);
+            console.log(li);
+            //li.appendChild(a);
+            //ul.appendChild(li);
+        }
     });
 };
 
@@ -35,17 +59,21 @@ window.fbAsyncInit = function () {
 // Here we run a very simple test of the Graph API after login is successful.
 function SaveFacebookLogin() {
     FB.api('/me', function (response) {
-        document.getElementById('status').innerHTML = 'Gracias por identificarte, ' + response.name + '!';
+        if (document.getElementById('status') != null) {
+            document.getElementById('status').innerHTML = 'Gracias por identificarte, ' + response.name + '!';
+        }
+
+        console.log(response);
         
-        var accion = "RegisterUser";
-        var data = { Nombre: response.name, Email: response.email, IsFacebookLogin: true };
+        var accion = "/User/RegisterUserFacebook";
+        var data = { Nombre: response.name, Email: response.email, FacebookId: response.id };
 
         $.ajax({
             url: accion,
             type: "POST",
             data: data,
             success: function (result) {
-                window.location.href = result;
+                //window.location.href = result;
             }
         });
     });

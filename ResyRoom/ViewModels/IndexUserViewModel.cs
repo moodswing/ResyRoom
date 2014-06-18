@@ -14,17 +14,14 @@ namespace ResyRoom.ViewModels
 
         public IndexUserViewModel()
         {
-            Usuario = new IdentificacionDeUsuario();
             EstudiosMejorEvaluados = new List<Estudio>();
             EstudiosMasPopulares = new List<Estudio>();
             BusquedaRapida = new BusquedaRapida();
         }
 
-        public IndexUserViewModel(IdentificacionDeUsuario usuario, 
-            IEnumerable<Estudio> estudiosMejorEvaludos, IEnumerable<Estudio> estudiosMasPopulares, 
+        public IndexUserViewModel(IEnumerable<Estudio> estudiosMejorEvaludos, IEnumerable<Estudio> estudiosMasPopulares, 
             IEnumerable<Region> listadoRegiones, IEnumerable<Comuna> listadoComunas)
         {
-            Usuario = usuario;
             EstudiosMejorEvaluados = estudiosMejorEvaludos;
             EstudiosMasPopulares = estudiosMasPopulares;
 

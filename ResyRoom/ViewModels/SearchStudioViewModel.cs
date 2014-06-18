@@ -3,45 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
+using Microsoft.Practices.Unity;
 using ResyRoom.Models;
 
 namespace ResyRoom.ViewModels
 {
-    public class SearchStudioViewModel : BaseViewModel
+    public class SearchStudioViewModel : BaseViewModel, ISearchStudioViewModel
     {
-        public IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
-        public IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
+        [Dependency]
         public IEnumerable<Comuna> ListadoComunas { get; set; }
         public IEnumerable<Region> ListadoRegiones { get; set; }
 
         public Busqueda Busqueda { get; set; }
         public IEnumerable<Estudio> Resultados { get; set; }
+    }
 
-        public SearchStudioViewModel()
-        {
-            Usuario = new IdentificacionDeUsuario();
-            EstudiosMejorEvaluados = new List<Estudio>();
-            EstudiosMasPopulares = new List<Estudio>();
-            Busqueda = new Busqueda();
-            Resultados = new List<Estudio>();
-        }
+    public interface ISearchStudioViewModel
+    {
+        IEnumerable<Comuna> ListadoComunas { get; set; }
+        IEnumerable<Region> ListadoRegiones { get; set; }
 
-        public SearchStudioViewModel(IdentificacionDeUsuario usuario, 
-            IEnumerable<Estudio> estudiosMejorEvaludos, IEnumerable<Estudio> estudiosMasPopulares,
-            IEnumerable<Region> listadoRegiones, IEnumerable<Comuna> listadoComunas, IEnumerable<Estudio> resultados)
-        {
-            Usuario = usuario;
-            EstudiosMejorEvaluados = estudiosMejorEvaludos;
-            EstudiosMasPopulares = estudiosMasPopulares;
+        IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
+        IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
 
-            ListadoRegiones = listadoRegiones;
-            ListadoComunas = listadoComunas;
-
-            Resultados = resultados;
-
-            
-
-            Busqueda = new Busqueda();
-        }
+        Busqueda Busqueda { get; set; }
+        IEnumerable<Estudio> Resultados { get; set; }
     }
 }

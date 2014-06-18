@@ -12,22 +12,19 @@ namespace ResyRoom.Controllers
 {
     public class StudioController : Controller
     {
-        #region >>> Servicios
+        #region >>> Dependencias
+
         [Dependency]
         public IServEstudios ServEstudios { get; set; }
         [Dependency]
-        public IServEmail ServEmail { get; set; }
-        [Dependency]
         public IServRegiones ServRegiones { get; set; }
         [Dependency]
-        public IServGeneros ServGeneros { get; set; }
+        public ISearchStudioViewModel SearchViewModel { get; set; }
         [Dependency]
-        public IServBandas ServBandas { get; set; }
-        [Dependency]
-        public IServUsuarios ServUsuarios { get; set; }
-        [Dependency]
-        public IServComunas ServComunas { get; set; }
+        public IViewStudioViewModel ViewStudioViewModel { get; set; }
+
         #endregion
+
         #region >>> Configure Studio's view
         public ActionResult Configure(Estudio estudio)
         {
@@ -35,18 +32,17 @@ namespace ResyRoom.Controllers
         }
         #endregion
 
+        #region >>> Search studios
+
         public ActionResult Search()
         {
-            var usuario = new IdentificacionDeUsuario();
-            var estudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
-            var estudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
-
-            var listadoRegiones = ServRegiones.RegionesChilenas();
-            var listadoComunas = new List<Comuna> { Constantes.ComunaSinSeleccion };
-
-            var resultados = ServEstudios.Todas();
-
-            return View(new SearchStudioViewModel(usuario, estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas, resultados));
+            SearchViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
+            SearchViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
+            SearchViewModel.ListadoRegiones = ServRegiones.RegionesChilenas();
+            SearchViewModel.ListadoComunas = new List<Comuna> {Constantes.ComunaSinSeleccion};
+            SearchViewModel.Resultados = ServEstudios.Todas();
+            
+            return View(SearchViewModel);
         }
 
         [HttpPost]
@@ -56,5 +52,20 @@ namespace ResyRoom.Controllers
 
             return PartialView("_ResultadoEstudios", resultados);
         }
+
+        #endregion
+
+        #region >>> View studio
+
+        public ActionResult ViewStudio(int id)
+        {
+            ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
+            ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
+            ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(id);
+
+            return View(ViewStudioViewModel);
+        }
+
+        #endregion
     }
 }

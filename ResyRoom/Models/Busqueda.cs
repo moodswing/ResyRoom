@@ -19,7 +19,7 @@ namespace ResyRoom.Models
 
         #endregion
 
-        [DisplayName("Comentarios")]
+        [DisplayName("Con comentarios")]
         public bool ConComentarios { get; set; }
         [DisplayName("Fotos")]
         public bool ConFotos { get; set; }

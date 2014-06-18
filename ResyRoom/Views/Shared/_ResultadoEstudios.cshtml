@@ -28,23 +28,42 @@
             $("#divMapa").hide("slow");
         });
 
-        $("[id^=imgVerMapa]").click(function () {
+        $("[id^=imgVerMapa], .spanVerMapa").click(function () {
             var img = $(this);
-            $("#divMapa").show("slow", function () {
-                $("#btnCerrarMapa").show("fast", function () {
-                    $('#divContenedorMapa').gmap3({
-                        clear: true,
-                        map: { options: { maxZoom: 14} },
-                        marker: {
-                            address: img.attr("alt"),
-                            options: {
-                                icon: new google.maps.MarkerImage("../../Content/img/map.png", new google.maps.Size(20, 20, "px", "px"))
-                            }
-                        }
-                    }, "autofit");
-                });
-            });
+            
+            if ($("#divMapa").length > 0) {
+                var divMapa = $("#divMapa").parents("tr").prev()[0];
+                $("#divMapa").parents("tr").remove();
+                console.log(img.parents("tr")[0]);
+                console.log(divMapa);
+                if (img.parents("tr")[0] != divMapa)
+                    displayMap(img);
+            }
+            else 
+                displayMap(img);
         });
+        
+        function displayMap(img) {
+            if (!img.attr("alt")) {
+                img = img.next("img");
+            }
+            
+            $('<tr><td colspan="10" style="padding-left: 0"><div id="divMapa" style="width: 100%; height: 200px; border: 1px solid gainsboro;' +
+                        'display: none"><div id="divContenedorMapa" style="width: 100%; height: 100%"></div></div></td></tr>').insertAfter(img.parents("tr"));
+
+            $("#divMapa").show("slow", function () {
+                $('#divContenedorMapa').gmap3({
+                    clear: true,
+                    map: { options: { maxZoom: 14 } },
+                    marker: {
+                        address: img.attr("alt"),
+                        options: {
+                            icon: new google.maps.MarkerImage("../../Content/img/map.png", new google.maps.Size(20, 20, "px", "px"))
+                        }
+                    }
+                }, "autofit");
+            });
+        }
     });
 </script>
 <style>
@@ -52,22 +71,27 @@
     {
         cursor: pointer;
     }
+
+    .td-padding-top-11px {
+        padding-top: 11px;
+    }
+
+    .grid-link a, .grid-link a:visited {
+        color: #747474;
+    }
+
+    .grid-link a:hover, .spanVerMapa:hover {
+        color: #000;
+        cursor: pointer;
+    }
 </style>
-<div id="divMapa" style="width: 100%; height: 200px; border: 1px solid gainsboro;
-    display: none">
-    <div id="btnCerrarMapa" style="position: absolute; text-align: right; right: -16px; border: 1px solid gainsboro; padding: 1px 3px; display: none;">
-        x
-    </div>
-    <div id="divContenedorMapa" style="width: 100%; height: 100%">
-    </div>
-</div>
 <div id="divGrillaResultados">
     @grid.GetHtml("grillaResultados",
-                          columns: grid.Columns(
-                          grid.Column("Nombre", "Nombre", style: "columna20"),
-                                                  grid.Column("Direccion", "Dirección", p => @Html.Raw(p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " <img id='imgVerMapa" + p.IdEstudio + "' src=\"../../Content/img/map.png\" alt=' " + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " ' />"), "columna60"),
-                           grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10"),
-                           grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)
-                        )
+                  columns: grid.Columns(
+                      grid.Column("Nombre", "Nombre", p => Html.ActionLink((string)p.Nombre, "ViewStudio", "Studio", new { id = p.IdEstudio }, null) , "columna20 td-padding-top-11px grid-link"),
+                      grid.Column("Direccion", "Dirección", p => Html.Raw("<span class='spanVerMapa'>" + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + "</span> <img id='imgVerMapa" + p.IdEstudio + "' src=\"../../Content/img/map.png\" alt=' " + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " ' />"), "columna60"),
+                      grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10 td-padding-top-11px")
+                      //grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)
                       )
+         )
 </div>

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ResyRoomModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ResyRoomModelStoreContainer">
           <EntitySet Name="par_Comuna" EntityType="ResyRoomModel.Store.par_Comuna" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="par_EstadoReserva" EntityType="ResyRoomModel.Store.par_EstadoReserva" store:Type="Tables" Schema="dbo" />
@@ -22,6 +22,8 @@
           <EntitySet Name="tb_Noticia" EntityType="ResyRoomModel.Store.tb_Noticia" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Oferta" EntityType="ResyRoomModel.Store.tb_Oferta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Reserva" EntityType="ResyRoomModel.Store.tb_Reserva" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_Rol" EntityType="ResyRoomModel.Store.tb_Rol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_RolUsuario" EntityType="ResyRoomModel.Store.tb_RolUsuario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Sala" EntityType="ResyRoomModel.Store.tb_Sala" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tb_Usuario" EntityType="ResyRoomModel.Store.tb_Usuario" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_par_Comuna_par_Region" Association="ResyRoomModel.Store.FK_par_Comuna_par_Region">
@@ -76,9 +78,17 @@
             <End Role="par_EstadoReserva" EntitySet="par_EstadoReserva" />
             <End Role="tb_Reserva" EntitySet="tb_Reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_Reserva_tb_Horario" Association="ResyRoomModel.Store.FK_tb_Reserva_tb_Horario">
-            <End Role="tb_Horario" EntitySet="tb_Horario" />
+          <AssociationSet Name="FK_tb_Reserva_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Reserva_tb_Sala">
+            <End Role="tb_Sala" EntitySet="tb_Sala" />
             <End Role="tb_Reserva" EntitySet="tb_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_RolUsuario_tb_Rol" Association="ResyRoomModel.Store.FK_tb_RolUsuario_tb_Rol">
+            <End Role="tb_Rol" EntitySet="tb_Rol" />
+            <End Role="tb_RolUsuario" EntitySet="tb_RolUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_RolUsuario_tb_Usuario" Association="ResyRoomModel.Store.FK_tb_RolUsuario_tb_Usuario">
+            <End Role="tb_Usuario" EntitySet="tb_Usuario" />
+            <End Role="tb_RolUsuario" EntitySet="tb_RolUsuario" />
           </AssociationSet>
           <AssociationSet Name="FK_tb_Sala_tb_Estudio" Association="ResyRoomModel.Store.FK_tb_Sala_tb_Estudio">
             <End Role="tb_Estudio" EntitySet="tb_Estudio" />
@@ -205,8 +215,9 @@
           <Property Name="IdSala" Type="int" />
           <Property Name="DuracionBloque" Type="float" />
           <Property Name="FechaIngreso" Type="datetime" />
-          <Property Name="Desde" Type="varchar" MaxLength="5" />
-          <Property Name="Hasta" Type="varchar" MaxLength="5" />
+          <Property Name="HoraApertura" Type="varchar" MaxLength="5" />
+          <Property Name="HoraCierre" Type="varchar" MaxLength="5" />
+          <Property Name="DíasAbierto" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tb_Noticia">
           <Key>
@@ -237,12 +248,28 @@
             <PropertyRef Name="IdReserva" />
           </Key>
           <Property Name="IdReserva" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IdHorario" Type="int" />
+          <Property Name="IdSala" Type="int" />
           <Property Name="IdBanda" Type="int" />
           <Property Name="IdEstadoRserva" Type="int" />
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Desde" Type="varchar" MaxLength="10" />
           <Property Name="Hasta" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tb_Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_RolUsuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_Sala">
           <Key>
@@ -267,6 +294,8 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="EntraPorFacebook" Type="bit" />
+          <Property Name="FacebookId" Type="varchar" MaxLength="100" />
+          <Property Name="SessionDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_par_Comuna_par_Region">
           <End Role="par_Region" Type="ResyRoomModel.Store.par_Region" Multiplicity="0..1" />
@@ -424,15 +453,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_Reserva_tb_Horario">
-          <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="0..1" />
+        <Association Name="FK_tb_Reserva_tb_Sala">
+          <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
           <End Role="tb_Reserva" Type="ResyRoomModel.Store.tb_Reserva" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tb_Horario">
-              <PropertyRef Name="IdHorario" />
+            <Principal Role="tb_Sala">
+              <PropertyRef Name="IdSala" />
             </Principal>
             <Dependent Role="tb_Reserva">
-              <PropertyRef Name="IdHorario" />
+              <PropertyRef Name="IdSala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_RolUsuario_tb_Rol">
+          <End Role="tb_Rol" Type="ResyRoomModel.Store.tb_Rol" Multiplicity="1" />
+          <End Role="tb_RolUsuario" Type="ResyRoomModel.Store.tb_RolUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="tb_RolUsuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_RolUsuario_tb_Usuario">
+          <End Role="tb_Usuario" Type="ResyRoomModel.Store.tb_Usuario" Multiplicity="1" />
+          <End Role="tb_RolUsuario" Type="ResyRoomModel.Store.tb_RolUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="tb_RolUsuario">
+              <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -463,8 +516,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ResyRoomModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="ResyRoomEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="ResyRoomModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ResyRoomEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Comunas" EntityType="ResyRoomModel.Comuna" />
           <EntitySet Name="EstadosReserva" EntityType="ResyRoomModel.EstadoReserva" />
           <EntitySet Name="Generos" EntityType="ResyRoomModel.Genero" />
@@ -532,10 +585,6 @@
             <End Role="tb_Horario" EntitySet="Horarios" />
             <End Role="tb_Oferta" EntitySet="Ofertas" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_Reserva_tb_Horario" Association="ResyRoomModel.FK_tb_Reserva_tb_Horario">
-            <End Role="tb_Horario" EntitySet="Horarios" />
-            <End Role="tb_Reserva" EntitySet="Reservas" />
-          </AssociationSet>
           <EntitySet Name="Grabacion" EntityType="ResyRoomModel.Grabacion" />
           <AssociationSet Name="FK_tb_Sala_tb_Grabacion" Association="ResyRoomModel.FK_tb_Sala_tb_Grabacion">
             <End Role="tb_Grabacion" EntitySet="Grabacion" />
@@ -547,12 +596,21 @@
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="ResyRoomModel.sysdiagrams" />
           <EntitySet Name="Usuarios" EntityType="ResyRoomModel.Usuario" />
+          <EntitySet Name="Roles" EntityType="ResyRoomModel.Rol" />
+          <AssociationSet Name="tb_RolUsuario" Association="ResyRoomModel.tb_RolUsuario">
+            <End Role="tb_Rol" EntitySet="Roles" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Reserva_tb_Sala" Association="ResyRoomModel.FK_tb_Reserva_tb_Sala">
+            <End Role="Sala" EntitySet="Salas" />
+            <End Role="Reserva" EntitySet="Reservas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comuna">
           <Key>
             <PropertyRef Name="IdComuna" />
           </Key>
-          <Property Name="IdComuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdComuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdRegion" Type="Int32" />
           <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Region" Relationship="ResyRoomModel.FK_par_Comuna_par_Region" FromRole="par_Comuna" ToRole="par_Region" />
@@ -562,7 +620,7 @@
           <Key>
             <PropertyRef Name="IdEstadoReserva" />
           </Key>
-          <Property Name="IdEstadoReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstadoReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Reservas" Relationship="ResyRoomModel.FK_tb_Reserva_par_EstadoReserva1" FromRole="par_EstadoReserva" ToRole="tb_Reserva" />
         </EntityType>
@@ -570,7 +628,7 @@
           <Key>
             <PropertyRef Name="IdGenero" />
           </Key>
-          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Bandas" Relationship="ResyRoomModel.FK_tb_Banda_par_Genero" FromRole="par_Genero" ToRole="tb_Banda" />
         </EntityType>
@@ -578,7 +636,7 @@
           <Key>
             <PropertyRef Name="IdPais" />
           </Key>
-          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Regiones" Relationship="ResyRoomModel.FK_par_Region_par_Pais" FromRole="par_Pais" ToRole="par_Region" />
         </EntityType>
@@ -586,7 +644,7 @@
           <Key>
             <PropertyRef Name="IdRegion" />
           </Key>
-          <Property Name="IdRegion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdPais" Type="Int32" />
           <Property Name="Descripcion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Comunas" Relationship="ResyRoomModel.FK_par_Comuna_par_Region" FromRole="par_Region" ToRole="par_Comuna" />
@@ -596,7 +654,7 @@
           <Key>
             <PropertyRef Name="IdTIpoEquipo" />
           </Key>
-          <Property Name="IdTIpoEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTIpoEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Equipo" Relationship="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" FromRole="par_TipoEquipo" ToRole="tb_Equipo" />
         </EntityType>
@@ -604,7 +662,7 @@
           <Key>
             <PropertyRef Name="IdBanda" />
           </Key>
-          <Property Name="IdBanda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdBanda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdGenero" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Descripcion" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
@@ -617,7 +675,7 @@
           <Key>
             <PropertyRef Name="IdComentario" />
           </Key>
-          <Property Name="IdComentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdComentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdSala" Type="Int32" />
           <Property Name="IdBanda" Type="Int32" />
           <Property Name="Puntuacion" Type="Int16" />
@@ -630,7 +688,7 @@
           <Key>
             <PropertyRef Name="IdEquipo" />
           </Key>
-          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdSala" Type="Int32" />
           <Property Name="IdTIpoEquipo" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
@@ -643,7 +701,7 @@
           <Key>
             <PropertyRef Name="IdEstudio" />
           </Key>
-          <Property Name="IdEstudio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstudio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdComuna" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Direccion" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
@@ -659,21 +717,21 @@
           <Key>
             <PropertyRef Name="IdHorario" />
           </Key>
-          <Property Name="IdHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdSala" Type="Int32" />
           <Property Name="DuracionBloque" Type="Double" />
           <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
-          <Property Name="Desde" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
-          <Property Name="Hasta" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Horario" ToRole="tb_Sala" />
           <NavigationProperty Name="Ofertas" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Horario" ToRole="tb_Oferta" />
-          <NavigationProperty Name="Reserva" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Horario" FromRole="tb_Horario" ToRole="tb_Reserva" />
+          <Property Type="String" Name="HoraApertura" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HoraCierre" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DíasAbierto" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Noticia">
           <Key>
             <PropertyRef Name="IdNoticia" />
           </Key>
-          <Property Name="IdNoticia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdNoticia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdEstudio" Type="Int32" />
           <Property Name="IdBanda" Type="Int32" />
           <Property Name="Titulo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
@@ -685,7 +743,7 @@
           <Key>
             <PropertyRef Name="IdOferta" />
           </Key>
-          <Property Name="IdOferta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOferta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdHorario" Type="Int32" />
           <Property Name="Titulo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Descripcion" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
@@ -699,8 +757,7 @@
           <Key>
             <PropertyRef Name="IdReserva" />
           </Key>
-          <Property Name="IdReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdHorario" Type="Int32" />
+          <Property Name="IdReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdBanda" Type="Int32" />
           <Property Name="IdEstadoRserva" Type="Int32" />
           <Property Name="Fecha" Type="DateTime" Precision="3" />
@@ -708,13 +765,14 @@
           <Property Name="Hasta" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="EstadoReserva" Relationship="ResyRoomModel.FK_tb_Reserva_par_EstadoReserva1" FromRole="tb_Reserva" ToRole="par_EstadoReserva" />
           <NavigationProperty Name="Banda" Relationship="ResyRoomModel.FK_tb_Reserva_par_EstadoReserva" FromRole="tb_Reserva" ToRole="tb_Banda" />
-          <NavigationProperty Name="Horario" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Horario" FromRole="tb_Reserva" ToRole="tb_Horario" />
+          <Property Type="Int32" Name="IdSala" />
+          <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Sala" FromRole="Reserva" ToRole="Sala" />
         </EntityType>
         <EntityType Name="Sala">
           <Key>
             <PropertyRef Name="IdSala" />
           </Key>
-          <Property Name="IdSala" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSala" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="IdEstudio" Type="Int32" />
           <Property Name="Nombre" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Tamaño" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -728,6 +786,7 @@
           <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Horario" />
           <Property Type="Int32" Name="IdGrabacion" />
           <NavigationProperty Name="Grabacion" Relationship="ResyRoomModel.FK_tb_Sala_tb_Grabacion" FromRole="Sala" ToRole="tb_Grabacion" />
+          <NavigationProperty Name="Reservas" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Sala" FromRole="Sala" ToRole="Reserva" />
         </EntityType>
         <Association Name="FK_par_Comuna_par_Region">
           <End Role="par_Region" Type="ResyRoomModel.Region" Multiplicity="0..1" />
@@ -885,18 +944,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_Reserva_tb_Horario">
-          <End Role="tb_Horario" Type="ResyRoomModel.Horario" Multiplicity="0..1" />
-          <End Role="tb_Reserva" Type="ResyRoomModel.Reserva" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_Horario">
-              <PropertyRef Name="IdHorario" />
-            </Principal>
-            <Dependent Role="tb_Reserva">
-              <PropertyRef Name="IdHorario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Grabacion">
           <Key>
             <PropertyRef Name="IdGrabacion" />
@@ -937,7 +984,7 @@
           </Key>
           <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="principal_id" Nullable="false" />
-          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="version" />
           <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
         </EntityType>
@@ -945,17 +992,45 @@
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Type="Int32" Name="IdUsuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="EntraPorFacebook" />
+          <Property Type="String" Name="FacebookId" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Roles" Relationship="ResyRoomModel.tb_RolUsuario" FromRole="Usuario" ToRole="tb_Rol" />
+          <Property Type="DateTime" Name="SessionDate" Precision="3" />
         </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ResyRoomModel.tb_RolUsuario" FromRole="tb_Rol" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="tb_RolUsuario">
+          <End Type="ResyRoomModel.Rol" Role="tb_Rol" Multiplicity="*" />
+          <End Type="ResyRoomModel.Usuario" Role="Usuario" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_tb_Reserva_tb_Sala">
+          <End Type="ResyRoomModel.Sala" Role="Sala" Multiplicity="0..1" />
+          <End Type="ResyRoomModel.Reserva" Role="Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="IdSala" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="IdSala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ResyRoomModelStoreContainer" CdmEntityContainer="ResyRoomEntities">
           <EntitySetMapping Name="Comunas"><EntityTypeMapping TypeName="ResyRoomModel.Comuna"><MappingFragment StoreEntitySet="par_Comuna">
             <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
@@ -1017,13 +1092,14 @@
             <ScalarProperty Name="UserId" ColumnName="UserId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Horarios"><EntityTypeMapping TypeName="ResyRoomModel.Horario"><MappingFragment StoreEntitySet="tb_Horario">
-            <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
+            <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
+                <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
+                <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
+                <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
             <ScalarProperty Name="IdSala" ColumnName="IdSala" />
             <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
             <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-            <ScalarProperty Name="Desde" ColumnName="Desde" />
-            <ScalarProperty Name="Hasta" ColumnName="Hasta" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Noticias"><EntityTypeMapping TypeName="ResyRoomModel.Noticia"><MappingFragment StoreEntitySet="tb_Noticia">
             <ScalarProperty Name="IdNoticia" ColumnName="IdNoticia" />
             <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
@@ -1043,8 +1119,8 @@
             <ScalarProperty Name="NuevoPrecio" ColumnName="NuevoPrecio" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Reservas"><EntityTypeMapping TypeName="ResyRoomModel.Reserva"><MappingFragment StoreEntitySet="tb_Reserva">
-            <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
-            <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
+            <ScalarProperty Name="IdSala" ColumnName="IdSala" />
+                <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
             <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
             <ScalarProperty Name="IdEstadoRserva" ColumnName="IdEstadoRserva" />
             <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -1086,6 +1162,8 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="ResyRoomModel.Usuario">
               <MappingFragment StoreEntitySet="tb_Usuario">
+                <ScalarProperty Name="SessionDate" ColumnName="SessionDate" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
                 <ScalarProperty Name="EntraPorFacebook" ColumnName="EntraPorFacebook" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1094,12 +1172,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ResyRoomModel.Rol">
+              <MappingFragment StoreEntitySet="tb_Rol">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tb_RolUsuario" TypeName="ResyRoomModel.tb_RolUsuario" StoreEntitySet="tb_RolUsuario">
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+            </EndProperty>
+            <EndProperty Name="tb_Rol">
+              <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -1130,7 +1225,7 @@
         <EntityTypeShape EntityType="ResyRoomModel.Noticia" Width="1.5" PointX="7.5" PointY="12.75" Height="2.226339518229171" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Oferta" Width="1.5" PointX="16.125" PointY="6.125" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Reserva" Width="1.5" PointX="11.625" PointY="5" Height="2.7616788736979174" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.Sala" Width="1.5" PointX="10" PointY="10.375" Height="3.1185717773437531" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResyRoomModel.Sala" Width="1.5" PointX="9.625" PointY="10.75" Height="3.1185717773437531" IsExpanded="true" />
         <AssociationConnector Association="ResyRoomModel.FK_par_Comuna_par_Region" ManuallyRouted="false">
           <ConnectorPoint PointX="4" PointY="11.940826822916666" />
           <ConnectorPoint PointX="4.625" PointY="11.940826822916666" />
@@ -1187,22 +1282,20 @@
           <ConnectorPoint PointX="15.375" PointY="8.1041162109375016" />
           <ConnectorPoint PointX="16.125" PointY="8.1041162109375016" />
         </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Reserva_tb_Horario" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.875" PointY="8.92245614778646" />
-          <ConnectorPoint PointX="12.375" PointY="8.92245614778646" />
-          <ConnectorPoint PointX="12.375" PointY="7.7616788736979174" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="ResyRoomModel.Grabacion" Width="1.5" PointX="10.125" PointY="14.5" Height="1.7566536458333282" />
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Sala_tb_Grabacion" >
+        <EntityTypeShape EntityType="ResyRoomModel.Grabacion" Width="1.5" PointX="11.5" PointY="15.25" Height="1.7566536458333282" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Sala_tb_Grabacion">
           <ConnectorPoint PointX="10.8125" PointY="14.5" />
           <ConnectorPoint PointX="10.8125" PointY="13.610779622395834" />
         </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Estudio_par_Comuna" >
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Estudio_par_Comuna">
           <ConnectorPoint PointX="6.125" PointY="11.57854248046875" />
           <ConnectorPoint PointX="6.75" PointY="11.57854248046875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ResyRoomModel.sysdiagrams" Width="1.5" PointX="2.125" PointY="8.25" />
         <EntityTypeShape EntityType="ResyRoomModel.Usuario" Width="1.5" PointX="5" PointY="14.875" />
+        <EntityTypeShape EntityType="ResyRoomModel.Rol" Width="1.5" PointX="7.875" PointY="15.75" />
+        <AssociationConnector Association="ResyRoomModel.tb_RolUsuario" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Reserva_tb_Sala" />
       </Diagram>
     </Diagrams>
   </Designer>

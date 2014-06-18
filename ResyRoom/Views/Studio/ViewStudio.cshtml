@@ -1,0 +1,73 @@
+﻿@using ResyRoom.ViewModels
+@model ResyRoom.ViewModels.IViewStudioViewModel
+<script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
+
+@{
+    ViewBag.Title = @Model.Estudio.Nombre + " - ResyRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var viewKoViewModel;
+    function ViewKoViewModel() {
+        var self = this;
+        self.TabSeleccionado = ko.observable("Info");
+    }
+
+    $(document).ready(function () {
+        if ($(".general-profile-info ul li").length % 2 == 0) {
+            $($(".general-profile-info ul li")[$(".general-profile-info ul li").length - 2]).css("border-bottom", "0");
+        }
+
+        viewKoViewModel = new ViewKoViewModel();
+        ko.applyBindings(viewKoViewModel);
+    });
+</script>
+
+<div class="div-table studio-search-page">
+    @Html.Partial("_RankingSidebar", (BaseViewModel)Model)
+    <div class="div-cell search-form">
+        <div class="studio-profile-title">
+            <h3>@Model.Estudio.Nombre</h3>
+            <span>@Model.Estudio.Direccion, @Model.Estudio.Comuna.Descripcion, @Model.Estudio.Comuna.Region.Descripcion</span>
+            <div class="studio-profile-tabs">
+                <ul>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { viewKoViewModel.TabSeleccionado('Info'); }">Información General</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { viewKoViewModel.TabSeleccionado('Salas'); }">Salas</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { viewKoViewModel.TabSeleccionado('Equipos'); }">Equipos</li>
+                </ul>
+            </div>
+        </div>
+        <div class="studio-general-info" data-bind="visible: (TabSeleccionado() == 'Info')">
+            <div class="cover-studio-picture"></div>
+            <div class="general-profile-info">
+                <div class="general-info-title">Información general</div>
+                <ul>
+                    <li>@Html.LabelFor(m => m.Estudio.PrecioPorHoraDesde): @Model.Estudio.PrecioPorHoraDesde</li>
+                    <li>@Html.LabelFor(m => m.Estudio.Email): @Model.Estudio.Email</li>
+                    @if (!string.IsNullOrEmpty(Model.Estudio.Telefono))
+                    {
+                        <li>@Html.LabelFor(m => m.Estudio.Telefono): @Model.Estudio.Telefono</li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Estudio.Celular))
+                    {
+                        <li>@Html.LabelFor(m => m.Estudio.Celular): @Model.Estudio.Celular</li>
+                    }
+                    <li>Número de salas: @Model.Estudio.Salas.Count()</li>
+                    <li>@Html.LabelFor(m => m.Estudio.NroDeReservasTotales): @Model.Estudio.NroDeReservasTotales</li>
+                    <li>@Html.LabelFor(m => m.Estudio.PoseeSalaConDoblePedal): @(Model.Estudio.PoseeSalaConDoblePedal ? "Sí" : "No")</li>
+                    <li>@Html.LabelFor(m => m.Estudio.PoseeSalaConSetDePlatos): @(Model.Estudio.PoseeSalaConSetDePlatos ? "Sí" : "No")</li>
+                    <li>@Html.LabelFor(m => m.Estudio.PoseeComentarios): @(Model.Estudio.PoseeComentarios ? "Sí" : "No")</li>
+                    <li>@Html.LabelFor(m => m.Estudio.PoseeInfoDeEquipos): @(Model.Estudio.PoseeInfoDeEquipos ? "Sí" : "No")</li>
+                    <li>@Html.LabelFor(m => m.Estudio.PoseeGrabacion): @(Model.Estudio.PoseeGrabacion ? "Sí" : "No")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="studio-rooms" data-bind="visible: (TabSeleccionado() == 'Salas')">
+            <h3>Salas</h3>
+        </div>
+        <div class="studio-equipment" data-bind="visible: (TabSeleccionado() == 'Equipos')">
+            <h3>Equipos</h3>
+        </div>
+    </div>
+</div>

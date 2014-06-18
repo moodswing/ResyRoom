@@ -1,0 +1,22 @@
+﻿@model ResyRoom.ViewModels.BaseViewModel
+
+<div class="div-cell top-in-search" style="margin-left: 25px; width: 200px;">
+    <h1>
+        <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+        Top 5</h1>
+    @foreach (var estudio in Model.EstudiosMasPopulares)
+    {
+        <a href="@Url.Action("Index", "User")" style="color: gray">
+            @estudio.Nombre </a>
+        <br />
+    }
+    <h1>
+        <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+        Mejor Evaluados</h1>
+    @foreach (var estudio in Model.EstudiosMejorEvaluados)
+    {
+        <a href="@Url.Action("Index", "User")" style="color: gray">
+            @estudio.Nombre </a>
+        <br />
+    }
+</div>

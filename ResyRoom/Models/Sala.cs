@@ -12,6 +12,7 @@ namespace ResyRoom.Models
             Comentarios = new HashSet<Comentario>();
             Equipos = new HashSet<Equipo>();
             Horarios = new HashSet<Horario>();
+            Reservas = new HashSet<Reserva>();
         }
     
         public int IdSala { get; set; }
@@ -29,5 +30,6 @@ namespace ResyRoom.Models
         public Estudio Estudio { get; set; }
         public ICollection<Horario> Horarios { get; set; }
         public Grabacion Grabacion { get; set; }
+        public ICollection<Reserva> Reservas { get; set; }
     }
 }

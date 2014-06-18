@@ -1,12 +1,10 @@
 ﻿select
 {
     color: gray;
-    background-color: transparent;
-    border: none;
     padding: 5px;
-    height: 22px;
-    width: 100%;
-    -webkit-appearance: none;
+    height: 26px;
+    border: 1px #bbb solid;
+    border-radius: 2px;
 }
 .combobox
 {

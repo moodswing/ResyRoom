@@ -10,7 +10,11 @@ namespace ResyRoom.Servicios
     {
         Usuario Lee(int idUser);
         bool EsUsuarioNuevo(RegistroDeUsuario usuario);
+        bool EsUsuarioNuevo(IdentificacionDeUsuarioPorFacebook usuario);
         void Guardar(RegistroDeUsuario usuario);
+        void Guardar(IdentificacionDeUsuarioPorFacebook usuario);
+        Usuario AutenticarUsuario(IdentificacionDeUsuario usuario);
+        Usuario AutenticarUsuario(IdentificacionDeUsuarioPorFacebook usuario);
     }
 
     public class ServUsuarios : IServUsuarios
@@ -30,19 +34,45 @@ namespace ResyRoom.Servicios
             return !(from user in _context.Usuarios where user.Email == usuario.Email || user.Nombre == usuario.Nombre select user).Any();
         }
 
+        public bool EsUsuarioNuevo(IdentificacionDeUsuarioPorFacebook usuario)
+        {
+            return !(from user in _context.Usuarios where user.Email == usuario.Email select user).Any();
+        }
+
         public void Guardar(RegistroDeUsuario usuario)
         {
             var user = new Usuario
                 {
                     Email = usuario.Email,
-                    EntraPorFacebook = usuario.IsFacebookLogin,
                     Nombre = usuario.Nombre,
                     Password = usuario.Password
                 };
 
+            _context.Usuarios.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void Guardar(IdentificacionDeUsuarioPorFacebook usuario)
+        {
+            var user = new Usuario
+                {
+                    Email = usuario.Email,
+                    EntraPorFacebook = true,
+                    Nombre = usuario.Nombre,
+                };
 
             _context.Usuarios.Add(user);
             _context.SaveChanges();
+        }
+
+        public Usuario AutenticarUsuario(IdentificacionDeUsuario usuario)
+        {
+            return _context.Usuarios.Include(u => u.Roles).FirstOrDefault(u => u.Email == usuario.Email && u.Password == usuario.Password);
+        }
+
+        public Usuario AutenticarUsuario(IdentificacionDeUsuarioPorFacebook usuario)
+        {
+            return _context.Usuarios.Include(u => u.Roles).FirstOrDefault(u => u.Email == usuario.Email);
         }
     }
 }

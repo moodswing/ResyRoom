@@ -13,6 +13,7 @@ namespace ResyRoom.Servicios
         IEnumerable<Estudio> EstudiosMasPopulares(int numero, DateTime? desde = null, DateTime? hasta = null);
         IEnumerable<Estudio> EstudiosMejorEvaluados(int numero, DateTime? desde = null, DateTime? hasta = null);
         IEnumerable<Estudio> Busqueda(Busqueda param);
+        Estudio CargarEstudio(int idEStudio);
     }
 
     public class ServEstudios : IServEstudios
@@ -33,8 +34,7 @@ namespace ResyRoom.Servicios
         {
             var consulta = (from estudio in _context.Estudios.AsNoTracking()
                             join sala in _context.Salas on estudio.IdEstudio equals sala.IdEstudio
-                            join horario in _context.Horarios on sala.IdSala equals horario.IdSala
-                            join reserva in _context.Reservas on horario.IdHorario equals reserva.IdHorario
+                            join reserva in _context.Reservas on sala.IdSala equals reserva.IdSala
                             where ((desde != null && hasta != null && reserva.Fecha >= desde && reserva.Fecha <= hasta)
                                 || (desde != null && hasta == null && reserva.Fecha >= desde)
                                 || (hasta != null && desde == null && reserva.Fecha <= hasta)
@@ -106,6 +106,15 @@ namespace ResyRoom.Servicios
                               select estudio);
 
             return resultados.ToList();
+        }
+
+        public Estudio CargarEstudio(int idEStudio)
+        {
+            var estudios = _context.Estudios
+                .Include(e => e.Comuna.Region)
+                .Include(e => e.Salas);
+
+            return estudios.First(s => s.IdEstudio == idEStudio);
         }
 
         public void Guardar(Estudio estudio)

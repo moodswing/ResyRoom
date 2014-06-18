@@ -1,7 +1,7 @@
 ﻿@using ResyRoom.Infraestructura.Extensiones
 @using ResyRoom.Models
 @using ResyRoom.ViewModels
-@model SearchStudioViewModel
+@model ISearchStudioViewModel
 @{
     ViewBag.Title = "Busqueda";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,56 +13,57 @@
         text-decoration: underline;
         cursor: pointer;
     }
-    
+
     .grillaResultados
     {
         border-collapse: collapse;
         margin-top: 10px;
         width: 100%;
     }
-    
-    .grillaResultados thead th
-    {
-        border: 1px solid gainsboro;
-        text-align: left;
-        padding-left: 10px;
-    }
-    
-    .grillaResultados thead th a
-    {
-        color: gray;
-    }
-    
-    .grillaResultados tr
-    {
-        height: 35px;
-    }
-    
-    .grillaResultados td
-    {
-        padding-left: 10px;
-        border-right: 1px solid gainsboro;
-    }
-    
-    .grillaResultados td:last-child
-    {
-        border-right: none;
-    }
-    
+
+        .grillaResultados thead th
+        {
+            border: 1px dotted gainsboro;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+            .grillaResultados thead th a
+            {
+                color: gray;
+            }
+
+        .grillaResultados tr
+        {
+            height: 35px;
+        }
+
+        .grillaResultados td
+        {
+            padding-left: 10px;
+            border-right: 1px dotted gainsboro;
+        }
+
+            .grillaResultados td:last-child
+            {
+                border-right: none;
+            }
+
     .column20
     {
         width: 20%;
     }
-    
+
     .column60
     {
         width: 60%;
     }
-    
+
     .column10
     {
         width: 10%;
     }
+
     .columnVerMas
     {
         width: 10%;
@@ -217,201 +218,127 @@
         //        });
     });
 </script>
-<div style="width: 100%; text-align: right; z-index: 1">
-    <img src="../../Content/img/logo.png" style="margin-right: 20px" alt="logo" />
-</div>
-<div style="top: 100px; margin-left: 25px; width: 200px; z-index: 2; position: absolute">
-    <table>
-        <tr>
-            <td>
-                <h1>
-                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
-                    Top 5</h1>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @foreach (var estudio in Model.EstudiosMasPopulares)
-                {
-                    <a href="@Url.Action("Index", "User")" style="color: gray">
-                        @estudio.Nombre </a>
-                    <br />
-                }
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h1>
-                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
-                    Mejor Evaluados</h1>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @foreach (var estudio in Model.EstudiosMejorEvaluados)
-                {
-                    <a href="@Url.Action("Index", "User")" style="color: gray">
-                        @estudio.Nombre </a>
-                    <br />
-                }
-            </td>
-        </tr>
-    </table>
-    <br />
-</div>
-<div style="position: absolute; left: 220px; z-index: 3; top: 90px; width: 75%; border-left: 1px solid gainsboro;
-    padding-left: 30px;">
-    @using (Ajax.BeginForm("Search", "Studio", new AjaxOptions { UpdateTargetId = "divGrillaResultados" }))
-    {
-        <h2 style="margin-bottom: 15px;">
-            .búsqueda</h2>
-        @Html.Label("Busca el estudio de música que mejor te suene")
+<div class="div-table studio-search-page">
+    @Html.Partial("_RankingSidebar", (BaseViewModel)Model)
+    <div class="div-cell search-form">
+        @using (Ajax.BeginForm("Search", "Studio", new AjaxOptions { UpdateTargetId = "divGrillaResultados" }))
+        {
+            <h2>.búsqueda</h2>
+            <div class="subtitle">Busca el estudio de música que mejor te suene</div>
         
-        <table style="margin-top: 10px; width: 100%">
-            <tr>
-                <td style="margin-bottom: 7px;">
-                    Nombre del Estudio
-                </td>
-                <td colspan="3" style="padding: 0 0 7px 15px;">
-                    <div style="margin-top: 5px;">
-                        @Html.TextBoxFor(v => v.Busqueda.NombreEstudio, new { @style = "width:99%;", @class = "textboxform" })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(v => v.Busqueda.Region)
-                </td>
-                <td style="padding-left: 15px;">
-                    <div id="divComboRegiones" class="combobox">
-                        @Html.DropDownListFor(v => v.Busqueda.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:325px" })
-                    </div>
-                </td>
-                <td style="padding-left: 25px;">
-                    @Html.LabelFor(v => v.Busqueda.Comuna)
-                </td>
-                <td style="padding-left: 15px;">
-                    <div id="divComboComunas" class="combobox">
-                        @Html.DropDownListFor(v => v.Busqueda.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem())
-                    </div>
-                </td>
-            </tr>
-            <tr style="height: 30px; vertical-align: middle">
-                <td>
-                    @Html.Label("Rango de Precio ")
-                </td>
-                <td style="padding-left: 15px;">
-                    <div id="divRangoPrecio">
-                    </div>
-                </td>
-                <td style="padding-left: 25px;" colspan="2">
-                    @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
-                    @Html.Label("Desde", new { @Id = "lblPrecioDesde" })
-                    @Html.HiddenFor(v => v.Busqueda.PrecioDesde)
-                    @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
-                    @Html.Label("Hasta", new { @Id = "lblPrecioHasta" })
-                    @Html.HiddenFor(v => v.Busqueda.PrecioHasta)
-                </td>
-            </tr>
-            <tr style="height: 30px;">
-                <td colspan="4" style="padding-bottom: 10px; vertical-align: middle">
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+            <div>
+                <div class="div-table search-item">
+                    <span class="first-label div-cell">Nombre del Estudio</span>
+                    @Html.TextBoxFor(v => v.Busqueda.NombreEstudio, new { @style = "width:400px; margin-right: 42px;", @class = "textboxform" })
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConComentarios)
                         @Html.LabelFor(v => v.Busqueda.ConComentarios)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConFotos)
                         @Html.LabelFor(v => v.Busqueda.ConFotos)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span>
                         @Html.CheckBoxFor(v => v.Busqueda.ConReservaOnline)
                         @Html.LabelFor(v => v.Busqueda.ConReservaOnline)
+                    </span>
+                </div>
+                <div class="div-table" style="width: 100%;">
+                    <div class="div-cell" style="vertical-align: top;">
+                        <div class="div-table search-item">
+                            <span class="first-label div-cell">
+                                @Html.LabelFor(v => v.Busqueda.Region)
+                            </span>
+                            @Html.DropDownListFor(v => v.Busqueda.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:402px" })
+                            <span class="second-label">
+                                @Html.LabelFor(v => v.Busqueda.Comuna)
+                            </span>
+                            @Html.DropDownListFor(v => v.Busqueda.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem(), new { @style = "width:202px" })
+                        </div>
+                        <div class="div-table search-item">
+                            <span class="first-label div-cell" style="padding-top: 7px;">
+                                @Html.Label("Rango de Precio ")
+                            </span>
+                            <div class="div-cell" style="width: 402px;">
+                                <div id="divRangoPrecio">
+                                </div>
+                            </div>
+                            <span style="padding-left: 48px;">
+                                @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecio" })
+                                @Html.Label("Desde", new { @Id = "lblPrecioDesde" })
+                                @Html.HiddenFor(v => v.Busqueda.PrecioDesde)
+                                @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecio" })
+                                @Html.Label("Hasta", new { @Id = "lblPrecioHasta" })
+                                @Html.HiddenFor(v => v.Busqueda.PrecioHasta)
+                            </span>
+                        </div>
                     </div>
-                </td>
-            </tr>
-            <tr style="height: 40px; vertical-align: middle; border: 1px solid gainsboro;">
-                <td colspan="4" style="border-top: 1px solid gainsboro;">
-                    <div id="lnkEquipadaCon">
-                        Equipada con >>></div>
-                </td>
-            </tr>
-            <tr id="trEquipadaCon">
-                <td colspan="4" style="height: 30px; padding-bottom: 10px">
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    <div class="search-buttom div-cell">
+                        <input id="btnBuscar" type="submit" value="B U S C A R" class="botonGrande" />
+                    </div>
+                </div>
+                <div id="lnkEquipadaCon" class="search-item expandable-button">
+                    Equipada con >>>
+                </div>
+                <div id="trEquipadaCon" class="search-item">
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConInstrumentos)
                         @Html.LabelFor(v => v.Busqueda.ConInstrumentos)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConDoblePedal)
                         @Html.LabelFor(v => v.Busqueda.ConDoblePedal)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConSetDePlatos)
                         @Html.LabelFor(v => v.Busqueda.ConSetDePlatos)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
                         @Html.LabelFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
-                    </div>
-                    <div class="checkbox" style="display: inline-block; border-left: 1px solid gainsboro;
-                        padding-left: 20px;">
+                    </span>
+                    <span>
                         @Html.LabelFor(v => v.Busqueda.NroDeMicrofonos, new { style = "padding-right: 10px" })
                         @Html.TextBoxFor(v => v.Busqueda.NroDeMicrofonos, new { style = "width: 30px;" })
+                    </span>
+                </div>
+                <div id="lnkGrabacion" class="search-item expandable-button">
+                    Grabación >>>
+                </div>
+                <div id="trGrabacion" class="div-table search-item">
+                    <span class="first-label div-cell" style="padding-top: 7px;">Precio x Canción</span>
+                    <div class="div-cell" style="width: 402px;">
+                        <div id="divRangoPrecioGrabacion">
+                        </div>
                     </div>
-                </td>
-            </tr>
-            <tr style="height: 40px; vertical-align: middle; border-top: 1px solid gainsboro;">
-                <td colspan="4" style="border-top: 1px solid gainsboro">
-                    <div id="lnkGrabacion">
-                        Grabación >>></div>
-                </td>
-            </tr>
-            <tr id="trGrabacion">
-                <td>
-                    Precio x Canción
-                </td>
-                <td style="padding-left: 15px;">
-                    <div id="divRangoPrecioGrabacion">
-                    </div>
-                </td>
-                <td style="padding-left: 25px;" colspan="2">
-                    @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecioGrabacion" })
-                    @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionDesde)
-                    @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecioGrabacion" })
-                    @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionHasta)
-                </td>
-            </tr>
-            <tr id="trGrabacion2">
-                <td colspan="4" style="height: 30px">
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    <span style="padding-left: 48px;">
+                        @Html.Label("Prefijo", new { @Id = "lblPrefijoPrecioGrabacion" })
+                        @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionDesde)
+                        @Html.Label("Intermedio", new { @Id = "lblIntermedioPrecioGrabacion" })
+                        @Html.LabelFor(v => v.Busqueda.PrecioPorGrabacionDeCancionHasta)
+                    </span>
+                </div>
+                <div id="trGrabacion2" style="padding-bottom: 12px;">
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.Masterizacion)
                         @Html.LabelFor(v => v.Busqueda.Masterizacion)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.PorPistas)
                         @Html.LabelFor(v => v.Busqueda.PorPistas)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ExclusivamenteGrabacion)
                         @Html.LabelFor(v => v.Busqueda.ExclusivamenteGrabacion)
-                    </div>
-                    <div class="checkbox uncheckedmini" style="display: inline-block">
+                    </span>
+                    <span>
                         @Html.CheckBoxFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
                         @Html.LabelFor(v => v.Busqueda.ConAireAcondicionadoVentilacion)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div style="position: relative">
-                        <input id="btnBuscar" type="submit" value="B U S C A R" class="botonGrande" style="position: absolute;
-                            bottom: -13px; right: 0px;" />
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <br />
+                    </span>
+                </div>
+            </div>
         
-        @Html.Partial("_ResultadoEstudios", Model.Resultados)
-    }
+            @Html.Partial("_ResultadoEstudios", Model.Resultados)
+        }
+    </div>
 </div>

@@ -80,8 +80,12 @@ header, footer, nav, section
     margin-right: 30px;
 }
 
+.search-location .first-inline {
+    padding-right: 30px;
+}
+
 .search-location .not-first-inline {
-    padding-left: 30px;
+    padding: 0 30px 0 40px;
 }
 
 .search-price-range {
@@ -318,17 +322,17 @@ header, footer, nav, section
 }
 
 .error-box {
-    background-color: #FFBABA; 
-    padding: 15px 0 15px 30px; 
+    background-color: #FFC0C0; 
+    padding: 10px 0 10px 30px; 
     margin-bottom: 22px; 
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .error-box .error-box-content {
     vertical-align: middle; 
     display: table-cell; 
     height: 50px; 
-    color: #D8000C; 
+    color: #853535; 
     line-height: 22px;
 }
 
@@ -340,3 +344,183 @@ header, footer, nav, section
     padding-left: 8px;
 }
 
+.close-error-box {
+    float: right;
+    margin-right: 10px;
+    border: 1px solid #835555;
+    width: 16px;
+    display: table-cell;
+    text-align: center;
+    height: 16px;
+    color: #470A0A;
+    border-radius: 2px;
+}
+
+.close-error-box:hover
+{
+    border: 1px solid #5C4A4A;
+    cursor: pointer;
+}
+
+.facebook-avatar {
+    width: 32px;
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    display: table-cell;
+    margin-right: 8px;
+}
+
+.login-div.facebook-login-div {
+    margin-top: -10px;
+    display: table;
+}
+
+.login-div.facebook-login-div .facebook-login-links
+{
+    vertical-align: bottom;
+    display: table-cell;
+}
+
+.login-div .separator-link {
+    padding: 0 10px;
+}
+
+.login-div a {
+    text-decoration: underline;
+    color: #747474;
+}
+
+.login-div a:hover {
+    text-decoration: underline;
+    color: #747474;
+}
+
+.studio-search-page {
+    width: 100%;
+}
+
+.top-in-search {
+    padding: 0 25px;
+    border-right: 1px solid gainsboro;
+    width: 170px;
+}
+
+.search-form {
+    padding: 0 50px;
+}
+
+.subtitle {
+    height: 30px;
+}
+
+.search-form .search-item
+{
+    height: 35px;
+}
+
+.search-form .search-item .first-label
+{
+    width: 170px;
+}
+
+.search-form .search-item .second-label {
+    padding: 0 30px 0 45px;
+}
+
+.checkbox-list {
+    padding-right: 30px;
+}
+
+.search-form .search-item.expandable-button {
+    border-top: 1px dashed gainsboro;
+    padding-top: 12px;
+    height: 25px;
+}
+
+.search-form .search-buttom {
+    text-align: right;
+}
+
+.studio-profile-title {
+    border-bottom: 1px solid gainsboro;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.studio-general-info .cover-studio-picture {
+    height: 250px;
+    overflow: hidden;
+    background: url(https://scontent-a.xx.fbcdn.net/hphotos-xap1/t31.0-8/s720x720/857892_10151351275914585_1879377988_o.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
+
+.studio-general-info .general-profile-info {
+    padding-top: 20px;
+}
+
+.studio-general-info .general-profile-info .general-info-title {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 20px;
+    color: #141414;
+    padding-bottom: 10px;
+}
+
+.studio-general-info .general-profile-info ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.studio-general-info .general-profile-info li {
+    font-size: 14px;
+    border-bottom: 1px dashed #ccc;
+    padding: 5px 0;
+    float: left;
+    width: 50%
+}
+
+.studio-general-info .general-profile-info li:last-child {
+  border: none;
+}
+
+.studio-profile-title .studio-profile-tabs {
+    float: right; margin-top: -19px; padding-right: 15px;
+}
+
+.studio-profile-title .studio-profile-tabs ul
+{
+    list-style: none;
+}
+
+.studio-profile-title .studio-profile-tabs ul li
+{
+    float: left; 
+    margin-right: 10px; 
+    padding: 5px 15px; 
+    border-top: 1px solid gainsboro; 
+    border-left: 1px solid gainsboro; 
+    border-right: 1px solid gainsboro; 
+    border-bottom: 1px solid white; 
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
+}
+
+.studio-profile-title .studio-profile-tabs ul li:hover {
+    cursor: pointer;
+    border-top-color: #AE332F;
+    border-left-color: #AE332F;
+    border-right-color: #AE332F;
+    color: #AE332F;
+}
+
+.studio-profile-title .studio-profile-tabs ul li.tab-selected {
+    border-top-color: gray;
+    border-left-color: gray;
+    border-right-color: gray;
+    color: #4D4D4D;
+}
+
+.studio-profile-title .studio-profile-tabs ul li:last-child {
+    margin-right: 0;
+}

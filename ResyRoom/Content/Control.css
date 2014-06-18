@@ -29,6 +29,11 @@ a:link, a:visited
     color: #AE332F;
     text-decoration: none;
 }
+.login-div a:link, .login-div a:visited
+{
+    color: #747474;
+    text-decoration: underline;
+}
 a:hover
 {
     color: #532a2a;
@@ -45,7 +50,9 @@ h1, h2
     font-variant: small-caps;
     text-transform: none;
     font-weight: 200;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+    margin-top: 0;
+    height: 30px;
 }
 
 h1
@@ -59,6 +66,15 @@ h2
     font-size: 1.5em;
     font-weight: 600;
     color: #AE332F;
+}
+h3
+{
+    font-variant: small-caps;
+    font-weight: 100;
+    margin-top: 0;
+    font-size: 4.6em;
+    margin-bottom: 0;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .boton

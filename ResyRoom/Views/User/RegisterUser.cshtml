@@ -1,11 +1,12 @@
-﻿@model ResyRoom.ViewModels.RegisterUserViewModel
+﻿@using ResyRoom.Infraestructura.Extensiones
+@using System.Web.Mvc
+@model ResyRoom.ViewModels.RegisterUserViewModel
 
 @{
     ViewBag.Title = "Registrar nuevo usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="@Url.Content("~/Scripts/facebook-sdk-v2.js")" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Usuario_Banda_Descripcion").css('width', '188px');
@@ -14,42 +15,34 @@
 <div class="content">
     <div class="form">
         <div class="tableForm">
-            @if (Model.RegistroExitoso == false)
-            {
-                <div class="error-box">
-                    <div class="error-box-content">
-                        <img src="../../Content/img/error-icon.png" alt="Inicio" class="img-icon"><span class="span-message">@Model.MensajeError</span>
-                    </div>
-                </div>
-            }
             @Html.Partial("_MessageNotification")
             <div class="div-table register-user-div">
                 <div class="div-cell">
                     <h1 class="form-header">Información del Usuario</h1>
                     @using (Html.BeginForm())
                     {
+                        @Html.ValidationSummary(true)
                         <div class="register-user-row">
                             <span class="left-label">
                                 @Html.LabelFor(u => u.RegistroUsuario.Nombre)
                             </span><span>
-                                @Html.TextBoxFor(u => u.RegistroUsuario.Nombre, new { @class = "txt" })
+                                @Html.TextBoxFor(u => u.RegistroUsuario.Nombre, new { @class = "txt", name = "Nombre" })
                             </span>
                         </div>
                         <div class="register-user-row">
                             <span class="left-label">
-                                @Html.LabelFor(u => u.Usuario.Email)
+                                @Html.LabelFor(u => u.RegistroUsuario.Email)
                             </span>
                             <span>
-                                @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt" })
+                                @Html.TextBoxFor(u => u.RegistroUsuario.Email, new { @class = "txt" })
                             </span>
                         </div>
                         <div class="register-user-row">
                             <span class="left-label">
-                                @Html.LabelFor(u => u.Usuario.Password)
+                                @Html.LabelFor(u => u.RegistroUsuario.Password)
                             </span>
                             <span>
-                                @Html.PasswordFor(u => u.Usuario.Password, new { @class = "txt" })
-                                @Html.ValidationMessageFor(u => u.Usuario.Password)
+                                @Html.PasswordFor(u => u.RegistroUsuario.Password, new { @class = "txt" })
                             </span>
                         </div>
                         <div class="register-user-row">
@@ -62,7 +55,6 @@
                         </div>
                         <div class="register-user-continue">
                             <input type="submit" value="Continuar" class="botonGrande" />
-                        @Html.ValidationSummary(true, "Revise que los datos hayan sido ingresados correctamente.")
                         </div>
                     }
                 </div>

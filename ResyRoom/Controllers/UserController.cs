@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using ResyRoom.Infraestructura;
 using ResyRoom.Infraestructura.Exceptions;
 using ResyRoom.Infraestructura.Extensiones;
 using ResyRoom.Models;
@@ -14,7 +17,7 @@ using Roles = System.Web.Security.Roles;
 
 namespace ResyRoom.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         #region >>> Servicios
         [Dependency]
@@ -26,56 +29,36 @@ namespace ResyRoom.Controllers
         [Dependency]
         public IServGeneros ServGeneros { get; set; }
         [Dependency]
-        public IServBandas ServBandas { get; set; }
-        [Dependency]
-        public IServUsuarios ServUsuarios { get; set; }
-        [Dependency]
         public IServComunas ServComunas { get; set; }
         #endregion
 
         #region >>> Index's view
         public ActionResult Index()
         {
-            var usuario = new IdentificacionDeUsuario();
             var estudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             var estudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
 
             var listadoRegiones = ServRegiones.RegionesChilenas();
             var listadoComunas = new List<Comuna> { Constantes.ComunaSinSeleccion };
 
-            return View(new IndexUserViewModel(usuario, estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas));
+            return View(new IndexUserViewModel(estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas));
         }
 
         [HttpPost]
-        public ActionResult Index(IdentificacionDeUsuario usuario)
+        public ActionResult Index(IndexUserViewModel usuario)
         {
             if (ModelState.IsValid)
             {
-                //var identificado = Membership.ValidateUser(usuario.Email, usuario.Password);
-                //var user = Membership.GetUser(usuario.Email);
+                var roles = UsuarioAutenticado(usuario.LoginUsuario);
+                if (roles != null)
+                {
+                    if (roles.Contains("Estudio"))
+                        return RedirectToAction("Index", "User");
+                    if (roles.Contains("Usuario"))
+                        return RedirectToAction("Index", "User");
+                }
 
-                //if (identificado && user != null && user.ProviderUserKey != null)
-                //{
-                //    var usuarioIdentificado = ServUsuarios.Lee((Guid)user.ProviderUserKey);
-
-                //    FormsAuthentication.SetAuthCookie(usuario.Email, usuario.Recordarme);
-
-                //    if (usuarioIdentificado.Bandas.Any())
-                //    {
-                //        return RedirectToAction("Index", "User");
-                //    }
-                //    if (usuarioIdentificado.Estudios.Any())
-                //    {
-                //        var salasSinConfigurar = usuarioIdentificado.Estudios.Where(e => !e.Salas.Any() || e.Salas.Any(s => !s.Horarios.Any()));
-                //        if (salasSinConfigurar.Any())
-                //            return RedirectToAction("Configure", "Studio", usuarioIdentificado.Estudios.First());
-
-                //        // areglar
-                //        return RedirectToAction("Configure", "Studio");
-                //    }
-                //}
-
-                //ModelState.AddModelError("", "Email o contraseña no validos.");
+                ModelState.AddModelError("", "Incorrect username and/or password");
             }
 
             return View(new IndexUserViewModel());
@@ -89,27 +72,45 @@ namespace ResyRoom.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterUser(RegistroDeUsuario usuario)
+        public ActionResult RegisterUser(RegisterUserViewModel model)
         {
+            var usuario = model.RegistroUsuario;
             if (ServUsuarios.EsUsuarioNuevo(usuario))
             {
                 ServUsuarios.Guardar(usuario);
-                return RedirectToAction("Index");
             }
 
-            if (usuario.IsFacebookLogin)
+            var notificacion = new Notificacion();
+            model = new RegisterUserViewModel
             {
-                FormsAuthentication.SetAuthCookie(usuario.Nombre, false /* createPersistentCookie */);
-                return Json(Url.Action("Index", "User"));
-            }
-
-            var model = new RegisterUserViewModel
-            {
-                RegistroExitoso = false,
-                MensajeError = "El Usuario que intenta registrar ya existe"
+                MostrarNotificacion = true,
+                Notificaciones = notificacion.AgregarNotificacion(TipoNotificacion.Error, new List<string> { Constantes.MensajeErrorUsuarioExistente }, "Titulo")
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RegisterUserFacebook(IdentificacionDeUsuarioPorFacebook usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ServUsuarios.EsUsuarioNuevo(usuario))
+                    ServUsuarios.Guardar(usuario);
+
+                var roles = UsuarioAutenticado(usuario);
+                if (roles != null)
+                {
+                    if (roles.Contains("Estudio"))
+                        return Json(Url.Action("Index", "User"));
+                    if (roles.Contains("Usuario"))
+                        return Json(Url.Action("Index", "User"));
+                }
+
+                ModelState.AddModelError("", "Incorrect username and/or password");
+            }
+
+            return Json(Url.Action("Index", "User"));
         }
 
         #endregion
@@ -258,6 +259,18 @@ namespace ResyRoom.Controllers
         {
             var comunas = ServComunas.TodasDeUnaRegion(id);
             return Json(comunas, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CloseSession()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("index");
+        }
+
+        public ActionResult AccountData()
+        {
+            return RedirectToAction("index");
         }
         #endregion
 

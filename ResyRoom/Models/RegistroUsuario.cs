@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ResyRoom.Models
@@ -37,6 +37,18 @@ namespace ResyRoom.Models
         public bool Recordarme { get; set; }
     }
 
+    public class IdentificacionDeUsuarioPorFacebook
+    {
+        [Required(ErrorMessage = "Ingrese nombre de usuario")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        public string Nombre { get; set; }
+
+        public string FacebookId { get; set; }
+    }
+
     public class RegistroDeUsuario
     {
         [Required]
@@ -44,6 +56,7 @@ namespace ResyRoom.Models
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "La dirección de correo ingresada no es valida.")]
         public string Email { get; set; }
 
         [Required]
@@ -54,11 +67,9 @@ namespace ResyRoom.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar nueva contraseña")]
-        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Password", ErrorMessage = "Por favor verifica que ambas contraseñas coincidan.")]
         public string PasswordConfirmacion { get; set; }
-
-        public bool IsFacebookLogin { get; set; }
 
         public Banda Banda { get; set; }
         public Estudio Estudio { get; set; }

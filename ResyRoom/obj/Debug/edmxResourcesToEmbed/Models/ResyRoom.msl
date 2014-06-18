@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ResyRoomModelStoreContainer" CdmEntityContainer="ResyRoomEntities">
     <EntitySetMapping Name="Comunas">
       <EntityTypeMapping TypeName="ResyRoomModel.Comuna">
@@ -103,12 +103,13 @@
     <EntitySetMapping Name="Horarios">
       <EntityTypeMapping TypeName="ResyRoomModel.Horario">
         <MappingFragment StoreEntitySet="tb_Horario">
+          <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
+          <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
+          <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
           <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
           <ScalarProperty Name="IdSala" ColumnName="IdSala" />
           <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
           <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-          <ScalarProperty Name="Desde" ColumnName="Desde" />
-          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -141,8 +142,8 @@
     <EntitySetMapping Name="Reservas">
       <EntityTypeMapping TypeName="ResyRoomModel.Reserva">
         <MappingFragment StoreEntitySet="tb_Reserva">
+          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
           <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
-          <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
           <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
           <ScalarProperty Name="IdEstadoRserva" ColumnName="IdEstadoRserva" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -190,6 +191,8 @@
     <EntitySetMapping Name="Usuarios">
       <EntityTypeMapping TypeName="ResyRoomModel.Usuario">
         <MappingFragment StoreEntitySet="tb_Usuario">
+          <ScalarProperty Name="SessionDate" ColumnName="SessionDate" />
+          <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
           <ScalarProperty Name="EntraPorFacebook" ColumnName="EntraPorFacebook" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -198,5 +201,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="ResyRoomModel.Rol">
+        <MappingFragment StoreEntitySet="tb_Rol">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="tb_RolUsuario" TypeName="ResyRoomModel.tb_RolUsuario" StoreEntitySet="tb_RolUsuario">
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+      </EndProperty>
+      <EndProperty Name="tb_Rol">
+        <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
