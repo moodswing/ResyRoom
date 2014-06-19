@@ -11,7 +11,7 @@
     var viewKoViewModel;
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Info");
+        self.TabSeleccionado = ko.observable("Salas");
     }
 
     $(document).ready(function () {
@@ -41,7 +41,7 @@
         <div class="studio-general-info" data-bind="visible: (TabSeleccionado() == 'Info')">
             <div class="cover-studio-picture"></div>
             <div class="general-profile-info">
-                <div class="general-info-title">Información general</div>
+                <h4>Información general</h4>
                 <ul>
                     <li>@Html.LabelFor(m => m.Estudio.PrecioPorHoraDesde): @Model.Estudio.PrecioPorHoraDesde</li>
                     <li>@Html.LabelFor(m => m.Estudio.Email): @Model.Estudio.Email</li>
@@ -64,10 +64,33 @@
             </div>
         </div>
         <div class="studio-rooms" data-bind="visible: (TabSeleccionado() == 'Salas')">
-            <h3>Salas</h3>
+            <h4>Listado de Salas</h4>
+            @foreach (var sala in @Model.Estudio.Salas)
+            {
+                <div class="div-table studio-room-container" style="@(sala.DatosGrabacion == null ? "width: 60%" : "")">
+                    <div class="studio-info-room div-cell">
+                        <div class="room-name">@sala.Nombre</div>
+                        <ul>
+                            <li><span class="span-label">Tamaño:</span> <span class="span-value">@sala.Tamaño</span></li>
+                            <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
+                            <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
+                        </ul>
+                        <div class="room-price">Precio x hr: <span>$@sala.Precio</span></div>
+                    </div>
+                    @if (sala.DatosGrabacion != null)
+                    {
+                        <div class="studio-room-recording div-cell">
+                            <div class="room-name">Grabación</div>
+                            <ul>
+                                <li><span class="span-label">Masterización:</span> <span class="span-value">@(sala.DatosGrabacion.Masterizacion == true ? "Sí" : "No")</span></li>
+                            </ul>
+                        </div>    
+                    }
+                </div>
+            }
         </div>
         <div class="studio-equipment" data-bind="visible: (TabSeleccionado() == 'Equipos')">
-            <h3>Equipos</h3>
+            <h4>Equipos</h4>
         </div>
     </div>
 </div>

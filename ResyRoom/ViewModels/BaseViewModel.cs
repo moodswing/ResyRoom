@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ResyRoom.Infraestructura;
 using ResyRoom.Models;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.ViewModels
 {

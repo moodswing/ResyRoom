@@ -53,6 +53,10 @@
       <End Role="par_Comuna" EntitySet="par_Comuna" />
       <End Role="tb_Estudio" EntitySet="tb_Estudio" />
     </AssociationSet>
+    <AssociationSet Name="FK_tb_Grabacion_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Grabacion_tb_Sala">
+      <End Role="tb_Sala" EntitySet="tb_Sala" />
+      <End Role="tb_Grabacion" EntitySet="tb_Grabacion" />
+    </AssociationSet>
     <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.Store.FK_tb_Horario_tb_Sala">
       <End Role="tb_Sala" EntitySet="tb_Sala" />
       <End Role="tb_Horario" EntitySet="tb_Horario" />
@@ -87,10 +91,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_tb_Sala_tb_Estudio" Association="ResyRoomModel.Store.FK_tb_Sala_tb_Estudio">
       <End Role="tb_Estudio" EntitySet="tb_Estudio" />
-      <End Role="tb_Sala" EntitySet="tb_Sala" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tb_Sala_tb_Grabacion" Association="ResyRoomModel.Store.FK_tb_Sala_tb_Grabacion">
-      <End Role="tb_Grabacion" EntitySet="tb_Grabacion" />
       <End Role="tb_Sala" EntitySet="tb_Sala" />
     </AssociationSet>
   </EntityContainer>
@@ -197,10 +197,11 @@
     <Key>
       <PropertyRef Name="IdGrabacion" />
     </Key>
-    <Property Name="IdGrabacion" Type="int" Nullable="false" />
+    <Property Name="IdGrabacion" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdSala" Type="int" />
     <Property Name="PrecioPorCancion" Type="decimal" Scale="3" />
     <Property Name="Masterizacion" Type="bit" />
-    <Property Name="SoloGrabacion" Type="bit" />
+    <Property Name="FechaIngreso" Type="date" />
   </EntityType>
   <EntityType Name="tb_Horario">
     <Key>
@@ -388,6 +389,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tb_Grabacion_tb_Sala">
+    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
+    <End Role="tb_Grabacion" Type="ResyRoomModel.Store.tb_Grabacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Sala">
+        <PropertyRef Name="IdSala" />
+      </Principal>
+      <Dependent Role="tb_Grabacion">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tb_Horario_tb_Sala">
     <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="0..1" />
     <End Role="tb_Horario" Type="ResyRoomModel.Store.tb_Horario" Multiplicity="*" />
@@ -493,18 +506,6 @@
       </Principal>
       <Dependent Role="tb_Sala">
         <PropertyRef Name="IdEstudio" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tb_Sala_tb_Grabacion">
-    <End Role="tb_Grabacion" Type="ResyRoomModel.Store.tb_Grabacion" Multiplicity="0..1" />
-    <End Role="tb_Sala" Type="ResyRoomModel.Store.tb_Sala" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_Grabacion">
-        <PropertyRef Name="IdGrabacion" />
-      </Principal>
-      <Dependent Role="tb_Sala">
-        <PropertyRef Name="IdGrabacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

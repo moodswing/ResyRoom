@@ -34,4 +34,3 @@ C:\Users\AravenR1\ResyRoom\ResyRoom\bin\WebActivator.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\WebGrease.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
-C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.csprojResolveAssemblyReference.cache

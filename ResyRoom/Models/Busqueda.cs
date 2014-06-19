@@ -43,8 +43,6 @@ namespace ResyRoom.Models
         public bool Masterizacion { get; set; }
         [DisplayName("Por Pistas")]
         public bool PorPistas { get; set; }
-        [DisplayName("Exclusivamente de Grabación")]
-        public bool ExclusivamenteGrabacion { get; set; }
 
         #endregion
 

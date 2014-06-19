@@ -1,9 +1,7 @@
-ï»¿using System;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using Microsoft.Practices.Unity;
 using ResyRoom.Servicios;
 
@@ -23,7 +21,7 @@ namespace ResyRoom.Models
             }
         }
 
-        [DisplayName("NÃºmero de reservas en el sitio")]
+        [DisplayName("Número de reservas en el sitio")]
         public int NroDeReservasTotales
         {
             get
@@ -44,10 +42,10 @@ namespace ResyRoom.Models
         [DisplayName("Existen comentarios")]
         public bool PoseeComentarios { get { return Salas.Any(s => s.Comentarios.Any()); } }
 
-        [DisplayName("Posee la informaciÃ³n de los equipos")]
+        [DisplayName("Posee la información de los equipos")]
         public bool PoseeInfoDeEquipos { get { return Salas.Any(s => s.Equipos.Any()); } }
 
-        [DisplayName("Posee salas habilitadas para grabaciÃ³n")]
-        public bool PoseeGrabacion { get { return Salas.Any(s => s.Grabacion != null); } }
+        [DisplayName("Posee salas habilitadas para grabación")]
+        public bool PoseeGrabacion { get { return Salas.Any(s => s.Grabaciones.Any()); } }
     }
 }

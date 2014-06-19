@@ -43,7 +43,7 @@ var dataAnnotations = new[] {
 
 //*******	clases declaradas como partial
 
-var clasesParciales = new []{ "User", "Estudio" };
+var clasesParciales = new []{ "User", "Estudio", "Sala" };
 
 //*******	Fin de reglas especiales
 

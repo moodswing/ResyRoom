@@ -1,5 +1,6 @@
 ﻿using ResyRoom.Models;
 using System.Collections.Generic;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.ViewModels
 {

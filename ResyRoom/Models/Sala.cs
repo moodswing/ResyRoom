@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ResyRoom.Models
 {
-    public class Sala
+    public partial class Sala
     {
         public Sala()
         {
@@ -13,6 +13,7 @@ namespace ResyRoom.Models
             Equipos = new HashSet<Equipo>();
             Horarios = new HashSet<Horario>();
             Reservas = new HashSet<Reserva>();
+            Grabaciones = new HashSet<Grabacion>();
         }
     
         public int IdSala { get; set; }
@@ -23,13 +24,12 @@ namespace ResyRoom.Models
         public int? Precio { get; set; }
         public bool? DoblePedal { get; set; }
         public bool? SetDePlatos { get; set; }
-        public int? IdGrabacion { get; set; }
     
         public ICollection<Comentario> Comentarios { get; set; }
         public ICollection<Equipo> Equipos { get; set; }
         public Estudio Estudio { get; set; }
         public ICollection<Horario> Horarios { get; set; }
-        public Grabacion Grabacion { get; set; }
         public ICollection<Reserva> Reservas { get; set; }
+        public ICollection<Grabacion> Grabaciones { get; set; }
     }
 }

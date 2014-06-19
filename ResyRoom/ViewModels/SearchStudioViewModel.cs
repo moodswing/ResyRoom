@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Helpers;
 using Microsoft.Practices.Unity;
 using ResyRoom.Models;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.ViewModels
 {

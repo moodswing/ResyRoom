@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using ResyRoom.Models;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.ViewModels
 {

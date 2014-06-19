@@ -155,7 +155,6 @@
     <EntitySetMapping Name="Salas">
       <EntityTypeMapping TypeName="ResyRoomModel.Sala">
         <MappingFragment StoreEntitySet="tb_Sala">
-          <ScalarProperty Name="IdGrabacion" ColumnName="IdGrabacion" />
           <ScalarProperty Name="IdSala" ColumnName="IdSala" />
           <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -170,7 +169,8 @@
     <EntitySetMapping Name="Grabacion">
       <EntityTypeMapping TypeName="ResyRoomModel.Grabacion">
         <MappingFragment StoreEntitySet="tb_Grabacion">
-          <ScalarProperty Name="SoloGrabacion" ColumnName="SoloGrabacion" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
           <ScalarProperty Name="Masterizacion" ColumnName="Masterizacion" />
           <ScalarProperty Name="PrecioPorCancion" ColumnName="PrecioPorCancion" />
           <ScalarProperty Name="IdGrabacion" ColumnName="IdGrabacion" />

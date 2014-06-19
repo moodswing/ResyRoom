@@ -459,11 +459,12 @@ header, footer, nav, section
     padding-top: 20px;
 }
 
-.studio-general-info .general-profile-info .general-info-title {
+h4 {
     font-family: 'Alegreya Sans', sans-serif;
     font-size: 20px;
     color: #141414;
     padding-bottom: 10px;
+    margin: 0;
 }
 
 .studio-general-info .general-profile-info ul {
@@ -475,7 +476,7 @@ header, footer, nav, section
 .studio-general-info .general-profile-info li {
     font-size: 14px;
     border-bottom: 1px dashed #ccc;
-    padding: 5px 0;
+    padding: 4px 0;
     float: left;
     width: 50%
 }
@@ -523,4 +524,88 @@ header, footer, nav, section
 
 .studio-profile-title .studio-profile-tabs ul li:last-child {
     margin-right: 0;
+}
+
+.studio-rooms .studio-room-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.studio-rooms .studio-info-room {
+    border: 2px dashed gainsboro;
+    border-radius: 5px;
+    padding: 20px;
+    width: 60%;
+    background: url('../../Content/img/bglogo.png') repeat;
+}
+
+.studio-rooms .studio-info-room .room-name,
+.studio-rooms .studio-room-recording .room-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.studio-rooms h4 {
+    padding-top: 10px;
+}
+
+.studio-rooms .studio-info-room:last-child
+{
+    margin-bottom: 0;
+}
+
+.studio-rooms .studio-info-room ul,
+.studio-rooms .studio-room-recording ul {
+    list-style: none;
+    padding-left: 25px;
+    border-top: 1px solid gainsboro;
+}
+
+.studio-rooms .studio-info-room ul li:first-child,
+.studio-rooms .studio-room-recording ul li:first-child
+{
+    padding-top: 10px;
+}
+
+.studio-rooms .studio-info-room ul li,
+.studio-rooms .studio-room-recording ul li {
+    border-left: 1px solid gainsboro;
+    font-size: 12px;
+    padding: 2px 0 2px 15px;
+}
+
+.studio-rooms .studio-info-room ul li .span-label,
+.studio-rooms .studio-room-recording ul li .span-label
+{
+    width: 100px;
+    display: table-cell;
+}
+
+.studio-rooms .studio-info-room ul li .span-value,
+.studio-rooms .studio-room-recording ul li .span-value
+{
+    display: table-cell;
+}
+
+.studio-rooms .studio-room-recording
+{
+    border-top: 2px dashed gainsboro;
+    border-right: 2px dashed gainsboro;
+    border-bottom: 2px dashed gainsboro;
+    padding: 20px;
+}
+
+.studio-rooms .studio-info-room .room-price,
+.studio-rooms .studio-room-recording .room-price
+{
+    text-align: right;
+    font-size: 14px;
+}
+
+.studio-rooms .studio-info-room .room-price span,
+.studio-rooms .studio-room-recording .room-price span
+{
+    color: #42B8DD;
+    font-size: 22px;
+    padding-left: 10px;
 }

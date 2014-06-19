@@ -7,6 +7,7 @@ using ResyRoom.Models;
 using ResyRoom.Servicios;
 using Microsoft.Practices.Unity;
 using ResyRoom.ViewModels;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.Infraestructura
 {

@@ -7,16 +7,10 @@ namespace ResyRoom.Models
 {
     public class Grabacion
     {
-        public Grabacion()
-        {
-            Sala = new HashSet<Sala>();
-        }
-    
         public int IdGrabacion { get; set; }
         public decimal? PrecioPorCancion { get; set; }
         public bool? Masterizacion { get; set; }
-        public bool? SoloGrabacion { get; set; }
-    
-        public ICollection<Sala> Sala { get; set; }
+        public int? IdSala { get; set; }
+        public DateTime? FechaIngreso { get; set; }
     }
 }

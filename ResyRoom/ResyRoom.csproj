@@ -87,6 +87,7 @@
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Constantes.cs" />
+    <Compile Include="Models\EstudioExtendido.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\Equipo.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
@@ -122,7 +123,6 @@
     <Compile Include="Models\RegistroUsuario.cs" />
     <Compile Include="Models\Enums\ETipoBusquedaRapida.cs" />
     <Compile Include="Models\Enums\ETipoUsuario.cs" />
-    <Compile Include="Models\EstudioExtendido.cs" />
     <Compile Include="Models\Mensaje.cs" />
     <Compile Include="Models\Reserva.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
@@ -143,6 +143,7 @@
     <Compile Include="Models\Sala.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalaExtendido.cs" />
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -296,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Extendidos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

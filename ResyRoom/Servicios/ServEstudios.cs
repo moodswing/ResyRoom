@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using MoreLinq;
 using ResyRoom.Models;
 using System.Data.Entity;
 using System.Collections.Generic;
 using ResyRoom.Infraestructura.Extensiones;
+using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.Servicios
 {
@@ -95,13 +97,12 @@ namespace ResyRoom.Servicios
                               && ((param.ConDoblePedal && estudio.Salas.Any(s => s.DoblePedal ?? false)) || !param.ConDoblePedal)
                               && ((param.NroDeMicrofonos != 0 && estudio.Salas.Select(s => s.Equipos.Where(e => e.TipoEquipo.Descripcion == "Microfonos")).Count() == param.NroDeMicrofonos) || param.NroDeMicrofonos == 0)
 
-                              && ((precioGrabacionDesde != 0 && precioGrabacionHasta != 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde) && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
-                                || (precioGrabacionDesde != 0 && precioGrabacionHasta == 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion >= precioGrabacionDesde))
-                                || (precioGrabacionHasta != 0 && precioGrabacionDesde == 0 && estudio.Salas.Any(s => s.Grabacion.PrecioPorCancion <= precioGrabacionHasta))
+                              && ((precioGrabacionDesde != 0 && precioGrabacionHasta != 0 && estudio.Salas.Any(s => s.Grabaciones.Last().PrecioPorCancion >= precioGrabacionDesde) && estudio.Salas.Any(s => s.Grabaciones.Last().PrecioPorCancion <= precioGrabacionHasta))
+                                || (precioGrabacionDesde != 0 && precioGrabacionHasta == 0 && estudio.Salas.Any(s => s.Grabaciones.Last().PrecioPorCancion >= precioGrabacionDesde))
+                                || (precioGrabacionHasta != 0 && precioGrabacionDesde == 0 && estudio.Salas.Any(s => s.Grabaciones.Last().PrecioPorCancion <= precioGrabacionHasta))
                                 || (precioGrabacionDesde == 0 && precioGrabacionHasta == 0))
 
-                              && ((param.Masterizacion && estudio.Salas.Select(s => s.Grabacion.Masterizacion).Any()) || !param.Masterizacion)
-                              && ((param.ExclusivamenteGrabacion && estudio.Salas.Select(s => s.Grabacion.SoloGrabacion).Any()) || !param.ExclusivamenteGrabacion)
+                              && ((param.Masterizacion && estudio.Salas.Select(s => s.Grabaciones.Last().Masterizacion).Any()) || !param.Masterizacion)
 
                               select estudio);
 
@@ -111,8 +112,8 @@ namespace ResyRoom.Servicios
         public Estudio CargarEstudio(int idEStudio)
         {
             var estudios = _context.Estudios
-                .Include(e => e.Comuna.Region)
-                .Include(e => e.Salas);
+                                   .Include(e => e.Comuna.Region)
+                                   .Include(e => e.Salas.Select(s => s.Grabaciones));
 
             return estudios.First(s => s.IdEstudio == idEStudio);
         }
