@@ -593,19 +593,28 @@ h4 {
     border-right: 2px dashed gainsboro;
     border-bottom: 2px dashed gainsboro;
     padding: 20px;
+    position: relative;
 }
 
 .studio-rooms .studio-info-room .room-price,
-.studio-rooms .studio-room-recording .room-price
+.studio-rooms .studio-room-recording .recording-price
 {
     text-align: right;
     font-size: 14px;
 }
 
 .studio-rooms .studio-info-room .room-price span,
-.studio-rooms .studio-room-recording .room-price span
+.studio-rooms .studio-room-recording .recording-price span
 {
     color: #42B8DD;
     font-size: 22px;
     padding-left: 10px;
+}
+
+.studio-rooms .studio-room-recording .recording-price
+{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
 }
