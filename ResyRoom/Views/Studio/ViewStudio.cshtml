@@ -109,14 +109,14 @@
             @foreach (var sala in @Model.Estudio.Salas)
             {
                 <div class="equipment-boxes" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
-                    @foreach (var equipo in sala.Equipos)
+                    @foreach (var equipo in sala.Equipos.OrderByDescending(e => e.PrecioAdicional))
                     {
                         <div class="equipment-box">
                             <div class="equipment-name">@equipo.Nombre</div>
                             <div>@equipo.Descripcion</div>
                             @if (equipo.PrecioAdicional > 0)
                             {
-                                <div>Precio Adicional: @equipo.PrecioAdicional</div>
+                                <div class="additional-price">Precio Adicional: <span>+ @equipo.PrecioAdicional.ToCurrency()</span></div>
                             }
                             <div class="equipment-picture" style="background: url(@(equipo.Fotografia)); background-size: 100%; background-position: center center; background-repeat: no-repeat;"></div>
                         </div>
