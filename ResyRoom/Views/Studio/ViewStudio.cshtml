@@ -1,4 +1,6 @@
-﻿@using ResyRoom.ViewModels
+﻿@using System.Globalization
+@using ResyRoom.Infraestructura.Extensiones
+@using ResyRoom.ViewModels
 @model ResyRoom.ViewModels.IViewStudioViewModel
 <script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
 
@@ -11,7 +13,8 @@
     var viewKoViewModel;
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Salas");
+        self.TabSeleccionado = ko.observable("Equipos");
+        self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
     }
 
     $(document).ready(function () {
@@ -21,6 +24,8 @@
 
         viewKoViewModel = new ViewKoViewModel();
         ko.applyBindings(viewKoViewModel);
+
+        $(".equipment-boxes").css("width", $(".studio-equipment").width() + "px");
     });
 </script>
 
@@ -35,6 +40,7 @@
                     <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { viewKoViewModel.TabSeleccionado('Info'); }">Información General</li>
                     <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { viewKoViewModel.TabSeleccionado('Salas'); }">Salas</li>
                     <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { viewKoViewModel.TabSeleccionado('Equipos'); }">Equipos</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { viewKoViewModel.TabSeleccionado('Reservas'); }">Reservas</li>
                 </ul>
             </div>
         </div>
@@ -75,7 +81,7 @@
                             <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
                             <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
                         </ul>
-                        <div class="room-price">Precio x hr: <span>$@sala.Precio</span></div>
+                        <div class="room-price">Precio x hr: <span>@sala.Precio.ToCurrency()</span></div>
                     </div>
                     @if (sala.DatosGrabacion != null)
                     {
@@ -84,7 +90,7 @@
                             <ul>
                                 <li><span class="span-label">Masterización:</span> <span class="span-value">@(sala.DatosGrabacion.Masterizacion == true ? "Sí" : "No")</span></li>
                             </ul>
-                        <div class="recording-price">Precio x canción: <span>$@((int)sala.DatosGrabacion.PrecioPorCancion)</span></div>
+                            <div class="recording-price">Precio x canción: <span>@sala.DatosGrabacion.PrecioPorCancion.ToCurrency()</span></div>
                         </div>    
                     }
                 </div>
@@ -92,6 +98,34 @@
         </div>
         <div class="studio-equipment" data-bind="visible: (TabSeleccionado() == 'Equipos')">
             <h4>Equipos</h4>
+            <div class="equipment-menu">
+                <ul class="list-menu">
+                    @foreach (var sala in @Model.Estudio.Salas)
+                    {
+                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)    ); }">@sala.Nombre</li>
+                    }
+                </ul>
+            </div>
+            @foreach (var sala in @Model.Estudio.Salas)
+            {
+                <div class="equipment-boxes" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
+                    @foreach (var equipo in sala.Equipos)
+                    {
+                        <div class="equipment-box">
+                            <div class="equipment-name">@equipo.Nombre</div>
+                            <div>@equipo.Descripcion</div>
+                            @if (equipo.PrecioAdicional > 0)
+                            {
+                                <div>Precio Adicional: @equipo.PrecioAdicional</div>
+                            }
+                            <div class="equipment-picture" style="background: url(@(equipo.Fotografia)); background-size: 100%; background-position: center center; background-repeat: no-repeat;"></div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="studio-booking" data-bind="visible: (TabSeleccionado() == 'Reservas')">
+            <h4>Horarios</h4>
         </div>
     </div>
 </div>

@@ -113,7 +113,8 @@ namespace ResyRoom.Servicios
         {
             var estudios = _context.Estudios
                                    .Include(e => e.Comuna.Region)
-                                   .Include(e => e.Salas.Select(s => s.Grabaciones));
+                                   .Include(e => e.Salas.Select(s => s.Grabaciones))
+                                   .Include(e => e.Salas.Select(s => s.Equipos));
 
             return estudios.First(s => s.IdEstudio == idEStudio);
         }

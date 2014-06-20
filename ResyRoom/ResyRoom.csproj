@@ -66,6 +66,7 @@
     <Compile Include="Infraestructura\CustomPrincipal.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
+    <Compile Include="Infraestructura\Extensiones\IntExt.cs" />
     <Compile Include="Infraestructura\Extensiones\HtmlExt.cs" />
     <Compile Include="Infraestructura\Extensiones\ListExt.cs" />
     <Compile Include="Infraestructura\Extensiones\ObjectExt.cs" />
@@ -87,8 +88,6 @@
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Constantes.cs" />
-    <Compile Include="Models\EstudioExtendido.cs" />
-    <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\Equipo.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -98,6 +97,8 @@
     <Compile Include="Models\Estudio.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstudioExtendido.cs" />
+    <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\Genero.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -332,6 +333,7 @@
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Views\Studio\ViewStudio.cshtml" />
     <Content Include="Views\Shared\_RankingSidebar.cshtml" />
+    <Content Include="Views\Studio\_RoomEquipment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

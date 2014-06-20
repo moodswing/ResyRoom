@@ -9,10 +9,11 @@ namespace ResyRoom.Models
     {
         public int IdEquipo { get; set; }
         public int? IdSala { get; set; }
-        public int? IdTIpoEquipo { get; set; }
+        public int? IdTipoEquipo { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int? PrecioAdicional { get; set; }
+        public string Fotografia { get; set; }
     
         public TipoEquipo TipoEquipo { get; set; }
         public Sala Sala { get; set; }

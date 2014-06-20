@@ -43,14 +43,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TiposEquipo">
-      <EntityTypeMapping TypeName="ResyRoomModel.TipoEquipo">
-        <MappingFragment StoreEntitySet="par_TipoEquipo">
-          <ScalarProperty Name="IdTIpoEquipo" ColumnName="IdTIpoEquipo" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Bandas">
       <EntityTypeMapping TypeName="ResyRoomModel.Banda">
         <MappingFragment StoreEntitySet="tb_Banda">
@@ -71,18 +63,6 @@
           <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
           <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Equipos">
-      <EntityTypeMapping TypeName="ResyRoomModel.Equipo">
-        <MappingFragment StoreEntitySet="tb_Equipo">
-          <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
-          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
-          <ScalarProperty Name="IdTIpoEquipo" ColumnName="IdTIpoEquipo" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="PrecioAdicional" ColumnName="PrecioAdicional" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -218,5 +198,26 @@
         <ScalarProperty Name="IdRol" ColumnName="IdRol" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="TipoEquipos">
+      <EntityTypeMapping TypeName="ResyRoomModel.TipoEquipo">
+        <MappingFragment StoreEntitySet="par_TipoEquipo">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipos">
+      <EntityTypeMapping TypeName="ResyRoomModel.Equipo">
+        <MappingFragment StoreEntitySet="tb_Equipo">
+          <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+          <ScalarProperty Name="PrecioAdicional" ColumnName="PrecioAdicional" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
+          <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

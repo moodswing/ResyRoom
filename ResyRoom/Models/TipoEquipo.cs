@@ -12,7 +12,7 @@ namespace ResyRoom.Models
             Equipo = new HashSet<Equipo>();
         }
     
-        public int IdTIpoEquipo { get; set; }
+        public int IdTipoEquipo { get; set; }
         public string Descripcion { get; set; }
     
         public ICollection<Equipo> Equipo { get; set; }

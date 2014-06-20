@@ -133,9 +133,9 @@
   </EntityType>
   <EntityType Name="par_TipoEquipo">
     <Key>
-      <PropertyRef Name="IdTIpoEquipo" />
+      <PropertyRef Name="IdTipoEquipo" />
     </Key>
-    <Property Name="IdTIpoEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdTipoEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Descripcion" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
@@ -175,10 +175,11 @@
     </Key>
     <Property Name="IdEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdSala" Type="int" />
-    <Property Name="IdTIpoEquipo" Type="int" />
+    <Property Name="IdTipoEquipo" Type="int" />
     <Property Name="Nombre" Type="varchar" MaxLength="100" />
     <Property Name="Descripcion" Type="varchar" MaxLength="500" />
     <Property Name="PrecioAdicional" Type="int" />
+    <Property Name="Fotografia" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="tb_Estudio">
     <Key>
@@ -358,10 +359,10 @@
     <End Role="tb_Equipo" Type="ResyRoomModel.Store.tb_Equipo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="par_TipoEquipo">
-        <PropertyRef Name="IdTIpoEquipo" />
+        <PropertyRef Name="IdTipoEquipo" />
       </Principal>
       <Dependent Role="tb_Equipo">
-        <PropertyRef Name="IdTIpoEquipo" />
+        <PropertyRef Name="IdTipoEquipo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

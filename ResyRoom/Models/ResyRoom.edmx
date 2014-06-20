@@ -138,9 +138,9 @@
         </EntityType>
         <EntityType Name="par_TipoEquipo">
           <Key>
-            <PropertyRef Name="IdTIpoEquipo" />
+            <PropertyRef Name="IdTipoEquipo" />
           </Key>
-          <Property Name="IdTIpoEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -180,10 +180,11 @@
           </Key>
           <Property Name="IdEquipo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IdSala" Type="int" />
-          <Property Name="IdTIpoEquipo" Type="int" />
+          <Property Name="IdTipoEquipo" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" />
           <Property Name="Descripcion" Type="varchar" MaxLength="500" />
           <Property Name="PrecioAdicional" Type="int" />
+          <Property Name="Fotografia" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tb_Estudio">
           <Key>
@@ -363,10 +364,10 @@
           <End Role="tb_Equipo" Type="ResyRoomModel.Store.tb_Equipo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="par_TipoEquipo">
-              <PropertyRef Name="IdTIpoEquipo" />
+              <PropertyRef Name="IdTipoEquipo" />
             </Principal>
             <Dependent Role="tb_Equipo">
-              <PropertyRef Name="IdTIpoEquipo" />
+              <PropertyRef Name="IdTipoEquipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -524,10 +525,8 @@
           <EntitySet Name="Generos" EntityType="ResyRoomModel.Genero" />
           <EntitySet Name="Paises" EntityType="ResyRoomModel.Pais" />
           <EntitySet Name="Regiones" EntityType="ResyRoomModel.Region" />
-          <EntitySet Name="TiposEquipo" EntityType="ResyRoomModel.TipoEquipo" />
           <EntitySet Name="Bandas" EntityType="ResyRoomModel.Banda" />
           <EntitySet Name="Comentarios" EntityType="ResyRoomModel.Comentario" />
-          <EntitySet Name="Equipos" EntityType="ResyRoomModel.Equipo" />
           <EntitySet Name="Estudios" EntityType="ResyRoomModel.Estudio" />
           <EntitySet Name="Horarios" EntityType="ResyRoomModel.Horario" />
           <EntitySet Name="Noticias" EntityType="ResyRoomModel.Noticia" />
@@ -550,10 +549,6 @@
             <End Role="par_Pais" EntitySet="Paises" />
             <End Role="par_Region" EntitySet="Regiones" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_Equipo_par_TipoEquipo" Association="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo">
-            <End Role="par_TipoEquipo" EntitySet="TiposEquipo" />
-            <End Role="tb_Equipo" EntitySet="Equipos" />
-          </AssociationSet>
           <AssociationSet Name="FK_tb_Comentario_tb_Banda" Association="ResyRoomModel.FK_tb_Comentario_tb_Banda">
             <End Role="tb_Banda" EntitySet="Bandas" />
             <End Role="tb_Comentario" EntitySet="Comentarios" />
@@ -565,10 +560,6 @@
           <AssociationSet Name="FK_tb_Comentario_tb_Sala" Association="ResyRoomModel.FK_tb_Comentario_tb_Sala">
             <End Role="tb_Sala" EntitySet="Salas" />
             <End Role="tb_Comentario" EntitySet="Comentarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tb_Equipo_tb_Sala" Association="ResyRoomModel.FK_tb_Equipo_tb_Sala">
-            <End Role="tb_Sala" EntitySet="Salas" />
-            <End Role="tb_Equipo" EntitySet="Equipos" />
           </AssociationSet>
           <AssociationSet Name="FK_tb_Noticia_tb_Estudio" Association="ResyRoomModel.FK_tb_Noticia_tb_Estudio">
             <End Role="tb_Estudio" EntitySet="Estudios" />
@@ -605,6 +596,16 @@
           <AssociationSet Name="FK_tb_Grabacion_tb_Sala" Association="ResyRoomModel.FK_tb_Grabacion_tb_Sala">
             <End Role="Sala" EntitySet="Salas" />
             <End Role="Grabacion" EntitySet="Grabacion" />
+          </AssociationSet>
+          <EntitySet Name="TipoEquipos" EntityType="ResyRoomModel.TipoEquipo" />
+          <EntitySet Name="Equipos" EntityType="ResyRoomModel.Equipo" />
+          <AssociationSet Name="FK_tb_Equipo_par_TipoEquipo" Association="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo">
+            <End Role="par_TipoEquipo" EntitySet="TipoEquipos" />
+            <End Role="tb_Equipo" EntitySet="Equipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Equipo_tb_Sala" Association="ResyRoomModel.FK_tb_Equipo_tb_Sala">
+            <End Role="Sala" EntitySet="Salas" />
+            <End Role="tb_Equipo" EntitySet="Equipos" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comuna">
@@ -651,14 +652,6 @@
           <NavigationProperty Name="Comunas" Relationship="ResyRoomModel.FK_par_Comuna_par_Region" FromRole="par_Region" ToRole="par_Comuna" />
           <NavigationProperty Name="Pais" Relationship="ResyRoomModel.FK_par_Region_par_Pais" FromRole="par_Region" ToRole="par_Pais" />
         </EntityType>
-        <EntityType Name="TipoEquipo">
-          <Key>
-            <PropertyRef Name="IdTIpoEquipo" />
-          </Key>
-          <Property Name="IdTIpoEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Equipo" Relationship="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" FromRole="par_TipoEquipo" ToRole="tb_Equipo" />
-        </EntityType>
         <EntityType Name="Banda">
           <Key>
             <PropertyRef Name="IdBanda" />
@@ -684,19 +677,6 @@
           <NavigationProperty Name="Banda" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Banda" FromRole="tb_Comentario" ToRole="tb_Banda" />
           <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Comentario" ToRole="tb_Sala" />
           <Property Type="DateTime" Name="Fecha" Precision="3" />
-        </EntityType>
-        <EntityType Name="Equipo">
-          <Key>
-            <PropertyRef Name="IdEquipo" />
-          </Key>
-          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="IdSala" Type="Int32" />
-          <Property Name="IdTIpoEquipo" Type="Int32" />
-          <Property Name="Nombre" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
-          <Property Name="PrecioAdicional" Type="Int32" />
-          <NavigationProperty Name="TipoEquipo" Relationship="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" FromRole="tb_Equipo" ToRole="par_TipoEquipo" />
-          <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="tb_Equipo" ToRole="tb_Sala" />
         </EntityType>
         <EntityType Name="Estudio">
           <Key>
@@ -782,11 +762,11 @@
           <Property Name="DoblePedal" Type="Boolean" />
           <Property Name="SetDePlatos" Type="Boolean" />
           <NavigationProperty Name="Comentarios" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Comentario" />
-          <NavigationProperty Name="Equipos" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="tb_Sala" ToRole="tb_Equipo" />
           <NavigationProperty Name="Estudio" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Sala" ToRole="tb_Estudio" />
           <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Horario" />
           <NavigationProperty Name="Reservas" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Sala" FromRole="Sala" ToRole="Reserva" />
           <NavigationProperty Name="Grabaciones" Relationship="ResyRoomModel.FK_tb_Grabacion_tb_Sala" FromRole="Sala" ToRole="Grabacion" />
+          <NavigationProperty Name="Equipos" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="Sala" ToRole="tb_Equipo" />
         </EntityType>
         <Association Name="FK_par_Comuna_par_Region">
           <End Role="par_Region" Type="ResyRoomModel.Region" Multiplicity="0..1" />
@@ -836,18 +816,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_Equipo_par_TipoEquipo">
-          <End Role="par_TipoEquipo" Type="ResyRoomModel.TipoEquipo" Multiplicity="0..1" />
-          <End Role="tb_Equipo" Type="ResyRoomModel.Equipo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="par_TipoEquipo">
-              <PropertyRef Name="IdTIpoEquipo" />
-            </Principal>
-            <Dependent Role="tb_Equipo">
-              <PropertyRef Name="IdTIpoEquipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tb_Comentario_tb_Banda">
           <End Role="tb_Banda" Type="ResyRoomModel.Banda" Multiplicity="0..1" />
           <End Role="tb_Comentario" Type="ResyRoomModel.Comentario" Multiplicity="*" />
@@ -880,18 +848,6 @@
               <PropertyRef Name="IdSala" />
             </Principal>
             <Dependent Role="tb_Comentario">
-              <PropertyRef Name="IdSala" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_Equipo_tb_Sala">
-          <End Role="tb_Sala" Type="ResyRoomModel.Sala" Multiplicity="0..1" />
-          <End Role="tb_Equipo" Type="ResyRoomModel.Equipo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_Sala">
-              <PropertyRef Name="IdSala" />
-            </Principal>
-            <Dependent Role="tb_Equipo">
               <PropertyRef Name="IdSala" />
             </Dependent>
           </ReferentialConstraint>
@@ -1026,6 +982,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TipoEquipo">
+          <Key>
+            <PropertyRef Name="IdTipoEquipo" />
+          </Key>
+          <Property Type="Int32" Name="IdTipoEquipo" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Descripcion" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Equipo" Relationship="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" FromRole="par_TipoEquipo" ToRole="tb_Equipo" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Type="Int32" Name="IdEquipo" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="IdSala" />
+          <Property Type="Int32" Name="IdTipoEquipo" />
+          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Descripcion" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PrecioAdicional" />
+          <Property Type="String" Name="Fotografia" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoEquipo" Relationship="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" FromRole="tb_Equipo" ToRole="par_TipoEquipo" />
+          <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="tb_Equipo" ToRole="Sala" />
+        </EntityType>
+        <Association Name="FK_tb_Equipo_par_TipoEquipo">
+          <End Type="ResyRoomModel.TipoEquipo" Role="par_TipoEquipo" Multiplicity="0..1" />
+          <End Type="ResyRoomModel.Equipo" Role="tb_Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="par_TipoEquipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Principal>
+            <Dependent Role="tb_Equipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Equipo_tb_Sala">
+          <End Type="ResyRoomModel.Sala" Role="Sala" Multiplicity="0..1" />
+          <End Type="ResyRoomModel.Equipo" Role="tb_Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="IdSala" />
+            </Principal>
+            <Dependent Role="tb_Equipo">
+              <PropertyRef Name="IdSala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1054,10 +1056,6 @@
             <ScalarProperty Name="IdPais" ColumnName="IdPais" />
             <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="TiposEquipo"><EntityTypeMapping TypeName="ResyRoomModel.TipoEquipo"><MappingFragment StoreEntitySet="par_TipoEquipo">
-            <ScalarProperty Name="IdTIpoEquipo" ColumnName="IdTIpoEquipo" />
-            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Bandas"><EntityTypeMapping TypeName="ResyRoomModel.Banda"><MappingFragment StoreEntitySet="tb_Banda">
             <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
             <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
@@ -1072,14 +1070,6 @@
             <ScalarProperty Name="IdBanda" ColumnName="IdBanda" />
             <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
             <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Equipos"><EntityTypeMapping TypeName="ResyRoomModel.Equipo"><MappingFragment StoreEntitySet="tb_Equipo">
-            <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
-            <ScalarProperty Name="IdSala" ColumnName="IdSala" />
-            <ScalarProperty Name="IdTIpoEquipo" ColumnName="IdTIpoEquipo" />
-            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-            <ScalarProperty Name="PrecioAdicional" ColumnName="PrecioAdicional" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Estudios"><EntityTypeMapping TypeName="ResyRoomModel.Estudio"><MappingFragment StoreEntitySet="tb_Estudio">
             <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
@@ -1189,6 +1179,27 @@
               <ScalarProperty Name="IdRol" ColumnName="IdRol" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="TipoEquipos">
+            <EntityTypeMapping TypeName="ResyRoomModel.TipoEquipo">
+              <MappingFragment StoreEntitySet="par_TipoEquipo">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipos">
+            <EntityTypeMapping TypeName="ResyRoomModel.Equipo">
+              <MappingFragment StoreEntitySet="tb_Equipo">
+                <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+                <ScalarProperty Name="PrecioAdicional" ColumnName="PrecioAdicional" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+                <ScalarProperty Name="IdSala" ColumnName="IdSala" />
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1216,10 +1227,8 @@
         <EntityTypeShape EntityType="ResyRoomModel.Genero" Width="1.5" PointX="9.75" PointY="3.75" Height="1.5125537109374996" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Pais" Width="1.5" PointX="0.5" PointY="11.25" Height="1.2636116536458335" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Region" Width="1.5" PointX="2.5" PointY="11" Height="1.7566536458333331" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.TipoEquipo" Width="1.5" PointX="15.125" PointY="11.875" Height="1.512553710937496" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Banda" Width="1.5" PointX="7.625" PointY="5" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Comentario" Width="1.5" PointX="9.75" PointY="7.375" Height="2.0853483072916674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.Equipo" Width="1.5" PointX="12.5" PointY="11.375" Height="2.4047859700520888" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Estudio" Width="1.5" PointX="6.75" PointY="9.125" Height="2.9401253255208388" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Horario" Width="1.5" PointX="13.875" PointY="7.5" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Noticia" Width="1.5" PointX="7.5" PointY="12.75" Height="2.226339518229171" IsExpanded="true" />
@@ -1244,10 +1253,6 @@
           <ConnectorPoint PointX="2" PointY="11.881805826822916" />
           <ConnectorPoint PointX="2.5" PointY="11.881805826822916" />
         </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" ManuallyRouted="false">
-          <ConnectorPoint PointX="15.125" PointY="12.631276855468748" />
-          <ConnectorPoint PointX="14" PointY="12.631276855468748" />
-        </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Comentario_tb_Banda" ManuallyRouted="false">
           <ConnectorPoint PointX="8.375" PointY="7.41404296875" />
           <ConnectorPoint PointX="8.375" PointY="8.437196138020834" />
@@ -1260,10 +1265,6 @@
         <AssociationConnector Association="ResyRoomModel.FK_tb_Comentario_tb_Sala" ManuallyRouted="false">
           <ConnectorPoint PointX="10.625" PointY="10.375" />
           <ConnectorPoint PointX="10.625" PointY="9.6246956380208335" />
-        </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_tb_Sala" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.5" PointY="12.492889811197916" />
-          <ConnectorPoint PointX="12.5" PointY="12.492889811197916" />
         </AssociationConnector>
         <AssociationConnector Association="ResyRoomModel.FK_tb_Noticia_tb_Estudio" ManuallyRouted="false">
           <ConnectorPoint PointX="7.875" PointY="12.0320849609375" />
@@ -1293,6 +1294,10 @@
         <AssociationConnector Association="ResyRoomModel.tb_RolUsuario" />
         <AssociationConnector Association="ResyRoomModel.FK_tb_Reserva_tb_Sala" />
         <AssociationConnector Association="ResyRoomModel.FK_tb_Grabacion_tb_Sala" />
+        <EntityTypeShape EntityType="ResyRoomModel.TipoEquipo" Width="1.5" PointX="12.875" PointY="12.375" />
+        <EntityTypeShape EntityType="ResyRoomModel.Equipo" Width="1.5" PointX="15.125" PointY="13.875" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_tb_Sala" />
       </Diagram>
     </Diagrams>
   </Designer>

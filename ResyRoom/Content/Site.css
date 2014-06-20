@@ -594,6 +594,7 @@ h4 {
     border-bottom: 2px dashed gainsboro;
     padding: 20px;
     position: relative;
+    background-color: lightyellow;
 }
 
 .studio-rooms .studio-info-room .room-price,
@@ -615,4 +616,68 @@ h4 {
 {
     position: absolute;
     bottom: 20px;
+}
+
+.studio-equipment {
+    margin-bottom: 30px;    
+}
+
+.studio-equipment .equipment-menu {
+    display: table;
+    padding-left: 15px;
+}
+
+.studio-equipment .equipment-menu ul.list-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border-bottom: 1px solid gainsboro;
+}
+
+.studio-equipment .equipment-menu ul.list-menu li {
+    float: left;
+    padding: 20px;
+    margin: 0 20px;
+    font-size: 12px;
+}
+
+.studio-equipment .equipment-menu ul.list-menu li:hover
+{
+    cursor: pointer;
+}
+
+.studio-equipment .equipment-menu ul.list-menu li.room-selected
+{
+    border-color: gray;
+    border-bottom: 2px solid gray;
+}
+
+.studio-equipment .equipment-boxes {
+    overflow: auto;
+    white-space: nowrap;
+    width: 800px;
+} 
+
+.studio-equipment .equipment-boxes .equipment-box {
+    display: inline-block;
+    padding: 25px;
+    border: 1px dashed gainsboro;
+    margin: 20px 20px 20px 0;
+    white-space: normal;
+    width: 200px;
+    vertical-align: top;
+    height: 300px;
+}
+
+.studio-equipment .equipment-boxes .equipment-box .equipment-name
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.studio-equipment .equipment-boxes .equipment-box .equipment-picture
+{
+    margin-top: 20px;
+    height: 230px;
 }

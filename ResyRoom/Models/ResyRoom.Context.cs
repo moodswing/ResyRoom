@@ -20,10 +20,8 @@ namespace ResyRoom.Models
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Pais> Paises { get; set; }
         public DbSet<Region> Regiones { get; set; }
-        public DbSet<TipoEquipo> TiposEquipo { get; set; }
         public DbSet<Banda> Bandas { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
-        public DbSet<Equipo> Equipos { get; set; }
         public DbSet<Estudio> Estudios { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public DbSet<Noticia> Noticias { get; set; }
@@ -34,5 +32,7 @@ namespace ResyRoom.Models
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<TipoEquipo> TipoEquipos { get; set; }
+        public DbSet<Equipo> Equipos { get; set; }
     }
 }

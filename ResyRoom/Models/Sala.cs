@@ -10,10 +10,10 @@ namespace ResyRoom.Models
         public Sala()
         {
             Comentarios = new HashSet<Comentario>();
-            Equipos = new HashSet<Equipo>();
             Horarios = new HashSet<Horario>();
             Reservas = new HashSet<Reserva>();
             Grabaciones = new HashSet<Grabacion>();
+            Equipos = new HashSet<Equipo>();
         }
     
         public int IdSala { get; set; }
@@ -26,10 +26,10 @@ namespace ResyRoom.Models
         public bool? SetDePlatos { get; set; }
     
         public ICollection<Comentario> Comentarios { get; set; }
-        public ICollection<Equipo> Equipos { get; set; }
         public Estudio Estudio { get; set; }
         public ICollection<Horario> Horarios { get; set; }
         public ICollection<Reserva> Reservas { get; set; }
         public ICollection<Grabacion> Grabaciones { get; set; }
+        public ICollection<Equipo> Equipos { get; set; }
     }
 }
