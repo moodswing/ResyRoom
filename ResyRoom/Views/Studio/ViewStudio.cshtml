@@ -3,6 +3,9 @@
 @using ResyRoom.ViewModels
 @model ResyRoom.ViewModels.IViewStudioViewModel
 <script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/fullcalendar.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/moment.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fullcalendar.js")" type="text/javascript"></script>
 
 @{
     ViewBag.Title = @Model.Estudio.Nombre + " - ResyRoom";
@@ -13,7 +16,7 @@
     var viewKoViewModel;
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Equipos");
+        self.TabSeleccionado = ko.observable("Reservas");
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
     }
 
@@ -26,6 +29,36 @@
         ko.applyBindings(viewKoViewModel);
 
         $(".equipment-boxes").css("width", $(".studio-equipment").width() + "px");
+        
+        $('#calendar').fullCalendar({
+            header: {
+                left:   'title',
+                center: 'month,agendaWeek,agendaDay',
+                right:  'today prev,next'
+            },
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
+            buttonText: {
+                today: "Hoy",
+                month: "Mes",
+                week: "Semana",
+                day: "Día"
+            },
+            firstDay: 1,
+            selectable: true,
+            defaultView: 'month',
+            firstHour: 10,
+            slotDuration: '01:00:00',
+            minTime: '10:00:00',
+            maxTime: '22:00:00',
+            dayClick: function(date, allDay, jsEvent, view) {
+                if (allDay && $(this).is('td.fc-day')) {
+                    $('#calendar').fullCalendar('changeView', 'agendaDay');
+                    $('#calendar').fullCalendar('gotoDate', date);    
+                }
+            }
+        });
     });
 </script>
 
@@ -126,6 +159,7 @@
         </div>
         <div class="studio-booking" data-bind="visible: (TabSeleccionado() == 'Reservas')">
             <h4>Horarios</h4>
+            <div id="calendar" class="calendar"></div>
         </div>
     </div>
 </div>

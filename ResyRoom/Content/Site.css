@@ -682,3 +682,53 @@ h4 {
     margin-top: 20px;
     height: 230px;
 }
+
+.studio-booking .calendar {
+    width: 60%; 
+    padding-bottom: 30px;
+}
+
+.studio-booking .calendar .fc-state-default {
+    background-color: #fff;
+    background-image: none;
+}
+
+.studio-booking .calendar .fc-state-down, 
+.studio-booking .calendar .fc-state-active {
+    background-color: #42B8DD !Important;
+    text-shadow: none;
+    color: #fff;
+}
+
+.studio-booking .calendar .fc-day:hover {
+    cursor: pointer;
+}
+
+.studio-booking .calendar .fc-button {
+    padding: 0.2em 0.6em;
+}
+
+.studio-booking .calendar .fc-border-separate th {
+    padding: 10px 0;
+}
+
+.studio-booking .calendar .fc-border-separate .fc-day-header.fc-mon.fc-widget-header.fc-first,
+.studio-booking .calendar .fc-border-separate thead .fc-agenda-axis.fc-widget-header.fc-first {
+    border-top-left-radius: 5px;
+}
+
+.studio-booking .calendar .fc-border-separate th.fc-last {
+    border-top-right-radius: 5px;
+}
+
+.studio-booking .calendar .fc-border-separate .fc-day.fc-mon.fc-widget-content.fc-other-month.fc-future.fc-first,
+.studio-booking .calendar .fc-agenda-days tbody .fc-agenda-axis.fc-widget-header.fc-first,
+.studio-booking .calendar .fc-agenda-slots tr:last-child .fc-agenda-axis.fc-widget-header {
+    border-bottom-left-radius: 5px;
+}
+
+.studio-booking .calendar .fc-border-separate tr.fc-week.fc-last .fc-last,
+.studio-booking .calendar .fc-agenda-days tbody .fc-col6.fc-sun.fc-widget-content.fc-future.fc-last,
+.studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-tue.fc-widget-content.fc-state-highlight.fc-today.fc-last {
+    border-bottom-right-radius: 5px;
+}
