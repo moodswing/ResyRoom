@@ -215,10 +215,10 @@
           </Key>
           <Property Name="IdHorario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IdSala" Type="int" />
-          <Property Name="DuracionBloque" Type="float" />
+          <Property Name="DuracionBloque" Type="varchar" MaxLength="10" />
           <Property Name="FechaIngreso" Type="datetime" />
-          <Property Name="HoraApertura" Type="varchar" MaxLength="5" />
-          <Property Name="HoraCierre" Type="varchar" MaxLength="5" />
+          <Property Name="HoraApertura" Type="varchar" MaxLength="10" />
+          <Property Name="HoraCierre" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="DíasAbierto" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tb_Noticia">
@@ -528,7 +528,6 @@
           <EntitySet Name="Bandas" EntityType="ResyRoomModel.Banda" />
           <EntitySet Name="Comentarios" EntityType="ResyRoomModel.Comentario" />
           <EntitySet Name="Estudios" EntityType="ResyRoomModel.Estudio" />
-          <EntitySet Name="Horarios" EntityType="ResyRoomModel.Horario" />
           <EntitySet Name="Noticias" EntityType="ResyRoomModel.Noticia" />
           <EntitySet Name="Ofertas" EntityType="ResyRoomModel.Oferta" />
           <EntitySet Name="Reservas" EntityType="ResyRoomModel.Reserva" />
@@ -569,14 +568,6 @@
             <End Role="tb_Estudio" EntitySet="Estudios" />
             <End Role="tb_Sala" EntitySet="Salas" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.FK_tb_Horario_tb_Sala">
-            <End Role="tb_Sala" EntitySet="Salas" />
-            <End Role="tb_Horario" EntitySet="Horarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tb_Ofertas_tb_Horario" Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario">
-            <End Role="tb_Horario" EntitySet="Horarios" />
-            <End Role="tb_Oferta" EntitySet="Ofertas" />
-          </AssociationSet>
           <EntitySet Name="Grabacion" EntityType="ResyRoomModel.Grabacion" />
           <AssociationSet Name="FK_tb_Estudio_par_Comuna" Association="ResyRoomModel.FK_tb_Estudio_par_Comuna">
             <End Role="Comuna" EntitySet="Comunas" />
@@ -606,6 +597,15 @@
           <AssociationSet Name="FK_tb_Equipo_tb_Sala" Association="ResyRoomModel.FK_tb_Equipo_tb_Sala">
             <End Role="Sala" EntitySet="Salas" />
             <End Role="tb_Equipo" EntitySet="Equipos" />
+          </AssociationSet>
+          <EntitySet Name="Horarios" EntityType="ResyRoomModel.Horario" />
+          <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.FK_tb_Horario_tb_Sala">
+            <End Role="Sala" EntitySet="Salas" />
+            <End Role="tb_Horario" EntitySet="Horarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Ofertas_tb_Horario" Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario">
+            <End Role="tb_Horario" EntitySet="Horarios" />
+            <End Role="Oferta" EntitySet="Ofertas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comuna">
@@ -694,20 +694,6 @@
           <NavigationProperty Name="Salas" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Estudio" ToRole="tb_Sala" />
           <NavigationProperty Name="Comuna" Relationship="ResyRoomModel.FK_tb_Estudio_par_Comuna" FromRole="Estudio" ToRole="Comuna" />
         </EntityType>
-        <EntityType Name="Horario">
-          <Key>
-            <PropertyRef Name="IdHorario" />
-          </Key>
-          <Property Name="IdHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="IdSala" Type="Int32" />
-          <Property Name="DuracionBloque" Type="Double" />
-          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Horario" ToRole="tb_Sala" />
-          <NavigationProperty Name="Ofertas" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Horario" ToRole="tb_Oferta" />
-          <Property Type="String" Name="HoraApertura" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="HoraCierre" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="DíasAbierto" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Noticia">
           <Key>
             <PropertyRef Name="IdNoticia" />
@@ -732,7 +718,7 @@
           <Property Name="Hasta" Type="DateTime" Precision="3" />
           <Property Name="Porcentaje" Type="Int32" />
           <Property Name="NuevoPrecio" Type="Int32" />
-          <NavigationProperty Name="Horario" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Oferta" ToRole="tb_Horario" />
+          <NavigationProperty Name="Horario" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="Oferta" ToRole="tb_Horario" />
         </EntityType>
         <EntityType Name="Reserva">
           <Key>
@@ -763,10 +749,10 @@
           <Property Name="SetDePlatos" Type="Boolean" />
           <NavigationProperty Name="Comentarios" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Comentario" />
           <NavigationProperty Name="Estudio" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Sala" ToRole="tb_Estudio" />
-          <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Horario" />
           <NavigationProperty Name="Reservas" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Sala" FromRole="Sala" ToRole="Reserva" />
           <NavigationProperty Name="Grabaciones" Relationship="ResyRoomModel.FK_tb_Grabacion_tb_Sala" FromRole="Sala" ToRole="Grabacion" />
           <NavigationProperty Name="Equipos" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="Sala" ToRole="tb_Equipo" />
+          <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="Sala" ToRole="tb_Horario" />
         </EntityType>
         <Association Name="FK_par_Comuna_par_Region">
           <End Role="par_Region" Type="ResyRoomModel.Region" Multiplicity="0..1" />
@@ -873,30 +859,6 @@
             </Principal>
             <Dependent Role="tb_Sala">
               <PropertyRef Name="IdEstudio" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_Horario_tb_Sala">
-          <End Role="tb_Sala" Type="ResyRoomModel.Sala" Multiplicity="0..1" />
-          <End Role="tb_Horario" Type="ResyRoomModel.Horario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_Sala">
-              <PropertyRef Name="IdSala" />
-            </Principal>
-            <Dependent Role="tb_Horario">
-              <PropertyRef Name="IdSala" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_Ofertas_tb_Horario">
-          <End Role="tb_Horario" Type="ResyRoomModel.Horario" Multiplicity="0..1" />
-          <End Role="tb_Oferta" Type="ResyRoomModel.Oferta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_Horario">
-              <PropertyRef Name="IdHorario" />
-            </Principal>
-            <Dependent Role="tb_Oferta">
-              <PropertyRef Name="IdHorario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1028,6 +990,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="IdHorario" />
+          </Key>
+          <Property Type="Int32" Name="IdHorario" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="IdSala" />
+          <Property Type="String" Name="DuracionBloque" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaIngreso" Precision="3" />
+          <Property Type="String" Name="HoraApertura" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HoraCierre" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DíasAbierto" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Horario" ToRole="Sala" />
+          <NavigationProperty Name="Ofertas" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Horario" ToRole="Oferta" />
+        </EntityType>
+        <Association Name="FK_tb_Horario_tb_Sala">
+          <End Type="ResyRoomModel.Sala" Role="Sala" Multiplicity="0..1" />
+          <End Type="ResyRoomModel.Horario" Role="tb_Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="IdSala" />
+            </Principal>
+            <Dependent Role="tb_Horario">
+              <PropertyRef Name="IdSala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Ofertas_tb_Horario">
+          <End Type="ResyRoomModel.Horario" Role="tb_Horario" Multiplicity="0..1" />
+          <End Type="ResyRoomModel.Oferta" Role="Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Horario">
+              <PropertyRef Name="IdHorario" />
+            </Principal>
+            <Dependent Role="Oferta">
+              <PropertyRef Name="IdHorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1081,15 +1081,6 @@
             <ScalarProperty Name="Celular" ColumnName="Celular" />
             <ScalarProperty Name="UserId" ColumnName="UserId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Horarios"><EntityTypeMapping TypeName="ResyRoomModel.Horario"><MappingFragment StoreEntitySet="tb_Horario">
-            <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
-                <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
-                <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
-                <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
-            <ScalarProperty Name="IdSala" ColumnName="IdSala" />
-            <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
-            <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-            </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Noticias"><EntityTypeMapping TypeName="ResyRoomModel.Noticia"><MappingFragment StoreEntitySet="tb_Noticia">
             <ScalarProperty Name="IdNoticia" ColumnName="IdNoticia" />
             <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
@@ -1200,6 +1191,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Horarios">
+            <EntityTypeMapping TypeName="ResyRoomModel.Horario">
+              <MappingFragment StoreEntitySet="tb_Horario">
+                <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
+                <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
+                <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
+                <ScalarProperty Name="IdSala" ColumnName="IdSala" />
+                <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1230,7 +1234,6 @@
         <EntityTypeShape EntityType="ResyRoomModel.Banda" Width="1.5" PointX="7.625" PointY="5" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Comentario" Width="1.5" PointX="9.75" PointY="7.375" Height="2.0853483072916674" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Estudio" Width="1.5" PointX="6.75" PointY="9.125" Height="2.9401253255208388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ResyRoomModel.Horario" Width="1.5" PointX="13.875" PointY="7.5" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Noticia" Width="1.5" PointX="7.5" PointY="12.75" Height="2.226339518229171" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Oferta" Width="1.5" PointX="16.125" PointY="6.125" Height="2.5832324218750031" IsExpanded="true" />
         <EntityTypeShape EntityType="ResyRoomModel.Reserva" Width="1.5" PointX="11.625" PointY="5" Height="2.7616788736979174" IsExpanded="true" />
@@ -1274,15 +1277,6 @@
           <ConnectorPoint PointX="8.25" PointY="11.20354248046875" />
           <ConnectorPoint PointX="10" PointY="11.20354248046875" />
         </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Horario_tb_Sala" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.5" PointY="10.84375" />
-          <ConnectorPoint PointX="14.5625" PointY="10.84375" />
-          <ConnectorPoint PointX="14.5625" PointY="9.91404296875" />
-        </AssociationConnector>
-        <AssociationConnector Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario" ManuallyRouted="false">
-          <ConnectorPoint PointX="15.375" PointY="8.1041162109375016" />
-          <ConnectorPoint PointX="16.125" PointY="8.1041162109375016" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="ResyRoomModel.Grabacion" Width="1.5" PointX="11.75" PointY="15.875" Height="1.7566536458333282" />
         <AssociationConnector Association="ResyRoomModel.FK_tb_Estudio_par_Comuna">
           <ConnectorPoint PointX="6.125" PointY="11.57854248046875" />
@@ -1298,6 +1292,9 @@
         <EntityTypeShape EntityType="ResyRoomModel.Equipo" Width="1.5" PointX="15.125" PointY="13.875" />
         <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_par_TipoEquipo" />
         <AssociationConnector Association="ResyRoomModel.FK_tb_Equipo_tb_Sala" />
+        <EntityTypeShape EntityType="ResyRoomModel.Horario" Width="1.5" PointX="13.625" PointY="8.625" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Horario_tb_Sala" />
+        <AssociationConnector Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario" />
       </Diagram>
     </Diagrams>
   </Designer>

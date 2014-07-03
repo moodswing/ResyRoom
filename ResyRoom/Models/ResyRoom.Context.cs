@@ -23,7 +23,6 @@ namespace ResyRoom.Models
         public DbSet<Banda> Bandas { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Estudio> Estudios { get; set; }
-        public DbSet<Horario> Horarios { get; set; }
         public DbSet<Noticia> Noticias { get; set; }
         public DbSet<Oferta> Ofertas { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
@@ -34,5 +33,6 @@ namespace ResyRoom.Models
         public DbSet<Rol> Roles { get; set; }
         public DbSet<TipoEquipo> TipoEquipos { get; set; }
         public DbSet<Equipo> Equipos { get; set; }
+        public DbSet<Horario> Horarios { get; set; }
     }
 }

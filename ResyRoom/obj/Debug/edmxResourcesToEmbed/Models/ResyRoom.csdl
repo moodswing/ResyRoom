@@ -9,7 +9,6 @@
     <EntitySet Name="Bandas" EntityType="ResyRoomModel.Banda" />
     <EntitySet Name="Comentarios" EntityType="ResyRoomModel.Comentario" />
     <EntitySet Name="Estudios" EntityType="ResyRoomModel.Estudio" />
-    <EntitySet Name="Horarios" EntityType="ResyRoomModel.Horario" />
     <EntitySet Name="Noticias" EntityType="ResyRoomModel.Noticia" />
     <EntitySet Name="Ofertas" EntityType="ResyRoomModel.Oferta" />
     <EntitySet Name="Reservas" EntityType="ResyRoomModel.Reserva" />
@@ -50,14 +49,6 @@
       <End Role="tb_Estudio" EntitySet="Estudios" />
       <End Role="tb_Sala" EntitySet="Salas" />
     </AssociationSet>
-    <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.FK_tb_Horario_tb_Sala">
-      <End Role="tb_Sala" EntitySet="Salas" />
-      <End Role="tb_Horario" EntitySet="Horarios" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tb_Ofertas_tb_Horario" Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario">
-      <End Role="tb_Horario" EntitySet="Horarios" />
-      <End Role="tb_Oferta" EntitySet="Ofertas" />
-    </AssociationSet>
     <EntitySet Name="Grabacion" EntityType="ResyRoomModel.Grabacion" />
     <AssociationSet Name="FK_tb_Estudio_par_Comuna" Association="ResyRoomModel.FK_tb_Estudio_par_Comuna">
       <End Role="Comuna" EntitySet="Comunas" />
@@ -87,6 +78,15 @@
     <AssociationSet Name="FK_tb_Equipo_tb_Sala" Association="ResyRoomModel.FK_tb_Equipo_tb_Sala">
       <End Role="Sala" EntitySet="Salas" />
       <End Role="tb_Equipo" EntitySet="Equipos" />
+    </AssociationSet>
+    <EntitySet Name="Horarios" EntityType="ResyRoomModel.Horario" />
+    <AssociationSet Name="FK_tb_Horario_tb_Sala" Association="ResyRoomModel.FK_tb_Horario_tb_Sala">
+      <End Role="Sala" EntitySet="Salas" />
+      <End Role="tb_Horario" EntitySet="Horarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Ofertas_tb_Horario" Association="ResyRoomModel.FK_tb_Ofertas_tb_Horario">
+      <End Role="tb_Horario" EntitySet="Horarios" />
+      <End Role="Oferta" EntitySet="Ofertas" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Comuna">
@@ -175,20 +175,6 @@
     <NavigationProperty Name="Salas" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Estudio" ToRole="tb_Sala" />
     <NavigationProperty Name="Comuna" Relationship="ResyRoomModel.FK_tb_Estudio_par_Comuna" FromRole="Estudio" ToRole="Comuna" />
   </EntityType>
-  <EntityType Name="Horario">
-    <Key>
-      <PropertyRef Name="IdHorario" />
-    </Key>
-    <Property Name="IdHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-    <Property Name="IdSala" Type="Int32" />
-    <Property Name="DuracionBloque" Type="Double" />
-    <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Horario" ToRole="tb_Sala" />
-    <NavigationProperty Name="Ofertas" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Horario" ToRole="tb_Oferta" />
-    <Property Type="String" Name="HoraApertura" MaxLength="5" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="HoraCierre" MaxLength="5" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="DíasAbierto" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="Noticia">
     <Key>
       <PropertyRef Name="IdNoticia" />
@@ -213,7 +199,7 @@
     <Property Name="Hasta" Type="DateTime" Precision="3" />
     <Property Name="Porcentaje" Type="Int32" />
     <Property Name="NuevoPrecio" Type="Int32" />
-    <NavigationProperty Name="Horario" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Oferta" ToRole="tb_Horario" />
+    <NavigationProperty Name="Horario" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="Oferta" ToRole="tb_Horario" />
   </EntityType>
   <EntityType Name="Reserva">
     <Key>
@@ -244,10 +230,10 @@
     <Property Name="SetDePlatos" Type="Boolean" />
     <NavigationProperty Name="Comentarios" Relationship="ResyRoomModel.FK_tb_Comentario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Comentario" />
     <NavigationProperty Name="Estudio" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Sala" ToRole="tb_Estudio" />
-    <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Sala" ToRole="tb_Horario" />
     <NavigationProperty Name="Reservas" Relationship="ResyRoomModel.FK_tb_Reserva_tb_Sala" FromRole="Sala" ToRole="Reserva" />
     <NavigationProperty Name="Grabaciones" Relationship="ResyRoomModel.FK_tb_Grabacion_tb_Sala" FromRole="Sala" ToRole="Grabacion" />
     <NavigationProperty Name="Equipos" Relationship="ResyRoomModel.FK_tb_Equipo_tb_Sala" FromRole="Sala" ToRole="tb_Equipo" />
+    <NavigationProperty Name="Horarios" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="Sala" ToRole="tb_Horario" />
   </EntityType>
   <Association Name="FK_par_Comuna_par_Region">
     <End Role="par_Region" Type="ResyRoomModel.Region" Multiplicity="0..1" />
@@ -354,30 +340,6 @@
       </Principal>
       <Dependent Role="tb_Sala">
         <PropertyRef Name="IdEstudio" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tb_Horario_tb_Sala">
-    <End Role="tb_Sala" Type="ResyRoomModel.Sala" Multiplicity="0..1" />
-    <End Role="tb_Horario" Type="ResyRoomModel.Horario" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_Sala">
-        <PropertyRef Name="IdSala" />
-      </Principal>
-      <Dependent Role="tb_Horario">
-        <PropertyRef Name="IdSala" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tb_Ofertas_tb_Horario">
-    <End Role="tb_Horario" Type="ResyRoomModel.Horario" Multiplicity="0..1" />
-    <End Role="tb_Oferta" Type="ResyRoomModel.Oferta" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tb_Horario">
-        <PropertyRef Name="IdHorario" />
-      </Principal>
-      <Dependent Role="tb_Oferta">
-        <PropertyRef Name="IdHorario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -506,6 +468,44 @@
       </Principal>
       <Dependent Role="tb_Equipo">
         <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Horario">
+    <Key>
+      <PropertyRef Name="IdHorario" />
+    </Key>
+    <Property Type="Int32" Name="IdHorario" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="IdSala" />
+    <Property Type="String" Name="DuracionBloque" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="FechaIngreso" Precision="3" />
+    <Property Type="String" Name="HoraApertura" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HoraCierre" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DíasAbierto" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Sala" Relationship="ResyRoomModel.FK_tb_Horario_tb_Sala" FromRole="tb_Horario" ToRole="Sala" />
+    <NavigationProperty Name="Ofertas" Relationship="ResyRoomModel.FK_tb_Ofertas_tb_Horario" FromRole="tb_Horario" ToRole="Oferta" />
+  </EntityType>
+  <Association Name="FK_tb_Horario_tb_Sala">
+    <End Type="ResyRoomModel.Sala" Role="Sala" Multiplicity="0..1" />
+    <End Type="ResyRoomModel.Horario" Role="tb_Horario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sala">
+        <PropertyRef Name="IdSala" />
+      </Principal>
+      <Dependent Role="tb_Horario">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Ofertas_tb_Horario">
+    <End Type="ResyRoomModel.Horario" Role="tb_Horario" Multiplicity="0..1" />
+    <End Type="ResyRoomModel.Oferta" Role="Oferta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Horario">
+        <PropertyRef Name="IdHorario" />
+      </Principal>
+      <Dependent Role="Oferta">
+        <PropertyRef Name="IdHorario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

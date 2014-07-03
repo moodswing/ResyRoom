@@ -14,7 +14,7 @@ namespace ResyRoom.Models
     
         public int IdHorario { get; set; }
         public int? IdSala { get; set; }
-        public double? DuracionBloque { get; set; }
+        public string DuracionBloque { get; set; }
         public DateTime? FechaIngreso { get; set; }
         public string HoraApertura { get; set; }
         public string HoraCierre { get; set; }

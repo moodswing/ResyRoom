@@ -624,11 +624,13 @@ h4 {
     margin-bottom: 30px;    
 }
 
-.studio-equipment .equipment-menu {
+.studio-equipment .equipment-menu,
+.studio-booking .booking-menu {
     display: table;
 }
 
-.studio-equipment .equipment-menu ul.list-menu {
+.studio-equipment .equipment-menu ul.list-menu,
+.studio-booking .booking-menu ul.list-menu {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -636,19 +638,22 @@ h4 {
     border-bottom: 1px solid gainsboro;
 }
 
-.studio-equipment .equipment-menu ul.list-menu li {
+.studio-equipment .equipment-menu ul.list-menu li,
+.studio-booking .booking-menu ul.list-menu li {
     float: left;
     padding: 20px;
     margin: 0 20px;
     font-size: 12px;
 }
 
-.studio-equipment .equipment-menu ul.list-menu li:hover
+.studio-equipment .equipment-menu ul.list-menu li:hover,
+.studio-booking .booking-menu ul.list-menu li:hover
 {
     cursor: pointer;
 }
 
-.studio-equipment .equipment-menu ul.list-menu li.room-selected
+.studio-equipment .equipment-menu ul.list-menu li.room-selected,
+.studio-booking .booking-menu ul.list-menu li.room-selected
 {
     border-color: gray;
     border-bottom: 2px solid gray;
@@ -684,8 +689,9 @@ h4 {
 }
 
 .studio-booking .calendar {
-    width: 60%; 
+    width: 50%; 
     padding-bottom: 30px;
+    padding-top: 30px;
 }
 
 .studio-booking .calendar .fc-state-default {
@@ -729,6 +735,40 @@ h4 {
 
 .studio-booking .calendar .fc-border-separate tr.fc-week.fc-last .fc-last,
 .studio-booking .calendar .fc-agenda-days tbody .fc-col6.fc-sun.fc-widget-content.fc-future.fc-last,
-.studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-tue.fc-widget-content.fc-state-highlight.fc-today.fc-last {
+.studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-tue.fc-widget-content.fc-state-highlight.fc-today.fc-last,
+.studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-sat.fc-widget-content.fc-future.fc-last,
+.studio-booking .calendar .fc-view.fc-view-agendaDay.fc-agenda,
+.studio-booking .calendar .fc-col0.fc-mon.fc-widget-content.fc-future.fc-last {
     border-bottom-right-radius: 5px;
+}
+
+.studio-booking .calendar .fc-agenda-slots .fc-agenda-axis.fc-widget-header {
+    height: 24px;
+}
+
+.studio-booking .calendar .fc-inactive {
+    background-color: #EFEFEF;
+}
+
+.studio-booking .calendar .fc-inactive:hover
+{
+    cursor: default;
+}
+
+.studio-booking .calendar .fc-day-content {
+    text-align: center;
+}
+
+.studio-booking .calendar .fc-day-content > div
+{
+    height: auto !Important;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.studio-booking .calendar .fc-agenda-slots td div {
+    height: auto;
+    padding-left: 10px;
+}
+
 }

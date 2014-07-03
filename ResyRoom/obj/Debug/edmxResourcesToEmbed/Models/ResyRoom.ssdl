@@ -210,10 +210,10 @@
     </Key>
     <Property Name="IdHorario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdSala" Type="int" />
-    <Property Name="DuracionBloque" Type="float" />
+    <Property Name="DuracionBloque" Type="varchar" MaxLength="10" />
     <Property Name="FechaIngreso" Type="datetime" />
-    <Property Name="HoraApertura" Type="varchar" MaxLength="5" />
-    <Property Name="HoraCierre" Type="varchar" MaxLength="5" />
+    <Property Name="HoraApertura" Type="varchar" MaxLength="10" />
+    <Property Name="HoraCierre" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="DíasAbierto" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tb_Noticia">

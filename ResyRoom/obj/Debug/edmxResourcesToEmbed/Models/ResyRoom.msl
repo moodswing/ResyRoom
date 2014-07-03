@@ -80,19 +80,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Horarios">
-      <EntityTypeMapping TypeName="ResyRoomModel.Horario">
-        <MappingFragment StoreEntitySet="tb_Horario">
-          <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
-          <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
-          <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
-          <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
-          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
-          <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
-          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Noticias">
       <EntityTypeMapping TypeName="ResyRoomModel.Noticia">
         <MappingFragment StoreEntitySet="tb_Noticia">
@@ -216,6 +203,19 @@
           <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
           <ScalarProperty Name="IdSala" ColumnName="IdSala" />
           <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horarios">
+      <EntityTypeMapping TypeName="ResyRoomModel.Horario">
+        <MappingFragment StoreEntitySet="tb_Horario">
+          <ScalarProperty Name="DíasAbierto" ColumnName="DíasAbierto" />
+          <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
+          <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="DuracionBloque" ColumnName="DuracionBloque" />
+          <ScalarProperty Name="IdSala" ColumnName="IdSala" />
+          <ScalarProperty Name="IdHorario" ColumnName="IdHorario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
