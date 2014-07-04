@@ -83,9 +83,15 @@
                     day: 'dddd D/M'
                 },
                 firstDay: 1,
-                selectable: true,
+                selectable: {
+                    agendaDay: true,
+                    agendaWeek: true,
+                    'default': false,
+                },
                 defaultView: 'month',
                 firstHour: 10,
+                allDayDefault: false,
+                lazyFetching: true,
                 slotDuration: "@(sala.HorarioActivo.DuracionBloque)",
                 minTime: "@(sala.HorarioActivo.HoraApertura)",
                 maxTime: "@(sala.HorarioActivo.HoraCierre)",
@@ -120,6 +126,37 @@
                         }
                     }
                 },
+                events: function(start, end, timezone, callback) {
+                    var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
+
+                    var events = [];
+                    for(var i = 0; i < sala.Reservas().length; i ++) {
+                        var horaDesde = sala.Reservas()[i].Desde.substring(0, 2).replace(":", "");
+                        horaDesde = horaDesde.length == 1 ? '0' + horaDesde : horaDesde;
+
+                        var horaHasta = sala.Reservas()[i].Hasta.substring(0, 2).replace(":", "");
+                        horaHasta = horaHasta.length == 1 ? '0' + horaHasta : horaHasta;
+
+                        events.push({
+                            title: "Reservado",
+                            start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + horaDesde + ":00",
+                            end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + horaHasta + ":00",
+                        });
+                    }
+                    
+                    callback(events);
+                },
+                eventRender: function (event, element, view) {
+                    if (view.name == "month")
+                        return false;
+                    
+                    element.find(".fc-event-time").remove();
+                    element.find(".fc-event-inner").addClass("div-table");
+                    element.find(".fc-event-title").addClass("div-cell");
+                    element.find(".fc-event-title").css("vertical-align", "middle");
+                },
+                eventColor: '#EFEFEF',
+                eventTextColor: '#5D5D5D',
                 viewRender: function(view, element) {
                     var sala;
                     var fecha;
@@ -135,17 +172,9 @@
                         slotsDisponibles = dailySlots - reservas.length;
                     }
 
-                    if (view.name == "agendaWeek") {
-                        console.log(view);
-                        temp2.intervalStart.format("YYYY-MM-DD") + ' ' + temp2.intervalEnd.format("YYYY-MM-DD")
+                    if (view.name == "agendaDay" && viewKoViewModel.FromCalendar()) {
+                        view.allDayRow().find(".fc-day-content > div").text("")
 
-                        for(var i = 0; i < 7; i ++) {
-                            var fechaSemana = view.start;
-                            var cell = element.find(".fc-slot" + slot + " .fc-widget-content");
-
-                        }
-                    }
-                    else if (view.name == "agendaDay" && viewKoViewModel.FromCalendar()) {
                         if (slotsDisponibles == 0) {
                             view.allDayRow().find(".fc-day-content > div").text("Sin espacios disponibles. Favor buscar durante otra fecha.")
                         }
@@ -153,17 +182,17 @@
                             view.allDayRow().find(".fc-day-content > div").text("Quedan " + slotsDisponibles + " espacios disponibles")
                         }
 
-                        element.find("[class^=fc-slot] .fc-widget-content").removeClass("fc-inactive");
-                        element.find("[class^=fc-slot] .fc-widget-content").find("> div").text("");
+                        var cell = element.find("[class^='fc-slot'] .fc-widget-content");
+                        $(cell).css("vertical-align", "baseline");
+                        $(cell).removeClass("fc-inactive");
+                        $(cell).find("> div").text("");
 
-                        for(var i = 0; i < reservas.length; i ++) {
-                            var slot = moment.duration(reservas[i].Desde + ":00").subtract(sala.HoraApertura) / moment.duration(sala.DuracionBloque);
-
-                            var cell = element.find(".fc-slot" + slot + " .fc-widget-content");
+                        if (diasCerrados.indexOf($("#calendar@(sala.IdSala)").fullCalendar("getDate").day()) != -1) {
+                            console.log(element);
                             if (cell.length > 0) {
                                 $(cell).css("vertical-align", "middle");
                                 $(cell).addClass("fc-inactive");
-                                $(cell).find("> div").text("Reservado");
+                                $(cell).find("> div").text("No Disponible");
                             }
                         }
                     }
@@ -289,7 +318,34 @@
             </div>
             @foreach (var sala in @Model.Estudio.Salas)
             {
-                <div id="calendar@(sala.IdSala)" class="calendar" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)"></div>
+                <div class="div-table" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)" style="width: 100%">
+                    <div id="calendar@(sala.IdSala)" class="calendar div-cell"></div>
+                    <div class="booking div-cell">
+                        <div class="inner-div">
+                            <h4>Reserva de Hora</h4>
+                            <div>
+                                <span class="booking-label">Día</span>
+                                <span class="booking-value">Viernes 4 de Abril 2014</span>
+                            </div>
+                            <div>
+                                <span class="booking-label">Hora</span>
+                                <span class="booking-value">Desde las 9:00 hasta las 10:00</span>
+                            </div>
+                            <div>
+                                <span class="booking-label">Estudio</span>
+                                <span class="booking-value">Backstage Production</span>
+                            </div>
+                            <div>
+                                <span class="booking-label">Sala</span>
+                                <span class="booking-value">Sala 1</span>
+                            </div>
+                            <div>
+                                <span class="booking-label">Precio total</span>
+                                <span class="booking-value">$1.500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     </div>

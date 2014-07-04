@@ -750,6 +750,11 @@ h4 {
     background-color: #EFEFEF;
 }
 
+.studio-booking .calendar .fc-agenda-slots .fc-inactive
+{
+    font-size: 10px;
+}
+
 .studio-booking .calendar .fc-inactive:hover
 {
     cursor: default;
@@ -771,4 +776,37 @@ h4 {
     padding-left: 10px;
 }
 
+.studio-booking .calendar .fc-event-vert {
+    border-radius: 0;
+}
+
+.studio-booking .calendar .fc-event-title {
+    padding-left: 10px;
+}
+
+.studio-booking .booking {
+    width: 50%;
+    padding: 20px 0 0 20px;
+}
+
+.studio-booking .booking .inner-div {
+    height: 300px; 
+    background-color: #EFEFEF; 
+    border-radius: 5px; 
+    padding-left: 20px; 
+    padding-top: 20px;
+}
+
+.studio-booking .booking .inner-div .booking-label
+{
+    width: 70px;
+    display: table-cell;
+    text-align: right;
+    padding-right: 15px;
+    padding-bottom: 10px;
+}
+
+.studio-booking .booking .inner-div .booking-value
+{
+    display: table-cell;
 }

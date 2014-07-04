@@ -4765,7 +4765,7 @@ function AgendaEventRenderer() {
 			// TODO: move this to CSS somehow
 			columnRight -= columnWidth * .025;
 			columnWidth = columnRight - columnLeft;
-
+		    
 			width = columnWidth * (seg.forwardCoord - seg.backwardCoord);
 
 			if (opt('slotEventOverlap')) {
@@ -4788,14 +4788,19 @@ function AgendaEventRenderer() {
 			}
 
 			// make sure horizontal coordinates are in bounds
-			left = Math.max(left, columnLeft);
+			left = Math.max(left, columnLeft) - 2;
 			right = Math.min(right, columnRight);
 			width = right - left;
 
-			seg.top = top;
+			seg.top = top == 0 ? top : top + 1;
 			seg.left = left;
-			seg.outerWidth = width;
-			seg.outerHeight = bottom - top;
+			seg.outerHeight = bottom - (top == 0 ? top - 1 : top) - 1;
+		    
+			if (getSlotContainer().parents(".calendar").fullCalendar("getView").name != "agendaWeek")
+			    seg.outerWidth = width + 14;
+			else
+			    seg.outerWidth = width + 4;
+
 			html += slotSegHtml(event, seg);
 		}
 
@@ -4878,6 +4883,7 @@ function AgendaEventRenderer() {
 		if (isEventDraggable(event)) {
 			classes.push('fc-event-draggable');
 		}
+	    
 		if (seg.isStart) {
 			classes.push('fc-event-start');
 		}
@@ -6241,7 +6247,7 @@ function DayEventRenderer() {
 		var isRTL = opt('isRTL');
 		var event = segment.event;
 		var url = event.url;
-
+		
 		// generate the list of CSS classNames
 		var classNames = [ 'fc-event', 'fc-event-hori' ];
 		if (isEventDraggable(event)) {
