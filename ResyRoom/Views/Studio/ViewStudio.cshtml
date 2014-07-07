@@ -23,6 +23,21 @@
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
         self.Salas = ko.observable([]);
         self.FromCalendar = ko.observable();
+        self.HoraReservaDesde = ko.observable();
+        self.HoraReservaHasta = ko.observable();
+        self.IdSalaReserva = ko.observable();
+        
+        self.FechaReserva = ko.computed(function() {
+            return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('dddd, D [de] MMMM YYYY') : '--';
+        });
+        self.HoraDesdeHastaReserva = ko.computed(function() {
+            return self.HoraReservaDesde() != null && self.HoraReservaHasta() != null ? "Desde las " + self.HoraReservaDesde().format('HH:mm') + " hasta las " + self.HoraReservaHasta().format('HH:mm') + " horas" : '--';
+        });
+        self.PrecioReserva = ko.computed(function() {
+            if (self.IdSalaReserva() == null || self.HoraReservaHasta() == null || self.HoraReservaDesde() == null) return "";
+            var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == self.IdSalaReserva(); });
+            return "$" + self.HoraReservaHasta().diff(self.HoraReservaDesde()) / moment.duration(sala.DuracionBloque) * sala.PrecioBloque;
+        });
     }
     
     function GetDateTimeToJson(date) {
@@ -53,7 +68,8 @@
                 Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
                 HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
                 HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
-                DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)"
+                DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)",
+                PrecioBloque: "@(sala.Precio)"
             });
 
             for (day = 0; day < 7; day++)
@@ -146,7 +162,7 @@
                     
                     callback(events);
                 },
-                eventRender: function (event, element, view) {
+                eventRender: function(event, element, view) {
                     if (view.name == "month")
                         return false;
                     
@@ -157,12 +173,26 @@
                 },
                 eventColor: '#EFEFEF',
                 eventTextColor: '#5D5D5D',
+                select: function(start, end, jsEvent, view) {
+                    viewKoViewModel.HoraReservaDesde(start);
+                    viewKoViewModel.HoraReservaHasta(end);
+                    viewKoViewModel.IdSalaReserva(@(sala.IdSala));
+
+
+
+
+
+                },
                 viewRender: function(view, element) {
                     var sala;
                     var fecha;
                     var reservas;
                     var dailySlots;
                     var slotsDisponibles;
+
+                    viewKoViewModel.HoraReservaDesde(null);
+                    viewKoViewModel.HoraReservaHasta(null);
+                    viewKoViewModel.IdSalaReserva(null);
                         
                     if ((view.name == "agendaDay" && viewKoViewModel.FromCalendar()) || view.name == "agendaWeek") {
                         sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
@@ -324,24 +354,27 @@
                         <div class="inner-div">
                             <h4>Reserva de Hora</h4>
                             <div>
-                                <span class="booking-label">Día</span>
-                                <span class="booking-value">Viernes 4 de Abril 2014</span>
+                                <span class="booking-label">día</span>
+                                <span class="booking-value" data-bind="text: FechaReserva()"></span>
                             </div>
                             <div>
-                                <span class="booking-label">Hora</span>
-                                <span class="booking-value">Desde las 9:00 hasta las 10:00</span>
+                                <span class="booking-label">hora</span>
+                                <span class="booking-value" data-bind="text: HoraDesdeHastaReserva()"></span>
                             </div>
                             <div>
-                                <span class="booking-label">Estudio</span>
-                                <span class="booking-value">Backstage Production</span>
+                                <span class="booking-label">estudio</span>
+                                <span class="booking-value">@sala.Estudio.Nombre</span>
                             </div>
                             <div>
-                                <span class="booking-label">Sala</span>
-                                <span class="booking-value">Sala 1</span>
+                                <span class="booking-label">sala</span>
+                                <span class="booking-value">@sala.Nombre</span>
                             </div>
                             <div>
-                                <span class="booking-label">Precio total</span>
-                                <span class="booking-value">$1.500</span>
+                                <span class="booking-label booking-price-label">precio total</span>
+                                <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
+                            </div>
+                            <div class="book-hour">
+                                <input type="submit" class="botonGrande" value="reservar hora" />
                             </div>
                         </div>
                     </div>

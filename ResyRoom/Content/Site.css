@@ -614,6 +614,12 @@ h4 {
     padding-left: 10px;
 }
 
+.studio-booking .booking .inner-div .booking-price
+{
+    color: #42B8DD;
+    font-size: 22px;
+}
+
 .studio-rooms .studio-room-recording .recording-price
 {
     position: absolute;
@@ -786,15 +792,14 @@ h4 {
 
 .studio-booking .booking {
     width: 50%;
-    padding: 20px 0 0 20px;
+    padding: 20px 0 0 25px;
+    font-size: 12px;
 }
 
 .studio-booking .booking .inner-div {
-    height: 300px; 
     background-color: #EFEFEF; 
     border-radius: 5px; 
-    padding-left: 20px; 
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .studio-booking .booking .inner-div .booking-label
@@ -809,4 +814,18 @@ h4 {
 .studio-booking .booking .inner-div .booking-value
 {
     display: table-cell;
+}
+
+.studio-booking .booking .inner-div .book-hour {
+    text-align: right;
+}
+
+.studio-booking .booking .inner-div .booking-price-label {
+    height: 37px;
+    vertical-align: middle;
+}
+
+
+.studio-booking .calendar .fc-cell-overlay {
+    background-color: #42B8DD;
 }
