@@ -20,6 +20,8 @@ namespace ResyRoom.Controllers
         [Dependency]
         public IServRegiones ServRegiones { get; set; }
         [Dependency]
+        public IServReservas ServReservas { get; set; }
+        [Dependency]
         public ISearchStudioViewModel SearchViewModel { get; set; }
         [Dependency]
         public IViewStudioViewModel ViewStudioViewModel { get; set; }
@@ -63,7 +65,26 @@ namespace ResyRoom.Controllers
             ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
             ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(id);
+            
+            return View(ViewStudioViewModel);
+        }
 
+        [HttpPost]
+        public ActionResult ViewStudio(ViewStudioViewModel model)
+        {
+            ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
+            ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
+
+            if (model.Reserva.IdSala != null) ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio((int)model.Reserva.IdSala);
+
+            if (model.Reserva == null || model.Reserva.Fecha == null)
+            {
+                ViewStudioViewModel.ReservaRealizadaConExito = false;
+                return View(ViewStudioViewModel); 
+            }
+
+            ViewStudioViewModel.ReservaRealizadaConExito = ServReservas.Guardar(model.Reserva);
+            
             return View(ViewStudioViewModel);
         }
 

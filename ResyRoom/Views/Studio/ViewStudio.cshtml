@@ -26,6 +26,7 @@
         self.HoraReservaDesde = ko.observable();
         self.HoraReservaHasta = ko.observable();
         self.IdSalaReserva = ko.observable();
+        self.ReservaRealizadaConExito = ko.observable('@(Model.ReservaRealizadaConExito)');
         
         self.FechaReserva = ko.computed(function() {
             return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('dddd, D [de] MMMM YYYY') : '--';
@@ -36,8 +37,12 @@
         self.PrecioReserva = ko.computed(function() {
             if (self.IdSalaReserva() == null || self.HoraReservaHasta() == null || self.HoraReservaDesde() == null) return "";
             var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == self.IdSalaReserva(); });
-            return "$" + self.HoraReservaHasta().diff(self.HoraReservaDesde()) / moment.duration(sala.DuracionBloque) * sala.PrecioBloque;
+            return "$" + (self.HoraReservaHasta().diff(self.HoraReservaDesde()) / moment.duration(sala.DuracionBloque) * sala.PrecioBloque).toString().toMoney();
         });
+        
+        self.FechaReservaForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('YYYY-M-D H:mm:ss A') : ''; });
+        self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
+        self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
     
     function GetDateTimeToJson(date) {
@@ -45,6 +50,14 @@
     }
 
     $(document).ready(function () {
+        @if (Model.ReservaRealizadaConExito == true || Model.ReservaRealizadaConExito == false)
+        {
+            <text>
+                $("#successfulBookingOverlay").show();
+                $("#successfulBooking").toggle("clip");
+            </text>
+        }
+
         if ($(".general-profile-info ul li").length % 2 == 0) {
             $($(".general-profile-info ul li")[$(".general-profile-info ul li").length - 2]).css("border-bottom", "0");
         }
@@ -93,6 +106,7 @@
                     week: "Semana",
                     day: "Día"
                 },
+                closedDays: diasCerrados,
                 columnFormat: {
                     month: 'ddd',
                     week: 'ddd D/M',
@@ -171,6 +185,7 @@
                     element.find(".fc-event-title").addClass("div-cell");
                     element.find(".fc-event-title").css("vertical-align", "middle");
                 },
+                handleWindowResize: false,
                 eventColor: '#EFEFEF',
                 eventTextColor: '#5D5D5D',
                 select: function(start, end, jsEvent, view) {
@@ -178,11 +193,13 @@
                     viewKoViewModel.HoraReservaHasta(end);
                     viewKoViewModel.IdSalaReserva(@(sala.IdSala));
 
-
-
-
-
+                    if (diasCerrados.indexOf(start.day()) != -1) {
+                        viewKoViewModel.HoraReservaDesde(null);
+                        viewKoViewModel.HoraReservaHasta(null);
+                        viewKoViewModel.IdSalaReserva(null);
+                    }
                 },
+                unselectAuto: false,
                 viewRender: function(view, element) {
                     var sala;
                     var fecha;
@@ -218,7 +235,6 @@
                         $(cell).find("> div").text("");
 
                         if (diasCerrados.indexOf($("#calendar@(sala.IdSala)").fullCalendar("getDate").day()) != -1) {
-                            console.log(element);
                             if (cell.length > 0) {
                                 $(cell).css("vertical-align", "middle");
                                 $(cell).addClass("fc-inactive");
@@ -240,7 +256,18 @@
         }
     });
 </script>
-
+<div id="successfulBookingOverlay" class="successful-booking-overlay"></div>
+<div id="successfulBooking" class="successful-booking">
+    <div class="successful-booking-container" data-bind="visible: ReservaRealizadaConExito() == 'True'">
+        <h3>Tu reserva se ha realizado con éxito!</h3>
+        <span>Te envíaremos un correo de confirmación con los datos de tu reserva.</span>
+    </div>
+    <div class="successful-booking-container" data-bind="visible: ReservaRealizadaConExito() == 'False'">
+        <h3>Lo sentimos, no se ha podido realizar tu reserva</h3>
+        <span>Por favor vuelve a verificar que la hora que has intentado reservar esté disponible.</span>
+    </div>
+    <a id="closeSuccessfulBooking" href="#" class="close-message" data-bind="click: function() { $('#successfulBookingOverlay').hide(); $('#successfulBooking').toggle('clip'); }">Cerrar</a>
+</div>
 <div class="div-table studio-search-page">
     @Html.Partial("_RankingSidebar", (BaseViewModel)Model)
     <div class="div-cell search-form">
@@ -350,34 +377,41 @@
             {
                 <div class="div-table" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)" style="width: 100%">
                     <div id="calendar@(sala.IdSala)" class="calendar div-cell"></div>
-                    <div class="booking div-cell">
-                        <div class="inner-div">
-                            <h4>Reserva de Hora</h4>
-                            <div>
-                                <span class="booking-label">día</span>
-                                <span class="booking-value" data-bind="text: FechaReserva()"></span>
-                            </div>
-                            <div>
-                                <span class="booking-label">hora</span>
-                                <span class="booking-value" data-bind="text: HoraDesdeHastaReserva()"></span>
-                            </div>
-                            <div>
-                                <span class="booking-label">estudio</span>
-                                <span class="booking-value">@sala.Estudio.Nombre</span>
-                            </div>
-                            <div>
-                                <span class="booking-label">sala</span>
-                                <span class="booking-value">@sala.Nombre</span>
-                            </div>
-                            <div>
-                                <span class="booking-label booking-price-label">precio total</span>
-                                <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
-                            </div>
-                            <div class="book-hour">
-                                <input type="submit" class="botonGrande" value="reservar hora" />
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "BookingForm" + @sala.IdSala }))
+                    {
+                        <div class="booking div-cell">
+                            <div class="inner-div">
+                                <h4>Reserva de Hora</h4>
+                                <div>
+                                    <span class="booking-label">día</span>
+                                    <span class="booking-value" data-bind="text: FechaReserva()"></span>
+                                    @Html.HiddenFor(s => s.Reserva.Fecha, new { data_bind = "value: FechaReservaForm()" } )
+                                </div>
+                                <div>
+                                    <span class="booking-label">hora</span>
+                                    <span class="booking-value" data-bind="text: HoraDesdeHastaReserva()"></span>
+                                    @Html.HiddenFor(s => s.Reserva.Desde, new { data_bind = "value: HoraDesdeForm()" } )
+                                    @Html.HiddenFor(s => s.Reserva.Hasta, new { data_bind = "value: HoraHastaForm()" } )
+                                </div>
+                                <div>
+                                    <span class="booking-label">estudio</span>
+                                    <span class="booking-value">@sala.Estudio.Nombre</span>
+                                </div>
+                                <div>
+                                    <span class="booking-label">sala</span>
+                                    <span class="booking-value">@sala.Nombre</span>
+                                </div>
+                                <div>
+                                    <span class="booking-label booking-price-label">precio total</span>
+                                    <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
+                                </div>
+                                <div class="book-hour">
+                                    @Html.HiddenFor(s => s.Reserva.IdSala, new { data_bind = "value: IdSalaReserva()" } )
+                                    <input type="submit" class="botonGrande" value="reservar hora" />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             }
         </div>

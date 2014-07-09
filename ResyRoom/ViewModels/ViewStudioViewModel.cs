@@ -11,11 +11,15 @@ namespace ResyRoom.ViewModels
     public class ViewStudioViewModel : BaseViewModel, IViewStudioViewModel
     {
         public Estudio Estudio { get; set; }
+        public Reserva Reserva { get; set; }
+        public bool? ReservaRealizadaConExito { get; set; }
     }
 
     public interface IViewStudioViewModel
     {
         Estudio Estudio { get; set; }
+        Reserva Reserva { get; set; }
+        bool? ReservaRealizadaConExito { get; set; }
         IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
         IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
     }

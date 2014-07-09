@@ -700,6 +700,10 @@ h4 {
     padding-top: 30px;
 }
 
+.studio-booking .calendar .fc-view {
+    overflow: visible;
+}
+
 .studio-booking .calendar .fc-state-default {
     background-color: #fff;
     background-image: none;
@@ -744,7 +748,8 @@ h4 {
 .studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-tue.fc-widget-content.fc-state-highlight.fc-today.fc-last,
 .studio-booking .calendar .fc-view-agendaDay .fc-col0.fc-sat.fc-widget-content.fc-future.fc-last,
 .studio-booking .calendar .fc-view.fc-view-agendaDay.fc-agenda,
-.studio-booking .calendar .fc-col0.fc-mon.fc-widget-content.fc-future.fc-last {
+.studio-booking .calendar .fc-col0.fc-widget-content.fc-last,
+.studio-booking .calendar .fc-agenda-slots tr:last-child td {
     border-bottom-right-radius: 5px;
 }
 
@@ -754,6 +759,7 @@ h4 {
 
 .studio-booking .calendar .fc-inactive {
     background-color: #EFEFEF;
+    border-right: 1px solid gainsboro;
 }
 
 .studio-booking .calendar .fc-agenda-slots .fc-inactive
@@ -825,7 +831,46 @@ h4 {
     vertical-align: middle;
 }
 
+.successful-booking-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: white;
+    top: 0;
+    opacity: 0.65;  
+    z-index: 2;
+    display: none;
+}
 
-.studio-booking .calendar .fc-cell-overlay {
-    background-color: #42B8DD;
+.successful-booking {
+    width: 100%;
+    position: fixed;
+    background-color: #6FD9E7;
+    top: 37%;
+    z-index: 200;
+    display: none;
+}
+
+.successful-booking .successful-booking-container {
+    margin: 0 auto;
+    width: 821px;
+    height: 60px;
+    padding: 20px 0 55px;
+}
+
+.successful-booking .successful-booking-container h3
+{
+    font-variant: normal;
+}
+
+.successful-booking .successful-booking-container span
+{
+    padding-left: 20px;
+}
+
+.successful-booking .close-message
+{
+    position: absolute;
+    right: 15px;
+    top: 10px;
 }

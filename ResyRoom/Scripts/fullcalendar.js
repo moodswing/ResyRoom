@@ -3264,7 +3264,7 @@ function BasicView(element, calendar, viewName) {
 	
 	
 	function setHeight(height) {
-		viewHeight = height;
+		viewHeight = height + 100;
 		
 		var bodyHeight = Math.max(viewHeight - head.height(), 0);
 		var rowHeight;
@@ -3841,7 +3841,7 @@ function AgendaView(element, calendar, viewName) {
 		}
 		
 		slotScroller =
-			$("<div style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>")
+			$("<div class='fc-scroll-container' style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>")
 				.appendTo(slotLayer);
 				
 		slotContainer =
@@ -4048,7 +4048,7 @@ function AgendaView(element, calendar, viewName) {
 		if (height === undefined) {
 			height = viewHeight;
 		}
-		viewHeight = height;
+		viewHeight = height + 100;
 		slotTopCache = {};
 	
 		var headHeight = dayBody.position().top;
@@ -4063,7 +4063,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		slotLayer.css('top', headHeight);
 		
-		slotScroller.height(bodyHeight - allDayHeight - 1);
+		slotScroller.height(bodyHeight - allDayHeight - 1 + 100);
 		
 		// the stylesheet guarantees that the first row has no border.
 		// this allows .height() to work well cross-browser.
@@ -4227,6 +4227,9 @@ function AgendaView(element, calendar, viewName) {
 	
 
 	function renderSlotOverlay(overlayStart, overlayEnd) {
+
+	    if (t.opt("closedDays").indexOf(t.start.day()) != -1)
+	        return false;
 
 		// normalize, because dayStart/dayEnd have stripped time+zone
 		overlayStart = overlayStart.clone().stripZone();
@@ -6920,10 +6923,10 @@ function OverlayManager() {
 	var usedOverlays = [];
 	var unusedOverlays = [];
 	
-	
 	function renderOverlay(rect, parent) {
-		var e = unusedOverlays.shift();
-		if (!e) {
+	    var e = unusedOverlays.shift();
+	    
+	    if (!e) {
 			e = $("<div class='fc-cell-overlay' style='position:absolute;z-index:3'/>");
 		}
 		if (e[0].parentNode != parent[0]) {
