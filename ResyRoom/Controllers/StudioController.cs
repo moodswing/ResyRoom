@@ -60,11 +60,18 @@ namespace ResyRoom.Controllers
 
         #region >>> View studio
 
+        [HttpGet]
         public ActionResult ViewStudio(int id)
         {
             ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
             ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(id);
+
+            var reserva = (ViewStudioViewModel)TempData["ReservaModel"];
+            if (reserva != null)
+            {
+                ViewStudioViewModel.ReservaRealizadaConExito = reserva.ReservaRealizadaConExito;
+            }
             
             return View(ViewStudioViewModel);
         }
@@ -72,19 +79,24 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult ViewStudio(ViewStudioViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                if (model.Reserva == null || model.Reserva.Fecha == null)
+                    ViewStudioViewModel.ReservaRealizadaConExito = false;
+                else
+                    ViewStudioViewModel.ReservaRealizadaConExito = ServReservas.Guardar(model.Reserva);
+
+                TempData["ReservaModel"] = ViewStudioViewModel;
+
+                return RedirectToAction("ViewStudio", "Studio", new { id = (int)model.Reserva.IdSala });
+            }
+
             ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
 
-            if (model.Reserva.IdSala != null) ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio((int)model.Reserva.IdSala);
+            if (model.Reserva.IdSala != null)
+                ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio((int)model.Reserva.IdSala);
 
-            if (model.Reserva == null || model.Reserva.Fecha == null)
-            {
-                ViewStudioViewModel.ReservaRealizadaConExito = false;
-                return View(ViewStudioViewModel); 
-            }
-
-            ViewStudioViewModel.ReservaRealizadaConExito = ServReservas.Guardar(model.Reserva);
-            
             return View(ViewStudioViewModel);
         }
 

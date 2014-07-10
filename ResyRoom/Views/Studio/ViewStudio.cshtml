@@ -40,13 +40,17 @@
             return "$" + (self.HoraReservaHasta().diff(self.HoraReservaDesde()) / moment.duration(sala.DuracionBloque) * sala.PrecioBloque).toString().toMoney();
         });
         
-        self.FechaReservaForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('YYYY-M-D H:mm:ss A') : ''; });
+        self.FechaReservaForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('YYYY-M-D h:mm:ss A') : ''; });
         self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
         self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
     
     function GetDateTimeToJson(date) {
         return new Date(parseInt(date.replace("/Date(", "").replace(")/", ""), 10));
+    }
+
+    function ToHourMinuteFormat(duration) {
+        return moment().subtract(moment.duration(moment().format("HH:mm"))).add(duration).format("HH:mm");
     }
 
     $(document).ready(function () {
@@ -158,20 +162,32 @@
                 },
                 events: function(start, end, timezone, callback) {
                     var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
-
+                    
                     var events = [];
                     for(var i = 0; i < sala.Reservas().length; i ++) {
-                        var horaDesde = sala.Reservas()[i].Desde.substring(0, 2).replace(":", "");
-                        horaDesde = horaDesde.length == 1 ? '0' + horaDesde : horaDesde;
-
-                        var horaHasta = sala.Reservas()[i].Hasta.substring(0, 2).replace(":", "");
-                        horaHasta = horaHasta.length == 1 ? '0' + horaHasta : horaHasta;
-
-                        events.push({
-                            title: "Reservado",
-                            start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + horaDesde + ":00",
-                            end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + horaHasta + ":00",
-                        });
+                        var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
+                        var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
+                        
+                        if ((moment.duration(hasta) - moment.duration(desde)) > moment.duration(sala.DuracionBloque)) {
+                            var a = moment.duration(desde), b = moment.duration(hasta), bloque = moment.duration(sala.DuracionBloque);
+                            
+                            while (a < b) {
+                                events.push({
+                                    title: "Reservado",
+                                    start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(a),
+                                    end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(moment.duration(a + bloque)),
+                                });
+                            
+                                a = moment.duration(a + bloque);
+                            }
+                        }
+                        else {
+                            events.push({
+                                title: "Reservado",
+                                start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + desde,
+                                end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + hasta,
+                            });
+                        }
                     }
                     
                     callback(events);

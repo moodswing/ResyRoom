@@ -873,4 +873,6 @@ h4 {
     position: absolute;
     right: 15px;
     top: 10px;
+    color: #444;
+    text-decoration: underline;
 }

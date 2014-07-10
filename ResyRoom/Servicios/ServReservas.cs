@@ -46,8 +46,8 @@ namespace ResyRoom.Servicios
                         Convert.ToInt32(reserva.Hasta.Substring(reserva.Hasta.Length - 2, 2).Replace(":", "")), 0)
                 };
 
-            return consulta.Any(r => (r.Desde >= reservaConsulta.Desde && r.Desde <= reservaConsulta.Hasta) ||
-                (r.Hasta >= reservaConsulta.Desde && r.Hasta <= reservaConsulta.Hasta));
+            return consulta.Any(r => (r.Desde > reservaConsulta.Desde && r.Desde < reservaConsulta.Hasta) ||
+                (r.Hasta > reservaConsulta.Desde && r.Hasta < reservaConsulta.Hasta));
         }
 
         public bool Guardar(Reserva reserva)

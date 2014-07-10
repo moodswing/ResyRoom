@@ -38,7 +38,33 @@ namespace ResyRoom.Models
         {
             get
             {
-                return Reservas.GroupBy(r => r.Fecha != null ? r.Fecha.Value.Date : new DateTime(), r => r, (key, g) => new ReservasPorDía { Dia = key, NroReservas = g.Count() }).ToList();
+                var listado = Reservas.GroupBy(r => r.Fecha != null ? r.Fecha.Value.Date : new DateTime(), r => r, (key, g) => new { Dia = key, Reservas = g.ToList() }).ToList();
+
+                var reservasPorDia = new List<ReservasPorDía>();
+                foreach (var dia in listado)
+                {
+                    long nroReservas = 0;
+                    foreach (var reserva in dia.Reservas)
+                    {
+                        var desde = new TimeSpan(Convert.ToInt32(reserva.Desde.Substring(0, 2).Replace(":", "")),
+                                                                 Convert.ToInt32(reserva.Desde.Substring(reserva.Desde.Length - 2, 2).Replace(":", "")), 0);
+                        var hasta = new TimeSpan(Convert.ToInt32(reserva.Hasta.Substring(0, 2).Replace(":", "")),
+                                                                 Convert.ToInt32(reserva.Hasta.Substring(reserva.Hasta.Length - 2, 2).Replace(":", "")), 0);
+                        var bloque = new TimeSpan(Convert.ToInt32(reserva.Sala.HorarioActivo.DuracionBloque.Substring(0, 2).Replace(":", "")),
+                                                                 Convert.ToInt32(reserva.Sala.HorarioActivo.DuracionBloque.Substring(reserva.Sala.HorarioActivo.DuracionBloque.Length - 2, 2).Replace(":", "")), 0);
+
+                        long remainder;
+                        nroReservas = Math.DivRem(hasta.Subtract(desde).Ticks, bloque.Ticks, out remainder);
+                    }
+
+                    reservasPorDia.Add(new ReservasPorDía
+                        {
+                            Dia = dia.Dia,
+                            NroReservas = (int) nroReservas
+                        });
+                }
+
+                return reservasPorDia;
             }
         }
     }
