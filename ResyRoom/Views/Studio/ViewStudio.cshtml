@@ -433,3 +433,10 @@
         </div>
     </div>
 </div>
+@foreach(var reserva in Model.Estudio.Salas.First().Reservas)
+{
+    <text>
+       @reserva.Fecha
+    </text>
+    <br />
+}
