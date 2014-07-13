@@ -229,7 +229,7 @@
             <div>
                 <div class="div-table search-item">
                     <span class="first-label div-cell">Nombre del Estudio</span>
-                    @Html.TextBoxFor(v => v.Busqueda.NombreEstudio, new { @style = "width:400px; margin-right: 42px;", @class = "textboxform" })
+                    @Html.TextBoxFor(v => v.Busqueda.NombreEstudio, new { @style = "width:350px; margin-right: 42px;", @class = "textboxform" })
                     <span class="checkbox-list">
                         @Html.CheckBoxFor(v => v.Busqueda.ConComentarios)
                         @Html.LabelFor(v => v.Busqueda.ConComentarios)
@@ -249,7 +249,7 @@
                             <span class="first-label div-cell">
                                 @Html.LabelFor(v => v.Busqueda.Region)
                             </span>
-                            @Html.DropDownListFor(v => v.Busqueda.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:402px" })
+                            @Html.DropDownListFor(v => v.Busqueda.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem(), new { @style = "width:352px" })
                             <span class="second-label">
                                 @Html.LabelFor(v => v.Busqueda.Comuna)
                             </span>
@@ -259,7 +259,7 @@
                             <span class="first-label div-cell" style="padding-top: 7px;">
                                 @Html.Label("Rango de Precio ")
                             </span>
-                            <div class="div-cell" style="width: 402px;">
+                            <div class="div-cell" style="width: 352px;">
                                 <div id="divRangoPrecio">
                                 </div>
                             </div>
