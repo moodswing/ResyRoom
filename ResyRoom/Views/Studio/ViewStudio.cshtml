@@ -165,6 +165,7 @@
                     
                     var events = [];
                     for(var i = 0; i < sala.Reservas().length; i ++) {
+                        console.log(GetDateTimeToJson(sala.Reservas()[i].Dia));
                         var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
                         var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
                         
@@ -433,10 +434,3 @@
         </div>
     </div>
 </div>
-@foreach(var reserva in Model.Estudio.Salas.First().Reservas)
-{
-    <text>
-       @reserva.Fecha
-    </text>
-    <br />
-}
