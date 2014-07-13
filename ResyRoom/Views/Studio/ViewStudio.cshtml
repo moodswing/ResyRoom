@@ -40,7 +40,7 @@
             return "$" + (self.HoraReservaHasta().diff(self.HoraReservaDesde()) / moment.duration(sala.DuracionBloque) * sala.PrecioBloque).toString().toMoney();
         });
         
-        self.FechaReservaForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('YYYY-M-D h:mm:ss A') : ''; });
+        self.FechaReservaForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('YYYY-M-D 00:00:00 [PM]') : ''; });
         self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
         self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
