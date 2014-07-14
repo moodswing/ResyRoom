@@ -165,7 +165,7 @@
                     
                     var events = [];
                     for(var i = 0; i < sala.Reservas().length; i ++) {
-                        console.log(sala.Reservas()[i].Dia);
+                        console.log(moment(GetDateTimeToJson(sala.Reservas()[i].Dia)));
                         var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
                         var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
                         
