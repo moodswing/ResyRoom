@@ -45,10 +45,6 @@
         self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
         self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
-    
-    function GetDateTimeToJson(date) {
-        return new Date(parseInt(date.replace("/Date(", "").replace(")/", ""), 10));
-    }
 
     function ToHourMinuteFormat(duration) {
         return moment().subtract(moment.duration(moment().format("HH:mm"))).add(duration).format("HH:mm");
@@ -141,7 +137,6 @@
                         for(var i = 0; i < sala.ReservasPorDia.length; i ++) {
                             var dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
 
-                            //var fecha = GetDateTimeToJson(sala.ReservasPorDia[i].Dia);
                             var fechaFormatted = moment(sala.ReservasPorDia[i].Dia).format("YYYY-MM-DD");
 
                             if (date.format("YYYY-MM-DD") == fechaFormatted) {

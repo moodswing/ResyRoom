@@ -18,7 +18,7 @@ namespace ResyRoom.Models
 
         public struct ReservasPorDía
         {
-            public DateTime Dia { get; set; }
+            public string Dia { get; set; }
             public int NroReservas { get; set; }
         }
 
@@ -59,7 +59,7 @@ namespace ResyRoom.Models
 
                     reservasPorDia.Add(new ReservasPorDía
                         {
-                            Dia = dia.Dia,
+                            Dia = dia.Dia.ToString("yyyy-MM-dd"),
                             NroReservas = (int) nroReservas
                         });
                 }
