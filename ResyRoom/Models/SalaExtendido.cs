@@ -28,7 +28,7 @@ namespace ResyRoom.Models
             public DateTime? Dia 
             { 
                 get { return _dia; }
-                set { if (value != null) _dia = DateTime.SpecifyKind((DateTime) value, DateTimeKind.Utc); }
+                set { if (value != null) _dia = DateTime.SpecifyKind((DateTime) value, DateTimeKind.Local); }
             }
 
             public string Desde { get; set; }            
