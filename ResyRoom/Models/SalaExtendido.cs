@@ -24,7 +24,13 @@ namespace ResyRoom.Models
 
         public struct SoloReserva
         {
-            public DateTime? Dia { get; set; }
+            private DateTime? _dia;
+            public DateTime? Dia 
+            { 
+                get { return _dia; }
+                set { if (value != null) _dia = DateTime.SpecifyKind((DateTime) value, DateTimeKind.Utc); }
+            }
+
             public string Desde { get; set; }            
             public string Hasta { get; set; }            
         }
