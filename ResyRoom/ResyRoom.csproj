@@ -66,6 +66,7 @@
     <Compile Include="Infraestructura\CustomPrincipal.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
+    <Compile Include="Infraestructura\Extensiones\ExtendedJavascriptConverter.cs" />
     <Compile Include="Infraestructura\Extensiones\IntExt.cs" />
     <Compile Include="Infraestructura\Extensiones\HtmlExt.cs" />
     <Compile Include="Infraestructura\Extensiones\ListExt.cs" />
