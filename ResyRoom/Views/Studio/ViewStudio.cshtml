@@ -83,7 +83,6 @@
             { 
                 IdSala: @(sala.IdSala), 
                 ReservasPorDia: @Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservasPorDía)),
-                Reservas2: ko.observable(@Html.Raw(ExtendedJavaScriptConverter<Reserva>.GetSerializer().Serialize(sala.ListadoReservas))),
                 Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
                 HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
                 HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
@@ -142,8 +141,8 @@
                         for(var i = 0; i < sala.ReservasPorDia.length; i ++) {
                             var dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
 
-                            var fecha = GetDateTimeToJson(sala.ReservasPorDia[i].Dia);
-                            var fechaFormatted = moment(fecha).format("YYYY-MM-DD");
+                            //var fecha = GetDateTimeToJson(sala.ReservasPorDia[i].Dia);
+                            var fechaFormatted = moment(sala.ReservasPorDia[i].Dia).format("YYYY-MM-DD");
 
                             if (date.format("YYYY-MM-DD") == fechaFormatted) {
                                 var slotsDisponibles = dailySlots - sala.ReservasPorDia[i].NroReservas;
@@ -167,7 +166,7 @@
                     
                     var events = [];
                     for(var i = 0; i < sala.Reservas().length; i ++) {
-                        console.log(moment(GetDateTimeToJson(sala.Reservas()[i].Dia)));
+                        console.log(moment(sala.Reservas()[i].Dia));
                         var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
                         var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
                         
@@ -177,8 +176,8 @@
                             while (a < b) {
                                 events.push({
                                     title: "Reservado",
-                                    start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(a),
-                                    end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(moment.duration(a + bloque)),
+                                    start: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(a),
+                                    end: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(moment.duration(a + bloque)),
                                 });
                             
                                 a = moment.duration(a + bloque);
@@ -187,8 +186,8 @@
                         else {
                             events.push({
                                 title: "Reservado",
-                                start: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + desde,
-                                end: moment(GetDateTimeToJson(sala.Reservas()[i].Dia)).format("YYYY-MM-DD") + " " + hasta,
+                                start: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + desde,
+                                end: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + hasta,
                             });
                         }
                     }
@@ -233,7 +232,7 @@
                     if ((view.name == "agendaDay" && viewKoViewModel.FromCalendar()) || view.name == "agendaWeek") {
                         sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
                         fecha = $("#calendar@(sala.IdSala)").fullCalendar("getDate").format("YYYY-MM-DD");
-                        reservas = ko.utils.arrayFilter(sala.Reservas(), function(item) { return moment(GetDateTimeToJson(item.Dia)).format("YYYY-MM-DD") == fecha; });
+                        reservas = ko.utils.arrayFilter(sala.Reservas(), function(item) { return moment(item.Dia).format("YYYY-MM-DD") == fecha; });
                         dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
                         slotsDisponibles = dailySlots - reservas.length;
                     }

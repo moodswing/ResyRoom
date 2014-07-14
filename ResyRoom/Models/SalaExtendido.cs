@@ -24,16 +24,14 @@ namespace ResyRoom.Models
 
         public struct SoloReserva
         {
-            private DateTime? _dia;
-            public DateTime? Dia { get; set; }
-
-            public string Desde { get; set; }            
-            public string Hasta { get; set; }            
+            public string Dia { get; set; }
+            public string Desde { get; set; }
+            public string Hasta { get; set; }
         }
 
         public List<SoloReserva> ListadoReservas
         {
-            get { return Reservas.Select(r => new SoloReserva { Dia = r.Fecha != null ? r.Fecha.Value.Date : r.Fecha, Desde = r.Desde, Hasta = r.Hasta }).ToList(); }
+            get { return Reservas.Select(r => new SoloReserva { Dia = r.Fecha != null ? r.Fecha.Value.Date.ToString("yyyy-MM-dd") : r.Fecha.ToString(), Desde = r.Desde, Hasta = r.Hasta }).ToList(); }
         }
 
         public List<ReservasPorDía> ListadoReservasPorDía
