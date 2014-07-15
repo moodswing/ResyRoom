@@ -33,21 +33,22 @@
     }
 
     $(document).ready(function () {
-        jsModel = @Html.Raw(new JavaScriptSerializer().Serialize(Model))
+        jsModel = @Html.Raw(new JavaScriptSerializer().Serialize(Model.Notificaciones))
 
-        viewModel = ko.mapping.fromJS(jsModel);
+        viewKoViewModel.Notificaciones(ko.mapping.fromJS(jsModel));
+        viewKoViewModel.MostrarNotificacion("@(Model.MostrarNotificacion)" == 'True' ? true : false);
 
-        if (viewModel.Notificaciones() != null) {
+        if (viewKoViewModel.Notificaciones != null) {
             var i;
-            for (i = 0; i < viewModel.Notificaciones().length; i++) {
-                var notificacion = viewModel.Notificaciones()[i];
+            for (i = 0; i < viewKoViewModel.Notificaciones.length; i++) {
+                var notificacion = viewKoViewModel.Notificaciones[i];
                 notificacion.SrcImage = ko.computed(function () { return getSrcIconMessage(notificacion.Tipo()); });
             }
         }
 
-        ko.applyBindings(viewModel);
+        //ko.applyBindings(viewKoViewModel, $(".error-box")[0]);
 
-        $("#close-error-box-1").click(function () { viewModel.MostrarNotificacion(false); });
+        $("#close-error-box-1").click(function () { viewKoViewModel.MostrarNotificacion(false); });
     });
 </script>
 <div class="error-box" data-bind="visible: MostrarNotificacion">
@@ -55,7 +56,7 @@
     <div class="error-box-content">
         <div data-bind="foreach: Notificaciones">
             <img alt="Inicio" class="img-icon" data-bind="attr: { src: SrcImage }">
-            <div class="div-cell" data-bind="foreach: Mensajes">
+            <div class="div-cell div-message" data-bind="foreach: Mensajes">
                 <span class="span-message" data-bind="text: $data"></span>
                 <br data-bind="visible: $index() != ($parent.Mensajes().length - 1)" />
             </div>

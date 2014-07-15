@@ -27,6 +27,9 @@
         self.HoraReservaDesde = ko.observable();
         self.HoraReservaHasta = ko.observable();
         self.IdSalaReserva = ko.observable();
+        self.IdEstudioReserva = ko.observable();
+        self.MostrarNotificacion = ko.observable();
+        self.Notificaciones = ko.observable();
         self.ReservaRealizadaConExito = ko.observable('@(Model.ReservaRealizadaConExito)');
         
         self.FechaReserva = ko.computed(function() {
@@ -66,7 +69,7 @@
         viewKoViewModel = new ViewKoViewModel();
         ko.applyBindings(viewKoViewModel);
 
-        $(".equipment-boxes").css("width", $(".studio-equipment").width() + "px");
+        $(".equipment-boxes").css("width", $(".studio-equipment").parent().width() + "px");
         
         @foreach (var sala in @Model.Estudio.Salas)
         {
@@ -94,13 +97,13 @@
             
             $('#calendar@(sala.IdSala)').fullCalendar({
                 header: {
-                    left:   'title',
-                    center: 'month,agendaWeek,agendaDay',
-                    right:  'today prev,next'
+                    left:   'month,agendaWeek,agendaDay',
+                    center: 'title',
+                    right:  'prev,next'
                 },
                 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                 dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
-                dayNamesShort: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sáb'],
                 buttonText: {
                     today: "Hoy",
                     month: "Mes",
@@ -120,6 +123,11 @@
                     'default': false,
                 },
                 defaultView: 'month',
+                allDaySlot: {
+                    agendaWeek: false,
+                    'default': true,
+                },
+                weekMode: 5,
                 firstHour: 10,
                 allDayDefault: false,
                 lazyFetching: true,
@@ -127,6 +135,12 @@
                 minTime: "@(sala.HorarioActivo.HoraApertura)",
                 maxTime: "@(sala.HorarioActivo.HoraCierre)",
                 dayRender: function(date, cell) {
+                    if (moment(date.format("YYYY-MM-DD 00:00:00")) < moment(moment(new Date()).format("YYYY-MM-DD 00:00:00"))) 
+                    {
+                        cell.addClass("fc-past-day");
+                        return false;
+                    }
+                    
                     var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
                     if (diasCerrados.indexOf(date.day()) != -1) {
                         cell.addClass("fc-inactive");
@@ -161,13 +175,13 @@
                     
                     var events = [];
                     for(var i = 0; i < sala.Reservas().length; i ++) {
-                        console.log(moment(sala.Reservas()[i].Dia));
                         var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
                         var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
                         
                         if ((moment.duration(hasta) - moment.duration(desde)) > moment.duration(sala.DuracionBloque)) {
                             var a = moment.duration(desde), b = moment.duration(hasta), bloque = moment.duration(sala.DuracionBloque);
-                            
+                            if (moment(sala.Reservas()[i].Dia + " " + ToHourMinuteFormat(a)) < moment(new Date())) continue;
+
                             while (a < b) {
                                 events.push({
                                     title: "Reservado",
@@ -179,6 +193,8 @@
                             }
                         }
                         else {
+                            if (moment(sala.Reservas()[i].Dia + " " + desde) < moment(new Date())) continue;
+
                             events.push({
                                 title: "Reservado",
                                 start: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + desde,
@@ -205,20 +221,29 @@
                     viewKoViewModel.HoraReservaDesde(start);
                     viewKoViewModel.HoraReservaHasta(end);
                     viewKoViewModel.IdSalaReserva(@(sala.IdSala));
+                    viewKoViewModel.IdEstudioReserva(@(sala.IdEstudio));
 
-                    if (diasCerrados.indexOf(start.day()) != -1) {
+                    if (diasCerrados.indexOf(start.day()) != -1 || moment(start.format("YYYY-MM-DD hh:mm:ss a")) < moment(moment(new Date()).format("YYYY-MM-DD hh:mm:ss a"))) {
                         viewKoViewModel.HoraReservaDesde(null);
                         viewKoViewModel.HoraReservaHasta(null);
                         viewKoViewModel.IdSalaReserva(null);
                     }
+
+                    if (moment(start.format("YYYY-MM-DD hh:mm:ss a")) < moment(moment(new Date()).format("YYYY-MM-DD hh:mm:ss a"))) {
+                        if (!viewKoViewModel.MostrarNotificacion()) {
+                            viewKoViewModel.MostrarNotificacion(true);
+
+                            var notificaciones = [new notificacion(2, ["La fecha y hora que desea reservar es de una fecha anterior a la actual, favor volver a seleccionar.."])]; // 2: error
+                            viewKoViewModel.Notificaciones(notificaciones);
+                        }
+                    }
+                    else {
+                        viewKoViewModel.MostrarNotificacion(false);
+                    }
                 },
                 unselectAuto: false,
                 viewRender: function(view, element) {
-                    var sala;
-                    var fecha;
-                    var reservas;
-                    var dailySlots;
-                    var slotsDisponibles;
+                    var sala, fecha, reservas, reservasPorDia, dailySlots, slotsDisponibles;
 
                     viewKoViewModel.HoraReservaDesde(null);
                     viewKoViewModel.HoraReservaHasta(null);
@@ -228,12 +253,35 @@
                         sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
                         fecha = $("#calendar@(sala.IdSala)").fullCalendar("getDate").format("YYYY-MM-DD");
                         reservas = ko.utils.arrayFilter(sala.Reservas(), function(item) { return moment(item.Dia).format("YYYY-MM-DD") == fecha; });
+                        reservasPorDia = ko.utils.arrayFilter(sala.ReservasPorDia, function(item) { return moment(item.Dia).format("YYYY-MM-DD") == fecha; });
                         dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
-                        slotsDisponibles = dailySlots - reservas.length;
+                        slotsDisponibles = dailySlots - (reservasPorDia.length > 0 ? reservasPorDia[0].NroReservas : 0);
+                    }
+
+                    if (view.name == "agendaWeek") {
+                        for(var i = 0; i < diasCerrados.length; i++) {
+                            var index = (diasCerrados[i] > 0 ? diasCerrados[i] - 1 : 6);
+                            $(".fc-agenda-days .fc-widget-content:eq(" + index + ")").addClass("fc-inactive")
+                        }
                     }
 
                     if (view.name == "agendaDay" && viewKoViewModel.FromCalendar()) {
-                        view.allDayRow().find(".fc-day-content > div").text("")
+                        var cell = element.find("[class^='fc-slot'] .fc-widget-content");
+                        $(cell).css("vertical-align", "baseline");
+                        $(cell).removeClass("fc-inactive");
+                        $(cell).find("> div").text("");
+                        
+                        view.allDayRow().find(".fc-day-content > div").text("");
+
+                        if (moment($("#calendar@(sala.IdSala)").fullCalendar("getDate").format("YYYY-MM-DD 00:00:00")) < moment(moment(new Date()).format("YYYY-MM-DD 00:00:00"))) 
+                        {
+                            var cell = element.find("[class^='fc-slot'] .fc-widget-content");
+                            $(cell).css("vertical-align", "middle");
+                            $(cell).addClass("fc-past-day");
+                            view.allDayRow().find(".fc-day-content > div").text("Fecha pasada. Favor buscar durante otra fecha.")
+                            
+                            return false;
+                        }
 
                         if (slotsDisponibles == 0) {
                             view.allDayRow().find(".fc-day-content > div").text("Sin espacios disponibles. Favor buscar durante otra fecha.")
@@ -241,11 +289,6 @@
                         else if (slotsDisponibles < dailySlots) {
                             view.allDayRow().find(".fc-day-content > div").text("Quedan " + slotsDisponibles + " espacios disponibles")
                         }
-
-                        var cell = element.find("[class^='fc-slot'] .fc-widget-content");
-                        $(cell).css("vertical-align", "baseline");
-                        $(cell).removeClass("fc-inactive");
-                        $(cell).find("> div").text("");
 
                         if (diasCerrados.indexOf($("#calendar@(sala.IdSala)").fullCalendar("getDate").day()) != -1) {
                             if (cell.length > 0) {
@@ -257,8 +300,8 @@
                     }
                 },
                 dayClick: function(date, allDay, jsEvent, view) {
-                    //if (allDay && $(this).is('td.fc-day') && !$(this).is('td.fc-inactive')) {
-                    if (allDay && $(this).is('td.fc-day')) {
+                    //if (allDay && $(this).is('td.fc-day')) {
+                    if (allDay && $(this).is('td.fc-day') && !$(this).is('td.fc-inactive') && !$(this).is('td.fc-past-day')) {
                         $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'agendaDay');
                         viewKoViewModel.FromCalendar(true);
                         $('#calendar@(sala.IdSala)').fullCalendar('gotoDate', date);   
@@ -382,7 +425,7 @@
                 <ul class="list-menu">
                     @foreach (var sala in @Model.Estudio.Salas)
                     {
-                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); }">@sala.Nombre</li>
+                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'agendaDay'); $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'month'); }">@sala.Nombre</li>
                     }
                 </ul>
             </div>
@@ -394,6 +437,7 @@
                     {
                         <div class="booking div-cell">
                             <div class="inner-div">
+                                @Html.Partial("_MessageNotification")
                                 <h4>Reserva de Hora</h4>
                                 <div>
                                     <span class="booking-label">día</span>
@@ -420,6 +464,7 @@
                                 </div>
                                 <div class="book-hour">
                                     @Html.HiddenFor(s => s.Reserva.IdSala, new { data_bind = "value: IdSalaReserva()" } )
+                                    @Html.HiddenFor(s => s.Estudio.IdEstudio, new { data_bind = "value: IdEstudioReserva()" } )
                                     <input type="submit" class="botonGrande" value="reservar hora" />
                                 </div>
                             </div>

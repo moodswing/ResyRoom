@@ -67,6 +67,8 @@ namespace ResyRoom.Controllers
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
             ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(id);
 
+            ViewStudioViewModel.Notificaciones = new List<Notificacion> { new Notificacion() };
+
             var reserva = (ViewStudioViewModel)TempData["ReservaModel"];
             if (reserva != null)
             {
@@ -88,7 +90,7 @@ namespace ResyRoom.Controllers
 
                 TempData["ReservaModel"] = ViewStudioViewModel;
 
-                return RedirectToAction("ViewStudio", "Studio", new { id = (int)model.Reserva.IdSala });
+                return RedirectToAction("ViewStudio", "Studio", new { id = model.Estudio.IdEstudio });
             }
 
             ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);

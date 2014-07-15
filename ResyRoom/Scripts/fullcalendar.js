@@ -4227,8 +4227,10 @@ function AgendaView(element, calendar, viewName) {
 	
 
 	function renderSlotOverlay(overlayStart, overlayEnd) {
+	    if (t.opt("closedDays").indexOf(overlayStart.day()) != -1)
+	        return false;
 
-	    if (t.opt("closedDays").indexOf(t.start.day()) != -1)
+	    if (moment(overlayStart.format("YYYY-MM-DD hh:mm:ss a")) < moment(moment(new Date()).format("YYYY-MM-DD hh:mm:ss a")))
 	        return false;
 
 		// normalize, because dayStart/dayEnd have stripped time+zone

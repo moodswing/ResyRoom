@@ -340,8 +340,12 @@ header, footer, nav, section
     float: left;
 }
 
-.error-box .error-box-content .span-message {
+.error-box .error-box-content .div-message {
     padding-left: 8px;
+}
+
+.error-box .error-box-content .div-message .span-message {
+    white-space: pre-wrap;
 }
 
 .close-error-box {
@@ -406,7 +410,7 @@ header, footer, nav, section
 }
 
 .search-form {
-    padding: 0 50px;
+    padding: 0 50px 30px 50px;
 }
 
 .subtitle {
@@ -528,7 +532,12 @@ h4 {
 
 .studio-rooms .studio-room-container {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.studio-rooms .studio-room-container:last-child
+{
+    margin-bottom: 0;
 }
 
 .studio-rooms .studio-info-room {
@@ -626,10 +635,6 @@ h4 {
     bottom: 20px;
 }
 
-.studio-equipment {
-    margin-bottom: 30px;    
-}
-
 .studio-equipment .equipment-menu,
 .studio-booking .booking-menu {
     display: table;
@@ -698,6 +703,7 @@ h4 {
     width: 50%; 
     padding-bottom: 30px;
     padding-top: 30px;
+    vertical-align: top;
 }
 
 .studio-booking .calendar .fc-view {
@@ -726,6 +732,10 @@ h4 {
 
 .studio-booking .calendar .fc-border-separate th {
     padding: 10px 0;
+}
+
+.studio-booking .calendar .fc-state-highlight {
+    background-color: transparent;
 }
 
 .studio-booking .calendar .fc-border-separate .fc-day-header.fc-mon.fc-widget-header.fc-first,
@@ -759,7 +769,10 @@ h4 {
 
 .studio-booking .calendar .fc-inactive {
     background-color: #EFEFEF;
-    border-right: 1px solid gainsboro;
+}
+
+.studio-booking .calendar .fc-past-day {
+    background-color: #FAFAFA;
 }
 
 .studio-booking .calendar .fc-agenda-slots .fc-inactive

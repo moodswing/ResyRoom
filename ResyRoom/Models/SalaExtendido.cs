@@ -54,7 +54,7 @@ namespace ResyRoom.Models
                                                                  Convert.ToInt32(reserva.Sala.HorarioActivo.DuracionBloque.Substring(reserva.Sala.HorarioActivo.DuracionBloque.Length - 2, 2).Replace(":", "")), 0);
 
                         long remainder;
-                        nroReservas = Math.DivRem(hasta.Subtract(desde).Ticks, bloque.Ticks, out remainder);
+                        nroReservas += Math.DivRem(hasta.Subtract(desde).Ticks, bloque.Ticks, out remainder);
                     }
 
                     reservasPorDia.Add(new ReservasPorDía

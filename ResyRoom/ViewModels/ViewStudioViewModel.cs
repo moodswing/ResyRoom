@@ -22,5 +22,7 @@ namespace ResyRoom.ViewModels
         bool? ReservaRealizadaConExito { get; set; }
         IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
         IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
+        List<Notificacion> Notificaciones { get; set; }
+        bool MostrarNotificacion { get; set; }
     }
 }
