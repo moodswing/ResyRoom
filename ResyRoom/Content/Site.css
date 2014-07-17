@@ -710,15 +710,20 @@ h4 {
 
 .studio-booking .booking-content .booking-form
 {
-    width: 400px;
     vertical-align: top;
+    width: 100%;
+}
+
+.studio-booking .booking-content > div
+{
+    width: 100%;
 }
 
 .studio-booking .calendar {
     padding-bottom: 30px;
     padding-top: 20px;
     vertical-align: top;
-    width: 100%;
+    width: 480px;
 }
 
 .studio-booking .calendar .fc-view {
