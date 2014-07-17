@@ -419,9 +419,8 @@
                 </div>
             }
         </div>
-        <div class="studio-booking" data-bind="visible: (TabSeleccionado() == 'Reservas')">
-            <h4>Horarios</h4>
-            <div class="booking-menu">
+        <div class="studio-booking div-table" data-bind="visible: (TabSeleccionado() == 'Reservas')">
+            <div class="booking-menu div-cell">
                 <ul class="list-menu">
                     @foreach (var sala in @Model.Estudio.Salas)
                     {
@@ -431,45 +430,47 @@
             </div>
             @foreach (var sala in @Model.Estudio.Salas)
             {
-                <div class="div-table" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)" style="width: 100%">
-                    <div id="calendar@(sala.IdSala)" class="calendar div-cell"></div>
-                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "BookingForm" + @sala.IdSala }))
-                    {
-                        <div class="booking div-cell">
-                            <div class="inner-div">
-                                @Html.Partial("_MessageNotification")
-                                <h4>Reserva de Hora</h4>
-                                <div>
-                                    <span class="booking-label">día</span>
-                                    <span class="booking-value" data-bind="text: FechaReserva()"></span>
-                                    @Html.HiddenFor(s => s.Reserva.Fecha, new { data_bind = "value: FechaReservaForm()" } )
-                                </div>
-                                <div>
-                                    <span class="booking-label">hora</span>
-                                    <span class="booking-value" data-bind="text: HoraDesdeHastaReserva()"></span>
-                                    @Html.HiddenFor(s => s.Reserva.Desde, new { data_bind = "value: HoraDesdeForm()" } )
-                                    @Html.HiddenFor(s => s.Reserva.Hasta, new { data_bind = "value: HoraHastaForm()" } )
-                                </div>
-                                <div>
-                                    <span class="booking-label">estudio</span>
-                                    <span class="booking-value">@sala.Estudio.Nombre</span>
-                                </div>
-                                <div>
-                                    <span class="booking-label">sala</span>
-                                    <span class="booking-value">@sala.Nombre</span>
-                                </div>
-                                <div>
-                                    <span class="booking-label booking-price-label">precio total</span>
-                                    <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
-                                </div>
-                                <div class="book-hour">
-                                    @Html.HiddenFor(s => s.Reserva.IdSala, new { data_bind = "value: IdSalaReserva()" } )
-                                    @Html.HiddenFor(s => s.Estudio.IdEstudio, new { data_bind = "value: IdEstudioReserva()" } )
-                                    <input type="submit" class="botonGrande" value="reservar hora" />
+                <div class="div-cell booking-content" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
+                    <div class="div-table">
+                        <div id="calendar@(sala.IdSala)" class="calendar"></div>
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class="div-cell booking-form", id = "BookingForm" + @sala.IdSala }))
+                        {
+                            <div class="booking">
+                                <div class="inner-div">
+                                    @Html.Partial("_MessageNotification")
+                                    <h4>Reserva de Hora</h4>
+                                    <div>
+                                        <span class="booking-label">día</span>
+                                        <span class="booking-value" data-bind="text: FechaReserva()"></span>
+                                        @Html.HiddenFor(s => s.Reserva.Fecha, new { data_bind = "value: FechaReservaForm()" } )
+                                    </div>
+                                    <div>
+                                        <span class="booking-label">hora</span>
+                                        <span class="booking-value" data-bind="text: HoraDesdeHastaReserva()"></span>
+                                        @Html.HiddenFor(s => s.Reserva.Desde, new { data_bind = "value: HoraDesdeForm()" } )
+                                        @Html.HiddenFor(s => s.Reserva.Hasta, new { data_bind = "value: HoraHastaForm()" } )
+                                    </div>
+                                    <div>
+                                        <span class="booking-label">estudio</span>
+                                        <span class="booking-value">@sala.Estudio.Nombre</span>
+                                    </div>
+                                    <div>
+                                        <span class="booking-label">sala</span>
+                                        <span class="booking-value">@sala.Nombre</span>
+                                    </div>
+                                    <div>
+                                        <span class="booking-label booking-price-label">precio total</span>
+                                        <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
+                                    </div>
+                                    <div class="book-hour">
+                                        @Html.HiddenFor(s => s.Reserva.IdSala, new { data_bind = "value: IdSalaReserva()" } )
+                                        @Html.HiddenFor(s => s.Estudio.IdEstudio, new { data_bind = "value: IdEstudioReserva()" } )
+                                        <input type="submit" class="botonGrande" value="reservar hora" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             }
         </div>
