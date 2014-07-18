@@ -20,7 +20,7 @@
     
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Info");
+        self.TabSeleccionado = ko.observable("Salas");
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
         self.Salas = ko.observable([]);
         self.FromCalendar = ko.observable();
@@ -62,7 +62,7 @@
     });
 
     $(function () {
-        app.run('#/');
+        app.run();
     });
 
     $(document).ready(function () {
@@ -381,11 +381,16 @@
                 <div class="div-table studio-room-container" style="@(sala.DatosGrabacion == null ? "width: 60%" : "")">
                     <div class="studio-info-room div-cell">
                         <div class="room-name">@sala.Nombre</div>
-                        <ul>
-                            <li><span class="span-label">Tamaño:</span> <span class="span-value">@sala.Tamaño</span></li>
-                            <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
-                            <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
-                        </ul>
+                        <div class="div-table" style="width: 100%">
+                            <ul class="div-cell" style="width: 50%;">
+                                <li><span class="span-label">Tamaño:</span> <span class="span-value">@sala.Tamaño</span></li>
+                                <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
+                                <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
+                            </ul>
+                            <div class="div-cell" style="width: 50%; text-align: right;">
+                                <input type="submit" class="botonGrande" value="ver horarios" data-bind="click: function() { location.hash = '/Tab/Reservas'; $('[id^=calendar]').fullCalendar('changeView', 'agendaDay'); $('[id^=calendar]').fullCalendar('changeView', 'month'); viewKoViewModel.SalaSeleccionada(@(sala.IdSala)) }" />
+                            </div>
+                        </div>
                         <div class="room-price">Precio x hr: <span>@sala.Precio.ToCurrency()</span></div>
                     </div>
                     @if (sala.DatosGrabacion != null)
