@@ -629,6 +629,12 @@ h4 {
     font-size: 22px;
 }
 
+.studio-booking .booking .inner-div .booking-notice
+{
+    font-size: 16px;
+    color: #2F2F2F;
+}
+
 .studio-rooms .studio-room-recording .recording-price
 {
     position: absolute;
@@ -640,8 +646,12 @@ h4 {
     display: table;
     width: 125px;
     margin-right: 25px;
-    padding-top: 52px;
+    padding-top: 10px;
     vertical-align: top;
+}
+
+.studio-booking .booking-menu {
+    padding-top: 52px;
 }
 
 .studio-equipment .equipment-menu ul.list-menu,
@@ -657,8 +667,10 @@ h4 {
     padding: 5px 0 5px 10px;
     margin: 7px 0;
     font-size: 12px;
-    background-color: gainsboro;
+    background-color: #ECECEC;
     border-left: 10px solid grey;
+    border-bottom-right-radius: 7px;
+    border-top-left-radius: 7px;
 }
 
 .studio-equipment .equipment-menu ul.list-menu li:hover,
@@ -673,21 +685,27 @@ h4 {
     color: #42B8DD;
 }
 
+.studio-equipment .inner-equipment {
+    vertical-align: top;
+}
+
 .studio-equipment .equipment-boxes {
     overflow: auto;
     white-space: nowrap;
     width: 800px;
+    -webkit-transform: translateZ(0);
 } 
 
 .studio-equipment .equipment-boxes .equipment-box {
     display: inline-block;
     padding: 25px;
     border: 1px dashed gainsboro;
-    margin: 20px 20px 20px 0;
+    margin: 16px 20px 20px 0;
     white-space: normal;
     width: 200px;
     vertical-align: top;
     height: 300px;
+    -webkit-transform: translateZ(0);
 }
 
 .studio-equipment .equipment-boxes .equipment-box .equipment-name
@@ -769,7 +787,8 @@ h4 {
 
 .studio-booking .calendar .fc-border-separate .fc-day.fc-mon.fc-widget-content.fc-other-month.fc-future.fc-first,
 .studio-booking .calendar .fc-agenda-days tbody .fc-agenda-axis.fc-widget-header.fc-first,
-.studio-booking .calendar .fc-agenda-slots tr:last-child .fc-agenda-axis.fc-widget-header {
+.studio-booking .calendar .fc-agenda-slots tr:last-child .fc-agenda-axis.fc-widget-header,
+.studio-booking .calendar .fc-week.fc-last .fc-day.fc-mon.fc-widget-content {
     border-bottom-left-radius: 5px;
 }
 
@@ -825,7 +844,11 @@ h4 {
     border-radius: 0;
 }
 
-.studio-booking .calendar .fc-event-title {
+.studio-booking .calendar .fc-view-agendaWeek .fc-event-title {
+    text-align: center;
+}
+
+.studio-booking .calendar .fc-view-agendaDay .fc-event-title {
     padding-left: 10px;
 }
 
@@ -838,6 +861,7 @@ h4 {
     background-color: #EFEFEF; 
     border-radius: 5px; 
     padding: 20px;
+    border: 2px dotted #D1D1D1;
 }
 
 .studio-booking .booking .inner-div .booking-label

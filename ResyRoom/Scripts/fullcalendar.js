@@ -4802,9 +4802,9 @@ function AgendaEventRenderer() {
 			seg.outerHeight = bottom - (top == 0 ? top - 1 : top) - 1;
 		    
 			if (getSlotContainer().parents(".calendar").fullCalendar("getView").name != "agendaWeek")
-			    seg.outerWidth = width + 14;
+			    seg.outerWidth = width + 12;
 			else
-			    seg.outerWidth = width + 4;
+			    seg.outerWidth = width + 3;
 
 			html += slotSegHtml(event, seg);
 		}
