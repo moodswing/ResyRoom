@@ -517,6 +517,7 @@ h4 {
     border-left-color: #AE332F;
     border-right-color: #AE332F;
     color: #AE332F;
+    box-shadow: 0 -1px 2px #E9A8A6;
 }
 
 .studio-profile-title .studio-profile-tabs ul li.tab-selected {
@@ -524,10 +525,15 @@ h4 {
     border-left-color: gray;
     border-right-color: gray;
     color: #4D4D4D;
+    box-shadow: 0 -1px 2px #CFCFCF;
 }
 
 .studio-profile-title .studio-profile-tabs ul li:last-child {
     margin-right: 0;
+}
+
+.studio-rooms {
+    padding-top: 20px;
 }
 
 .studio-rooms .studio-room-container {
@@ -738,7 +744,6 @@ h4 {
 }
 
 .studio-booking .calendar {
-    padding-bottom: 30px;
     padding-top: 20px;
     vertical-align: top;
     width: 480px;

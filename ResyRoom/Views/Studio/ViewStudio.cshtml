@@ -20,7 +20,7 @@
     
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Equipos");
+        self.TabSeleccionado = ko.observable("Info");
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
         self.Salas = ko.observable([]);
         self.FromCalendar = ko.observable();
@@ -53,6 +53,18 @@
         return moment().subtract(moment.duration(moment().format("HH:mm"))).add(duration).format("HH:mm");
     }
 
+    var app = Sammy(function() {
+        this.get('#/Tab/:tabId', function() {
+            if (viewKoViewModel != null) {
+                viewKoViewModel.TabSeleccionado(this.params.tabId);
+            }
+        });
+    });
+
+    $(function () {
+        app.run('#/');
+    });
+
     $(document).ready(function () {
         @if (Model.ReservaRealizadaConExito == true || Model.ReservaRealizadaConExito == false)
         {
@@ -62,13 +74,6 @@
             </text>
         }
         
-        //$(".equipment-box .equipment-picture:eq(0)").backstretch("http://media.drumshop.co.uk/uploads/shop/categories/49DX2/49_l.jpg");
-        //$(".equipment-box .equipment-picture:eq(1)").backstretch("http://ecx.images-amazon.com/images/I/A1U4ddCAzVL._SL1500_.jpg");
-        //$(".equipment-box .equipment-picture:eq(2)").backstretch("http://altomusic.com/media/catalog/product/b/o/bogner-SHIVA1X12COMBOREVERB-0.jpg");
-        //$(".equipment-box .equipment-picture:eq(3)").backstretch("http://static.music123.com/derivates/19/001/254/824/DV020_Jpg_Jumbo_481310_V.jpg");
-        //$(".equipment-box .equipment-picture:eq(4)").backstretch("http://njlawconnect.com/wordpress/wp-content/uploads/2014/06/Drums.jpg");
-        //$(".equipment-box .equipment-picture:eq(5)").backstretch("https://cdn.tutsplus.com/audio/uploads/legacy/14_affmicrophones/Rode-NTK.jpg");
-
         if ($(".general-profile-info ul li").length % 2 == 0) {
             $($(".general-profile-info ul li")[$(".general-profile-info ul li").length - 2]).css("border-bottom", "0");
         }
@@ -76,7 +81,7 @@
         viewKoViewModel = new ViewKoViewModel();
         ko.applyBindings(viewKoViewModel);
 
-        $(".equipment-boxes").css("width", ($(".studio-equipment").parent().width() - $(".equipment-menu").width()) + "px");
+        $(".equipment-boxes").css("width", ($(".studio-equipment").parent().width() - $(".equipment-menu").width() - 25) + "px");
         
         @foreach (var sala in @Model.Estudio.Salas)
         {
@@ -338,10 +343,10 @@
             <span>@Model.Estudio.Direccion, @Model.Estudio.Comuna.Descripcion, @Model.Estudio.Comuna.Region.Descripcion</span>
             <div class="studio-profile-tabs">
                 <ul>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { viewKoViewModel.TabSeleccionado('Info'); }">Información General</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { viewKoViewModel.TabSeleccionado('Salas'); }">Salas</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { viewKoViewModel.TabSeleccionado('Equipos'); }">Equipos</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { viewKoViewModel.TabSeleccionado('Reservas'); $('[id^=calendar]').fullCalendar('changeView', 'agendaDay'); $('[id^=calendar]').fullCalendar('changeView', 'month'); }">Reservas</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { location.hash = '/Tab/Info'; }">Información General</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { location.hash = '/Tab/Salas'; }">Salas</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { location.hash = '/Tab/Equipos'; }">Equipos</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { location.hash = '/Tab/Reservas'; $('[id^=calendar]').fullCalendar('changeView', 'agendaDay'); $('[id^=calendar]').fullCalendar('changeView', 'month'); }">Reservas</li>
                 </ul>
             </div>
         </div>
@@ -371,7 +376,6 @@
             </div>
         </div>
         <div class="studio-rooms" data-bind="visible: (TabSeleccionado() == 'Salas')">
-            <h4>Listado de Salas</h4>
             @foreach (var sala in @Model.Estudio.Salas)
             {
                 <div class="div-table studio-room-container" style="@(sala.DatosGrabacion == null ? "width: 60%" : "")">
