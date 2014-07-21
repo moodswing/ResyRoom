@@ -207,6 +207,7 @@
     <Content Include="Content\img\uncheckedmini.png" />
     <Content Include="Content\img\verEstudio.png" />
     <Content Include="Content\img\verEstudioOver.png" />
+    <Content Include="Content\loading.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -339,6 +340,7 @@
     <Content Include="Views\Studio\ViewStudio.cshtml" />
     <Content Include="Views\Shared\_RankingSidebar.cshtml" />
     <Content Include="Views\Studio\_RoomEquipment.cshtml" />
+    <Content Include="Views\Shared\_MensajeCentral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,0 +1,10 @@
+﻿@model ResyRoom.ViewModels.BaseViewModel
+
+<div id="successfulBookingOverlay" class="successful-booking-overlay"></div>
+<div id="successfulBooking" class="successful-booking">
+    <div class="successful-booking-container">
+        <h3>@Model.TituloMensaje</h3>
+        <span>@Model.SubtituloMensaje</span>
+    </div>
+    <a id="closeSuccessfulBooking" href="#" class="close-message" data-bind="click: function () { $('#successfulBookingOverlay').hide(); $('#successfulBooking').toggle('clip'); }">Cerrar</a>
+</div>

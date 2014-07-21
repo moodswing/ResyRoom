@@ -18,6 +18,9 @@ namespace ResyRoom.ViewModels
         public IEnumerable<Estudio> EstudiosMejorEvaluados { get; set; }
         public IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
 
+        public string TituloMensaje { get; set; }
+        public string SubtituloMensaje { get; set; }
+
         public bool UserLogged { get { return HttpContext.Current.User.Identity.IsAuthenticated; } }
     }
 }

@@ -73,6 +73,17 @@ namespace ResyRoom.Controllers
             if (reserva != null)
             {
                 ViewStudioViewModel.ReservaRealizadaConExito = reserva.ReservaRealizadaConExito;
+
+                if (ViewStudioViewModel.ReservaRealizadaConExito == true)
+                {
+                    ViewStudioViewModel.TituloMensaje = Constantes.ReservaRealizadaConExito;
+                    ViewStudioViewModel.SubtituloMensaje = Constantes.SubtituloReservaRealizadaConExito;
+                }
+                else
+                {
+                    ViewStudioViewModel.TituloMensaje = Constantes.ReservaFallida;
+                    ViewStudioViewModel.SubtituloMensaje = Constantes.SubtituloReservaFallida;
+                }
             }
             
             return View(ViewStudioViewModel);

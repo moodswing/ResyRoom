@@ -12,6 +12,12 @@ namespace ResyRoom.Models
 
         public static string SessionKey = "UserSession";
 
-        public static string MensajeErrorUsuarioExistente = "El usuario que intenta registrar ya existe. Favor verificar sus datos.";
+        public const string MensajeErrorUsuarioExistente = "El usuario que intenta registrar ya existe. Favor verificar sus datos.";
+
+        public const string ReservaRealizadaConExito = "Tu reserva se ha realizado con éxito!";
+        public const string SubtituloReservaRealizadaConExito = "Te envíaremos un correo de confirmación con los datos de tu reserva.";
+
+        public const string ReservaFallida = "Lo sentimos, no se ha podido realizar tu reserva";
+        public const string SubtituloReservaFallida = "Por favor vuelve a verificar que la hora que has intentado reservar esté disponible.";
     }
 }

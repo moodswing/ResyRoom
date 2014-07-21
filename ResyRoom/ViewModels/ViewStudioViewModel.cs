@@ -24,5 +24,8 @@ namespace ResyRoom.ViewModels
         IEnumerable<Estudio> EstudiosMasPopulares { get; set; }
         List<Notificacion> Notificaciones { get; set; }
         bool MostrarNotificacion { get; set; }
+
+        string TituloMensaje { get; set; }
+        string SubtituloMensaje { get; set; }
     }
 }
