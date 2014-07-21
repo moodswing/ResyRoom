@@ -119,7 +119,20 @@ h3
     border-radius: 3px;
 }
 
-.botonGrande:hover
+.botonMedio
+{
+    margin-right: 0;
+    font-size: 13px;
+    padding: 10px 17px;
+    color: #fff;
+    background-color: #42B8DD;
+    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
+    border: none;
+    border-radius: 3px;
+}
+
+.botonGrande:hover,
+.botonMedio:hover
 {
     cursor: pointer;
 }

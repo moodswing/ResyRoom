@@ -17,7 +17,7 @@
 <script>
     var viewKoViewModel;
     var fecha;
-    
+
     function ViewKoViewModel() {
         var self = this;
         self.TabSeleccionado = ko.observable("Info");
@@ -47,7 +47,7 @@
         self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
         self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
-    
+
     function ToHourMinuteFormat(duration) {
         return moment().subtract(moment.duration(moment().format("HH:mm"))).add(duration).format("HH:mm");
     }
@@ -89,8 +89,8 @@
         @if (Model.ReservaRealizadaConExito != null)
         {
             <text>
-                $("#successfulBookingOverlay").show();
-                $("#successfulBooking").toggle("clip");
+        $("#successfulBookingOverlay").show();
+        $("#successfulBooking").toggle("clip");
             </text>
         }
         
@@ -105,12 +105,22 @@
         $("[id^=BookingForm]").submit(function() {
             $("#loading").show();
         });
+    
+        var hash = window.location.hash;
+        if (hash.indexOf("Tab") != -1) {
+            if (window.location.hash.split("/").length > 2) {
+                viewKoViewModel.TabSeleccionado(hash.split("/")[2]);
+            }
+            if (window.location.hash.split("/").length > 3) {
+                viewKoViewModel.SalaSeleccionada(hash.split("/")[3]);
+            }
+        }
         
         @foreach (var sala in @Model.Estudio.Salas)
         {
             <text>
-            var day = 0;
-            var openDays = "@(sala.HorarioActivo.DíasAbierto)";
+        var day = 0;
+        var openDays = "@(sala.HorarioActivo.DíasAbierto)";
             var diasCerrados = [];
             
             viewKoViewModel.Salas().push(
@@ -124,13 +134,13 @@
                 PrecioBloque: "@(sala.Precio)"
             });
 
-            for (day = 0; day < 7; day++)
-            {
-                if (openDays.indexOf(day) == -1)
-                    diasCerrados.push(day);
-            }
+        for (day = 0; day < 7; day++)
+        {
+            if (openDays.indexOf(day) == -1)
+                diasCerrados.push(day);
+        }
             
-            $('#calendar@(sala.IdSala)').fullCalendar({
+        $('#calendar@(sala.IdSala)').fullCalendar({
                 header: {
                     left:   'month,agendaWeek,agendaDay',
                     center: 'title',
@@ -342,7 +352,7 @@
                     }
                 }
             });
-            </text>
+        </text>
         }
     });
 </script>
@@ -393,14 +403,15 @@
                 <div class="div-table studio-room-container" style="@(sala.DatosGrabacion == null ? "width: 60%" : "")">
                     <div class="studio-info-room div-cell">
                         <div class="room-name">@sala.Nombre</div>
-                        <div class="div-table" style="width: 100%">
-                            <ul class="div-cell" style="width: 50%;">
+                        <div class="div-table studio-detail">
+                            <ul class="div-cell">
                                 <li><span class="span-label">Tamaño:</span> <span class="span-value">@sala.Tamaño</span></li>
                                 <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
                                 <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
                             </ul>
-                            <div class="div-cell" style="width: 50%; text-align: right;">
-                                <input type="submit" class="botonGrande" value="ver horarios" data-bind="click: function() { location.hash = '/Tab/Reservas/' + @(sala.IdSala); }" />
+                            <div class="div-cell studio-buttons">
+                                <input type="button" class="botonMedio" value="ver horarios" data-bind="click: function() { location.hash = '/Tab/Reservas/' + @(sala.IdSala); }" />
+                                <input type="button" class="botonMedio" value="ver equipos" data-bind="click: function() { location.hash = '/Tab/Equipos/' + @(sala.IdSala); }" />
                             </div>
                         </div>
                         <div class="room-price">Precio x hr: <span>@sala.Precio.ToCurrency()</span></div>
@@ -452,7 +463,7 @@
                 <ul class="list-menu">
                     @foreach (var sala in @Model.Estudio.Salas)
                     {
-                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'agendaDay'); $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'month'); }">@sala.Nombre</li>
+                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); $('#calendar@(sala.IdSala)    ').fullCalendar('changeView', 'agendaDay'); $('#calendar@(sala.IdSala)    ').fullCalendar('changeView', 'month'); }">@sala.Nombre</li>
                     }
                 </ul>
             </div>
@@ -461,8 +472,8 @@
                 <div class="div-cell booking-content" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
                     <div class="div-table">
                         <div id="calendar@(sala.IdSala)" class="calendar"></div>
-                            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "div-cell booking-form", id = "BookingForm" + @sala.IdSala }))
-                            {
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "div-cell booking-form", id = "BookingForm" + @sala.IdSala }))
+                        {
                             <div class="booking">
                                 <div class="inner-div">
                                     @Html.Partial("_MessageNotification")
@@ -498,13 +509,13 @@
                                                 <span id="bubblingG_1"></span>
                                                 <span id="bubblingG_2"></span>
                                                 <span id="bubblingG_3"></span>
-                                             </div>
+                                            </div>
                                         </div>
                                         <input type="submit" class="botonGrande" value="reservar hora" />
                                     </div>
                                 </div>
                             </div>
-        }
+                        }
                     </div>
                 </div>
             }

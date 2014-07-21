@@ -554,6 +554,27 @@ h4 {
     background: url('../../Content/img/bglogo.png') repeat;
 }
 
+.studio-rooms .studio-info-room .studio-detail
+{
+    width: 100%;
+}
+
+.studio-rooms .studio-info-room .studio-detail > ul
+{
+    width: 50%;
+}
+
+.studio-rooms .studio-info-room .studio-detail .studio-buttons
+{
+    width: 50%; 
+    text-align: right;
+}
+
+.studio-rooms .studio-info-room .studio-detail .studio-buttons input:first-child
+{
+    margin-right: 5px;
+}
+
 .studio-rooms .studio-info-room .room-name,
 .studio-rooms .studio-room-recording .room-name {
     font-size: 14px;
