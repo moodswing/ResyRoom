@@ -34,8 +34,6 @@
             if ($("#divMapa").length > 0) {
                 var divMapa = $("#divMapa").parents("tr").prev()[0];
                 $("#divMapa").parents("tr").remove();
-                console.log(img.parents("tr")[0]);
-                console.log(divMapa);
                 if (img.parents("tr")[0] != divMapa)
                     displayMap(img);
             }

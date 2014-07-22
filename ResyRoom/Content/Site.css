@@ -451,6 +451,10 @@ header, footer, nav, section
     padding-bottom: 10px;
 }
 
+.studio-general-info {
+    padding-top: 15px;
+}
+
 .studio-general-info .cover-studio-picture {
     height: 250px;
     overflow: hidden;
@@ -876,6 +880,10 @@ h4 {
 
 .studio-booking .calendar .fc-view-agendaDay .fc-event-title {
     padding-left: 10px;
+}
+
+.studio-booking .calendar .fc-header-title h2 {
+    color: #141414;
 }
 
 .studio-booking .booking {
