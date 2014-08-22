@@ -180,7 +180,6 @@
   <ItemGroup>
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\Control.css" />
-    <Content Include="Content\Dropdownlist.css" />
     <Content Include="Content\Form.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\Header.css" />
@@ -208,7 +207,39 @@
     <Content Include="Content\img\verEstudio.png" />
     <Content Include="Content\img\verEstudioOver.png" />
     <Content Include="Content\loading.css" />
-    <Content Include="Content\Login.css" />
+    <Content Include="Content\Scripts\Extensiones.js" />
+    <Content Include="Content\Scripts\facebook-sdk-v2.js" />
+    <Content Include="Content\Scripts\fullcalendar.js" />
+    <Content Include="Content\Scripts\FullCalendar\fullCalendar-configuration.js" />
+    <Content Include="Content\Scripts\gmap3.js" />
+    <Content Include="Content\Scripts\jquery-1.8.3.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.9.2.custom.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Content\Scripts\jquery.elastic.source.js" />
+    <Content Include="Content\Scripts\jquery.history.js" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Content\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\Scripts\jquery.validate.js" />
+    <Content Include="Content\Scripts\jquery.validate.min.js" />
+    <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\Scripts\knockout-3.1.0.debug.js" />
+    <Content Include="Content\Scripts\knockout-3.1.0.js" />
+    <Content Include="Content\Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Content\Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Content\Scripts\MicrosoftAjax.js" />
+    <Content Include="Content\Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Content\Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Content\Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Content\Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Content\Scripts\modernizr-1.7.js" />
+    <Content Include="Content\Scripts\modernizr-1.7.min.js" />
+    <Content Include="Content\Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Content\Scripts\moment.min.js" />
+    <Content Include="Content\Scripts\_references.js" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -224,7 +255,6 @@
     <Content Include="Content\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\smoothness\jquery-ui-1.9.2.custom.css" />
     <Content Include="Content\smoothness\jquery-ui-1.9.2.custom.min.css" />
-    <Content Include="Content\Table.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -252,42 +282,8 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\Validation.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\checkbox.js" />
-    <Content Include="Scripts\Extensiones.js" />
-    <Content Include="Scripts\facebook-sdk-v2.js" />
-    <Content Include="Scripts\fullcalendar.js" />
-    <Content Include="Scripts\gmap3.js" />
-    <Content Include="Scripts\jquery-1.8.3.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.custom.min.js" />
-    <Content Include="Scripts\jquery.backstretch.min.js" />
-    <Content Include="Scripts\jquery.elastic.source.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-3.1.0.debug.js" />
-    <Content Include="Scripts\knockout-3.1.0.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\modernizr-1.7.js" />
-    <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\sammy.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -301,6 +297,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Studio\Partial\_GeneralInfo.cshtml" />
+    <Content Include="Views\Studio\Partial\_RoomsInfo.cshtml" />
+    <Content Include="Views\Studio\Partial\_EquipmentInfo.cshtml" />
+    <Content Include="Views\Studio\Partial\_BookingInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,24 +336,14 @@
     <Content Include="Views\Shared\_ResultadoEstudios.cshtml" />
     <Content Include="Views\User\RegisterUser.cshtml" />
     <Content Include="Views\Shared\_MessageNotification.cshtml" />
-    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Views\Studio\ViewStudio.cshtml" />
     <Content Include="Views\Shared\_RankingSidebar.cshtml" />
-    <Content Include="Views\Studio\_RoomEquipment.cshtml" />
     <Content Include="Views\Shared\_MensajeCentral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Devtalk.EF.CodeFirst, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Devtalk.EF.CodeFirst.dll</HintPath>
-    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Elmah.dll</HintPath>
@@ -367,21 +357,9 @@
       <HintPath>..\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=1.0.11522.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -397,23 +375,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Entity.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Net.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Net.Http.WebRequest.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
@@ -421,12 +386,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.ApplicationServices">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.DynamicData">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Entity">
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Extensions" />
@@ -456,25 +415,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Providers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.Routing">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Services">
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -483,14 +429,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivator, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\WebActivator.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup>

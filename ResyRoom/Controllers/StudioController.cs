@@ -42,9 +42,9 @@ namespace ResyRoom.Controllers
             SearchViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             SearchViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
             SearchViewModel.ListadoRegiones = ServRegiones.RegionesChilenas();
-            SearchViewModel.ListadoComunas = new List<Comuna> {Constantes.ComunaSinSeleccion};
+            SearchViewModel.ListadoComunas = new List<Comuna> { Constantes.ComunaSinSeleccion };
             SearchViewModel.Resultados = ServEstudios.Todas();
-            
+
             return View(SearchViewModel);
         }
 
@@ -85,7 +85,7 @@ namespace ResyRoom.Controllers
                     ViewStudioViewModel.SubtituloMensaje = Constantes.SubtituloReservaFallida;
                 }
             }
-            
+
             return View(ViewStudioViewModel);
         }
 
@@ -113,6 +113,15 @@ namespace ResyRoom.Controllers
             return View(ViewStudioViewModel);
         }
 
+        public ActionResult LoadViewStudioTab(int idEstudio, string view)
+        {
+            ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(idEstudio);
+
+            if (view.Contains("General"))
+                return PartialView(view, ViewStudioViewModel.Estudio);
+
+            return PartialView(view, ViewStudioViewModel);
+        }
         #endregion
     }
 }

@@ -1,0 +1,32 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.IViewStudioViewModel
+
+<div class="studio-equipment div-table">
+    <div class="equipment-menu div-cell">
+        <ul class="list-menu">
+            @foreach (var sala in @Model.Estudio.Salas)
+            {
+                <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); }">@sala.Nombre</li>
+            }
+        </ul>
+    </div>
+    @foreach (var sala in @Model.Estudio.Salas)
+    {
+        <div class="inner-equipment div-cell">
+            <div class="equipment-boxes" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
+                @foreach (var equipo in sala.Equipos.OrderByDescending(e => e.PrecioAdicional))
+                {
+                    <div class="equipment-box">
+                        <div class="equipment-name">@equipo.Nombre</div>
+                        <div>@equipo.Descripcion</div>
+                        @if (equipo.PrecioAdicional > 0)
+                        {
+                            <div class="additional-price">Precio Adicional: <span>+ @equipo.PrecioAdicional.ToCurrency()</span></div>
+                        }
+                        <div class="equipment-picture" style="background: url(@(equipo.Fotografia)); background-size: 100%; background-position: center center; background-repeat: no-repeat;"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -1,16 +1,15 @@
-﻿@using System.Globalization
-@using System.Web.Script.Serialization
+﻿@using System.Web.Script.Serialization
 @using ResyRoom.Infraestructura.Extensiones
-@using ResyRoom.Models
 @using ResyRoom.ViewModels
-@model ResyRoom.ViewModels.IViewStudioViewModel
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script src="@Url.Content("~/Scripts/knockout-3.1.0.js")" type="text/javascript"></script>
-<link href="@Url.Content("~/Content/fullcalendar.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/Scripts/moment.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/fullcalendar.js")" type="text/javascript"></script>
+@model IViewStudioViewModel
+
+@Styles.Render("~/Content/css/loading")
+@Styles.Render("~/Content/css/fullcalendar")
+@Scripts.Render("~/bundles/knockoutjs")
+@Scripts.Render("~/bundles/fullcalendar")
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="../../Scripts/gmap3.js"></script>
+@Scripts.Render("~/bundles/gmap")
+@Scripts.Render("~/bundles/history")
 
 @{
     ViewBag.Title = @Model.Estudio.Nombre + " - ResyRoom";
@@ -21,9 +20,15 @@
     var viewKoViewModel;
     var fecha;
 
+    var tabsViews = new Array();
+    tabsViews["Info"] = "Partial/_GeneralInfo";
+    tabsViews["Salas"] = "Partial/_RoomsInfo";
+    tabsViews["Equipos"] = "Partial/_EquipmentInfo";
+    tabsViews["Reservas"] = "Partial/_BookingInfo";
+    
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Mapa");
+        self.TabSeleccionado = ko.observable("Reservas");
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
         self.Salas = ko.observable([]);
         self.FromCalendar = ko.observable();
@@ -50,48 +55,79 @@
         self.HoraDesdeForm = ko.computed(function() { return self.HoraReservaDesde() != null ? self.HoraReservaDesde().format('H:mm') : ''; });
         self.HoraHastaForm = ko.computed(function() { return self.HoraReservaHasta() != null ? self.HoraReservaHasta().format('H:mm') : ''; });
     }
+    
+    History.Adapter.bind(window,'statechange',function(){
+        var state = History.getState();
+        
+        if (state.data != null && state.data.Tab != null) {
+            LoadTab(state.data.Tab);
+        }
+    });
 
     function ToHourMinuteFormat(duration) {
         return moment().subtract(moment.duration(moment().format("HH:mm"))).add(duration).format("HH:mm");
     }
-
-    var app = Sammy(function() {
-        this.get('#/Tab/:tabId/:salaId', function() {
-            if (viewKoViewModel != null) {
-                viewKoViewModel.SalaSeleccionada(this.params.salaId);
-                viewKoViewModel.TabSeleccionado(this.params.tabId);
-
-                if (this.params.tabId == "Reservas") {
-                    $('#calendar' + this.params.salaId).fullCalendar('changeView', 'agendaDay');
-                    $('#calendar' + this.params.salaId).fullCalendar('changeView', 'month');
-                }
-            }
-        });
-
-        this.get('#/Tab/:tabId', function() {
-            if (viewKoViewModel != null) {
-                viewKoViewModel.TabSeleccionado(this.params.tabId);
-            }
-            
-            if (this.params.tabId == "Reservas") {
-                $('[id^=calendar]').fullCalendar('changeView', 'agendaDay');
-                $('[id^=calendar]').fullCalendar('changeView', 'month');
-            }
-            
-            if (this.params.tabId == "Mapa") {
-                displayMap("@Html.Raw(Model.Estudio.Direccion), @Html.Raw(Model.Estudio.Comuna.Descripcion), @Html.Raw(Model.Estudio.Comuna.Region.Descripcion)");
-            }
-        });
-
-        this.notFound = function() {
-            // do something
-        };
-    });
-
-    $(function () {
-        app.run();
-    });
     
+    function LoadTab(tab) {
+        var view = tabsViews[tab];
+        
+        if (viewKoViewModel != null)
+            viewKoViewModel.TabSeleccionado(tab);
+            
+        if (tab != "Mapa") {
+            var parentWidth = $(".studio-tab").width();
+            $(".studio-tab").html("<div id='loading' style='height: 300px;padding-top: 15%;'><div class='bubblingG' style='margin: auto;'><span id='bubblingG_1'>" +
+                "</span><span id='bubblingG_2'></span><span id='bubblingG_3'></span></div><div style='text-align: center;'>cargando...</div></div>");
+            
+            $(".studio-tab").load("/Studio/LoadViewStudioTab", { idEstudio: 1, view: view }, function() {
+                ko.applyBindings(viewKoViewModel, $(this).children().get(0));
+                
+                if ($(".equipment-boxes").length > 0)
+                    $(".equipment-boxes").css("width", (parentWidth - $(".equipment-menu").width() - 25) + "px");
+
+                if (tab == "Reservas") {
+                    @foreach (var sala in @Model.Estudio.Salas)
+                        {
+                            <text>
+                        viewKoViewModel.Salas().push(
+                        { 
+                            IdSala: @(sala.IdSala), 
+                                    ReservasPorDia: @Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservasPorDía)),
+                                    Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
+                                    HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
+                                    HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
+                                    DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)",
+                                    PrecioBloque: "@(sala.Precio)"
+                                });
+
+                                var openDays = "@(sala.HorarioActivo.DíasAbierto)";
+
+                        var diasCerrados = [];
+                        for (var day = 0; day < 7; day++)
+                        {
+                            if (openDays.indexOf(day) == -1) diasCerrados.push(day);
+                        }
+
+                        var calendarSelector = $('#calendar@(sala.IdSala)');
+                        var slotDuration = "@(sala.HorarioActivo.DuracionBloque)";
+                        var minTime = "@(sala.HorarioActivo.HoraApertura)";
+                        var maxTime = "@(sala.HorarioActivo.HoraCierre)";
+                        var idSala = "@(sala.IdSala)";
+                        var idEstudio = "@(sala.IdEstudio)";
+                        var calendarParameters = CalendarParameters(calendarSelector, diasCerrados, slotDuration, minTime, maxTime, idSala, idEstudio, viewKoViewModel);
+
+                        SetCalendarConfiguration(calendarParameters);
+                            
+                            </text>
+                        }
+                }
+            });
+        } else {
+            $(".studio-tab").html("");
+            displayMap("@Html.Raw(Model.Estudio.Direccion), @Html.Raw(Model.Estudio.Comuna.Descripcion), @Html.Raw(Model.Estudio.Comuna.Region.Descripcion)");   
+        }
+    }
+
     function displayMap(direccion) {
         $('.studio-map').gmap3({
             clear: true,
@@ -120,260 +156,11 @@
 
         viewKoViewModel = new ViewKoViewModel();
         ko.applyBindings(viewKoViewModel);
+        LoadTab(viewKoViewModel.TabSeleccionado());
 
-        $(".equipment-boxes").css("width", ($(".studio-equipment").parent().width() - $(".equipment-menu").width() - 25) + "px");
-        $("[id^=BookingForm]").submit(function() {
+        $("[id^=BookingForm]").submit(function(e) {
             $("#loading").show();
         });
-    
-        var hash = window.location.hash;
-        if (hash.indexOf("Tab") != -1) {
-            if (window.location.hash.split("/").length > 2) {
-                viewKoViewModel.TabSeleccionado(hash.split("/")[2]);
-            }
-            if (window.location.hash.split("/").length > 3) {
-                viewKoViewModel.SalaSeleccionada(hash.split("/")[3]);
-            }
-        }
-        
-        @foreach (var sala in @Model.Estudio.Salas)
-        {
-            <text>
-        var day = 0;
-        var openDays = "@(sala.HorarioActivo.DíasAbierto)";
-            var diasCerrados = [];
-            
-            viewKoViewModel.Salas().push(
-            { 
-                IdSala: @(sala.IdSala), 
-                ReservasPorDia: @Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservasPorDía)),
-                Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
-                HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
-                HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
-                DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)",
-                PrecioBloque: "@(sala.Precio)"
-            });
-
-        for (day = 0; day < 7; day++)
-        {
-            if (openDays.indexOf(day) == -1)
-                diasCerrados.push(day);
-        }
-            
-        $('#calendar@(sala.IdSala)').fullCalendar({
-                header: {
-                    left:   'month,agendaWeek,agendaDay',
-                    center: 'title',
-                    right:  'prev,next'
-                },
-                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
-                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sáb'],
-                buttonText: {
-                    today: "Hoy",
-                    month: "Mes",
-                    week: "Semana",
-                    day: "Día"
-                },
-                closedDays: diasCerrados,
-                columnFormat: {
-                    month: 'ddd',
-                    week: 'ddd D/M',
-                    day: 'dddd D/M'
-                },
-                firstDay: 1,
-                selectable: {
-                    agendaDay: true,
-                    agendaWeek: true,
-                    'default': false,
-                },
-                defaultView: 'month',
-                allDaySlot: {
-                    agendaWeek: false,
-                    'default': true,
-                },
-                weekMode: 5,
-                firstHour: 10,
-                allDayDefault: false,
-                lazyFetching: true,
-                slotDuration: "@(sala.HorarioActivo.DuracionBloque)",
-                minTime: "@(sala.HorarioActivo.HoraApertura)",
-                maxTime: "@(sala.HorarioActivo.HoraCierre)",
-                dayRender: function(date, cell) {
-                    if (moment(date.format("YYYY-MM-DD 00:00:00")) < moment(moment(new Date()).format("YYYY-MM-DD 00:00:00"))) 
-                    {
-                        cell.addClass("fc-past-day");
-                        return false;
-                    }
-                    
-                    var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
-                    if (diasCerrados.indexOf(date.day()) != -1) {
-                        cell.addClass("fc-inactive");
-                        cell.find(".fc-day-content > div").text("No disponible");
-                    }
-                    else {
-                        var tieneReservas = false;
-                        for(var i = 0; i < sala.ReservasPorDia.length; i ++) {
-                            var dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
-
-                            var fechaFormatted = moment(sala.ReservasPorDia[i].Dia).format("YYYY-MM-DD");
-
-                            if (date.format("YYYY-MM-DD") == fechaFormatted) {
-                                var slotsDisponibles = dailySlots - sala.ReservasPorDia[i].NroReservas;
-                                cell.find(".fc-day-content > div").text(slotsDisponibles + " espacios disponibles");
-                                var tieneReservas = true;
-
-                                if (slotsDisponibles == 0) {
-                                    cell.find(".fc-day-content > div").text("Sin espacios disponibles");
-                                    cell.addClass("fc-inactive");
-                                }
-                            }
-                        }
-
-                        if (!tieneReservas) {
-                            cell.find(".fc-day-content > div").text("Todo el día disponible");
-                        }
-                    }
-                },
-                events: function(start, end, timezone, callback) {
-                    var sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
-                    
-                    var events = [];
-                    for(var i = 0; i < sala.Reservas().length; i ++) {
-                        var desde = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Desde));
-                        var hasta = ToHourMinuteFormat(moment.duration(sala.Reservas()[i].Hasta));
-                        
-                        if ((moment.duration(hasta) - moment.duration(desde)) > moment.duration(sala.DuracionBloque)) {
-                            var a = moment.duration(desde), b = moment.duration(hasta), bloque = moment.duration(sala.DuracionBloque);
-                            if (moment(sala.Reservas()[i].Dia + " " + ToHourMinuteFormat(a)) < moment(new Date())) continue;
-
-                            while (a < b) {
-                                events.push({
-                                    title: "Reservado",
-                                    start: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(a),
-                                    end: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + ToHourMinuteFormat(moment.duration(a + bloque)),
-                                });
-                            
-                                a = moment.duration(a + bloque);
-                            }
-                        }
-                        else {
-                            if (moment(sala.Reservas()[i].Dia + " " + desde) < moment(new Date())) continue;
-
-                            events.push({
-                                title: "Reservado",
-                                start: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + desde,
-                                end: moment(sala.Reservas()[i].Dia).format("YYYY-MM-DD") + " " + hasta,
-                            });
-                        }
-                    }
-                    
-                    callback(events);
-                },
-                eventRender: function(event, element, view) {
-                    if (view.name == "month")
-                        return false;
-                    
-                    element.find(".fc-event-time").remove();
-                    element.find(".fc-event-inner").addClass("div-table");
-                    element.find(".fc-event-title").addClass("div-cell");
-                    element.find(".fc-event-title").css("vertical-align", "middle");
-                },
-                eventColor: '#EFEFEF',
-                eventTextColor: '#5D5D5D',
-                select: function(start, end, jsEvent, view) {
-                    viewKoViewModel.HoraReservaDesde(start);
-                    viewKoViewModel.HoraReservaHasta(end);
-                    viewKoViewModel.IdSalaReserva(@(sala.IdSala));
-                    viewKoViewModel.IdEstudioReserva(@(sala.IdEstudio));
-
-                    if (diasCerrados.indexOf(start.day()) != -1 || moment(start.format("YYYY-MM-DD hh:mm:ss a")) < moment(moment(new Date()).format("YYYY-MM-DD hh:mm:ss a"))) {
-                        viewKoViewModel.HoraReservaDesde(null);
-                        viewKoViewModel.HoraReservaHasta(null);
-                        viewKoViewModel.IdSalaReserva(null);
-                    }
-
-                    if (moment(start.format("YYYY-MM-DD hh:mm:ss a")) < moment(moment(new Date()).format("YYYY-MM-DD hh:mm:ss a"))) {
-                        if (!viewKoViewModel.MostrarNotificacion()) {
-                            viewKoViewModel.MostrarNotificacion(true);
-
-                            var notificaciones = [new notificacion(2, ["La fecha y hora que desea reservar es de una fecha anterior a la actual, favor volver a seleccionar.."])]; // 2: error
-                            viewKoViewModel.Notificaciones(notificaciones);
-                        }
-                    }
-                    else {
-                        viewKoViewModel.MostrarNotificacion(false);
-                    }
-                },
-                unselectAuto: false,
-                viewRender: function(view, element) {
-                    var sala, fecha, reservas, reservasPorDia, dailySlots, slotsDisponibles;
-
-                    viewKoViewModel.HoraReservaDesde(null);
-                    viewKoViewModel.HoraReservaHasta(null);
-                    viewKoViewModel.IdSalaReserva(null);
-                        
-                    if ((view.name == "agendaDay" && viewKoViewModel.FromCalendar()) || view.name == "agendaWeek") {
-                        sala = ko.utils.arrayFirst(viewKoViewModel.Salas(), function(item) { return item.IdSala == @(sala.IdSala); });
-                        fecha = $("#calendar@(sala.IdSala)").fullCalendar("getDate").format("YYYY-MM-DD");
-                        reservas = ko.utils.arrayFilter(sala.Reservas(), function(item) { return moment(item.Dia).format("YYYY-MM-DD") == fecha; });
-                        reservasPorDia = ko.utils.arrayFilter(sala.ReservasPorDia, function(item) { return moment(item.Dia).format("YYYY-MM-DD") == fecha; });
-                        dailySlots = (moment.duration(sala.HoraCierre)._milliseconds - moment.duration(sala.HoraApertura)._milliseconds) / moment.duration(sala.DuracionBloque)._milliseconds;
-                        slotsDisponibles = dailySlots - (reservasPorDia.length > 0 ? reservasPorDia[0].NroReservas : 0);
-                    }
-
-                    if (view.name == "agendaWeek") {
-                        for(var i = 0; i < diasCerrados.length; i++) {
-                            var index = (diasCerrados[i] > 0 ? diasCerrados[i] - 1 : 6);
-                            $(".fc-agenda-days .fc-widget-content:eq(" + index + ")").addClass("fc-inactive")
-                        }
-                    }
-
-                    if (view.name == "agendaDay" && viewKoViewModel.FromCalendar()) {
-                        var cell = element.find("[class^='fc-slot'] .fc-widget-content");
-                        $(cell).css("vertical-align", "baseline");
-                        $(cell).removeClass("fc-inactive");
-                        $(cell).find("> div").text("");
-                        
-                        view.allDayRow().find(".fc-day-content > div").text("");
-
-                        if (moment($("#calendar@(sala.IdSala)").fullCalendar("getDate").format("YYYY-MM-DD 00:00:00")) < moment(moment(new Date()).format("YYYY-MM-DD 00:00:00"))) 
-                        {
-                            var cell = element.find("[class^='fc-slot'] .fc-widget-content");
-                            $(cell).css("vertical-align", "middle");
-                            $(cell).addClass("fc-past-day");
-                            view.allDayRow().find(".fc-day-content > div").text("Fecha pasada. Favor buscar durante otra fecha.")
-                            
-                            return false;
-                        }
-
-                        if (slotsDisponibles == 0) {
-                            view.allDayRow().find(".fc-day-content > div").text("Sin espacios disponibles. Favor buscar durante otra fecha.")
-                        }
-                        else if (slotsDisponibles < dailySlots) {
-                            view.allDayRow().find(".fc-day-content > div").text("Quedan " + slotsDisponibles + " espacios disponibles")
-                        }
-
-                        if (diasCerrados.indexOf($("#calendar@(sala.IdSala)").fullCalendar("getDate").day()) != -1) {
-                            if (cell.length > 0) {
-                                $(cell).css("vertical-align", "middle");
-                                $(cell).addClass("fc-inactive");
-                                $(cell).find("> div").text("No Disponible");
-                            }
-                        }
-                    }
-                },
-                dayClick: function(date, allDay, jsEvent, view) {
-                    //if (allDay && $(this).is('td.fc-day')) {
-                    if (allDay && $(this).is('td.fc-day') && !$(this).is('td.fc-inactive') && !$(this).is('td.fc-past-day')) {
-                        $('#calendar@(sala.IdSala)').fullCalendar('changeView', 'agendaDay');
-                        viewKoViewModel.FromCalendar(true);
-                        $('#calendar@(sala.IdSala)').fullCalendar('gotoDate', date);   
-                    }
-                }
-            });
-        </text>
-        }
     });
 </script>
 @Html.Partial("_MensajeCentral")
@@ -385,163 +172,15 @@
             <span>@Model.Estudio.Direccion, @Model.Estudio.Comuna.Descripcion, @Model.Estudio.Comuna.Region.Descripcion</span>
             <div class="studio-profile-tabs">
                 <ul>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { location.hash = '/Tab/Info'; }">Información General</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { location.hash = '/Tab/Salas'; }">Salas</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Mapa') }, click: function () { location.hash = '/Tab/Mapa'; }">Mapa</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { location.hash = '/Tab/Equipos'; }">Equipos</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { location.hash = '/Tab/Reservas'; }">Reservas</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { History.pushState({ Tab: 'Info' }, 'Información General', null); }">Información General</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { History.pushState({ Tab: 'Salas' }, 'Salas', null); }">Salas</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Mapa') }, click: function () { History.pushState({ Tab: 'Mapa' }, 'Mapa', null); }">Mapa</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { History.pushState({ Tab: 'Equipos' }, 'Equipos', null); }">Equipos</li>
+                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { History.pushState({ Tab: 'Reservas' }, 'Reservas', null); }">Reservas</li>
                 </ul>
             </div>
         </div>
-        <div class="studio-general-info" data-bind="visible: (TabSeleccionado() == 'Info')">
-            <div class="cover-studio-picture"></div>
-            <div class="general-profile-info">
-                <h4>Información general</h4>
-                <ul>
-                    <li>@Html.LabelFor(m => m.Estudio.PrecioPorHoraDesde): @Model.Estudio.PrecioPorHoraDesde</li>
-                    <li>@Html.LabelFor(m => m.Estudio.Email): @Model.Estudio.Email</li>
-                    @if (!string.IsNullOrEmpty(Model.Estudio.Telefono))
-                    {
-                        <li>@Html.LabelFor(m => m.Estudio.Telefono): @Model.Estudio.Telefono</li>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.Estudio.Celular))
-                    {
-                        <li>@Html.LabelFor(m => m.Estudio.Celular): @Model.Estudio.Celular</li>
-                    }
-                    <li>Número de salas: @Model.Estudio.Salas.Count()</li>
-                    <li>@Html.LabelFor(m => m.Estudio.NroDeReservasTotales): @Model.Estudio.NroDeReservasTotales</li>
-                    <li>@Html.LabelFor(m => m.Estudio.PoseeSalaConDoblePedal): @(Model.Estudio.PoseeSalaConDoblePedal ? "Sí" : "No")</li>
-                    <li>@Html.LabelFor(m => m.Estudio.PoseeSalaConSetDePlatos): @(Model.Estudio.PoseeSalaConSetDePlatos ? "Sí" : "No")</li>
-                    <li>@Html.LabelFor(m => m.Estudio.PoseeComentarios): @(Model.Estudio.PoseeComentarios ? "Sí" : "No")</li>
-                    <li>@Html.LabelFor(m => m.Estudio.PoseeInfoDeEquipos): @(Model.Estudio.PoseeInfoDeEquipos ? "Sí" : "No")</li>
-                    <li>@Html.LabelFor(m => m.Estudio.PoseeGrabacion): @(Model.Estudio.PoseeGrabacion ? "Sí" : "No")</li>
-                </ul>
-            </div>
-        </div>
-        <div class="studio-rooms" data-bind="visible: (TabSeleccionado() == 'Salas')">
-            @foreach (var sala in @Model.Estudio.Salas)
-            {
-                <div class="div-table studio-room-container" style="@(sala.DatosGrabacion == null ? "width: 60%" : "")">
-                    <div class="studio-info-room div-cell">
-                        <div class="room-name">@sala.Nombre</div>
-                        <div class="div-table studio-detail">
-                            <ul class="div-cell">
-                                <li><span class="span-label">Tamaño:</span> <span class="span-value">@sala.Tamaño</span></li>
-                                <li><span class="span-label">Doble pedal:</span> <span class="span-value">@(sala.DoblePedal == true ? "Sí" : "No")</span></li>
-                                <li><span class="span-label">Set de platos:</span> <span class="span-value">@(sala.SetDePlatos == true ? "Sí" : "No")</span></li>
-                            </ul>
-                            <div class="div-cell studio-buttons">
-                                <input type="button" class="botonMedio" value="ver horarios" data-bind="click: function() { location.hash = '/Tab/Reservas/' + @(sala.IdSala); }" />
-                                <input type="button" class="botonMedio" value="ver equipos" data-bind="click: function() { location.hash = '/Tab/Equipos/' + @(sala.IdSala); }" />
-                            </div>
-                        </div>
-                        <div class="room-price">Precio x hr: <span>@sala.Precio.ToCurrency()</span></div>
-                    </div>
-                    @if (sala.DatosGrabacion != null)
-                    {
-                        <div class="studio-room-recording div-cell">
-                            <div class="room-name">Grabación</div>
-                            <ul>
-                                <li><span class="span-label">Masterización:</span> <span class="span-value">@(sala.DatosGrabacion.Masterizacion == true ? "Sí" : "No")</span></li>
-                            </ul>
-                            <div class="recording-price">Precio x canción: <span>@sala.DatosGrabacion.PrecioPorCancion.ToCurrency()</span></div>
-                        </div>    
-                    }
-                </div>
-            }
-        </div>
-        <div class="studio-map" style="width: 100%; height: 375px; padding-top: 15px;"  data-bind="visible: (TabSeleccionado() == 'Mapa')">
-        </div>
-        <div class="studio-equipment div-table" data-bind="visible: (TabSeleccionado() == 'Equipos')">
-            <div class="equipment-menu div-cell">
-                <ul class="list-menu">
-                    @foreach (var sala in @Model.Estudio.Salas)
-                    {
-                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); }">@sala.Nombre</li>
-                    }
-                </ul>
-            </div>
-            @foreach (var sala in @Model.Estudio.Salas)
-            {
-                <div class="inner-equipment div-cell">
-                    <div class="equipment-boxes" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
-                        @foreach (var equipo in sala.Equipos.OrderByDescending(e => e.PrecioAdicional))
-                        {
-                            <div class="equipment-box">
-                                <div class="equipment-name">@equipo.Nombre</div>
-                                <div>@equipo.Descripcion</div>
-                                @if (equipo.PrecioAdicional > 0)
-                                {
-                                    <div class="additional-price">Precio Adicional: <span>+ @equipo.PrecioAdicional.ToCurrency()</span></div>
-                                }
-                                <div class="equipment-picture" style="background: url(@(equipo.Fotografia)); background-size: 100%; background-position: center center; background-repeat: no-repeat;"></div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="studio-booking div-table" data-bind="visible: (TabSeleccionado() == 'Reservas')">
-            <div class="booking-menu div-cell">
-                <ul class="list-menu">
-                    @foreach (var sala in @Model.Estudio.Salas)
-                    {
-                        <li data-bind="css: { 'room-selected': (SalaSeleccionada() == @sala.IdSala) }, click: function () { viewKoViewModel.SalaSeleccionada(@(sala.IdSala)); $('#calendar@(sala.IdSala)    ').fullCalendar('changeView', 'agendaDay'); $('#calendar@(sala.IdSala)    ').fullCalendar('changeView', 'month'); }">@sala.Nombre</li>
-                    }
-                </ul>
-            </div>
-            @foreach (var sala in @Model.Estudio.Salas)
-            {
-                <div class="div-cell booking-content" data-bind="visible: (SalaSeleccionada() == @sala.IdSala)">
-                    <div class="div-table">
-                        <div id="calendar@(sala.IdSala)" class="calendar"></div>
-                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "div-cell booking-form", id = "BookingForm" + @sala.IdSala }))
-                        {
-                            <div class="booking">
-                                <div class="inner-div">
-                                    @Html.Partial("_MessageNotification")
-                                    <h4>Reserva de Hora</h4>
-                                    <div>
-                                        <span class="booking-label">día</span>
-                                        <span class="booking-value" data-bind="html: FechaReserva()"></span>
-                                        @Html.HiddenFor(s => s.Reserva.Fecha, new { data_bind = "value: FechaReservaForm()" })
-                                    </div>
-                                    <div>
-                                        <span class="booking-label">hora</span>
-                                        <span class="booking-value" data-bind="html: HoraDesdeHastaReserva()"></span>
-                                        @Html.HiddenFor(s => s.Reserva.Desde, new { data_bind = "value: HoraDesdeForm()" })
-                                        @Html.HiddenFor(s => s.Reserva.Hasta, new { data_bind = "value: HoraHastaForm()" })
-                                    </div>
-                                    <div>
-                                        <span class="booking-label">estudio</span>
-                                        <span class="booking-value">@sala.Estudio.Nombre</span>
-                                    </div>
-                                    <div>
-                                        <span class="booking-label">sala</span>
-                                        <span class="booking-value">@sala.Nombre</span>
-                                    </div>
-                                    <div>
-                                        <span class="booking-label booking-price-label">precio total</span>
-                                        <span class="booking-value booking-price" data-bind="text: PrecioReserva()"></span>
-                                    </div>
-                                    <div class="book-hour">
-                                        @Html.HiddenFor(s => s.Reserva.IdSala, new { data_bind = "value: IdSalaReserva()" })
-                                        @Html.HiddenFor(s => s.Estudio.IdEstudio, new { data_bind = "value: IdEstudioReserva()" })
-                                        <div id="loading">
-                                            <div class="bubblingG">
-                                                <span id="bubblingG_1"></span>
-                                                <span id="bubblingG_2"></span>
-                                                <span id="bubblingG_3"></span>
-                                            </div>
-                                        </div>
-                                        <input type="submit" class="botonGrande" value="reservar hora" />
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        </div>
+        <div class="studio-tab"></div>
+        <div class="studio-map" style="width: 100%; height: 375px; padding-top: 15px;"  data-bind="visible: (TabSeleccionado() == 'Mapa')"></div>
     </div>
 </div>

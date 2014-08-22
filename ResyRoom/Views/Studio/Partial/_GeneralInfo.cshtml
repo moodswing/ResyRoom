@@ -1,0 +1,26 @@
+﻿@model ResyRoom.Models.Estudio
+<div class="studio-general-info">
+    <div class="cover-studio-picture"></div>
+    <div class="general-profile-info">
+        <h4>Información general</h4>
+        <ul>
+            <li>@Html.LabelFor(m => m.PrecioPorHoraDesde): @Model.PrecioPorHoraDesde</li>
+            <li>@Html.LabelFor(m => m.Email): @Model.Email</li>
+            @if (!string.IsNullOrEmpty(Model.Telefono))
+            {
+                <li>@Html.LabelFor(m => m.Telefono): @Model.Telefono</li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Celular))
+            {
+                <li>@Html.LabelFor(m => m.Celular): @Model.Celular</li>
+            }
+            <li>Número de salas: @Model.Salas.Count()</li>
+            <li>@Html.LabelFor(m => m.NroDeReservasTotales): @Model.NroDeReservasTotales</li>
+            <li>@Html.LabelFor(m => m.PoseeSalaConDoblePedal): @(Model.PoseeSalaConDoblePedal ? "Sí" : "No")</li>
+            <li>@Html.LabelFor(m => m.PoseeSalaConSetDePlatos): @(Model.PoseeSalaConSetDePlatos ? "Sí" : "No")</li>
+            <li>@Html.LabelFor(m => m.PoseeComentarios): @(Model.PoseeComentarios ? "Sí" : "No")</li>
+            <li>@Html.LabelFor(m => m.PoseeInfoDeEquipos): @(Model.PoseeInfoDeEquipos ? "Sí" : "No")</li>
+            <li>@Html.LabelFor(m => m.PoseeGrabacion): @(Model.PoseeGrabacion ? "Sí" : "No")</li>
+        </ul>
+    </div>
+</div>

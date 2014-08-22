@@ -114,6 +114,15 @@ header, footer, nav, section
     float: right;
 }
 
+select
+{
+    color: gray;
+    padding: 5px;
+    height: 26px;
+    border: 1px #bbb solid;
+    border-radius: 2px;
+}
+
 .invisible
 {
     display: none;
@@ -449,6 +458,10 @@ header, footer, nav, section
     border-bottom: 1px solid gainsboro;
     margin-bottom: 10px;
     padding-bottom: 10px;
+}
+
+.studio-tab {
+    width: 100%;
 }
 
 .studio-general-info {

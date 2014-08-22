@@ -1,7 +1,11 @@
-﻿#loading {
+﻿.studio-booking #loading {
     float: left; 
     padding-top: 15px; 
     display: none;
+}
+
+.studio-tab #loading {
+    padding-top: 15px; 
 }
 
 .bubblingG
