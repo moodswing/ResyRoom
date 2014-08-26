@@ -25,13 +25,15 @@ namespace ResyRoom.Controllers
         public ISearchStudioViewModel SearchViewModel { get; set; }
         [Dependency]
         public IViewStudioViewModel ViewStudioViewModel { get; set; }
+        [Dependency]
+        public IConfigureStudioViewModel ConfigureStudioViewModel { get; set; }
 
         #endregion
 
         #region >>> Configure Studio's view
-        public ActionResult Configure(Estudio estudio)
+        public ActionResult Configure()
         {
-            return View(estudio);
+            return View(ConfigureStudioViewModel);
         }
         #endregion
 
@@ -61,11 +63,18 @@ namespace ResyRoom.Controllers
         #region >>> View studio
 
         [HttpGet]
-        public ActionResult ViewStudio(int id)
+        public ActionResult ViewStudio(string id)
         {
+            int idNumber;
+            var isId = int.TryParse(id, out idNumber);
+
             ViewStudioViewModel.EstudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
-            ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(id);
+
+            if (isId)
+                ViewStudioViewModel.Estudio = ServEstudios.CargarEstudioPorId(idNumber);
+            else
+                ViewStudioViewModel.Estudio = ServEstudios.CargarEstudioPorUrl(id);
 
             ViewStudioViewModel.Notificaciones = new List<Notificacion> { new Notificacion() };
 
@@ -108,17 +117,14 @@ namespace ResyRoom.Controllers
             ViewStudioViewModel.EstudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
 
             if (model.Reserva.IdSala != null)
-                ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio((int)model.Reserva.IdSala);
+                ViewStudioViewModel.Estudio = ServEstudios.CargarEstudioPorId((int)model.Reserva.IdSala);
 
             return View(ViewStudioViewModel);
         }
 
         public ActionResult LoadViewStudioTab(int idEstudio, string view)
         {
-            ViewStudioViewModel.Estudio = ServEstudios.CargarEstudio(idEstudio);
-
-            if (view.Contains("General"))
-                return PartialView(view, ViewStudioViewModel.Estudio);
+            ViewStudioViewModel.Estudio = ServEstudios.CargarEstudioPorId(idEstudio);
 
             return PartialView(view, ViewStudioViewModel);
         }

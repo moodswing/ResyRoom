@@ -171,6 +171,8 @@
     <Compile Include="Servicios\ServRegiones.cs" />
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudioViewModel.cs" />
     <Compile Include="ViewModels\ViewStudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterUserViewModel.cs" />
     <Compile Include="ViewModels\IndexUserViewModel.cs" />
@@ -204,6 +206,7 @@
     <Content Include="Content\img\nextsmall.png" />
     <Content Include="Content\img\unchecked.png" />
     <Content Include="Content\img\uncheckedmini.png" />
+    <Content Include="Content\img\user.png" />
     <Content Include="Content\img\verEstudio.png" />
     <Content Include="Content\img\verEstudioOver.png" />
     <Content Include="Content\loading.css" />

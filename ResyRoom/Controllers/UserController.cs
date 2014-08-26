@@ -19,7 +19,7 @@ namespace ResyRoom.Controllers
 {
     public class UserController : BaseController
     {
-        #region >>> Servicios
+        #region >>> Dependencias
         [Dependency]
         public IServEstudios ServEstudios { get; set; }
         [Dependency]
@@ -30,6 +30,8 @@ namespace ResyRoom.Controllers
         public IServGeneros ServGeneros { get; set; }
         [Dependency]
         public IServComunas ServComunas { get; set; }
+        [Dependency]
+        public IRegisterStudioViewModel RegisterStudioViewModel { get; set; }
         #endregion
 
         #region >>> Index's view
@@ -156,10 +158,10 @@ namespace ResyRoom.Controllers
         #region >>> Register Studio's view
         public ActionResult RegisterStudio()
         {
-            ViewBag.Regiones = ServRegiones.RegionesChilenas();
-            ViewBag.Comunas = new List<Region>();
+            RegisterStudioViewModel.Regiones = ServRegiones.RegionesChilenas();
+            RegisterStudioViewModel.Comunas = new List<Comuna>();
 
-            return View();
+            return View(RegisterStudioViewModel);
         }
 
         [HttpPost]

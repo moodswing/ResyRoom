@@ -19,6 +19,11 @@ namespace ResyRoom.App_Start
             );
 
             routes.MapRoute(
+                name: "Studio",
+                url: "{id}",
+                defaults: new { controller = "Studio", action = "ViewStudio" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional }

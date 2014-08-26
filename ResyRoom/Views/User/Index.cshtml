@@ -62,12 +62,12 @@
         }
     });
 </script>
-<div class="div-inicio">
-    <div class="big-logo-index">
+<div class="div-inicio div-table">
+    <div class="big-logo-index div-cell">
         <span class="helper"></span>
         <img src="../../Content/img/biglogo.png" alt=".resyroom" style="padding-left: 50px;" />
     </div>
-    <div class="search-index-box">
+    <div class="search-index-box div-cell">
         @using (Html.BeginForm("Buscar", "User"))
         {
             <h2 style="margin-bottom: 15px;">.resyroom</h2>
@@ -79,7 +79,7 @@
                 @Html.LabelFor(v => v.BusquedaRapida.Region, new { @class = "first-inline" })
                 @Html.DropDownListFor(v => v.BusquedaRapida.Region.IdRegion, Model.ListadoRegiones.ToSelectListItem())
                 @Html.LabelFor(v => v.BusquedaRapida.Comuna, new { @class = "not-first-inline" })
-                @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem(), new { style= "width: 145px;" })
+                @Html.DropDownListFor(v => v.BusquedaRapida.Comuna.IdComuna, Model.ListadoComunas.ToSelectListItem(), new { style = "width: 145px;" })
             </div>
             <div class="search-price-range">
                 @Html.Label("Rango de Precio", new { @class = "search-label-price-range" })
@@ -96,27 +96,29 @@
         }
     </div>
 </div>
-<div class="ranking div-table-centered">
-    <div class="div-cell">
-        <h1>Estudios Mas Populares</h1>
-        <ul>
-            @foreach (var estudio in Model.EstudiosMasPopulares)
-            {
-                <li><a href="@Url.Action("Index", "User")">
-                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
-                    @estudio.Nombre </a></li>
-            }
-        </ul>
-    </div>
-    <div class="div-cell">
-        <h1>Estudios Mejor Evaluados</h1>
-        <ul>
-            @foreach (var estudio in Model.EstudiosMejorEvaluados)
-            {
-                <li><a href="@Url.Action("Index", "User")">
-                    <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
-                    @estudio.Nombre</a> </li>
-            }
-        </ul>
+<div class="ranking-container">
+    <div class="ranking div-table-centered">
+        <div class="div-cell">
+            <h1>Estudios Mas Populares</h1>
+            <ul>
+                @foreach (var estudio in Model.EstudiosMasPopulares)
+                {
+                    <li><a href="@Url.Action("Index", "User")">
+                        <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                        @estudio.Nombre </a></li>
+                }
+            </ul>
+        </div>
+        <div class="div-cell">
+            <h1>Estudios Mejor Evaluados</h1>
+            <ul>
+                @foreach (var estudio in Model.EstudiosMejorEvaluados)
+                {
+                    <li><a href="@Url.Action("Index", "User")">
+                        <img alt="Ver Estudio" src="../../Content/img/micsmall.png" title="Ver Estudio" />
+                        @estudio.Nombre</a> </li>
+                }
+            </ul>
+        </div>
     </div>
 </div>

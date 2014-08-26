@@ -28,7 +28,7 @@
     
     function ViewKoViewModel() {
         var self = this;
-        self.TabSeleccionado = ko.observable("Reservas");
+        self.TabSeleccionado = ko.observable("Info");
         self.SalaSeleccionada = ko.observable(@(Model.Estudio.Salas.First().IdSala));
         self.Salas = ko.observable([]);
         self.FromCalendar = ko.observable();

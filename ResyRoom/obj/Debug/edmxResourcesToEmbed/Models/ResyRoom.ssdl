@@ -187,6 +187,7 @@
     </Key>
     <Property Name="IdEstudio" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdComuna" Type="int" />
+    <Property Name="UrlName" Type="varchar" Nullable="false" MaxLength="16" />
     <Property Name="Nombre" Type="varchar" MaxLength="50" />
     <Property Name="Direccion" Type="varchar" MaxLength="300" />
     <Property Name="Email" Type="varchar" MaxLength="50" />

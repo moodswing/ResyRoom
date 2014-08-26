@@ -25,6 +25,7 @@ namespace ResyRoom.Models
     	[DisplayName("Teléfono Movil")]
         public string Celular { get; set; }
         public Guid? UserId { get; set; }
+        public string UrlName { get; set; }
     
         public ICollection<Noticia> Noticias { get; set; }
         public ICollection<Sala> Salas { get; set; }

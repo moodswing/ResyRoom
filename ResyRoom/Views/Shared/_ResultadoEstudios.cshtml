@@ -86,7 +86,7 @@
 <div id="divGrillaResultados">
     @grid.GetHtml("grillaResultados",
                   columns: grid.Columns(
-                      grid.Column("Nombre", "Nombre", p => Html.ActionLink((string)p.Nombre, "ViewStudio", "Studio", new { id = p.IdEstudio }, null) , "columna20 td-padding-top-11px grid-link"),
+                      grid.Column("Nombre", "Nombre", p => Html.ActionLink((string)p.Nombre, "ViewStudio", "Studio", new { id = p.UrlName }, null) , "columna20 td-padding-top-11px grid-link"),
                       grid.Column("Direccion", "Dirección", p => Html.Raw("<span class='spanVerMapa'>" + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + "</span> <img id='imgVerMapa" + p.IdEstudio + "' src=\"../../Content/img/map.png\" alt=' " + p.Direccion + ", " + p.Comuna.Descripcion + ", " + p.Comuna.Region.Descripcion + " ' />"), "columna60"),
                       grid.Column("PrecioPorHoraDesde", "Precio Desde", style: "columna10 td-padding-top-11px")
                       //grid.Column("vermas", "ver +", p => @Html.Raw("<img id='imgVerEstudio" + p.IdEstudio + "' src=\"../../Content/img/verEstudio.png\" alt='ver estudio...' />"), "columnVerMas", canSort: false)

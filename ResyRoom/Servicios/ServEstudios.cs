@@ -15,7 +15,8 @@ namespace ResyRoom.Servicios
         IEnumerable<Estudio> EstudiosMasPopulares(int numero, DateTime? desde = null, DateTime? hasta = null);
         IEnumerable<Estudio> EstudiosMejorEvaluados(int numero, DateTime? desde = null, DateTime? hasta = null);
         IEnumerable<Estudio> Busqueda(Busqueda param);
-        Estudio CargarEstudio(int idEStudio);
+        Estudio CargarEstudioPorId(int idEStudio);
+        Estudio CargarEstudioPorUrl(string urlEstudio);
     }
 
     public class ServEstudios : IServEstudios
@@ -109,7 +110,7 @@ namespace ResyRoom.Servicios
             return resultados.ToList();
         }
 
-        public Estudio CargarEstudio(int idEStudio)
+        public Estudio CargarEstudioPorId(int idEStudio)
         {
             var estudios = _context.Estudios
                                    .Include(e => e.Comuna.Region)
@@ -119,6 +120,18 @@ namespace ResyRoom.Servicios
                                    .Include(e => e.Salas.Select(s => s.Equipos));
 
             return estudios.First(s => s.IdEstudio == idEStudio);
+        }
+
+        public Estudio CargarEstudioPorUrl(string urlEstudio)
+        {
+            var estudios = _context.Estudios
+                                   .Include(e => e.Comuna.Region)
+                                   .Include(e => e.Salas.Select(s => s.Horarios))
+                                   .Include(e => e.Salas.Select(s => s.Reservas))
+                                   .Include(e => e.Salas.Select(s => s.Grabaciones))
+                                   .Include(e => e.Salas.Select(s => s.Equipos));
+
+            return estudios.First(s => s.UrlName == urlEstudio);
         }
 
         public void Guardar(Estudio estudio)

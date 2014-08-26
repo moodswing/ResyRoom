@@ -25,16 +25,15 @@ header, footer, nav, section
 .div-inicio
 {
     overflow: hidden;
-    border-top: 1px #eee solid;
-    border-bottom: 1px #eee solid;
-    height: 85%;
+    border-top: 1px #E3E3E3 dotted;
+    border-bottom: 1px #E3E3E3 dotted;
+    height: 80%;
     background: url('../../Content/img/bglogo.png') repeat;
     width: 100%;
+    margin-top: 20px;
 }
 
 .big-logo-index {
-    float: left;
-    height: 100%;
 }
 
 .big-logo-index img {
@@ -51,10 +50,15 @@ header, footer, nav, section
 
 .search-index-box {
     width: 650px;
-    float: right;
+    /*float: right;*/
     height: 100%;
-    display: table;
+    /*display: table;*/
     padding-right: 35px;
+    padding-left: 55px;
+    margin-right: 20px;
+    vertical-align: middle;
+    /*border: 1px gainsboro solid;*/
+    /*background: url('../../Content/img/bglogo.png') repeat;*/
 }
 
 .search-index-box form {
@@ -116,11 +120,7 @@ header, footer, nav, section
 
 select
 {
-    color: gray;
-    padding: 5px;
-    height: 26px;
     border: 1px #bbb solid;
-    border-radius: 2px;
 }
 
 .invisible
@@ -204,10 +204,19 @@ select
     margin: 0 auto;
 }
 
+.ranking-container {
+    background-color: #A1B1A4;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    padding: 15px 0;
+}
+
 .ranking
 {
     border-spacing: 30px 0;
-    padding-top: 15px;
+    color: white;
 }
 
 .ranking ul
@@ -217,7 +226,7 @@ select
 
 .ranking ul li a
 {
-    color: gray;
+    color: white;
 }
 
 .ranking ul li a:hover
@@ -275,9 +284,23 @@ select
 }
 
 .login-div {
-    float: right; 
-    padding-right: 35px; 
-    padding-bottom: 5px;
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #BF273B;
+    width: 200px;
+    text-align: center;
+}
+
+.login-div form {
+    display: none;
+}
+
+.login-div .login-ico {
+    color: white;
+}
+
+.login-div .login-ico img {
+    vertical-align: top;
 }
 
 .login-div .email-cell {
@@ -413,13 +436,43 @@ select
 }
 
 .top-in-search {
-    padding: 0 25px;
-    border-right: 1px solid gainsboro;
-    width: 170px;
+    padding-left: 30px;
+    width: 200px;
+    /*border-right: 1px solid gainsboro;*/
+    vertical-align: top;
+    padding-top: 30px;
+}
+
+.top-in-search .sidebar-item {
+    border-left: 8px solid #808080;
+    padding: 2px 15px 13px 11px;
+    background-color: #A1B1A4;
+    /*border-radius: 4px;*/
+    margin-bottom: 20px;
+    color: white;
+}
+
+.top-in-search .sidebar-item a {
+    color: white;
+    line-height: 16px;
+}
+
+.top-in-search .sidebar-item h1 {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 7px;
 }
 
 .search-form {
     padding: 0 50px 30px 50px;
+}
+
+.search-form h2.search-title {
+    border-bottom: 1px solid #8D7F8D;
+    margin-bottom: 15px;
+    color: #454A4D;
+    padding: 0 0 10px 10px;
+    font-size: 22px;
+    letter-spacing: 5px;
 }
 
 .subtitle {
@@ -445,7 +498,7 @@ select
 }
 
 .search-form .search-item.expandable-button {
-    border-top: 1px dashed gainsboro;
+    border-top: 1px dashed #B8C5CC;
     padding-top: 12px;
     height: 25px;
 }
@@ -519,7 +572,8 @@ h4 {
 {
     float: left; 
     margin-right: 10px; 
-    padding: 5px 15px; 
+    padding: 9px 15px 1px;
+    height: 20px;
     border-top: 1px solid gainsboro; 
     border-left: 1px solid gainsboro; 
     border-right: 1px solid gainsboro; 

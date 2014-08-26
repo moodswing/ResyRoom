@@ -1,4 +1,4 @@
-﻿@model ResyRoom.Models.Estudio
+﻿@model ResyRoom.ViewModels.IConfigureStudioViewModel
 @{
     ViewBag.Title = "Configure";
 }
@@ -11,7 +11,7 @@
                     <h1>
                         Bienvenido</h1>
                     <div style="border-top: 1px solid gainsboro; margin-top: 5px;" />
-                    @if (!Model.Salas.Any())
+                    @if (!Model.Estudio.Salas.Any())
                     {
                         <label>
                             Para comenzar a usar <b>ResyRoom</b> primero debe ingresar información de vital importancía para hacerse

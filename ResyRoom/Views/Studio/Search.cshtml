@@ -23,7 +23,7 @@
 
         .grillaResultados thead th
         {
-            border: 1px dotted gainsboro;
+            border: 1px dotted #B8C5CC;
             text-align: left;
             padding-left: 10px;
         }
@@ -41,7 +41,7 @@
         .grillaResultados td
         {
             padding-left: 10px;
-            border-right: 1px dotted gainsboro;
+            border-right: 1px dotted #B8C5CC;
         }
 
             .grillaResultados td:last-child
@@ -223,8 +223,8 @@
     <div class="div-cell search-form">
         @using (Ajax.BeginForm("Search", "Studio", new AjaxOptions { UpdateTargetId = "divGrillaResultados" }))
         {
-            <h2>.búsqueda</h2>
-            <div class="subtitle">Busca el estudio de música que mejor te suene</div>
+            <h2 class="search-title">.búsqueda</h2>
+            @*<div class="subtitle">Busca el estudio de música que mejor te suene</div>*@
         
             <div>
                 <div class="div-table search-item">

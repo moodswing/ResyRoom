@@ -39,6 +39,8 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<IBusquedaRapida, Busqueda>()
                 .RegisterType<ISearchStudioViewModel, SearchStudioViewModel>()
                 .RegisterType<IViewStudioViewModel, ViewStudioViewModel>()
+                .RegisterType<IRegisterStudioViewModel, RegisterStudioViewModel>()
+                .RegisterType<IConfigureStudioViewModel, ConfigureStudioViewModel>()
                 //.RegisterType<ResyRoomEntities>(new PerResolveLifetimeManager())
                 .RegisterType<ResyRoomEntities>(new HierarchicalLifetimeManager());
 

@@ -69,6 +69,7 @@
     <EntitySetMapping Name="Estudios">
       <EntityTypeMapping TypeName="ResyRoomModel.Estudio">
         <MappingFragment StoreEntitySet="tb_Estudio">
+          <ScalarProperty Name="UrlName" ColumnName="UrlName" />
           <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
           <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />

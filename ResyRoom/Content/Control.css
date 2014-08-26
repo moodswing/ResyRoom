@@ -106,14 +106,13 @@ h3
     cursor: pointer;
 }
 
-
 .botonGrande
 {
     margin-right: 0;
     font-size: 16px;
     padding: 12px 20px;
     color: #fff;
-    background-color: #42B8DD;
+    background-color: #332E2E;
     font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
     border: none;
     border-radius: 3px;
