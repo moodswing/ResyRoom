@@ -51,25 +51,25 @@ namespace ResyRoom.Models
 
     public class RegistroDeUsuario
     {
-        [Required]
+        [Required(ErrorMessage = "Favor ingresar su nombre")]
         [Display(Name = "Tu Nombre")]
         public string Nombre { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor ingresar su correo electronico")]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "La dirección de correo ingresada no es valida.")]
+        [EmailAddress(ErrorMessage = "La dirección de correo ingresada no es valida")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "La contraseña debe tener al menos {2} caracteres de largo.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Favor ingresar una contraseña")]
+        [StringLength(100, ErrorMessage = "La contraseña debe tener al menos {2} caracteres de largo", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Favor volver a ingresar su contraseña")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "Por favor verifica que ambas contraseñas coincidan.")]
+        [Compare("Password", ErrorMessage = "Favor verifica que ambas contraseñas coincidan")]
         public string PasswordConfirmacion { get; set; }
 
         public Banda Banda { get; set; }

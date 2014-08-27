@@ -1,4 +1,4 @@
-﻿@model ResyRoom.ViewModels.IRegisterStudioViewModel
+﻿@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
 @{
     ViewBag.Title = "Registrar nuevo usuario";
 }
@@ -14,10 +14,8 @@
 </script>
 <div class="content">
     <div class="form">
-        @using (Html.BeginForm())
-        {
             <div class="register-studio-form">
-                
+                @*@Html.Partial("Partial/_RegisterLoginInfo")*@
             </div>
             @*<table class="register-studio-form">
                 <tr>
@@ -174,6 +172,5 @@
                     </td>
                 </tr>
             </table>*@
-        }
     </div>
 </div>

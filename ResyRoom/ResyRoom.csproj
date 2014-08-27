@@ -172,7 +172,8 @@
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
-    <Compile Include="ViewModels\RegisterStudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudio\StudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudio\RegisterStudioViewModel.cs" />
     <Compile Include="ViewModels\ViewStudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterUserViewModel.cs" />
     <Compile Include="ViewModels\IndexUserViewModel.cs" />

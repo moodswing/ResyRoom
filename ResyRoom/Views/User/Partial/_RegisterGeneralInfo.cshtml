@@ -1,57 +1,72 @@
-﻿@model ResyRoom.ViewModels.IRegisterStudioViewModel
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
 <div>
-    <h3>
-        <span class="number-step">@Model.PasoNumero</span>Información General
-    </h3>
-    <span class="subtitle">Ahora debes ingresar solo unos cuantos datos generales de tu estudio..</span>
-    <div class="input-form">
-        <div class="div-table">
-            <div class="div-cell label">
-                @Html.LabelFor(u => u.Estudio.Nombre)
+    <form>
+        <h3>
+            <span class="number-step">@Model.PasoNumero</span>Información general
+        </h3>
+        <span class="subtitle">Ahora debes ingresar solo unos cuantos datos generales de tu estudio..</span>
+        <div class="input-form">
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.Nombre)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.Nombre, new { @class = "txt", data_bind = "value: Estudio.Nombre" })
+                    @Html.ValidationMessageFor(u => u.Estudio.Nombre)
+                </div>
             </div>
-            <div class="div-cell value">
-                @Html.TextBoxFor(u => u.Estudio.Nombre, new { @class = "txt", data_bind = "value: Estudio.Nombre" })
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.UrlName)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.UrlName, new { @class = "txt", data_bind = "value: Estudio.UrlName" })
+                    @Html.ValidationMessageFor(u => u.Estudio.UrlName)
+                    @Html.DescriptionFor(u => u.Estudio.UrlName)
+                </div>
+            </div>
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.Email)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", data_bind = "value: Estudio.Email" })
+                    @Html.ValidationMessageFor(u => u.Estudio.Email)
+                </div>
+            </div>
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.Telefono)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono" })
+                </div>
+            </div>
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.Celular)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular" })
+                </div>
+            </div>
+            <div class="div-table form-row">
+                <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.SitioWeb)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.SitioWeb, new { @class = "txt", data_bind = "value: Estudio.SitioWeb" })
+                </div>
+            </div>
+            <div class="div-table next-button">
+                <div class="div-cell">
+                    <input type="button" value="Anterior" class="botonGrande">
+                </div>
+                <div class="div-cell">
+                    <input type="button" value="Siguiente" class="botonGrande">
+                </div>
             </div>
         </div>
-        <div class="div-table">
-            <div class="div-cell label">
-                @Html.LabelFor(u => u.Estudio.Email)
-            </div>
-            <div class="div-cell value">
-                @Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", data_bind = "value: Estudio.Email" })
-            </div>
-        </div>
-        <div class="div-table">
-            <div class="div-cell label">
-                @Html.LabelFor(u => u.Estudio.Telefono)
-            </div>
-            <div class="div-cell value">
-                @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono" })
-            </div>
-        </div>
-        <div class="div-table">
-            <div class="div-cell label">
-                @Html.LabelFor(u => u.Estudio.Celular)
-            </div>
-            <div class="div-cell value">
-                @Html.PasswordFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular" })
-            </div>
-        </div>
-        <div class="div-table">
-            <div class="div-cell label">
-                @Html.LabelFor(u => u.Estudio.SitioWeb)
-            </div>
-            <div class="div-cell value">
-                @Html.PasswordFor(u => u.Estudio.SitioWeb, new { @class = "txt", data_bind = "value: Estudio.SitioWeb" })
-            </div>
-        </div>
-        <div class="div-table next-button">
-            <div class="div-cell">
-                <input type="button" value="Anterior" class="botonGrande">
-            </div>
-            <div class="div-cell">
-                <input type="button" value="Siguiente" class="botonGrande">
-            </div>
-        </div>
-    </div>
+    </form>
 </div>

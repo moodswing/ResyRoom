@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 using ResyRoom.Servicios;
 using ResyRoom.ViewModels;
 using Microsoft.Practices.Unity;
+using ResyRoom.ViewModels.RegisterStudio;
 using Roles = System.Web.Security.Roles;
 
 namespace ResyRoom.Controllers

@@ -7,6 +7,7 @@ using ResyRoom.Models;
 using ResyRoom.Servicios;
 using Microsoft.Practices.Unity;
 using ResyRoom.ViewModels;
+using ResyRoom.ViewModels.RegisterStudio;
 using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.Infraestructura
@@ -40,6 +41,7 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<ISearchStudioViewModel, SearchStudioViewModel>()
                 .RegisterType<IViewStudioViewModel, ViewStudioViewModel>()
                 .RegisterType<IRegisterStudioViewModel, RegisterStudioViewModel>()
+                .RegisterType<IStudioViewModel, StudioViewModel>()
                 .RegisterType<IConfigureStudioViewModel, ConfigureStudioViewModel>()
                 //.RegisterType<ResyRoomEntities>(new PerResolveLifetimeManager())
                 .RegisterType<ResyRoomEntities>(new HierarchicalLifetimeManager());

@@ -11,6 +11,14 @@ namespace ResyRoom.Infraestructura.Extensiones
 {
     public static class HtmlExt
     {
+        public static MvcHtmlString DescriptionFor<TModel, TValue>(this HtmlHelper<TModel> self, Expression<Func<TModel, TValue>> expression)
+        {
+            var metadata = ModelMetadata.FromLambdaExpression(expression, self.ViewData);
+            var description = metadata.Description;
+
+            return MvcHtmlString.Create(string.Format(@"<span class='field-info-description'>{0}</span>", description));
+        }
+
         public static MvcHtmlString RadioButtonForEnum<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);

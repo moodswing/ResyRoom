@@ -12,6 +12,7 @@
     font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
     height: 15px;
     margin: 3px 0px;
+    border: 1px solid #808080;
 }
 textarea
 {

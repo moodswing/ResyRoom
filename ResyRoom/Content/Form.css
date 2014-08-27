@@ -30,16 +30,50 @@
 {
     margin-top: 25px;
 }
+.form .register-studio-form .form-row
+{
+    padding: 5px 0;
+}
 
 .form .register-studio-form .label
 {
-    width: 150px;
+    width: 200px;
     text-align: right;
 }
 
 .form .register-studio-form .value
 {
     padding-left: 15px;
+    position: relative;
+}
+
+.form .register-studio-form .value .input-validation-error
+{
+    border: 1px solid #D99898;
+}
+
+.form .register-studio-form .value .field-info-description
+{
+    position: absolute;
+    top: 3px;
+    left: 170px;
+    width: 290px;
+    background-color: #E7FDEB;
+    color: #8D8D8D;
+    padding: 5px 20px;
+    border-left: 3px solid #808080;
+}
+
+.form .register-studio-form .value .field-validation-error
+{
+    position: absolute;
+    top: 3px;
+    left: 170px;
+    width: 290px;
+    background-color: #D99898;
+    color: white;
+    padding: 5px 20px;
+    border-left: 3px solid #808080;
 }
 
 .form .register-studio-form .next-button
