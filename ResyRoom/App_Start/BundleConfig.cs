@@ -17,9 +17,13 @@ namespace ResyRoom.App_Start
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include("~/Content/Scripts/modernizr-*"));
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include("~/Content/Scripts/Extensiones.js"));
             bundles.Add(new ScriptBundle("~/bundles/facebook").Include("~/Content/Scripts/facebook-sdk-v2.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/knockoutjs").Include("~/Content/Scripts/knockout-3.1.0.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/gmap").Include("~/Content/Scripts/gmap3.js"));
             bundles.Add(new ScriptBundle("~/bundles/history").Include("~/Content/Scripts/jquery.history.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/RegisterStudio").Include("~/Content/Scripts/Views/register-studio.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
                         "~/Content/Scripts/moment.min.js",

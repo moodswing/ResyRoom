@@ -16,6 +16,7 @@ namespace ResyRoom.Models
         public int IdEstudio { get; set; }
     	[DisplayName("Comuna")]
         public int? IdComuna { get; set; }
+    	[DisplayName("Nombre del Estudio")]
         public string Nombre { get; set; }
         public string Direccion { get; set; }
     	[DisplayName("Email de Contacto")]
@@ -26,6 +27,7 @@ namespace ResyRoom.Models
         public string Celular { get; set; }
         public Guid? UserId { get; set; }
         public string UrlName { get; set; }
+        public string SitioWeb { get; set; }
     
         public ICollection<Noticia> Noticias { get; set; }
         public ICollection<Sala> Salas { get; set; }

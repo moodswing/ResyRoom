@@ -242,6 +242,7 @@
     <Content Include="Content\Scripts\modernizr-1.7.min.js" />
     <Content Include="Content\Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Content\Scripts\moment.min.js" />
+    <Content Include="Content\Scripts\Views\register-studio.js" />
     <Content Include="Content\Scripts\_references.js" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -304,6 +305,8 @@
     <Content Include="Views\Studio\Partial\_RoomsInfo.cshtml" />
     <Content Include="Views\Studio\Partial\_EquipmentInfo.cshtml" />
     <Content Include="Views\Studio\Partial\_BookingInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterLoginInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterGeneralInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

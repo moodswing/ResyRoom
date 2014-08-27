@@ -175,6 +175,7 @@
     <NavigationProperty Name="Salas" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Estudio" ToRole="tb_Sala" />
     <NavigationProperty Name="Comuna" Relationship="ResyRoomModel.FK_tb_Estudio_par_Comuna" FromRole="Estudio" ToRole="Comuna" />
     <Property Type="String" Name="UrlName" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SitioWeb" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Noticia">
     <Key>

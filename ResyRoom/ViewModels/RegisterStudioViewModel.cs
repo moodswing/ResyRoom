@@ -13,8 +13,15 @@ namespace ResyRoom.ViewModels
         public Estudio Estudio { get; set; }
         public RegistroDeUsuario Usuario { get; set; }
 
+        public int PasoNumero { get; set; }
+
         public IList<Region> Regiones { get; set; }
         public IList<Comuna> Comunas { get; set; }
+
+        public RegisterStudioViewModel()
+        {
+            Usuario = new RegistroDeUsuario();
+        }
     }
 
     public interface IRegisterStudioViewModel
@@ -23,6 +30,8 @@ namespace ResyRoom.ViewModels
         List<Notificacion> Notificaciones { get; set; }
         bool MostrarNotificacion { get; set; }
         RegistroDeUsuario Usuario { get; set; }
+
+        int PasoNumero { get; set; }
 
         string TituloMensaje { get; set; }
         string SubtituloMensaje { get; set; }

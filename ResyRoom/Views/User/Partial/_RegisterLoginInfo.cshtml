@@ -1,0 +1,44 @@
+﻿@model ResyRoom.ViewModels.IRegisterStudioViewModel
+<div>
+    <h3>
+        <span class="number-step">@Model.PasoNumero</span>Registra tu estudio
+    </h3>
+    <span class="subtitle">Primero debes llenar los datos para realizar tu atentificación en el sitio..</span>
+    <div class="input-form">
+        <div class="div-table">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.Usuario.Email)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt", data_bind = "value: Usuario.Email" })
+            </div>
+        </div>
+        <div class="div-table">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.Usuario.Nombre)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.Usuario.Nombre, new { @class = "txt", data_bind = "value: Usuario.Nombre" })
+            </div>
+        </div>
+        <div class="div-table">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.Usuario.Password)
+            </div>
+            <div class="div-cell value">
+                @Html.PasswordFor(u => u.Usuario.Password, new { @class = "txt", data_bind = "value: Usuario.Password" })
+            </div>
+        </div>
+        <div class="div-table">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.Usuario.PasswordConfirmacion)
+            </div>
+            <div class="div-cell value">
+                @Html.PasswordFor(u => u.Usuario.PasswordConfirmacion, new { @class = "txt", data_bind = "value: Usuario.Password" })
+            </div>
+        </div>
+        <div class="div-table next-button">
+            <input type="button" value="Siguiente" class="botonGrande">
+        </div>
+    </div>
+</div>

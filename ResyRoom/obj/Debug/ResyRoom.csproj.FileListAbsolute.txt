@@ -1,15 +1,12 @@
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\ResyRoom.pdb
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Antlr3.Runtime.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Elmah.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Elmah.Mvc.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\EntityFramework.dll
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Microsoft.Practices.Unity.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\MoreLinq.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Newtonsoft.Json.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Net.Http.dll
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Net.Http.Formatting.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.Abstractions.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.ApplicationServices.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.dll
@@ -23,7 +20,10 @@ C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.Routing.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.WebPages.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Web.WebPages.Razor.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\WebActivator.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Net.Http.Formatting.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\WebGrease.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Antlr3.Runtime.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.csprojResolveAssemblyReference.cache

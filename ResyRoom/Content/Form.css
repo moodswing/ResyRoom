@@ -1,10 +1,67 @@
 ﻿/* Estilos para formularios */
 
 .form { padding: 50px 50px 50px; }
-.form .tableForm { margin-left: auto; margin-right: auto; padding: 50px; background-color: white; border: 1px solid gainsboro; border-top-left-radius: 5px;  border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+.form .register-studio-form {
+    margin: 0 auto; 
+    padding: 50px 50px 40px; 
+    background-color: white; 
+    border: 1px solid gainsboro; 
+    border-radius: 5px;
+    width: 700px;  
+}
 
-.tableForm .form-header { width: 350px; border-bottom: 1px solid lightgray; padding-bottom: 10px; margin-bottom: 15px; }
-.tableForm .left-label { width: 155px; display: inline-block; text-align: right; padding-right: 20px; }
+.form .register-studio-form .number-step
+{
+    background: #A1B1A4;
+    border-radius: 0.8em;
+    width: 1.4em;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+    color: white;
+}
+
+.form .register-studio-form .subtitle
+{
+    padding-left: 95px;
+}
+
+.form .register-studio-form .input-form
+{
+    margin-top: 25px;
+}
+
+.form .register-studio-form .label
+{
+    width: 150px;
+    text-align: right;
+}
+
+.form .register-studio-form .value
+{
+    padding-left: 15px;
+}
+
+.form .register-studio-form .next-button
+{
+    margin-right: 15px;
+    margin-top: 20px;
+    text-align: right;
+    width: 100%;
+}
+
+.form .register-studio-form .next-button div:first-child
+{
+    text-align: left;
+}
+
+.form .register-studio-form .next-button div:last-child
+{
+    text-align: right;
+}
+
+.register-studio-form .form-header { width: 350px; border-bottom: 1px solid lightgray; padding-bottom: 10px; margin-bottom: 15px; }
+.register-studio-form .left-label { width: 155px; display: inline-block; text-align: right; padding-right: 20px; }
 
 .form table thead th { height: 50px; vertical-align: top; margin-bottom: 30px; text-align: left; }
 .form table tr td { text-align: right !important; padding-right: 20px; }

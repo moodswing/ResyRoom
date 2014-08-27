@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -210,6 +211,32 @@ namespace ResyRoom.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult LoadStepView(RegisterStudioViewModel model)
+        {
+            model.Regiones = ServRegiones.RegionesChilenas();
+            model.Comunas = new List<Comuna>();
+
+            string view;
+            StepsViews.TryGetValue(model.PasoNumero, out view);
+
+            return PartialView(view, model);
+        }
+
+        private Dictionary<int, string> StepsViews
+        {
+            get
+            {
+                var stepsViews = new Dictionary<int, string>
+                    {
+                        { 1, "Partial/_RegisterLoginInfo" },
+                        { 2, "Partial/_RegisterGeneralInfo" }
+                    };
+
+                return stepsViews;
+            }
         }
         #endregion
 

@@ -198,6 +198,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="Celular" Type="varchar" MaxLength="50" />
+          <Property Name="SitioWeb" Type="varchar" MaxLength="50" />
           <Property Name="UserId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="tb_Grabacion">
@@ -695,6 +696,7 @@
           <NavigationProperty Name="Salas" Relationship="ResyRoomModel.FK_tb_Sala_tb_Estudio" FromRole="tb_Estudio" ToRole="tb_Sala" />
           <NavigationProperty Name="Comuna" Relationship="ResyRoomModel.FK_tb_Estudio_par_Comuna" FromRole="Estudio" ToRole="Comuna" />
           <Property Type="String" Name="UrlName" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SitioWeb" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Noticia">
           <Key>
@@ -1074,7 +1076,8 @@
             <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Estudios"><EntityTypeMapping TypeName="ResyRoomModel.Estudio"><MappingFragment StoreEntitySet="tb_Estudio">
-            <ScalarProperty Name="UrlName" ColumnName="UrlName" />
+            <ScalarProperty Name="SitioWeb" ColumnName="SitioWeb" />
+                <ScalarProperty Name="UrlName" ColumnName="UrlName" />
                 <ScalarProperty Name="IdEstudio" ColumnName="IdEstudio" />
             <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
             <ScalarProperty Name="Nombre" ColumnName="Nombre" />

@@ -52,6 +52,7 @@ namespace ResyRoom.Models
     public class RegistroDeUsuario
     {
         [Required]
+        [Display(Name = "Tu Nombre")]
         public string Nombre { get; set; }
 
         [Required]

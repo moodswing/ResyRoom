@@ -35,6 +35,7 @@ var dataAnnotations = new[] {
 				new { Modelo = "Banda", Campo = "Descripcion", Anotacion = "[Required(ErrorMessage = %Dato faltante%)]" },
 				new { Modelo = "Banda", Campo = "Descripcion", Anotacion = "[DataType(DataType.MultilineText)]" },
 				new { Modelo = "Estudio", Campo = "IdComuna", Anotacion = "[DisplayName(%Comuna%)]" },
+				new { Modelo = "Estudio", Campo = "Nombre", Anotacion = "[DisplayName(%Nombre del Estudio%)]" },
 				new { Modelo = "Estudio", Campo = "Email", Anotacion = "[DisplayName(%Email de Contacto%)]" },
 				new { Modelo = "Estudio", Campo = "Telefono", Anotacion = "[DisplayName(%Teléfono%)]" },
 				new { Modelo = "Estudio", Campo = "Celular", Anotacion = "[DisplayName(%Teléfono Movil%)]" }
