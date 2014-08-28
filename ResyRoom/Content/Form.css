@@ -32,7 +32,27 @@
 }
 .form .register-studio-form .form-row
 {
-    padding: 5px 0;
+    padding: 8px 0;
+}
+
+.form .register-studio-form .form-row.new-room
+{
+    margin-top: 10px; 
+    width: 100%; 
+    border-top: 1px dashed gainsboro; 
+    padding-top: 15px;
+}
+
+.form .register-studio-form .form-row.new-room .add-icon
+{
+    background-color: #A1B1A4; 
+    color: white; 
+    border-radius: 6px; 
+    width: 13px; 
+    display: inline-block; 
+    text-align: center; 
+    height: 14px; 
+    margin-right: 10px;
 }
 
 .form .register-studio-form .label

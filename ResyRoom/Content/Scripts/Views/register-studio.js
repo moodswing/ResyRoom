@@ -1,44 +1,42 @@
-﻿var RegisterStudioParameters = function (stepNumber, email, nombre, password, confirmarPassword, emailContacto, telefono, celular, nombreEstudio, sitioWeb, urlName) {
-    return {
-        StepNumber: stepNumber,
-        Email: email,
-        Nombre: nombre,
-        Password: password,
-        ConfirmarPassword: confirmarPassword,
-        EmailContacto: emailContacto,
-        Telefono: telefono,
-        Celular: celular,
-        NombreEstudio: nombreEstudio,
-        SitioWeb: sitioWeb,
-        UrlName: urlName
-    };
-};
-
-var RegisterStudioConfiguration = function () {
+﻿var RegisterStudioConfiguration = function (viewKoViewModel) {
     var init = function() {
-        var stepNumber = 1,
-            nombre = "Robinson Aravena",
-            email = "rob.arav@gmail.com",
-            password = "esurance",
-            confirmarPassword = "esurance",
-            nombreEstudio = "Noix Studio";
+        setViewModelData(viewKoViewModel);
 
-        var parameters = new RegisterStudioParameters(stepNumber, email, nombre, password, confirmarPassword, null, null, null, nombreEstudio, null);
-
-        koViewModel = new koViewModelVar(parameters);
+        koViewModel = viewKoViewModel;
         ko.applyBindings(koViewModel);
 
-        loadStep(1);
+        loadStep(3);
 
         $(document).on("change", "#ddlRegiones", changeDdlRegiones);
         $(document).on("change, blur", ".register-studio-form input", function () { validateForm($(this)); });
         $(document).on("click", ".register-studio-form .next-button input[value=Anterior]", loadPreviousStep);
         $(document).on("click", ".register-studio-form .next-button input[value=Siguiente]", loadNextStep);
+        $(document).on("click", ".register-studio-form .new-room a", addNewRoom);
 
         return koViewModel;
     },
-    validateForm = function(validate) {
+    addNewRoom = function() {
+        if (validateForm($(".register-studio-form form")))
+        {
+            
+        }
+    },
+    validateForm = function (validate) {
+        var errorsAlreadyDisplayed = $(".field-validation-error:visible");
+
         var isValid = validate.valid();
+
+        if (isValid) {
+            $(".field-info-description").show();
+        } else {
+            var errors = $(".field-validation-error:visible");
+
+            $(".register-studio-form .value").not(errors.parents(".value")).find(".field-info-description:hidden").show('slide', { direction: 'left' }, 350);
+            errors.parents(".value").find(".field-info-description").hide();
+
+            errors.not(errorsAlreadyDisplayed).hide();
+            errors.not(errorsAlreadyDisplayed).show('slide', { direction: 'left' }, 350);
+        }
 
         return isValid;
     },
@@ -51,7 +49,7 @@ var RegisterStudioConfiguration = function () {
         loadStep(numberStep + 1);
     },
     loadStep = function (stepNumber) {
-        if ($(".register-studio-form form").length > 0 && !$(".register-studio-form form").valid()) return;
+        if ($(".register-studio-form form").length > 0 && !validateForm($(".register-studio-form form"))) return;
 
         var nextStep = stepNumber > koViewModel.PasoNumero();
         var direction1, direction2;
@@ -110,24 +108,15 @@ var RegisterStudioConfiguration = function () {
         $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
         $(".register-studio-form form").validate().resetForm();
     },
-    koViewModelVar = function(parameters) {
-        this.PasoNumero = ko.observable(parameters.StepNumber);
-        this.Usuario = {
-            Email: ko.observable(parameters.Email),
-            Nombre: ko.observable(parameters.Nombre),
-            Password: ko.observable(parameters.Password),
-            PasswordConfirmacion: ko.observable(parameters.ConfirmarPassword)
-        };
-        this.Estudio = {
-            Email: ko.observable(parameters.EmailContacto),
-            Telefono: ko.observable(parameters.Telefono),
-            Celular: ko.observable(parameters.Celular),
-            Nombre: ko.observable(parameters.NombreEstudio),
-            SitioWeb: ko.observable(parameters.SitioWeb),
-            UrlName: ko.observable(parameters.UrlName)
-        };
-
-        return this;
+    setViewModelData = function (viewModel) {
+        viewModel.Usuario.Nombre("Robinson Aravena");
+        viewModel.Usuario.Email("rob.arav@gmail.com");
+        viewModel.Usuario.Password("esurance");
+        viewModel.Usuario.PasswordConfirmacion("esurance");
+        viewModel.Estudio.Nombre("Noix Studio");
+        viewModel.Estudio.UrlName("noixStudio");
+        viewModel.Estudio.Email("noix.studio@noix.cl");
+        viewModel.Estudio.Direccion("noix street 123");
     },
     koViewModel;
 

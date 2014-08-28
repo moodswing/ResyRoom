@@ -1,0 +1,31 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.RoomViewModel
+
+<div>
+    <div class="div-table form-row">
+        <div class="div-cell label">
+            @Html.LabelFor(u => u.Nombre)
+        </div>
+        <div class="div-cell value">
+            @Html.TextBoxFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Estudio.Salas()[" + @Model.Indice + "].Nombre" })
+            @Html.ValidationMessageFor(u => u.Nombre)
+        </div>
+    </div>
+    <div class="div-table form-row">
+        <div class="div-cell label">
+            @Html.LabelFor(u => u.Tamaño)
+        </div>
+        <div class="div-cell value">
+            @Html.TextBoxFor(u => u.Tamaño, new { @class = "txt", data_bind = "value: Estudio.Salas()[" + @Model.Indice + "].Tamaño" })
+            @Html.DescriptionFor(u => u.Tamaño)
+        </div>
+    </div>
+    <div class="div-table form-row">
+        <div class="div-cell label">
+        </div>
+        <div class="div-cell value">
+            @Html.CheckBoxFor(u => u.SetDePlatos, new { @class = "txt", data_bind = "value: Estudio.Salas()[" + @Model.Indice + "].SetDePlatos" })
+            @Html.LabelFor(u => u.SetDePlatos)
+        </div>
+    </div>
+</div>

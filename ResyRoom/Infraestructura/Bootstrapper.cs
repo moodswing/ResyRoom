@@ -42,6 +42,7 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<IViewStudioViewModel, ViewStudioViewModel>()
                 .RegisterType<IRegisterStudioViewModel, RegisterStudioViewModel>()
                 .RegisterType<IStudioViewModel, StudioViewModel>()
+                .RegisterType<IRoomViewModel, RoomViewModel>()
                 .RegisterType<IConfigureStudioViewModel, ConfigureStudioViewModel>()
                 //.RegisterType<ResyRoomEntities>(new PerResolveLifetimeManager())
                 .RegisterType<ResyRoomEntities>(new HierarchicalLifetimeManager());

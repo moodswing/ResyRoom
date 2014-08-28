@@ -1,0 +1,40 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
+<div>
+    <form>
+        <h3>
+            <span class="number-step">@Model.PasoNumero</span>Salas de ensayo
+        </h3>
+        <span class="subtitle">Ingresa el información de cada una de las salas en tu estudio..</span>
+        <div class="input-form">
+            @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
+            {
+                sala.value.Indice = sala.i;
+                    
+                <div data-bind="visible: Estudio.Salas()[@(sala.i)].State() == 1">
+                    @Html.Partial("Partial/_RegisterStudioDisplayRoomsInfo", sala.value)
+                </div>
+                <div data-bind="visible: Estudio.Salas()[@(sala.i)].State() == 2">
+                    @Html.Partial("Partial/_RegisterStudioEditRoomsInfo", sala.value)
+                </div>
+            }
+            <div class="div-table form-row new-room">
+                <div class="div-cell label" />
+                <div class="div-cell value">
+                    <a href="#">
+                        <span class="add-icon">+</span>
+                        Agregar otra sala
+                    </a>
+                </div>
+            </div>
+            <div class="div-table next-button">
+                <div class="div-cell">
+                    <input type="button" value="Anterior" class="botonGrande">
+                </div>
+                <div class="div-cell">
+                    <input type="button" value="Siguiente" class="botonGrande">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

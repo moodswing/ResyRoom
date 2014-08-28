@@ -1,4 +1,5 @@
-﻿@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
 <div>
     <form>
         <h3>
@@ -13,6 +14,7 @@
                 <div class="div-cell value">
                     @Html.TextBoxFor(u => u.Usuario.Email, new { @class = "txt", data_bind = "value: Usuario.Email" })
                     @Html.ValidationMessageFor(u => u.Usuario.Email)
+                    @Html.DescriptionFor(u => u.Usuario.Email)
                 </div>
             </div>
             <div class="div-table form-row">

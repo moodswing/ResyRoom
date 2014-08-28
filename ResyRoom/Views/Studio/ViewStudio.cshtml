@@ -5,7 +5,7 @@
 
 @Styles.Render("~/Content/css/loading")
 @Styles.Render("~/Content/css/fullcalendar")
-@Scripts.Render("~/bundles/knockoutjs")
+@Scripts.Render("~/bundles/knockoutjs-with-mapping")
 @Scripts.Render("~/bundles/fullcalendar")
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
 @Scripts.Render("~/bundles/gmap")
@@ -87,39 +87,39 @@
 
                 if (tab == "Reservas") {
                     @foreach (var sala in @Model.Estudio.Salas)
-                        {
+                    {
                             <text>
-                        viewKoViewModel.Salas().push(
-                        { 
-                            IdSala: @(sala.IdSala), 
-                                    ReservasPorDia: @Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservasPorDía)),
-                                    Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
-                                    HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
-                                    HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
-                                    DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)",
-                                    PrecioBloque: "@(sala.Precio)"
-                                });
+                    viewKoViewModel.Salas().push(
+                    { 
+                        IdSala: @(sala.IdSala), 
+                            ReservasPorDia: @Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservasPorDía)),
+                            Reservas: ko.observable(@Html.Raw(new JavaScriptSerializer().Serialize(sala.ListadoReservas))),
+                            HoraApertura: "@(sala.HorarioActivo.HoraApertura)",
+                            HoraCierre: "@(sala.HorarioActivo.HoraCierre)",
+                            DuracionBloque: "@(sala.HorarioActivo.DuracionBloque)",
+                            PrecioBloque: "@(sala.Precio)"
+                        });
 
-                                var openDays = "@(sala.HorarioActivo.DíasAbierto)";
+                        var openDays = "@(sala.HorarioActivo.DíasAbierto)";
 
-                        var diasCerrados = [];
-                        for (var day = 0; day < 7; day++)
-                        {
-                            if (openDays.indexOf(day) == -1) diasCerrados.push(day);
-                        }
+                    var diasCerrados = [];
+                    for (var day = 0; day < 7; day++)
+                    {
+                        if (openDays.indexOf(day) == -1) diasCerrados.push(day);
+                    }
 
-                        var calendarSelector = $('#calendar@(sala.IdSala)');
+                    var calendarSelector = $('#calendar@(sala.IdSala)');
                         var slotDuration = "@(sala.HorarioActivo.DuracionBloque)";
-                        var minTime = "@(sala.HorarioActivo.HoraApertura)";
-                        var maxTime = "@(sala.HorarioActivo.HoraCierre)";
-                        var idSala = "@(sala.IdSala)";
-                        var idEstudio = "@(sala.IdEstudio)";
-                        var calendarParameters = CalendarParameters(calendarSelector, diasCerrados, slotDuration, minTime, maxTime, idSala, idEstudio, viewKoViewModel);
+                    var minTime = "@(sala.HorarioActivo.HoraApertura)";
+                    var maxTime = "@(sala.HorarioActivo.HoraCierre)";
+                    var idSala = "@(sala.IdSala)";
+                    var idEstudio = "@(sala.IdEstudio)";
+                    var calendarParameters = CalendarParameters(calendarSelector, diasCerrados, slotDuration, minTime, maxTime, idSala, idEstudio, viewKoViewModel);
 
-                        SetCalendarConfiguration(calendarParameters);
+                    SetCalendarConfiguration(calendarParameters);
                             
                             </text>
-                        }
+                    }
                 }
             });
         } else {
@@ -167,20 +167,22 @@
 <div class="div-table studio-search-page">
     @Html.Partial("_RankingSidebar", (BaseViewModel)Model)
     <div class="div-cell search-form">
-        <div class="studio-profile-title">
-            <h3>@Model.Estudio.Nombre</h3>
-            <span>@Model.Estudio.Direccion, @Model.Estudio.Comuna.Descripcion, @Model.Estudio.Comuna.Region.Descripcion</span>
-            <div class="studio-profile-tabs">
-                <ul>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { History.pushState({ Tab: 'Info' }, 'Información General', null); }">Información General</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { History.pushState({ Tab: 'Salas' }, 'Salas', null); }">Salas</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Mapa') }, click: function () { History.pushState({ Tab: 'Mapa' }, 'Mapa', null); }">Mapa</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { History.pushState({ Tab: 'Equipos' }, 'Equipos', null); }">Equipos</li>
-                    <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { History.pushState({ Tab: 'Reservas' }, 'Reservas', null); }">Reservas</li>
-                </ul>
+        <div class="search-container">
+            <div class="studio-profile-title">
+                <h3>@Model.Estudio.Nombre</h3>
+                <span>@Model.Estudio.Direccion, @Model.Estudio.Comuna.Descripcion, @Model.Estudio.Comuna.Region.Descripcion</span>
+                <div class="studio-profile-tabs">
+                    <ul>
+                        <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Info') }, click: function () { History.pushState({ Tab: 'Info' }, 'Información General', null); }">Información General</li>
+                        <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Salas') }, click: function () { History.pushState({ Tab: 'Salas' }, 'Salas', null); }">Salas</li>
+                        <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Mapa') }, click: function () { History.pushState({ Tab: 'Mapa' }, 'Mapa', null); }">Mapa</li>
+                        <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Equipos') }, click: function () { History.pushState({ Tab: 'Equipos' }, 'Equipos', null); }">Equipos</li>
+                        <li data-bind="css: { 'tab-selected': (TabSeleccionado() == 'Reservas') }, click: function () { History.pushState({ Tab: 'Reservas' }, 'Reservas', null); }">Reservas</li>
+                    </ul>
+                </div>
             </div>
+            <div class="studio-tab"></div>
+            <div class="studio-map" style="width: 100%; height: 375px; padding-top: 15px;" data-bind="visible: (TabSeleccionado() == 'Mapa')"></div>
         </div>
-        <div class="studio-tab"></div>
-        <div class="studio-map" style="width: 100%; height: 375px; padding-top: 15px;"  data-bind="visible: (TabSeleccionado() == 'Mapa')"></div>
     </div>
 </div>

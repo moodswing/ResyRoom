@@ -64,6 +64,7 @@
     <Compile Include="Infraestructura\Bootstrapper.cs" />
     <Compile Include="Infraestructura\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infraestructura\CustomPrincipal.cs" />
+    <Compile Include="Infraestructura\EnumCollection.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
     <Compile Include="Infraestructura\Extensiones\IntExt.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudio\RoomViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\StudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RegisterStudioViewModel.cs" />
     <Compile Include="ViewModels\ViewStudioViewModel.cs" />
@@ -230,9 +232,8 @@
     <Content Include="Content\Scripts\jquery.validate.min.js" />
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Content\Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Content\Scripts\knockout-3.1.0.js" />
-    <Content Include="Content\Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Content\Scripts\knockout-mapping.js" />
     <Content Include="Content\Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Content\Scripts\MicrosoftAjax.js" />
     <Content Include="Content\Scripts\MicrosoftMvcAjax.debug.js" />
@@ -306,8 +307,11 @@
     <Content Include="Views\Studio\Partial\_RoomsInfo.cshtml" />
     <Content Include="Views\Studio\Partial\_EquipmentInfo.cshtml" />
     <Content Include="Views\Studio\Partial\_BookingInfo.cshtml" />
-    <Content Include="Views\User\Partial\_RegisterLoginInfo.cshtml" />
-    <Content Include="Views\User\Partial\_RegisterGeneralInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioLoginInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioGeneralInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioRoomsInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioEditRoomsInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioDisplayRoomsInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

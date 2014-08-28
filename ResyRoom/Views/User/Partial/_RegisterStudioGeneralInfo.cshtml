@@ -28,6 +28,15 @@
             </div>
             <div class="div-table form-row">
                 <div class="div-cell label">
+                    @Html.LabelFor(u => u.Estudio.Direccion)
+                </div>
+                <div class="div-cell value">
+                    @Html.TextBoxFor(u => u.Estudio.Direccion, new { @class = "txt", data_bind = "value: Estudio.Direccion" })
+                    @Html.ValidationMessageFor(u => u.Estudio.Direccion)
+                </div>
+            </div>
+            <div class="div-table form-row">
+                <div class="div-cell label">
                     @Html.LabelFor(u => u.Estudio.Email)
                 </div>
                 <div class="div-cell value">

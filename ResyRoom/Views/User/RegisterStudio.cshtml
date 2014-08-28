@@ -1,21 +1,25 @@
-﻿@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
+﻿@using System.Web.Script.Serialization
+@model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
 @{
     ViewBag.Title = "Registrar nuevo usuario";
 }
 
-@Scripts.Render("~/bundles/knockoutjs")
+@Scripts.Render("~/bundles/knockoutjs-with-mapping")
 @Scripts.Render("~/bundles/RegisterStudio")
 <script type="text/javascript">
     var koViewModel;
-
-    $(document).ready(function() {
-        koViewModel = RegisterStudioConfiguration().Init();
+    var jsModel;
+    
+    $(document).ready(function () {
+        jsModel = @Html.Raw(new JavaScriptSerializer().Serialize(Model));
+        var viewKoViewModel = ko.mapping.fromJS(jsModel);
+        
+        koViewModel = RegisterStudioConfiguration(viewKoViewModel).Init();
     });
 </script>
 <div class="content">
     <div class="form">
             <div class="register-studio-form">
-                @*@Html.Partial("Partial/_RegisterLoginInfo")*@
             </div>
             @*<table class="register-studio-form">
                 <tr>

@@ -58,6 +58,7 @@ namespace ResyRoom.Models
         [Required(ErrorMessage = "Favor ingresar su correo electronico")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "La dirección de correo ingresada no es valida")]
+        [Display(Name = "Email", Description = "Con este correo entraras como usuario al sitio")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Favor ingresar una contraseña")]

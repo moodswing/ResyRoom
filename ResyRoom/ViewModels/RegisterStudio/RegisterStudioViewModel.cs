@@ -12,6 +12,12 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public IList<Region> Regiones { get; set; }
         public IList<Comuna> Comunas { get; set; }
+
+        public RegisterStudioViewModel()
+        {
+            Estudio = new StudioViewModel();
+            Usuario = new RegistroDeUsuario();
+        }
     }
 
     public interface IRegisterStudioViewModel

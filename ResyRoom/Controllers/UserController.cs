@@ -232,8 +232,9 @@ namespace ResyRoom.Controllers
             {
                 var stepsViews = new Dictionary<int, string>
                     {
-                        { 1, "Partial/_RegisterLoginInfo" },
-                        { 2, "Partial/_RegisterGeneralInfo" }
+                        { 1, "Partial/_RegisterStudioLoginInfo" },
+                        { 2, "Partial/_RegisterStudioGeneralInfo" },
+                        { 3, "Partial/_RegisterStudioRoomsInfo" }
                     };
 
                 return stepsViews;

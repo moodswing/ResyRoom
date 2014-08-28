@@ -27,7 +27,7 @@ select
 
 a:link, a:visited
 {
-    color: #AE332F;
+    color: #747474;
     text-decoration: none;
 }
 .login-div a:link, .login-div a:visited
@@ -37,11 +37,11 @@ a:link, a:visited
 }
 a:hover
 {
-    color: #532a2a;
+    /*text-decoration: underline;*/
 }
 a:active
 {
-    color: #034af3;
+    /*color: #034af3;*/
 }
 
 /* HEADINGS   ----------------------------------------------------------*/

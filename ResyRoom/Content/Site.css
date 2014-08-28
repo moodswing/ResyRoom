@@ -433,6 +433,11 @@ select
 
 .studio-search-page {
     width: 100%;
+    background: url('../../Content/img/bglogo.png') repeat;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 .top-in-search {
@@ -466,13 +471,15 @@ select
     padding: 0 50px 30px 50px;
 }
 
-.search-form h2.search-title {
-    border-bottom: 1px solid #8D7F8D;
-    margin-bottom: 15px;
-    color: #454A4D;
-    padding: 0 0 10px 10px;
-    font-size: 22px;
-    letter-spacing: 5px;
+.search-form .search-container {
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid gainsboro;
+    padding: 30px 50px 50px;
+}
+
+.search-form h3.search-title {
+    margin-bottom: 5px;
 }
 
 .subtitle {
@@ -531,6 +538,7 @@ select
 
 .studio-general-info .general-profile-info {
     padding-top: 20px;
+    overflow: hidden;
 }
 
 h4 {
