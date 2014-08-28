@@ -226,6 +226,14 @@ namespace ResyRoom.Controllers
             return PartialView(view, model);
         }
 
+        [HttpPost]
+        public ActionResult AddNewRoom(RegisterStudioViewModel model)
+        {
+            model.Estudio.Salas.Add(new RoomViewModel { State = EnumCollection.ViewModelState.Edit });
+
+            return PartialView("Partial/_RegisterStudioRoomsInfo", model);
+        }
+
         private Dictionary<int, string> StepsViews
         {
             get

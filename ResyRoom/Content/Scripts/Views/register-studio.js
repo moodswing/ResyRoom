@@ -16,9 +16,25 @@
         return koViewModel;
     },
     addNewRoom = function() {
-        if (validateForm($(".register-studio-form form")))
-        {
-            
+        if (validateForm($(".register-studio-form form"))) {
+            var model = ko.toJSON(koViewModel);
+
+            $.ajax({
+                url: "/User/AddNewRoom",
+                data: model,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'html',
+                success: function (data) {
+                    $(".register-studio-form").html(data);
+
+                    var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
+                    studioRooms.removeClass("first-child");
+                    studioRooms.first().addClass("first-child");
+                    studioRooms.last().hide();
+                    studioRooms.last().show("slide", { directio: "right" }, 350);
+                },
+            });
         }
     },
     validateForm = function (validate) {
@@ -117,6 +133,7 @@
         viewModel.Estudio.UrlName("noixStudio");
         viewModel.Estudio.Email("noix.studio@noix.cl");
         viewModel.Estudio.Direccion("noix street 123");
+        viewModel.Estudio.Salas()[0].Nombre("noix 1");
     },
     koViewModel;
 

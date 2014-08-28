@@ -30,6 +30,21 @@
 {
     margin-top: 25px;
 }
+
+.form .register-studio-form .input-form .register-studio-room
+{
+    border-top: 1px dashed gainsboro;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.form .register-studio-form .input-form > div .register-studio-room.first-child
+{
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
 .form .register-studio-form .form-row
 {
     padding: 8px 0;
