@@ -8,7 +8,7 @@
     <div class="input-form">
         @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
         {
-            sala.value.Indice = sala.i;
+            sala.value.Equipo.Indice = sala.i;
             <div class="room-name @(sala.i == 0 ? "first-child" : "")">
                 @sala.value.Nombre
             </div>
