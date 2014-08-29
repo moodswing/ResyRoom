@@ -8,7 +8,7 @@
     <div class="input-form">
         @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
         {
-            sala.value.Indice = sala.i;
+            sala.value.Equipo.Indice = sala.i;
             @Html.Partial("Partial/_RegisterStudioEditRoomsInfo", sala.value)
         }
         <div class="div-table form-row new-room">
