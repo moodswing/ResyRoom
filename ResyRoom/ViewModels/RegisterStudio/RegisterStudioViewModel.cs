@@ -9,6 +9,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public RegistroDeUsuario Usuario { get; set; }
 
         public int PasoNumero { get; set; }
+        public int EliminaSalaIndice { get; set; }
 
         public IList<Region> Regiones { get; set; }
         public IList<Comuna> Comunas { get; set; }
@@ -28,6 +29,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         RegistroDeUsuario Usuario { get; set; }
 
         int PasoNumero { get; set; }
+        int EliminaSalaIndice { get; set; }
 
         string TituloMensaje { get; set; }
         string SubtituloMensaje { get; set; }

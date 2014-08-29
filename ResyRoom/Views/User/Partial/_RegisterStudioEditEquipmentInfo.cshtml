@@ -1,0 +1,33 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.RoomEquipmentViewModel
+
+<div class="register-studio-equipment">
+    <form>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.Nombre)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Estudio.Salas()[" + @Model.Indice + "].Equipo.Nombre" })
+                @Html.ValidationMessageFor(u => u.Nombre)
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label vertical-centered">
+                @Html.LabelFor(u => u.Descripcion)
+            </div>
+            <div class="div-cell value">
+                @Html.TextAreaFor(u => u.Descripcion, new { @class = "txtarea", data_bind = "value: Estudio.Salas()[" + @Model.Indice + "].Equipo.Descripcion" })
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.TieneUnPrecioAdicional)
+            </div>
+            <div class="div-cell value">
+                @Html.CheckBoxFor(u => u.TieneUnPrecioAdicional, new { data_bind = "checked: Estudio.Salas()[" + @Model.Indice + "].Equipo.TieneUnPrecioAdicional" })
+                @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt", data_bind = "enable: Estudio.Salas()[" + @Model.Indice + "].Equipo.TieneUnPrecioAdicional, value: Estudio.Salas()[" + @Model.Indice + "].Equipo.PrecioAdicional" })
+            </div>
+        </div>
+    </form>
+</div>

@@ -14,6 +14,16 @@
     margin: 3px 0px;
     border: 1px solid #808080;
 }
+
+.txtarea
+{
+    width: 400px;
+    height: 60px;
+    font-size: 1em;
+    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
+    border: 1px solid #808080;
+}
+
 textarea
 {
     font-size: 1em;

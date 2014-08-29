@@ -13,7 +13,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Required(ErrorMessage = "Favor ingresar su nombre")]
         public string Nombre { get; set; }
 
-        [Display(Name = "Tamaño2", Description = "Puede ingresar un aproximado, aunque entre mas exacto mejor")]
+        [Display(Name = "Tamaño", Description = "Puede ingresar un aproximado, aunque entre mas exacto mejor")]
         public string Tamaño { get; set; }
 
         [Display(Name = "Posee esta sala un set de platos")]
@@ -22,9 +22,14 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Range(0, int.MaxValue, ErrorMessage = "Favor ingresar el valor de la hora en la sala")]
         public string PrecioPorHora { get; set; }
 
-        public EnumCollection.ViewModelState State { get; set; }
-
         public int Indice { get; set; }
+
+        public RoomEquipmentViewModel Equipo { get; set; }
+
+        public RoomViewModel()
+        {
+            Equipo = new RoomEquipmentViewModel();
+        }
     }
 
     public interface IRoomViewModel
@@ -33,6 +38,9 @@ namespace ResyRoom.ViewModels.RegisterStudio
         string Tamaño { get; set; }
         bool SetDePlatos { get; set; }
         string PrecioPorHora { get; set; }
+        
         int Indice { get; set; }
+
+        RoomEquipmentViewModel Equipo { get; set; }
     }
 }

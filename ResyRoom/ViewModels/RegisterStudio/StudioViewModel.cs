@@ -38,10 +38,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public StudioViewModel()
         {
-            Salas = new List<RoomViewModel>
-                {
-                    new RoomViewModel { State = EnumCollection.ViewModelState.Edit }
-                };
+            Salas = new List<RoomViewModel> { new RoomViewModel() };
         }
     }
 

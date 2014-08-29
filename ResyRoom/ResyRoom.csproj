@@ -64,7 +64,6 @@
     <Compile Include="Infraestructura\Bootstrapper.cs" />
     <Compile Include="Infraestructura\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infraestructura\CustomPrincipal.cs" />
-    <Compile Include="Infraestructura\EnumCollection.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
     <Compile Include="Infraestructura\Extensiones\IntExt.cs" />
@@ -173,6 +172,7 @@
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudio\RoomEquipmentViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RoomViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\StudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RegisterStudioViewModel.cs" />
@@ -311,7 +311,8 @@
     <Content Include="Views\User\Partial\_RegisterStudioGeneralInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioRoomsInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioEditRoomsInfo.cshtml" />
-    <Content Include="Views\User\Partial\_RegisterStudioDisplayRoomsInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioEquipmentInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioEditEquipmentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

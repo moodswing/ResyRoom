@@ -5,17 +5,47 @@
         koViewModel = viewKoViewModel;
         ko.applyBindings(koViewModel);
 
-        loadStep(3);
+        loadStep(1);
 
-        $(document).on("change", "#ddlRegiones", changeDdlRegiones);
-        $(document).on("change, blur", ".register-studio-form input", function () { validateForm($(this)); });
-        $(document).on("click", ".register-studio-form .next-button input[value=Anterior]", loadPreviousStep);
-        $(document).on("click", ".register-studio-form .next-button input[value=Siguiente]", loadNextStep);
+        $(document).on("click", ".register-studio-form .next-button input", changeStep);
         $(document).on("click", ".register-studio-form .new-room a", addNewRoom);
+        $(document).on("click", ".register-studio-form .delete-room a", deleteRoom);
+        $(document).on("change", "#ddlRegiones", changeDdlRegiones);
+        $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
+
+        History.Adapter.bind(window, 'statechange', catchHistoryStateChange);
+        cleanHistoryState();
 
         return koViewModel;
     },
-    addNewRoom = function() {
+    deleteRoom = function (event) {
+        var element = $(event.srcElement);
+        var index = $(".register-studio-room").index(element.parents(".register-studio-room"));
+        
+        koViewModel.EliminaSalaIndice(index);
+        var model = ko.toJSON(koViewModel);
+
+        $.ajax({
+            url: "/User/DeleteRoom",
+            data: model,
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'html',
+            success: function (data) {
+                element.parents(".register-studio-room").hide('slide', { direction: 'left' }, 350, function() {
+                    element.parents(".register-studio-room").remove();
+
+                    $(".register-studio-form").html(data);
+                    koViewModel.Estudio.Salas.remove(koViewModel.Estudio.Salas()[index]);
+
+                    cleanRoomBorderTop();
+                });
+            },
+        });
+
+        return false;
+    },
+    addNewRoom = function () {
         if (validateForm($(".register-studio-form form"))) {
             var model = ko.toJSON(koViewModel);
 
@@ -26,25 +56,51 @@
                 contentType: 'application/json',
                 dataType: 'html',
                 success: function (data) {
-                    $(".register-studio-form").html(data);
+                    koViewModel.Estudio.Salas().push({
+                        Nombre: ko.observable("prueba"),
+                        Tamaño: ko.observable(null),
+                        SetDePlatos: ko.observable(null)
+                    });
 
-                    var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
-                    studioRooms.removeClass("first-child");
-                    studioRooms.first().addClass("first-child");
+                    $(".register-studio-form").html(data);
+                    ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
+
+                    var studioRooms = cleanRoomBorderTop();
+                    
                     studioRooms.last().hide();
                     studioRooms.last().show("slide", { directio: "right" }, 350);
+                    
+                    reBindFormValidations();
                 },
             });
         }
+
+        return false;
+    },
+    cleanRoomBorderTop = function() {
+        var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
+        studioRooms.removeClass("first-child");
+        studioRooms.first().addClass("first-child");
+
+        var nameRooms = $(".form .register-studio-form .input-form .room-name");
+        nameRooms.removeClass("first-child");
+        nameRooms.first().addClass("first-child");
+
+        return studioRooms;
+    },
+    catchHistoryStateChange = function() {
+        var state = History.getState();
+
+        if (state.data != null && state.data.StepNumber != null)
+            loadStep(state.data.StepNumber);
     },
     validateForm = function (validate) {
         var errorsAlreadyDisplayed = $(".field-validation-error:visible");
 
         var isValid = validate.valid();
-
-        if (isValid) {
+        if (isValid)
             $(".field-info-description").show();
-        } else {
+        else {
             var errors = $(".field-validation-error:visible");
 
             $(".register-studio-form .value").not(errors.parents(".value")).find(".field-info-description:hidden").show('slide', { direction: 'left' }, 350);
@@ -56,17 +112,23 @@
 
         return isValid;
     },
-    loadPreviousStep = function () {
-        var numberStep = parseInt(koViewModel.PasoNumero());
-        loadStep(numberStep - 1);
-    },
-    loadNextStep = function() {
-        var numberStep = parseInt(koViewModel.PasoNumero());
-        loadStep(numberStep + 1);
+    changeStep = function (event) {
+        if ($(".register-studio-form form").length > 0) {
+            var isValid = true;
+            $(".register-studio-form form").each(function() {
+                if (!validateForm($(this))) isValid = false;
+            });
+        }
+
+        if (!isValid) return;
+
+        var stepNumber;
+        if ($(event.srcElement).is("[value=Anterior]")) stepNumber  = koViewModel.PasoNumero() - 1;
+        else stepNumber = koViewModel.PasoNumero() + 1;
+
+        History.pushState({ StepNumber: stepNumber }, 'ResyRoom - Registra tu estudio: Paso ' + stepNumber, null);
     },
     loadStep = function (stepNumber) {
-        if ($(".register-studio-form form").length > 0 && !validateForm($(".register-studio-form form"))) return;
-
         var nextStep = stepNumber > koViewModel.PasoNumero();
         var direction1, direction2;
 
@@ -101,6 +163,8 @@
         else $(".register-studio-form > div").show();
         
         ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
+
+        cleanRoomBorderTop();
         reBindFormValidations();
     },
     changeDdlRegiones = function(data) {
@@ -124,6 +188,9 @@
         $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
         $(".register-studio-form form").validate().resetForm();
     },
+    cleanHistoryState = function() {
+        History.replaceState({ randomData: window.Math.random() }, '', null);
+    },
     setViewModelData = function (viewModel) {
         viewModel.Usuario.Nombre("Robinson Aravena");
         viewModel.Usuario.Email("rob.arav@gmail.com");
@@ -134,6 +201,7 @@
         viewModel.Estudio.Email("noix.studio@noix.cl");
         viewModel.Estudio.Direccion("noix street 123");
         viewModel.Estudio.Salas()[0].Nombre("noix 1");
+        viewModel.Estudio.Salas()[0].Equipo.Nombre("noix guitar");
     },
     koViewModel;
 
