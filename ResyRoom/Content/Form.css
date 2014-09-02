@@ -40,6 +40,22 @@
     width: 100%;
 }
 
+.form .register-studio-form .input-form .equipment-header .disable-equipment-confirmation
+{
+    display: none;
+}
+
+.form .register-studio-form .input-form .equipment-header .disable-equipment-confirmation .confirmation-detail
+{
+    padding-left: 26px;
+    display: block;
+}
+
+.form .register-studio-form .input-form .equipment-header .disable-equipment-confirmation .confirmation-detail.answer
+{
+    padding-top: 10px;
+}
+
 .form .register-studio-form .input-form .equipment-header.first-child
 {
     margin-top: 0;
@@ -61,10 +77,26 @@
     padding-top: 15px;
 }
 
+.form .register-studio-form .input-form .register-studio-room.equipment  {
+    border-top: 0;
+}
+
+.form .register-studio-form .input-form .register-studio-room .no-equipment  {
+    text-align: center;
+    padding: 10px 0;
+}
+
 .form .register-studio-form .input-form .register-studio-equipment
 {
     border-top: 0;
     padding-top: 0;
+    margin-bottom: 10px;
+}
+
+.form .register-studio-form .input-form .register-studio-equipment.new-equipment
+{
+    border-bottom: 1px dashed gainsboro; 
+    padding-bottom: 10px;
 }
 
 .form .register-studio-form .input-form .register-studio-room.first-child
@@ -79,13 +111,19 @@
     padding: 8px 0;
 }
 
-.form .register-studio-form .form-row.new-equipment,
 .form .register-studio-form .form-row.new-room
 {
     margin-top: 10px; 
     width: 100%; 
     border-top: 1px dashed gainsboro; 
     padding-top: 15px;
+}
+
+.form .register-studio-form .form-row.new-equipment {
+    width: 100%; 
+    margin-top: 0; 
+    border-top: 0; 
+    padding-top: 5px;
 }
 
 .form .register-studio-form .form-row.delete-room
@@ -118,6 +156,16 @@
 .form .register-studio-form .form-row.display-equipment .equipment-actions .div-cell
 {
     padding: 0;
+}
+
+.form .register-studio-form .form-row.display-equipment .equipment-actions .delete-confirmation
+{
+    display: none;
+}
+
+.form .register-studio-form .form-row.display-equipment .equipment-actions .delete-confirmation .confirmation
+{
+    padding-right: 20px;
 }
 
 .form .register-studio-form .form-row.display-equipment ul

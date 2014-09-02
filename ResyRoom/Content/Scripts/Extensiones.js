@@ -34,3 +34,14 @@ $.fn.preload = function () {
         $('<img/>')[0].src = this;
     });
 };
+
+$.postJSON = function (url, data, callback) {
+    return jQuery.ajax({
+        'type': 'POST',
+        'url': url,
+        'contentType': 'application/json',
+        'data': data,
+        'dataType': 'html',
+        'success': callback
+    });
+};

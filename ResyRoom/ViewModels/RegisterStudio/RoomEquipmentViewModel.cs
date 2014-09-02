@@ -24,8 +24,6 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public string Fotografia { get; set; }
 
-        public int Indice { get; set; }
-
         public EnumCollection.ViewState ViewState { get; set; }
     }
 
@@ -34,6 +32,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         string Nombre { get; set; }
         string Descripcion { get; set; }
         int Indice { get; set; }
+        int IndiceSeleccionado { get; set; }
         bool TieneUnPrecioAdicional { get; set; }
         int? PrecioAdicional { get; set; }
         string Fotografia { get; set; }

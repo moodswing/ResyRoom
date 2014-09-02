@@ -3,10 +3,14 @@
 
 <div class="register-studio-equipment">
     <div class="div-table form-row display-equipment">
-        <div class="div-cell" style="width: 30%">
+        <div class="div-cell" style="width: 25%">
             @Html.DisplayFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Equipos()[" + @Model.Indice + "].Nombre" })
         </div>
-        <div class="div-cell" style="width: 40%">
+        <div class="div-cell" style="width: 25%">
+            @Html.HiddenFor(u => u.Descripcion, new { data_bind = "value: Equipos()[" + @Model.Indice + "].Descripcion" })
+            @Html.HiddenFor(u => u.Fotografia, new { data_bind = "value: Equipos()[" + @Model.Indice + "].Fotografia" })
+            @Html.HiddenFor(u => u.TieneUnPrecioAdicional, new { data_bind = "value: Equipos()[" + @Model.Indice + "].TieneUnPrecioAdicional" })
+            @Html.HiddenFor(u => u.PrecioAdicional, new { data_bind = "value: Equipos()[" + @Model.Indice + "].PrecioAdicional" })
             @if (Model.TieneUnPrecioAdicional)
             {
                 <span>Precio adicional: @Model.PrecioAdicional</span>
@@ -18,11 +22,16 @@
         </div>
         <div class="equipment-actions">
             <ul>
-                <li>
-                    editar
+                <li><a class="edit-equipment" href="#">editar</a>
                 </li>
                 <li>
-                    eliminar
+                    <span class="ask-confirmation"><a href="#">eliminar</a></span>
+                    <span class="delete-confirmation">
+                        <span class="confirmation">Esta seguro de querer eliminar?</span>
+                        <a class="delete-equipment" href="#">sí</a>
+                        /
+                        <a class="cancel-delete" href="#">no</a>
+                    </span>
                 </li>
             </ul>
         </div>

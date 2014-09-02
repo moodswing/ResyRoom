@@ -231,15 +231,13 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult AddNewRoom(RegisterStudioViewModel model)
         {
-            model.Estudio.Salas.Add(new RoomViewModel());
+            model.Estudio.Salas.Add(new RoomViewModel { Nombre = "noix" + (model.Estudio.Salas.Count() + 1).ToString() });
             model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
-
-            var sala = model.Estudio.Salas.FirstOrDefault();
-            if (sala != null)
-            {
-                var equipo = sala.Equipos.FirstOrDefault();
-                if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
-            }
+            model.Estudio.Salas.ForEach(s =>
+                {
+                    var equipo = s.Equipos.FirstOrDefault();
+                    if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
+                });
 
             model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
@@ -247,12 +245,40 @@ namespace ResyRoom.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewEquipment(RegisterStudioViewModel model)
+        public ActionResult EditEquipment(RegisterStudioViewModel model)
         {
-            var sala = model.Estudio.Salas.ElementAt(model.AgregarEquipoSalaIndice);
-            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+            var sala = model.Estudio.Salas.ElementAt(model.Estudio.IndiceSeleccionado);
 
-            sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit });
+            switch (model.Accion)
+            {
+                case "AddNewEquipment":
+                    sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
+                    sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit, Nombre = "equipo noix" + (sala.Equipos.Count() + 1).ToString() });
+
+                    break;
+                case "EditEquipment":
+                    sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
+                    var equipo = sala.Equipos.ElementAt(sala.IndiceSeleccionado);
+                    equipo.ViewState = EnumCollection.ViewState.Edit;
+
+                    break;
+                case "DeleteEquipment":
+                    sala.Equipos.RemoveAt(sala.IndiceSeleccionado);
+
+                    break;
+                case "DisableEquipment":
+                    sala.SinEquipos = true;
+                    sala.Equipos = new List<RoomEquipmentViewModel>();
+
+                    break;
+                case "EnableEquipment":
+                    sala.SinEquipos = false;
+                    sala.Equipos = new List<RoomEquipmentViewModel>();
+
+                    break;
+            }
+            
+            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
             return PartialView("Partial/_RegisterStudioEquipmentInfo", model);
         }
@@ -260,7 +286,8 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult DeleteRoom(RegisterStudioViewModel model)
         {
-            model.Estudio.Salas.RemoveAt(model.EliminaSalaIndice);
+            model.Estudio.Salas.RemoveAt(model.Estudio.IndiceSeleccionado);
+            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
             return PartialView("Partial/_RegisterStudioRoomsInfo", model);
         }

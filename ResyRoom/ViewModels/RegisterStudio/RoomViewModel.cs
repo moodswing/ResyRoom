@@ -22,13 +22,13 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Range(0, int.MaxValue, ErrorMessage = "Favor ingresar el valor de la hora en la sala")]
         public string PrecioPorHora { get; set; }
 
-        public int Indice { get; set; }
+        public bool SinEquipos { get; set; }
 
         public List<RoomEquipmentViewModel> Equipos { get; set; }
 
         public RoomViewModel()
         {
-            Equipos = new List<RoomEquipmentViewModel> { new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit } };
+            Equipos = new List<RoomEquipmentViewModel>();
         }
     }
 
@@ -40,6 +40,9 @@ namespace ResyRoom.ViewModels.RegisterStudio
         string PrecioPorHora { get; set; }
         
         int Indice { get; set; }
+        int IndiceSeleccionado { get; set; }
+
+        bool SinEquipos { get; set; }
 
         List<RoomEquipmentViewModel> Equipos { get; set; }
     }

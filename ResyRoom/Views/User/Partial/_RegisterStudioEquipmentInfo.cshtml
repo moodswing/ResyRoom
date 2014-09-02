@@ -10,21 +10,42 @@
         @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
         {
             sala.value.Indice = sala.i;
-            <div class="register-studio-room">
+            <div class="register-studio-room equipment">
                 <div class="div-table equipment-header @(sala.i == 0 ? "first-child" : "")">
                     <div class="div-cell">
-                        <a href="#">
+                        @if (sala.value.SinEquipos)
+                        {
+                            <span class="plus-icon">+</span>
+                            <span class="enable-equipments"><a href="#">especificar los equipos para esta sala</a></span>
+                        }
+                        else
+                        {
                             <span class="x-icon">x</span>
-                            no especificar los equipos para esta sala
-                        </a>
+                            <span class="disable-equipment-question"><a href="#">no especificar los equipos para esta sala</a></span>
+                            <span class="disable-equipment-confirmation">
+                                <span>esta seguro de no querer especificar el equipamiento para esta sala?</span>
+                                <span class="confirmation-detail">(esto borrara todos los equipos ingresados en esta)</span>
+                                <span class="confirmation-detail answer">
+                                    <a href="#" class="disable-equipments">sí</a>
+                                    /
+                                    <a href="#" class="cancel-disable">no</a>
+                                </span>
+                            </span>
+                        }
                     </div>
                     <div class="div-cell room-name @(sala.i == 0 ? "first-child" : "")">
                         @sala.value.Nombre
                     </div>
                 </div>
-                @foreach (var equipo in sala.value.Equipos.OrderBy(e => e.ViewState).Select((value, i) => new { i, value }))
+                @if (sala.value.SinEquipos)
                 {
-                    equipo.value.Indice = equipo.i;
+                    <div class="no-equipment">Equipos sin especificar..</div>
+                }
+                else
+                {
+                    foreach (var equipo in sala.value.Equipos.Select((value, i) => new { i, value }))
+                    {
+                        equipo.value.Indice = equipo.i;
                     <div data-bind="with: Estudio.Salas()[@(sala.value.Indice)]">
                         @if (equipo.value.ViewState == EnumCollection.ViewState.Display)
                         {
@@ -35,16 +56,17 @@
                             @Html.Partial("Partial/_RegisterStudioEditEquipmentInfo", equipo.value)
                         }
                     </div>
-                }
-                <div class="div-table form-row new-equipment">
-                    <div class="div-cell label" />
-                    <div class="div-cell value">
-                        <a href="#">
-                            <span class="plus-icon">+</span>
-                            Agregar otro equipo
-                        </a>
+                    }
+                    <div class="div-table form-row new-equipment">
+                        <div class="div-cell label" />
+                        <div class="div-cell value">
+                            <a href="#">
+                                <span class="plus-icon">+</span>
+                                Agregar equipo
+                            </a>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
         <div class="div-table next-button">
@@ -56,5 +78,5 @@
             </div>
         </div>
     </div>
-    @Html.HiddenFor(m => m.JsonModelResult, new { data_bind = "value: Estudio.JsonModelResult" })
+    @Html.HiddenFor(m => m.JsonModelResult)
 </div>
