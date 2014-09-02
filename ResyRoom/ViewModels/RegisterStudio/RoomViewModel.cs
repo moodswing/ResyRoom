@@ -24,11 +24,11 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public int Indice { get; set; }
 
-        public RoomEquipmentViewModel Equipo { get; set; }
+        public List<RoomEquipmentViewModel> Equipos { get; set; }
 
         public RoomViewModel()
         {
-            Equipo = new RoomEquipmentViewModel();
+            Equipos = new List<RoomEquipmentViewModel> { new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit } };
         }
     }
 
@@ -41,6 +41,6 @@ namespace ResyRoom.ViewModels.RegisterStudio
         
         int Indice { get; set; }
 
-        RoomEquipmentViewModel Equipo { get; set; }
+        List<RoomEquipmentViewModel> Equipos { get; set; }
     }
 }

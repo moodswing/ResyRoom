@@ -15,6 +15,11 @@
     border: 1px solid #808080;
 }
 
+.txt.xl
+{
+    width: 404px;
+}
+
 .txtarea
 {
     width: 400px;

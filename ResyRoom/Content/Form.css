@@ -31,22 +31,26 @@
     margin-top: 25px;
 }
 
-.form .register-studio-form .input-form .room-name
+.form .register-studio-form .input-form .equipment-header
 {
     border-bottom: 1px dashed gainsboro;
-    /*border-top: 1px dashed gainsboro;*/
     margin-top: 15px;
-    padding: 10px 20px 10px 0;
+    padding: 10px 0 10px 0;
     margin-bottom: 5px;
-    text-transform: uppercase;
-    text-align: right;
-    font-size: 12px;
+    width: 100%;
 }
 
-.form .register-studio-form .input-form .room-name.first-child
+.form .register-studio-form .input-form .equipment-header.first-child
 {
     margin-top: 0;
     padding-top: 0;
+}
+
+.form .register-studio-form .input-form .room-name
+{
+    text-transform: uppercase;
+    text-align: right;
+    font-size: 12px;
 }
 
 .form .register-studio-form .input-form .register-studio-equipment,
@@ -75,6 +79,7 @@
     padding: 8px 0;
 }
 
+.form .register-studio-form .form-row.new-equipment,
 .form .register-studio-form .form-row.new-room
 {
     margin-top: 10px; 
@@ -98,7 +103,37 @@
     display: none;
 }
 
-.form .register-studio-form .form-row.delete-room .delete-room-link .delete-icon
+.form .register-studio-form .form-row.display-equipment
+{
+    width: 100%;
+    border-bottom: 1px dashed gainsboro;
+    padding: 0 0 8px;
+}
+
+.form .register-studio-form .form-row.display-equipment .equipment-actions
+{
+    text-align: right;
+}
+
+.form .register-studio-form .form-row.display-equipment .equipment-actions .div-cell
+{
+    padding: 0;
+}
+
+.form .register-studio-form .form-row.display-equipment ul
+{
+    list-style: none;
+    overflow: hidden;
+    margin: 0;
+}
+
+.form .register-studio-form .form-row.display-equipment ul li
+{
+    float: right;
+    padding: 0 0 0 20px;
+}
+
+.x-icon
 {
     background-color: #CC8F8F;
     color: white;
@@ -110,7 +145,7 @@
     margin-right: 10px;
 }
 
-.form .register-studio-form .form-row.new-room .add-icon
+.plus-icon
 {
     background-color: #A1B1A4; 
     color: white; 
@@ -161,7 +196,7 @@
     position: absolute;
     top: 3px;
     left: 170px;
-    width: 290px;
+    width: 287px;
     background-color: #D99898;
     color: white;
     padding: 5px 20px;

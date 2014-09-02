@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using MoreLinq;
 using Newtonsoft.Json;
 using ResyRoom.Infraestructura;
 using ResyRoom.Infraestructura.Exceptions;
@@ -230,8 +232,29 @@ namespace ResyRoom.Controllers
         public ActionResult AddNewRoom(RegisterStudioViewModel model)
         {
             model.Estudio.Salas.Add(new RoomViewModel());
+            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+
+            var sala = model.Estudio.Salas.FirstOrDefault();
+            if (sala != null)
+            {
+                var equipo = sala.Equipos.FirstOrDefault();
+                if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
+            }
+
+            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
             return PartialView("Partial/_RegisterStudioRoomsInfo", model);
+        }
+
+        [HttpPost]
+        public ActionResult AddNewEquipment(RegisterStudioViewModel model)
+        {
+            var sala = model.Estudio.Salas.ElementAt(model.AgregarEquipoSalaIndice);
+            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+
+            sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit });
+
+            return PartialView("Partial/_RegisterStudioEquipmentInfo", model);
         }
 
         [HttpPost]

@@ -21,6 +21,8 @@ namespace ResyRoom.ViewModels
         public string TituloMensaje { get; set; }
         public string SubtituloMensaje { get; set; }
 
+        public string JsonModelResult { get; set; }
+
         public bool UserLogged { get { return HttpContext.Current.User.Identity.IsAuthenticated; } }
     }
 }

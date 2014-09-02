@@ -1,4 +1,5 @@
-﻿@using ResyRoom.Infraestructura.Extensiones
+﻿@using ResyRoom.Infraestructura
+@using ResyRoom.Infraestructura.Extensiones
 @model ResyRoom.ViewModels.RegisterStudio.IRegisterStudioViewModel
 <div>
     <h3>
@@ -8,11 +9,43 @@
     <div class="input-form">
         @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
         {
-            sala.value.Equipo.Indice = sala.i;
-            <div class="room-name @(sala.i == 0 ? "first-child" : "")">
-                @sala.value.Nombre
+            sala.value.Indice = sala.i;
+            <div class="register-studio-room">
+                <div class="div-table equipment-header @(sala.i == 0 ? "first-child" : "")">
+                    <div class="div-cell">
+                        <a href="#">
+                            <span class="x-icon">x</span>
+                            no especificar los equipos para esta sala
+                        </a>
+                    </div>
+                    <div class="div-cell room-name @(sala.i == 0 ? "first-child" : "")">
+                        @sala.value.Nombre
+                    </div>
+                </div>
+                @foreach (var equipo in sala.value.Equipos.OrderBy(e => e.ViewState).Select((value, i) => new { i, value }))
+                {
+                    equipo.value.Indice = equipo.i;
+                    <div data-bind="with: Estudio.Salas()[@(sala.value.Indice)]">
+                        @if (equipo.value.ViewState == EnumCollection.ViewState.Display)
+                        {
+                            @Html.Partial("Partial/_RegisterStudioDisplayEquipmentInfo", equipo.value)
+                        }
+                        else if (equipo.value.ViewState == EnumCollection.ViewState.Edit)
+                        {
+                            @Html.Partial("Partial/_RegisterStudioEditEquipmentInfo", equipo.value)
+                        }
+                    </div>
+                }
+                <div class="div-table form-row new-equipment">
+                    <div class="div-cell label" />
+                    <div class="div-cell value">
+                        <a href="#">
+                            <span class="plus-icon">+</span>
+                            Agregar otro equipo
+                        </a>
+                    </div>
+                </div>
             </div>
-            @Html.Partial("Partial/_RegisterStudioEditEquipmentInfo", sala.value.Equipo)
         }
         <div class="div-table next-button">
             <div class="div-cell">
@@ -23,4 +56,5 @@
             </div>
         </div>
     </div>
+    @Html.HiddenFor(m => m.JsonModelResult, new { data_bind = "value: Estudio.JsonModelResult" })
 </div>

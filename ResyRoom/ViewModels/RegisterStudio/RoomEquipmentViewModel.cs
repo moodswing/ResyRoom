@@ -25,6 +25,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public string Fotografia { get; set; }
 
         public int Indice { get; set; }
+
+        public EnumCollection.ViewState ViewState { get; set; }
     }
 
     public interface IRoomEquipmentViewModel
@@ -35,5 +37,6 @@ namespace ResyRoom.ViewModels.RegisterStudio
         bool TieneUnPrecioAdicional { get; set; }
         int? PrecioAdicional { get; set; }
         string Fotografia { get; set; }
+        EnumCollection.ViewState ViewState { get; set; }
     }
 }

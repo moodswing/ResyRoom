@@ -10,6 +10,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public int PasoNumero { get; set; }
         public int EliminaSalaIndice { get; set; }
+        public int AgregarEquipoSalaIndice { get; set; }
 
         public IList<Region> Regiones { get; set; }
         public IList<Comuna> Comunas { get; set; }
@@ -30,6 +31,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         int PasoNumero { get; set; }
         int EliminaSalaIndice { get; set; }
+        int AgregarEquipoSalaIndice { get; set; }
+        string JsonModelResult { get; set; }
 
         string TituloMensaje { get; set; }
         string SubtituloMensaje { get; set; }

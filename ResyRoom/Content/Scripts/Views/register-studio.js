@@ -5,10 +5,11 @@
         koViewModel = viewKoViewModel;
         ko.applyBindings(koViewModel);
 
-        loadStep(1);
+        loadStep(3);
 
         $(document).on("click", ".register-studio-form .next-button input", changeStep);
         $(document).on("click", ".register-studio-form .new-room a", addNewRoom);
+        $(document).on("click", ".register-studio-form .new-equipment a", addNewEquipment);
         $(document).on("click", ".register-studio-form .delete-room a", deleteRoom);
         $(document).on("change", "#ddlRegiones", changeDdlRegiones);
         $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
@@ -17,6 +18,45 @@
         cleanHistoryState();
 
         return koViewModel;
+    },
+    addNewEquipment = function (event) {
+        if (validateForm($(".register-studio-form form"))) {
+            var element = $(event.srcElement);
+            var index = $(".register-studio-room").index(element.parents(".register-studio-room"));
+
+            koViewModel.AgregarEquipoSalaIndice(index);
+            var model = ko.toJSON(koViewModel);
+
+            $.ajax({
+                url: "/User/AddNewEquipment",
+                data: model,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'html',
+                success: function (data) {
+                    koViewModel.Estudio.Salas()[index].Equipos().push({
+                        Nombre: ko.observable("noix equipment"),
+                        Descripcion: ko.observable(null),
+                        TieneUnPrecioAdicional: ko.observable(false),
+                        PrecioAdicional: ko.observable(null),
+                        Indice: ko.observable(null),
+                        Fotografia: ko.observable(null)
+                    });
+                    
+                    $(".register-studio-form").html(data);
+                    ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
+
+                    var studioRooms = cleanRoomBorderTop();
+
+                    $(studioRooms[index]).find("form").last().hide();
+                    $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
+
+                    reBindFormValidations();
+                },
+            });
+        }
+
+        return false;
     },
     deleteRoom = function (event) {
         var element = $(event.srcElement);
@@ -56,11 +96,23 @@
                 contentType: 'application/json',
                 dataType: 'html',
                 success: function (data) {
-                    koViewModel.Estudio.Salas().push({
-                        Nombre: ko.observable("prueba"),
-                        Tamaño: ko.observable(null),
-                        SetDePlatos: ko.observable(null)
-                    });
+                    model = $(data).find("#JsonModelResult").val();
+                    koViewModel = ko.mapping.fromJS(JSON.parse(model));
+                    
+                    //koViewModel.Estudio.Salas().push({
+                    //    Nombre: ko.observable("prueba"),
+                    //    Tamaño: ko.observable(null),
+                    //    SetDePlatos: ko.observable(null),
+                    //    Equipos: ko.observable([{
+                    //        Nombre: ko.observable("equipo1"),
+                    //        Descripcion: ko.observable(null),
+                    //        TieneUnPrecioAdicional: ko.observable(false),
+                    //        PrecioAdicional: ko.observable(null),
+                    //        Indice: ko.observable(null),
+                    //        Fotografia: ko.observable(null),
+                    //        ViewState: ko.observable(2)
+                    //    }])
+                    //});
 
                     $(".register-studio-form").html(data);
                     ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
@@ -186,7 +238,7 @@
         
         $(".field-validation-error").html("");
         $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
-        $(".register-studio-form form").validate().resetForm();
+        if ($(".register-studio-form form").length > 0) $(".register-studio-form form").validate().resetForm();
     },
     cleanHistoryState = function() {
         History.replaceState({ randomData: window.Math.random() }, '', null);
@@ -201,7 +253,7 @@
         viewModel.Estudio.Email("noix.studio@noix.cl");
         viewModel.Estudio.Direccion("noix street 123");
         viewModel.Estudio.Salas()[0].Nombre("noix 1");
-        viewModel.Estudio.Salas()[0].Equipo.Nombre("noix guitar");
+        viewModel.Estudio.Salas()[0].Equipos()[0].Nombre("noix guitar");
     },
     koViewModel;
 
