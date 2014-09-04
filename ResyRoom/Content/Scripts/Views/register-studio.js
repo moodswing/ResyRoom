@@ -4,6 +4,7 @@
         setViewModelData();
 
         ko.applyBindings(vm.koViewModel);
+        
 
         loadStep(5);
 
