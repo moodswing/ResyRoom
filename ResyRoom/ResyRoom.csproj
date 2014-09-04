@@ -173,6 +173,7 @@
     <Compile Include="Servicios\ServUsuarios.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
+    <Compile Include="ViewModels\RegisterStudio\RoomScheduleViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RoomEquipmentViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RoomViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\StudioViewModel.cs" />
@@ -226,6 +227,8 @@
     <Content Include="Content\Scripts\jquery-ui-1.9.2.custom.min.js" />
     <Content Include="Content\Scripts\jquery.elastic.source.js" />
     <Content Include="Content\Scripts\jquery.history.js" />
+    <Content Include="Content\Scripts\jquery.plugin.js" />
+    <Content Include="Content\Scripts\jquery.timeentry.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Content\Scripts\jquery.validate-vsdoc.js" />
@@ -315,6 +318,8 @@
     <Content Include="Views\User\Partial\_RegisterStudioEquipmentInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioEditEquipmentInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioDisplayEquipmentInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioScheduleInfo.cshtml" />
+    <Content Include="Views\User\Partial\_RegisterStudioEditScheduleInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

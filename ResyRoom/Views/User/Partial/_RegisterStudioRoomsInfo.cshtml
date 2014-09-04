@@ -8,8 +8,9 @@
     <div class="input-form">
         @foreach (var sala in Model.Estudio.Salas.Select((value, i) => new { i, value }))
         {
-            sala.value.Indice = sala.i;
-            @Html.Partial("Partial/_RegisterStudioEditRoomsInfo", sala.value)
+            <div data-bind="with: Estudio.Salas()[@(sala.i)]">
+                @Html.Partial("Partial/_RegisterStudioEditRoomsInfo", sala.value)
+            </div>
         }
         <div class="div-table form-row new-room">
             <div class="div-cell label" />

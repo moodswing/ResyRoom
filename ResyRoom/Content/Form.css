@@ -93,6 +93,7 @@
     margin-bottom: 10px;
 }
 
+.form .register-studio-form .input-form .register-studio-equipment.new-schedule,
 .form .register-studio-form .input-form .register-studio-equipment.new-equipment
 {
     border-bottom: 1px dashed gainsboro; 
@@ -119,6 +120,7 @@
     padding-top: 15px;
 }
 
+.form .register-studio-form .form-row.new-schedule,
 .form .register-studio-form .form-row.new-equipment {
     width: 100%; 
     margin-top: 0; 
@@ -134,11 +136,6 @@
 .form .register-studio-form .form-row.delete-room .delete-room-link
 {
     text-align: right;
-}
-
-.form .register-studio-form .form-row.delete-room .delete-room-link.hidden
-{
-    display: none;
 }
 
 .form .register-studio-form .form-row.display-equipment
@@ -209,6 +206,7 @@
 {
     width: 200px;
     text-align: right;
+    vertical-align: middle;
 }
 
 .form .register-studio-form .label.vertical-centered

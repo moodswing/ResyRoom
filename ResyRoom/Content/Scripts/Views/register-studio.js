@@ -1,12 +1,16 @@
-﻿var RegisterStudioConfiguration = function (viewKoViewModel) {
+﻿var RegisterStudioConfiguration = function (vmkoViewModel) {
     var init = function() {
-        setViewModelData(viewKoViewModel);
+        vm = vmkoViewModel;
+        setViewModelData();
 
-        koViewModel = viewKoViewModel;
-        ko.applyBindings(koViewModel);
+        ko.applyBindings(vm.koViewModel);
 
-        loadStep(4);
+        loadStep(5);
 
+        setDocumentEvents();
+        cleanHistoryState();
+    },
+    setDocumentEvents = function() {
         $(document).on("click", ".register-studio-form .next-button input", changeStep);
         $(document).on("click", ".register-studio-form .new-room a", roomHelper.addNewRoom);
         $(document).on("click", ".register-studio-form .delete-room a", roomHelper.deleteRoom);
@@ -23,28 +27,30 @@
         $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
 
         History.Adapter.bind(window, 'statechange', catchHistoryStateChange);
-        cleanHistoryState();
-
-        return koViewModel;
+    },
+    setJqueryPlugins = function() {
+        $("[name=HoraApertura]").timeEntry({ ampmPrefix: ' ', useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 7, 30, 0), maxTime: new Date(0, 0, 0, 2, 0, 0) });
+        $("[name=HoraCierre]").timeEntry({ ampmPrefix: ' ', useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 7, 30, 0), maxTime: new Date(0, 0, 0, 2, 0, 0) });
+        $("[name=DuracionBloque]").timeEntry({ show24Hours: true, useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 0, 0, 0), maxTime: new Date(0, 0, 0, 5, 0, 0) });
     },
     equipmentHelper = {
-        addNewEquipment: function (event) {
+        addNewEquipment: function(event) {
             if (validateForm($(".register-studio-form form"))) {
                 var element = $(event.srcElement);
                 var index = $(".register-studio-room").index(element.parents(".register-studio-room"));
 
-                koViewModel.Estudio.IndiceSeleccionado(index);
-                koViewModel.Accion("AddNewEquipment");
-                var model = ko.toJSON(koViewModel);
+                vm.koViewModel.Estudio.IndiceSeleccionado(index);
+                vm.koViewModel.Accion("AddNewEquipment");
+                var model = ko.toJSON(vm.koViewModel);
 
-                $.postJSON("/User/EditEquipment", model, function (data) {
+                $.postJSON("/User/EditEquipment", model, function(data) {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
 
                     $(".register-studio-form").html(htmlData);
-                    ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
+                    rebindViewModel($(".register-studio-form").children().get(0));
 
-                    var studioRooms = cleanRoomBorderTop();
+                    var studioRooms = cleanPage();
 
                     $(studioRooms[index]).find("form").last().hide();
                     $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
@@ -55,89 +61,89 @@
 
             return false;
         },
-        enableEquipment: function (event) {
+        enableEquipment: function(event) {
             var editButton = $(event.srcElement);
             var indexRoom = $(".register-studio-room").index(editButton.parents(".register-studio-room"));
-            
-            koViewModel.Estudio.IndiceSeleccionado(indexRoom);
-            koViewModel.Accion("EnableEquipment");
-            var model = ko.toJSON(koViewModel);
 
-            $.postJSON("/User/EditEquipment", model, function (data) {
+            vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
+            vm.koViewModel.Accion("EnableEquipment");
+            var model = ko.toJSON(vm.koViewModel);
+
+            $.postJSON("/User/EditEquipment", model, function(data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
 
-                cleanRoomBorderTop();
+                cleanPage();
             });
 
             return false;
         },
-        disableEquipment: function (event) {
+        disableEquipment: function(event) {
             var editButton = $(event.srcElement);
             var indexRoom = $(".register-studio-room").index(editButton.parents(".register-studio-room"));
-            
-            koViewModel.Estudio.IndiceSeleccionado(indexRoom);
-            koViewModel.Accion("DisableEquipment");
-            var model = ko.toJSON(koViewModel);
 
-            $.postJSON("/User/EditEquipment", model, function (data) {
+            vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
+            vm.koViewModel.Accion("DisableEquipment");
+            var model = ko.toJSON(vm.koViewModel);
+
+            $.postJSON("/User/EditEquipment", model, function(data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
 
-                cleanRoomBorderTop();
+                cleanPage();
             });
 
             return false;
         },
-        editEquipment: function (event) {
+        editEquipment: function(event) {
             var editButton = $(event.srcElement);
             var indexEquipment = editButton.parents(".register-studio-room").find(".register-studio-equipment").index(editButton.parents(".register-studio-equipment"));
             var indexRoom = $(".register-studio-room").index(editButton.parents(".register-studio-room"));
 
-            koViewModel.Estudio.IndiceSeleccionado(indexRoom);
-            koViewModel.Accion("EditEquipment");
-            koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
-            var model = ko.toJSON(koViewModel);
+            vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
+            vm.koViewModel.Accion("EditEquipment");
+            vm.koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
+            var model = ko.toJSON(vm.koViewModel);
 
-            $.postJSON("/User/EditEquipment", model, function (data) {
+            $.postJSON("/User/EditEquipment", model, function(data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
 
-                cleanRoomBorderTop();
+                cleanPage();
             });
 
             return false;
         },
-        deleteEquipment: function (event) {
+        deleteEquipment: function(event) {
             var deleteButton = $(event.srcElement);
             var indexEquipment = deleteButton.parents(".register-studio-room").find(".register-studio-equipment").index(deleteButton.parents(".register-studio-equipment"));
             var indexRoom = $(".register-studio-room").index(deleteButton.parents(".register-studio-room"));
 
-            koViewModel.Estudio.IndiceSeleccionado(indexRoom);
-            koViewModel.Accion("DeleteEquipment");
-            koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
-            var model = ko.toJSON(koViewModel);
+            vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
+            vm.koViewModel.Accion("DeleteEquipment");
+            vm.koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
+            var model = ko.toJSON(vm.koViewModel);
 
-            $.postJSON("/User/EditEquipment", model, function (data) {
-                deleteButton.parents(".register-studio-equipment").hide('slide', { direction: 'left' }, 350, function () {
+            $.postJSON("/User/EditEquipment", model, function(data) {
+                deleteButton.parents(".register-studio-equipment").hide('slide', { direction: 'left' }, 350, function() {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
                     $(".register-studio-form").html(htmlData);
 
-                    cleanRoomBorderTop();
+                    cleanPage();
                 });
             });
 
             return false;
         },
-        cancelDeleteEquipment: function (event) {
+        cancelDeleteEquipment: function(event) {
             var deleteConfirmation = $(event.srcElement).parents(".delete-confirmation");
             var equipment = deleteConfirmation.parents(".register-studio-equipment");
             var deleteButton = equipment.find(".ask-confirmation");
-        
+
             deleteConfirmation.hide('slide', { direction: 'right' }, 350, function() {
                 deleteButton.show();
             });
@@ -151,7 +157,7 @@
 
             deleteButton.hide();
             confirmation.show('slide', { direction: 'right' }, 350);
-            
+
             return false;
         },
         askConfirmationForDisableAllEquipment: function(event) {
@@ -161,15 +167,15 @@
 
             disableButton.hide();
             confirmation.show('slide', { direction: 'left' }, 250);
-            
+
             return false;
         },
-        cancelDisableAllEquipment: function (event) {
+        cancelDisableAllEquipment: function(event) {
             var disableConfirmation = $(event.srcElement).parents(".disable-equipment-confirmation");
             var equipment = disableConfirmation.parents(".equipment-header");
             var disableButton = equipment.find(".disable-equipment-question");
 
-            disableConfirmation.hide('slide', { direction: 'left' }, 350, function () {
+            disableConfirmation.hide('slide', { direction: 'left' }, 350, function() {
                 disableButton.show();
             });
 
@@ -177,48 +183,50 @@
         },
     },
     roomHelper = {
-        addNewRoom: function () {
+        addNewRoom: function() {
             if (validateForm($(".register-studio-form form"))) {
-                var model = ko.toJSON(koViewModel);
+                vm.koViewModel.Accion("AddNewRoom");
+                var model = ko.toJSON(vm.koViewModel);
 
-                $.postJSON("/User/AddNewRoom", model, function (data) {
+                $.postJSON("/User/EditRoom", model, function(data) {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
-                    
-                    $(".register-studio-form").html(htmlData);
-                    ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
 
-                    var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
+                    $(".register-studio-form").html(htmlData);
+                    rebindViewModel($(".register-studio-form").children().get(0));
+
+                    var studioRooms = cleanPage();
                     studioRooms.last().hide();
                     studioRooms.last().show("slide", { directio: "right" }, 350);
-                    
+
                     reBindFormValidations();
                 });
             }
 
             return false;
         },
-        deleteRoom: function (event) {
+        deleteRoom: function(event) {
             var deleteButton = $(event.srcElement);
             var index = $(".register-studio-room").index(deleteButton.parents(".register-studio-room"));
-        
-            koViewModel.Estudio.IndiceSeleccionado(index);
-            var model = ko.toJSON(koViewModel);
 
-            $.postJSON("/User/DeleteRoom", model, function (data) {
+            vm.koViewModel.Accion("DeleteRoom");
+            vm.koViewModel.Estudio.IndiceSeleccionado(index);
+            var model = ko.toJSON(vm.koViewModel);
+
+            $.postJSON("/User/EditRoom", model, function(data) {
                 deleteButton.parents(".register-studio-room").hide('slide', { direction: 'left' }, 350, function() {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
                     $(".register-studio-form").html(htmlData);
 
-                    cleanRoomBorderTop();
+                    cleanPage();
                 });
             });
 
             return false;
         },
     },
-    cleanRoomBorderTop = function() {
+    cleanPage = function() {
         var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
         studioRooms.removeClass("first-child");
         studioRooms.first().addClass("first-child");
@@ -226,6 +234,8 @@
         var nameRooms = $(".form .register-studio-form .input-form .room-name");
         nameRooms.removeClass("first-child");
         nameRooms.first().addClass("first-child");
+
+        $(".delete-room-link").first().remove();
 
         return studioRooms;
     },
@@ -235,11 +245,14 @@
         if (state.data != null && state.data.StepNumber != null)
             loadStep(state.data.StepNumber);
     },
-    validateForm = function (validate) {
+    validateForm = function(validate) {
         var isValid = true;
         var errorsAlreadyDisplayed = $(".field-validation-error:visible");
-        
-        validate.each(function () { if (!$(this).valid()) isValid = false; });
+
+        validate.each(function () {
+            if ($(this).is("[type=checkbox]")) return;
+            if (!$(this).valid()) isValid = false;
+        });
 
         if (isValid)
             $(".field-info-description").show();
@@ -255,52 +268,57 @@
 
         return isValid;
     },
-    changeStep = function (event) {
+    changeStep = function(event) {
         if (!validateForm($(".register-studio-form form"))) return;
 
         var stepNumber;
-        if ($(event.srcElement).is("[value=Anterior]")) stepNumber  = koViewModel.PasoNumero() - 1;
-        else stepNumber = koViewModel.PasoNumero() + 1;
+        if ($(event.srcElement).is("[value=Anterior]")) stepNumber = vm.koViewModel.PasoNumero() - 1;
+        else stepNumber = vm.koViewModel.PasoNumero() + 1;
 
         History.pushState({ StepNumber: stepNumber }, 'ResyRoom - Registra tu estudio: Paso ' + stepNumber, null);
     },
-    loadStep = function (stepNumber) {
-        var nextStep = stepNumber > koViewModel.PasoNumero();
+    loadStep = function(stepNumber) {
+        var nextStep = stepNumber > vm.koViewModel.PasoNumero();
         var direction1, direction2;
 
-        if (koViewModel.PasoNumero() != null && koViewModel.PasoNumero() != stepNumber) {
+        if (vm.koViewModel.PasoNumero() != null && vm.koViewModel.PasoNumero() != stepNumber) {
             direction1 = nextStep ? "left" : "right";
             direction2 = nextStep ? "right" : "left";
         }
-        
-        koViewModel.PasoNumero(stepNumber);
-        var model = ko.toJSON(koViewModel);
 
-        $.postJSON("/User/LoadStepView", model,  function (data) {
+        vm.koViewModel.PasoNumero(stepNumber);
+        var model = ko.toJSON(vm.koViewModel);
+
+        $.postJSON("/User/LoadStepView", model, function(data) {
             if ($(".register-studio-form").html().trim() != "") {
-                $(".register-studio-form > div").hide('slide', { direction: direction1 }, 250, function () {
+                $(".register-studio-form > div").hide('slide', { direction: direction1 }, 250, function() {
                     loadStepHtml(data, direction2);
                 });
             } else loadStepHtml(data);
         });
     },
     loadStepHtml = function(data, direction) {
-        $(".register-studio-form").html(data);
+        var htmlData = $(data);
+        updateViewModel(htmlData);
+
+        $(".register-studio-form").html(htmlData);
         $(".register-studio-form > div").hide();
-        
+
         if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250);
         else $(".register-studio-form > div").show();
-        
-        ko.applyBindings(koViewModel, $(".register-studio-form").children().get(0));
 
-        cleanRoomBorderTop();
+        rebindViewModel($(".register-studio-form").children().get(0));
+
+        setJqueryPlugins();
+        
+        cleanPage();
         reBindFormValidations();
     },
     changeDdlRegiones = function(data) {
-        $.post("User/ComunasDeUnaRegion", $("#ddlRegiones").val(), function () {
+        $.post("User/ComunasDeUnaRegion", $("#ddlRegiones").val(), function() {
             $("select[id$=Estudio_IdComuna] > option").remove();
 
-            $.each(data, function (key, value) {
+            $.each(data, function(key, value) {
                 $('#Estudio_IdComuna')
                     .append($("<option></option>")
                         .attr("value", key)
@@ -312,7 +330,7 @@
         $(".register-studio-form form").removeData("validator");
         $(".register-studio-form form").removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse(".register-studio-form form");
-        
+
         $(".field-validation-error").html("");
         $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
         if ($(".register-studio-form form").length > 0) $(".register-studio-form form").validate().resetForm();
@@ -323,21 +341,65 @@
     updateViewModel = function(data) {
         var model = data.find("#JsonModelResult").val();
         data.find("#JsonModelResult").remove();
-        koViewModel = ko.mapping.fromJS(JSON.parse(model));
+
+        var newModel = ko.mapping.fromJS(JSON.parse(model));
+        vm.koViewModel = newModel;
     },
-    setViewModelData = function (viewModel) {
-        viewModel.Usuario.Nombre("Robinson Aravena");
-        viewModel.Usuario.Email("rob.arav@gmail.com");
-        viewModel.Usuario.Password("esurance");
-        viewModel.Usuario.PasswordConfirmacion("esurance");
-        viewModel.Estudio.Nombre("Noix Studio");
-        viewModel.Estudio.UrlName("noixStudio");
-        viewModel.Estudio.Email("noix.studio@noix.cl");
-        viewModel.Estudio.Direccion("noix street 123");
-        viewModel.Estudio.Salas()[0].Nombre("noix 1");
-        //viewModel.Estudio.Salas()[0].Equipos()[0].Nombre("noix guitar");
+    setViewModelData = function() {
+        vm.koViewModel.Usuario.Nombre("Robinson Aravena");
+        vm.koViewModel.Usuario.Email("rob.arav@gmail.com");
+        vm.koViewModel.Usuario.Password("esurance");
+        vm.koViewModel.Usuario.PasswordConfirmacion("esurance");
+        vm.koViewModel.Estudio.Nombre("Noix Studio");
+        vm.koViewModel.Estudio.UrlName("noixStudio");
+        vm.koViewModel.Estudio.Email("noix.studio@noix.cl");
+        vm.koViewModel.Estudio.Direccion("noix street 123");
+        vm.koViewModel.Estudio.Salas()[0].Nombre("noix 1");
     },
-    koViewModel;
+    rebindViewModel = function(container) {
+        setExtraBindViewModel();
+        ko.applyBindings(vm.koViewModel, container);
+    },
+    setExtraBindViewModel = function () {
+        if ($(".new-schedule").length == 0) return;
+        
+        for (var i = 0; i < vm.koViewModel.Estudio.Salas().length; i++) {
+            var horario = vm.koViewModel.Estudio.Salas()[i].Horario;
+            horario.DiaLunes = ko.observable(true);
+            horario.DiaMartes = ko.observable(true);
+            horario.DiaMiercoles = ko.observable(true);
+            horario.DiaJueves = ko.observable(true);
+            horario.DiaViernes = ko.observable(true);
+            horario.DiaSabado = ko.observable(true);
+            horario.DiaDomingo = ko.observable();
+
+            horario.DiasAbierto = ko.computed(function () {
+                var value = "";
+                value = value + (this.DiaLunes() ? "1" : "");
+                value = value + (this.DiaMartes() ? "2" : "");
+                value = value + (this.DiaMiercoles() ? "3" : "");
+                value = value + (this.DiaJueves() ? "4" : "");
+                value = value + (this.DiaViernes() ? "5" : "");
+                value = value + (this.DiaSabado() ? "6" : "");
+                value = value + (this.DiaDomingo() ? "7" : "");
+
+                return value;
+            }, horario);
+
+            var horaApertura = $($(".new-schedule")[i]).find("#HoraApertura").val();
+            var horaCierre = $($(".new-schedule")[i]).find("#HoraCierre").val();
+            var duracionBloque = $($(".new-schedule")[i]).find("#DuracionBloque").val();
+
+            horario.HoraAperturaDisplay = ko.observable(horaApertura.indexOf(" : ") == -1 ? horaApertura.split(":").join(" : ") : horaApertura);
+            horario.HoraCierreDisplay = ko.observable(horaCierre.indexOf(" : ") == -1 ? horaCierre.split(":").join(" : ") : horaCierre);
+            horario.DuracionBloqueDisplay = ko.observable(duracionBloque.indexOf(" : ") == -1 ? duracionBloque.split(":").join(" : ") : duracionBloque);
+            
+            horario.HoraApertura = ko.computed(function () { return this.HoraAperturaDisplay().split(" ").join("").split("AM").join("").split("PM").join(""); }, horario);
+            horario.HoraCierre = ko.computed(function () { return this.HoraCierreDisplay().split(" ").join(""); }, horario);
+            horario.DuracionBloque = ko.computed(function () { return this.DuracionBloqueDisplay().split(" ").join(""); }, horario);
+        }
+    },
+    vm;
 
     return {
         Init: init

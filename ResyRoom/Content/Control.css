@@ -15,6 +15,17 @@
     border: 1px solid #808080;
 }
 
+.txt.spinner
+{
+    width: 70px;
+    text-transform: uppercase;
+}
+
+.txt.spinner::selection
+{
+    background-color: #A1B1A4;
+}
+
 .txt.xl
 {
     width: 404px;
@@ -156,4 +167,52 @@ h3
     display: inline-block;
     height: 100%;
     vertical-align: middle;
+}
+
+.increasing-spinner {
+	border-top: 1px solid #808080;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    margin-top: 3px;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.increasing-spinner .up-arrow-container {
+	height: 8px;
+    border-bottom: 1px solid #808080;
+}
+
+.increasing-spinner .arrow.up:active
+{
+	border-bottom-color: black;
+}
+
+.increasing-spinner .arrow.down:active {
+	border-top-color: black;
+}
+
+.increasing-spinner .down-arrow-container {
+	height: 8px;
+}
+
+.increasing-spinner .arrow {
+	width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    margin: 0 auto;
+}
+
+.increasing-spinner .arrow.up {
+	padding-top: 2px;
+    border-bottom: 4px solid #5C5C5C;
+}
+
+.increasing-spinner .arrow.down {
+	margin-top: 2px;
+    border-top: 4px solid #5C5C5C;
 }

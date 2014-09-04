@@ -31,7 +31,6 @@ namespace ResyRoom.ViewModels.RegisterStudio
     {
         string Nombre { get; set; }
         string Descripcion { get; set; }
-        int Indice { get; set; }
         int IndiceSeleccionado { get; set; }
         bool TieneUnPrecioAdicional { get; set; }
         int? PrecioAdicional { get; set; }

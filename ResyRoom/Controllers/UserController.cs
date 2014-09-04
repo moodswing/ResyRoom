@@ -225,19 +225,40 @@ namespace ResyRoom.Controllers
             string view;
             StepsViews.TryGetValue(model.PasoNumero, out view);
 
+            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+            var sala = model.Estudio.Salas.FirstOrDefault();
+            if (sala != null)
+            {
+                var equipo = sala.Equipos.LastOrDefault();
+                if (equipo != null)
+                    equipo.ViewState = EnumCollection.ViewState.Edit;
+            }
+
+            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
+
             return PartialView(view, model);
         }
 
         [HttpPost]
-        public ActionResult AddNewRoom(RegisterStudioViewModel model)
+        public ActionResult EditRoom(RegisterStudioViewModel model)
         {
-            model.Estudio.Salas.Add(new RoomViewModel { Nombre = "noix" + (model.Estudio.Salas.Count() + 1).ToString() });
-            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
-            model.Estudio.Salas.ForEach(s =>
-                {
-                    var equipo = s.Equipos.FirstOrDefault();
-                    if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
-                });
+            switch (model.Accion)
+            {
+                case "AddNewRoom":
+                    model.Estudio.Salas.Add(new RoomViewModel { Nombre = "noix" + (model.Estudio.Salas.Count() + 1).ToString() });
+                    model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+                    var sala = model.Estudio.Salas.FirstOrDefault();
+                    if (sala != null)
+                    {
+                        var equipo = sala.Equipos.FirstOrDefault();
+                        if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
+                    }
+                    break;
+                case "DeleteRoom":
+                    model.Estudio.Salas.RemoveAt(model.Estudio.IndiceSeleccionado);
+
+                    break;
+            }
 
             model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
@@ -283,15 +304,6 @@ namespace ResyRoom.Controllers
             return PartialView("Partial/_RegisterStudioEquipmentInfo", model);
         }
 
-        [HttpPost]
-        public ActionResult DeleteRoom(RegisterStudioViewModel model)
-        {
-            model.Estudio.Salas.RemoveAt(model.Estudio.IndiceSeleccionado);
-            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
-
-            return PartialView("Partial/_RegisterStudioRoomsInfo", model);
-        }
-
         private Dictionary<int, string> StepsViews
         {
             get
@@ -301,7 +313,8 @@ namespace ResyRoom.Controllers
                         { 1, "Partial/_RegisterStudioLoginInfo" },
                         { 2, "Partial/_RegisterStudioGeneralInfo" },
                         { 3, "Partial/_RegisterStudioRoomsInfo" },
-                        { 4, "Partial/_RegisterStudioEquipmentInfo" }
+                        { 4, "Partial/_RegisterStudioEquipmentInfo" },
+                        { 5, "Partial/_RegisterStudioScheduleInfo" }
                     };
 
                 return stepsViews;

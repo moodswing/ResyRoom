@@ -1,0 +1,53 @@
+﻿@using ResyRoom.Infraestructura.Extensiones
+@model ResyRoom.ViewModels.RegisterStudio.RoomScheduleViewModel
+
+<div class="register-studio-equipment new-schedule">
+    <form>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.HoraApertura)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.HoraApertura, new { @class = "txt spinner", data_bind = "value: HoraAperturaDisplay" })
+                @Html.ValidationMessageFor(u => u.HoraApertura)
+                @Html.DescriptionFor(u => u.HoraApertura)
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label vertical-centered">
+                @Html.LabelFor(u => u.HoraCierre)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.HoraCierre, new { @class = "txt spinner", data_bind = "value: HoraCierreDisplay" })
+                @Html.ValidationMessageFor(u => u.HoraCierre)
+                @Html.DescriptionFor(u => u.HoraCierre)
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.DuracionBloque)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.DuracionBloque, new { @class = "txt spinner", data_bind = "value: DuracionBloqueDisplay" })
+                @Html.ValidationMessageFor(u => u.DuracionBloque)
+                @Html.DescriptionFor(u => u.DuracionBloque)
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.DiasAbierto)
+            </div>
+            <div class="div-cell value">
+                <input type="checkbox" value="1" data-bind="checked: DiaLunes"/>Lunes
+                <input type="checkbox" value="2" data-bind="checked: DiaMartes"/>Martes
+                <input type="checkbox" value="3" data-bind="checked: DiaMiercoles"/>Miercoles
+                <input type="checkbox" value="4" data-bind="checked: DiaJueves"/>Jueves
+                <input type="checkbox" value="5" data-bind="checked: DiaViernes"/>Viernes
+                <input type="checkbox" value="6" data-bind="checked: DiaSabado"/>Sábado
+                <input type="checkbox" value="7" data-bind="checked: DiaDomingo"/>Domingo
+                @Html.HiddenFor(u => u.DiasAbierto, new { data_bind = "value: DiasAbierto" })
+                @Html.ValidationMessageFor(u => u.DiasAbierto)
+            </div>
+        </div>
+    </form>
+</div>

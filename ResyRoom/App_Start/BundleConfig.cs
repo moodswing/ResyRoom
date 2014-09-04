@@ -25,6 +25,10 @@ namespace ResyRoom.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/RegisterStudio").Include("~/Content/Scripts/Views/register-studio.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/time-entry").Include(
+                        "~/Content/Scripts/jquery.plugin.js", 
+                        "~/Content/Scripts/jquery.timeentry.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
                         "~/Content/Scripts/moment.min.js",
                         "~/Content/Scripts/FullCalendar/fullCalendar-configuration.js",

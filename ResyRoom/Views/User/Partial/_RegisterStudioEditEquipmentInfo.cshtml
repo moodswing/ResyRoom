@@ -8,7 +8,7 @@
                 @Html.LabelFor(u => u.Nombre)
             </div>
             <div class="div-cell value">
-                @Html.TextBoxFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Equipos()[" + @Model.Indice + "].Nombre" })
+                @Html.TextBoxFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Nombre" })
                 @Html.ValidationMessageFor(u => u.Nombre)
             </div>
         </div>
@@ -17,7 +17,7 @@
                 @Html.LabelFor(u => u.Descripcion)
             </div>
             <div class="div-cell value">
-                @Html.TextAreaFor(u => u.Descripcion, new { @class = "txtarea", data_bind = "value: Equipos()[" + @Model.Indice + "].Descripcion" })
+                @Html.TextAreaFor(u => u.Descripcion, new { @class = "txtarea", data_bind = "value: Descripcion" })
             </div>
         </div>
         <div class="div-table form-row">
@@ -25,7 +25,7 @@
                 @Html.LabelFor(u => u.Fotografia)
             </div>
             <div class="div-cell value">
-                @Html.TextBoxFor(u => u.Fotografia, new { @class = "txt xl", data_bind = "value: Equipos()[" + @Model.Indice + "].Fotografia" })
+                @Html.TextBoxFor(u => u.Fotografia, new { @class = "txt xl", data_bind = "value: Fotografia" })
             </div>
         </div>
         <div class="div-table form-row">
@@ -33,8 +33,8 @@
                 @Html.LabelFor(u => u.TieneUnPrecioAdicional)
             </div>
             <div class="div-cell value">
-                @Html.CheckBoxFor(u => u.TieneUnPrecioAdicional, new { data_bind = "checked: Equipos()[" + @Model.Indice + "].TieneUnPrecioAdicional" })
-                @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt", data_bind = "enable: Equipos()[" + @Model.Indice + "].TieneUnPrecioAdicional, value: Equipos()[" + @Model.Indice + "].PrecioAdicional" })
+                @Html.CheckBoxFor(u => u.TieneUnPrecioAdicional, new { data_bind = "checked: TieneUnPrecioAdicional" })
+                @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt", data_bind = "enable: TieneUnPrecioAdicional, value: PrecioAdicional" })
             </div>
         </div>
     </form>

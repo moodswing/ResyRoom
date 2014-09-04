@@ -6,16 +6,17 @@
 
 @Scripts.Render("~/bundles/knockoutjs-with-mapping")
 @Scripts.Render("~/bundles/history")
+@Scripts.Render("~/bundles/time-entry")
 @Scripts.Render("~/bundles/RegisterStudio")
 <script type="text/javascript">
-    var koViewModel;
+    var vm = { koViewModel: null };
     var jsModel;
     
     $(document).ready(function () {
         jsModel = @Html.Raw(new JavaScriptSerializer().Serialize(Model));
-        var viewKoViewModel = ko.mapping.fromJS(jsModel);
+        vm.koViewModel = ko.mapping.fromJS(jsModel);
         
-        koViewModel = RegisterStudioConfiguration(viewKoViewModel).Init();
+        RegisterStudioConfiguration(vm).Init();
     });
 </script>
 <div class="content">

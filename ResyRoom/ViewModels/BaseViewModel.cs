@@ -22,7 +22,6 @@ namespace ResyRoom.ViewModels
         public string SubtituloMensaje { get; set; }
 
         public string JsonModelResult { get; set; }
-        public int Indice { get; set; }
         public int IndiceSeleccionado { get; set; }
         public string Accion { get; set; }
 

@@ -24,10 +24,18 @@ namespace ResyRoom.ViewModels.RegisterStudio
 
         public bool SinEquipos { get; set; }
 
+        public RoomScheduleViewModel Horario { get; set; }
         public List<RoomEquipmentViewModel> Equipos { get; set; }
 
         public RoomViewModel()
         {
+            Horario = new RoomScheduleViewModel
+                {
+                    HoraApertura = "11 : 00",
+                    HoraCierre = "22 : 00",
+                    DuracionBloque = "01 : 00"
+                };
+
             Equipos = new List<RoomEquipmentViewModel>();
         }
     }
@@ -39,11 +47,11 @@ namespace ResyRoom.ViewModels.RegisterStudio
         bool SetDePlatos { get; set; }
         string PrecioPorHora { get; set; }
         
-        int Indice { get; set; }
         int IndiceSeleccionado { get; set; }
 
         bool SinEquipos { get; set; }
 
+        RoomScheduleViewModel Horario { get; set; }
         List<RoomEquipmentViewModel> Equipos { get; set; }
     }
 }

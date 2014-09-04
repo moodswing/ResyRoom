@@ -4,13 +4,13 @@
 <div class="register-studio-equipment">
     <div class="div-table form-row display-equipment">
         <div class="div-cell" style="width: 25%">
-            @Html.DisplayFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Equipos()[" + @Model.Indice + "].Nombre" })
+            @Html.DisplayFor(u => u.Nombre, new { @class = "txt", data_bind = "value: Nombre" })
         </div>
         <div class="div-cell" style="width: 25%">
-            @Html.HiddenFor(u => u.Descripcion, new { data_bind = "value: Equipos()[" + @Model.Indice + "].Descripcion" })
-            @Html.HiddenFor(u => u.Fotografia, new { data_bind = "value: Equipos()[" + @Model.Indice + "].Fotografia" })
-            @Html.HiddenFor(u => u.TieneUnPrecioAdicional, new { data_bind = "value: Equipos()[" + @Model.Indice + "].TieneUnPrecioAdicional" })
-            @Html.HiddenFor(u => u.PrecioAdicional, new { data_bind = "value: Equipos()[" + @Model.Indice + "].PrecioAdicional" })
+            @Html.HiddenFor(u => u.Descripcion, new { data_bind = "value: Descripcion" })
+            @Html.HiddenFor(u => u.Fotografia, new { data_bind = "value: Fotografia" })
+            @Html.HiddenFor(u => u.TieneUnPrecioAdicional, new { data_bind = "value: TieneUnPrecioAdicional" })
+            @Html.HiddenFor(u => u.PrecioAdicional, new { data_bind = "value: PrecioAdicional" })
             @if (Model.TieneUnPrecioAdicional)
             {
                 <span>Precio adicional: @Model.PrecioAdicional</span>
