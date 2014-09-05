@@ -329,10 +329,10 @@
         $(".register-studio-form").html(htmlData);
         $(".register-studio-form > div").hide();
 
-        if ($("#Estudio_IdComuna").length > 0)
-            $("#Estudio_IdComuna").val(idComuna);
-
-        if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250);
+        if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250, function() {
+            if ($("#Estudio_IdComuna").length > 0)
+                $("#Estudio_IdComuna").val(idComuna);
+        });
         else $(".register-studio-form > div").show();
 
         rebindViewModel($(".register-studio-form").children().get(0));
@@ -340,6 +340,7 @@
         setJqueryPlugins();
         
         cleanPage();
+        
         reBindFormValidations();
     },
     changeDdlRegiones = function () {
