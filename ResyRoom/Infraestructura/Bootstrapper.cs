@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.Practices.Unity;
 using ResyRoom.Controllers;
+using ResyRoom.Infraestructura.MappingsProfile;
 using ResyRoom.Models;
 using ResyRoom.Servicios;
 using Microsoft.Practices.Unity;
@@ -48,6 +50,12 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<ResyRoomEntities>(new HierarchicalLifetimeManager());
 
             return container;
+        }
+
+        public static void RegisterMappings()
+        {
+            Mapper.Initialize(x =>
+                x.AddProfile(new RegisterStudioMappingProfile()));
         }
     }
 }

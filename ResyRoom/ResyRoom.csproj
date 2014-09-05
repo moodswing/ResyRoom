@@ -59,6 +59,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infraestructura\AutoMapperConfiguration.cs" />
     <Compile Include="Infraestructura\BaseController.cs" />
     <Compile Include="Infraestructura\BaseViewPage.cs" />
     <Compile Include="Infraestructura\Bootstrapper.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Infraestructura\Extensiones\ObjectQueryExt.cs" />
     <Compile Include="Infraestructura\Extensiones\StringExt.cs" />
     <Compile Include="Infraestructura\Extensiones\UnityExt.cs" />
+    <Compile Include="Infraestructura\MappingsProfile\RegisterStudioMappingProfile.cs" />
     <Compile Include="Infraestructura\MvcConfig.cs" />
     <Compile Include="Infraestructura\UnityControllerActivator.cs" />
     <Compile Include="Infraestructura\UnityDependencyResolver.cs" />
@@ -363,6 +365,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Elmah.dll</HintPath>
@@ -483,6 +491,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

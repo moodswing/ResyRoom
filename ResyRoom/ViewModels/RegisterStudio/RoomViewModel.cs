@@ -33,7 +33,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
                 {
                     HoraApertura = "11 : 00",
                     HoraCierre = "22 : 00",
-                    DuracionBloque = "01 : 00"
+                    DuracionBloque = "01 : 00",
+                    DiasAbierto = "123456"
                 };
 
             Equipos = new List<RoomEquipmentViewModel>();

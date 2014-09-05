@@ -31,6 +31,13 @@
     width: 404px;
 }
 
+.select
+{
+    height: 19px;
+    border: 1px solid #808080;
+    margin-left: 0;
+}
+
 .txtarea
 {
     width: 400px;

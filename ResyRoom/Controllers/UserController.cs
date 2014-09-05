@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 using MoreLinq;
 using Newtonsoft.Json;
 using ResyRoom.Infraestructura;
@@ -220,7 +221,11 @@ namespace ResyRoom.Controllers
         public ActionResult LoadStepView(RegisterStudioViewModel model)
         {
             model.Regiones = ServRegiones.RegionesChilenas();
-            model.Comunas = new List<Comuna>();
+
+            if (model.Estudio.IdRegion != 0)
+                model.Comunas = ServComunas.TodasDeUnaRegion(model.Estudio.IdRegion);
+            else
+                model.Comunas = new List<Comuna>();
 
             string view;
             StepsViews.TryGetValue(model.PasoNumero, out view);
@@ -302,6 +307,17 @@ namespace ResyRoom.Controllers
             model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
             return PartialView("Partial/_RegisterStudioEquipmentInfo", model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveStudio(RegisterStudioViewModel model)
+        {
+            var estudio = new Estudio();
+            Mapper.Map(model.Estudio, estudio);
+
+            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
+
+            return PartialView("Partial/_RegisterStudioRoomsInfo", model);
         }
 
         private Dictionary<int, string> StepsViews

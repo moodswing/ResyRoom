@@ -26,46 +26,70 @@
                     @Html.DescriptionFor(u => u.Estudio.UrlName)
                 </div>
             </div>
-            <div class="div-table form-row">
-                <div class="div-cell label">
-                    @Html.LabelFor(u => u.Estudio.Direccion)
+            <div>
+                <div class="info-group-header">Dirección</div>
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.IdRegion)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.DropDownListFor(u => u.Estudio.IdRegion, Model.Regiones.ToSelectListItem(), new { @class = "select", data_bind = "value: Estudio.IdRegion" })
+                        @Html.ValidationMessageFor(u => u.Estudio.IdRegion)
+                    </div>
                 </div>
-                <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.Direccion, new { @class = "txt", data_bind = "value: Estudio.Direccion" })
-                    @Html.ValidationMessageFor(u => u.Estudio.Direccion)
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.IdComuna)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.DropDownListFor(u => u.Estudio.IdComuna, Model.Comunas.ToSelectListItem(), new { @class = "select", data_bind = "value: Estudio.IdComuna" })
+                        @Html.ValidationMessageFor(u => u.Estudio.IdComuna)
+                    </div>
                 </div>
-            </div>
-            <div class="div-table form-row">
-                <div class="div-cell label">
-                    @Html.LabelFor(u => u.Estudio.Email)
-                </div>
-                <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", data_bind = "value: Estudio.Email" })
-                    @Html.ValidationMessageFor(u => u.Estudio.Email)
-                </div>
-            </div>
-            <div class="div-table form-row">
-                <div class="div-cell label">
-                    @Html.LabelFor(u => u.Estudio.Telefono)
-                </div>
-                <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono" })
-                </div>
-            </div>
-            <div class="div-table form-row">
-                <div class="div-cell label">
-                    @Html.LabelFor(u => u.Estudio.Celular)
-                </div>
-                <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular" })
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.Direccion)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.TextBoxFor(u => u.Estudio.Direccion, new { @class = "txt", data_bind = "value: Estudio.Direccion" })
+                        @Html.ValidationMessageFor(u => u.Estudio.Direccion)
+                    </div>
                 </div>
             </div>
-            <div class="div-table form-row">
-                <div class="div-cell label">
-                    @Html.LabelFor(u => u.Estudio.SitioWeb)
+            <div>
+                <div class="info-group-header">Datos de contacto</div>
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.Email)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.TextBoxFor(u => u.Estudio.Email, new { @class = "txt", data_bind = "value: Estudio.Email" })
+                        @Html.ValidationMessageFor(u => u.Estudio.Email)
+                    </div>
                 </div>
-                <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.SitioWeb, new { @class = "txt", data_bind = "value: Estudio.SitioWeb" })
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.Telefono)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono" })
+                    </div>
+                </div>
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.Celular)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular" })
+                    </div>
+                </div>
+                <div class="div-table form-row">
+                    <div class="div-cell label">
+                        @Html.LabelFor(u => u.Estudio.SitioWeb)
+                    </div>
+                    <div class="div-cell value">
+                        @Html.TextBoxFor(u => u.Estudio.SitioWeb, new { @class = "txt", data_bind = "value: Estudio.SitioWeb" })
+                    </div>
                 </div>
             </div>
             <div class="div-table next-button">
@@ -78,4 +102,5 @@
             </div>
         </div>
     </form>
+    @Html.HiddenFor(m => m.JsonModelResult)
 </div>

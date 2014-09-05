@@ -5,14 +5,14 @@
 
         ko.applyBindings(vm.koViewModel);
         
-
-        loadStep(5);
+        loadStep(2);
 
         setDocumentEvents();
         cleanHistoryState();
     },
     setDocumentEvents = function() {
-        $(document).on("click", ".register-studio-form .next-button input", changeStep);
+        $(document).on("click", ".register-studio-form .next-button input[value!=Guardar]", changeStep);
+        $(document).on("click", ".register-studio-form .next-button input[value=Guardar]", saveStudio);
         $(document).on("click", ".register-studio-form .new-room a", roomHelper.addNewRoom);
         $(document).on("click", ".register-studio-form .delete-room a", roomHelper.deleteRoom);
         $(document).on("click", ".register-studio-form .new-equipment a", equipmentHelper.addNewEquipment);
@@ -24,7 +24,7 @@
         $(document).on("click", ".register-studio-form .equipment-header .cancel-disable", equipmentHelper.cancelDisableAllEquipment);
         $(document).on("click", ".register-studio-form .equipment-header .disable-equipments", equipmentHelper.disableEquipment);
         $(document).on("click", ".register-studio-form .equipment-header .enable-equipments", equipmentHelper.enableEquipment);
-        $(document).on("change", "#ddlRegiones", changeDdlRegiones);
+        $(document).on("change", "#Estudio_IdRegion", changeDdlRegiones);
         $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
 
         History.Adapter.bind(window, 'statechange', catchHistoryStateChange);
@@ -32,7 +32,29 @@
     setJqueryPlugins = function() {
         $("[name=HoraApertura]").timeEntry({ ampmPrefix: ' ', useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 7, 30, 0), maxTime: new Date(0, 0, 0, 2, 0, 0) });
         $("[name=HoraCierre]").timeEntry({ ampmPrefix: ' ', useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 7, 30, 0), maxTime: new Date(0, 0, 0, 2, 0, 0) });
-        $("[name=DuracionBloque]").timeEntry({ show24Hours: true, useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 0, 0, 0), maxTime: new Date(0, 0, 0, 5, 0, 0) });
+        $("[name=DuracionBloque]").timeEntry({ show24Hours: true, useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 0, 15, 0), maxTime: new Date(0, 0, 0, 5, 0, 0) });
+    },
+    saveStudio = function() {
+        if (validateForm($(".register-studio-form form"))) {
+            var model = ko.toJSON(vm.koViewModel);
+
+            $.postJSON("/User/SaveStudio", model, function (data) {
+                var htmlData = $(data);
+                updateViewModel(htmlData);
+
+                $(".register-studio-form").html(htmlData);
+                rebindViewModel($(".register-studio-form").children().get(0));
+
+                var studioRooms = cleanPage();
+
+                $(studioRooms[index]).find("form").last().hide();
+                $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
+
+                reBindFormValidations();
+            });
+        }
+
+        return false;
     },
     equipmentHelper = {
         addNewEquipment: function(event) {
@@ -300,10 +322,15 @@
     },
     loadStepHtml = function(data, direction) {
         var htmlData = $(data);
+        var idComuna = vm.koViewModel.Estudio.IdComuna();
+        
         updateViewModel(htmlData);
 
         $(".register-studio-form").html(htmlData);
         $(".register-studio-form > div").hide();
+
+        if ($("#Estudio_IdComuna").length > 0)
+            $("#Estudio_IdComuna").val(idComuna);
 
         if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250);
         else $(".register-studio-form > div").show();
@@ -315,15 +342,26 @@
         cleanPage();
         reBindFormValidations();
     },
-    changeDdlRegiones = function(data) {
-        $.post("User/ComunasDeUnaRegion", $("#ddlRegiones").val(), function() {
+    changeDdlRegiones = function () {
+        var idRegion = $("#Estudio_IdRegion").val();
+        if (idRegion == 0) {
+            $("select[id$=Estudio_IdComuna] > option").remove();
+            $('#Estudio_IdComuna')
+                    .append($("<option></option>")
+                        .attr("value", "0")
+                        .text("Seleccione región"));
+            
+            return;
+        }
+
+        $.post("/User/ComunasDeUnaRegion", { id: idRegion }, function (data) {
             $("select[id$=Estudio_IdComuna] > option").remove();
 
             $.each(data, function(key, value) {
                 $('#Estudio_IdComuna')
                     .append($("<option></option>")
-                        .attr("value", key)
-                        .text(value));
+                        .attr("value", value.IdComuna)
+                        .text(value.Descripcion));
             });
         });
     },
@@ -363,16 +401,26 @@
     },
     setExtraBindViewModel = function () {
         if ($(".new-schedule").length == 0) return;
+
+        var setHourTime = function(time) {
+            if (time.indexOf("PM") > -1) {
+                var hour = time.split(":")[0];
+                time = time.replace(hour, parseInt(hour) + 12);
+            }
+            time = time.split(" ").join("").split("AM").join("").split("PM").join("");
+
+            return time;
+        };
         
         for (var i = 0; i < vm.koViewModel.Estudio.Salas().length; i++) {
             var horario = vm.koViewModel.Estudio.Salas()[i].Horario;
-            horario.DiaLunes = ko.observable(true);
-            horario.DiaMartes = ko.observable(true);
-            horario.DiaMiercoles = ko.observable(true);
-            horario.DiaJueves = ko.observable(true);
-            horario.DiaViernes = ko.observable(true);
-            horario.DiaSabado = ko.observable(true);
-            horario.DiaDomingo = ko.observable();
+            horario.DiaLunes = ko.observable(horario.DiasAbierto().indexOf("1") > -1);
+            horario.DiaMartes = ko.observable(horario.DiasAbierto().indexOf("2") > -1);
+            horario.DiaMiercoles = ko.observable(horario.DiasAbierto().indexOf("3") > -1);
+            horario.DiaJueves = ko.observable(horario.DiasAbierto().indexOf("4") > -1);
+            horario.DiaViernes = ko.observable(horario.DiasAbierto().indexOf("5") > -1);
+            horario.DiaSabado = ko.observable(horario.DiasAbierto().indexOf("6") > -1);
+            horario.DiaDomingo = ko.observable(horario.DiasAbierto().indexOf("7") > -1);
 
             horario.DiasAbierto = ko.computed(function () {
                 var value = "";
@@ -395,8 +443,8 @@
             horario.HoraCierreDisplay = ko.observable(horaCierre.indexOf(" : ") == -1 ? horaCierre.split(":").join(" : ") : horaCierre);
             horario.DuracionBloqueDisplay = ko.observable(duracionBloque.indexOf(" : ") == -1 ? duracionBloque.split(":").join(" : ") : duracionBloque);
             
-            horario.HoraApertura = ko.computed(function () { return this.HoraAperturaDisplay().split(" ").join("").split("AM").join("").split("PM").join(""); }, horario);
-            horario.HoraCierre = ko.computed(function () { return this.HoraCierreDisplay().split(" ").join(""); }, horario);
+            horario.HoraApertura = ko.computed(function () { return setHourTime(this.HoraAperturaDisplay()); }, horario);
+            horario.HoraCierre = ko.computed(function () { return setHourTime(this.HoraCierreDisplay()); }, horario);
             horario.DuracionBloque = ko.computed(function () { return this.DuracionBloqueDisplay().split(" ").join(""); }, horario);
         }
     },

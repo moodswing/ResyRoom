@@ -27,3 +27,6 @@ C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Antlr3.Runtime.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.csprojResolveAssemblyReference.cache
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.Net4.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.xml

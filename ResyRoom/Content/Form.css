@@ -31,6 +31,13 @@
     margin-top: 25px;
 }
 
+.form .register-studio-form .input-form .info-group-header
+{
+    padding: 20px 0 10px 0;
+    border-bottom: 1px dashed gainsboro;
+    margin-bottom: 10px;
+}
+
 .form .register-studio-form .input-form .equipment-header
 {
     border-bottom: 1px dashed gainsboro;
@@ -247,6 +254,11 @@
     color: white;
     padding: 5px 20px;
     border-left: 3px solid #808080;
+}
+
+.form .register-studio-form .value.special-validation .field-validation-error
+{
+    top: 24px;
 }
 
 .form .register-studio-form .next-button

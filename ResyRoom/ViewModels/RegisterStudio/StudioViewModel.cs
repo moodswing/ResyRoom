@@ -17,6 +17,14 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Required(ErrorMessage = "Favor ingresar la dirección del estudio")]
         public string Direccion { get; set; }
         
+        [DisplayName("Región")]
+        [Required(ErrorMessage = "Favor ingresar la región en que se ubica del estudio")]
+        public int IdRegion { get; set; }
+        
+        [DisplayName("Comuna")]
+        [Required(ErrorMessage = "Favor ingresar la comuna en que se ubica del estudio")]
+        public int IdComuna { get; set; }
+        
         [DisplayName("Email de Contacto")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Favor ingresar el email de contacto del estudio")]

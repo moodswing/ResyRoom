@@ -28,6 +28,8 @@ namespace ResyRoom
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            Bootstrapper.RegisterMappings();
+
             _container = Bootstrapper.ConfigureUnityContainer();
             MvcConfig.Register(_container, _unityGuid);
         }
