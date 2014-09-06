@@ -26,6 +26,7 @@
         $(document).on("click", ".register-studio-form .equipment-header .enable-equipments", equipmentHelper.enableEquipment);
         $(document).on("change", "#Estudio_IdRegion", changeDdlRegiones);
         $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
+        
 
         History.Adapter.bind(window, 'statechange', catchHistoryStateChange);
     },

@@ -7,7 +7,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
     {
         public StudioViewModel Estudio { get; set; }
         public RegistroDeUsuario Usuario { get; set; }
-
+        
         public int PasoNumero { get; set; }
         
         public IList<Region> Regiones { get; set; }
