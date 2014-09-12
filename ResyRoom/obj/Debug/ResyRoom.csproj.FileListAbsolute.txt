@@ -1,5 +1,7 @@
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.Net4.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\ResyRoom.pdb
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Elmah.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Elmah.Mvc.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\EntityFramework.dll
@@ -24,9 +26,7 @@ C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Microsoft.Practices.ServiceLocation.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\System.Net.Http.Formatting.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\WebGrease.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\bin\Antlr3.Runtime.dll
+C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.xml
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.csprojResolveAssemblyReference.cache
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.dll
 C:\Users\AravenR1\ResyRoom\ResyRoom\obj\Debug\ResyRoom.pdb
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.Net4.dll
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.dll
-C:\Users\AravenR1\ResyRoom\ResyRoom\bin\AutoMapper.xml

@@ -34,6 +34,7 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<IServReservas, ServReservas>()
                 .RegisterType<IServPaises, ServPaises>()
                 .RegisterType<IServRegiones, ServRegiones>()
+                .RegisterType<IServTipoEquipos, ServTipoEquipos>()
                 .RegisterType<IServUsuarios, ServUsuarios>()
                 .RegisterType<IServComunas, ServComunas>()
                 .RegisterType<IEnumerable<Estudio>, Estudio[]>()

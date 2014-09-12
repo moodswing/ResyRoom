@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ResyRoom.Infraestructura;
+using ResyRoom.Infraestructura.CustomValidations;
 using ResyRoom.Models;
 
 namespace ResyRoom.ViewModels.RegisterStudio
 {
     public class RoomEquipmentViewModel : BaseViewModel, IRoomEquipmentViewModel
     {
-        [DisplayName("Nombre del equipo")]
+        [DisplayName("Nombre del equipo (*)")]
         [Required(ErrorMessage = "Favor ingresar el nombre")]
         public string Nombre { get; set; }
 
@@ -20,9 +21,15 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public bool TieneUnPrecioAdicional { get; set; }
 
         [Display(Name = "Precio Adicional", Description = "Puedes especificar el valor adicional que posee este equipo")]
+        [RequiredIf("TieneUnPrecioAdicional", true, ErrorMessage = "You must specify the City if UK resident")]
         public int? PrecioAdicional { get; set; }
 
         public string Fotografia { get; set; }
+
+        [DisplayName("Equipo (*)")]
+        [Required(ErrorMessage = "Favor ingresar el tipo de equipo")]
+        [Range(1, int.MaxValue, ErrorMessage = "Favor ingresar el tipo de equipo")]
+        public int IdTipoEquipo { get; set; }
 
         public EnumCollection.ViewState ViewState { get; set; }
     }
@@ -35,6 +42,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         bool TieneUnPrecioAdicional { get; set; }
         int? PrecioAdicional { get; set; }
         string Fotografia { get; set; }
+        int IdTipoEquipo { get; set; }
         EnumCollection.ViewState ViewState { get; set; }
     }
 }

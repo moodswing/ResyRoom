@@ -32,6 +32,8 @@ namespace ResyRoom.Controllers
         [Dependency]
         public IServRegiones ServRegiones { get; set; }
         [Dependency]
+        public IServTipoEquipos ServTipoEquipos { get; set; }
+        [Dependency]
         public IServGeneros ServGeneros { get; set; }
         [Dependency]
         public IServComunas ServComunas { get; set; }
@@ -220,12 +222,19 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult LoadStepView(RegisterStudioViewModel model)
         {
-            model.Regiones = ServRegiones.RegionesChilenas();
+            if (model.PasoNumero == 2) // Información general
+            {
+                model.Regiones = ServRegiones.RegionesChilenas();
 
-            if (model.Estudio.IdRegion != 0)
-                model.Comunas = ServComunas.TodasDeUnaRegion(model.Estudio.IdRegion);
-            else
-                model.Comunas = new List<Comuna>();
+                if (model.Estudio.IdRegion != 0)
+                    model.Comunas = ServComunas.TodasDeUnaRegion(model.Estudio.IdRegion);
+                else
+                    model.Comunas = new List<Comuna>(); 
+            }
+            else if (model.PasoNumero == 4) // Información de equipos
+            {
+                ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
+            }
 
             string view;
             StepsViews.TryGetValue(model.PasoNumero, out view);
@@ -280,6 +289,9 @@ namespace ResyRoom.Controllers
                 case "AddNewEquipment":
                     sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
                     sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit, Nombre = "equipo noix" + (sala.Equipos.Count() + 1).ToString() });
+
+                    if (ViewBag.TipoEquipos == null)
+                        ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
 
                     break;
                 case "EditEquipment":

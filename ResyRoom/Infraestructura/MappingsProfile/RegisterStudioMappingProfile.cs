@@ -43,6 +43,40 @@ namespace ResyRoom.Infraestructura.MappingsProfile
                     .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Nombre))
                     .ForMember(dest => dest.Tamaño, opt => opt.MapFrom(src => src.Tamaño))
                     .IgnoreAllNonExistingSource();
+
+                CreateMap<RoomScheduleViewModel, Horario>()
+                    .ForMember(dest => dest.DuracionBloque, opt => opt.MapFrom(src => src.DuracionBloque))
+                    .ForMember(dest => dest.DíasAbierto, opt => opt.MapFrom(src => src.DiasAbierto))
+                    .ForMember(dest => dest.FechaIngreso, opt => opt.MapFrom(src => DateTime.Now))
+                    .ForMember(dest => dest.HoraCierre, opt => opt.MapFrom(src => src.HoraCierre))
+                    .ForMember(dest => dest.HoraApertura, opt => opt.MapFrom(src => src.HoraApertura))
+                    .IgnoreAllNonExisting()
+                    .ReverseMap()
+                    .ForMember(dest => dest.DuracionBloque, opt => opt.MapFrom(src => src.DuracionBloque))
+                    .ForMember(dest => dest.DiasAbierto, opt => opt.MapFrom(src => src.DíasAbierto))
+                    .ForMember(dest => dest.HoraCierre, opt => opt.MapFrom(src => src.HoraCierre))
+                    .ForMember(dest => dest.HoraApertura, opt => opt.MapFrom(src => src.HoraApertura))
+                    .IgnoreAllNonExistingSource();
+
+                CreateMap<RoomScheduleViewModel, Sala>()
+                    .ForMember(dest => dest.Precio, opt => opt.MapFrom(src => src.PrecioPorBloque))
+                    .IgnoreAllNonExisting()
+                    .ReverseMap()
+                    .ForMember(dest => dest.PrecioPorBloque, opt => opt.MapFrom(src => src.Precio))
+                    .IgnoreAllNonExistingSource();
+
+                CreateMap<RoomEquipmentViewModel, Equipo>()
+                    .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.Descripcion))
+                    .ForMember(dest => dest.Fotografia, opt => opt.MapFrom(src => src.Fotografia))
+                    .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Nombre))
+                    .ForMember(dest => dest.PrecioAdicional, opt => opt.MapFrom(src => src.PrecioAdicional))
+                    .IgnoreAllNonExisting()
+                    .ReverseMap()
+                    .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.Descripcion))
+                    .ForMember(dest => dest.Fotografia, opt => opt.MapFrom(src => src.Fotografia))
+                    .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Nombre))
+                    .ForMember(dest => dest.PrecioAdicional, opt => opt.MapFrom(src => src.PrecioAdicional))
+                    .IgnoreAllNonExistingSource();
             }
         }
     }

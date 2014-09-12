@@ -20,6 +20,10 @@ header, footer, nav, section
     width: 100%;
 }
 
+.w120px {
+    width: 120px;
+}
+
 .padleft26 {
     padding-left: 26px;
 }

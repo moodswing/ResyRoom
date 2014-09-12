@@ -9,7 +9,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
 {
     public class RoomViewModel : BaseViewModel, IRoomViewModel
     {
-        [DisplayName("Nombre de la sala")]
+        [DisplayName("Nombre de la sala (*)")]
         [Required(ErrorMessage = "Favor ingresar su nombre")]
         public string Nombre { get; set; }
 
@@ -34,7 +34,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
                     HoraApertura = "11 : 00",
                     HoraCierre = "22 : 00",
                     DuracionBloque = "01 : 00",
-                    DiasAbierto = "123456"
+                    DiasAbierto = "123456",
+                    PrecioPorBloque = "3500"
                 };
 
             Equipos = new List<RoomEquipmentViewModel>();

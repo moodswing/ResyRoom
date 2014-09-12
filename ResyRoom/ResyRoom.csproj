@@ -65,6 +65,7 @@
     <Compile Include="Infraestructura\Bootstrapper.cs" />
     <Compile Include="Infraestructura\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infraestructura\CustomPrincipal.cs" />
+    <Compile Include="Infraestructura\CustomValidations\ConditionalAttribute.cs" />
     <Compile Include="Infraestructura\EnumCollection.cs" />
     <Compile Include="Infraestructura\Exceptions\ErrorDeCreacionException.cs" />
     <Compile Include="Infraestructura\Exceptions\ExceptionBase.cs" />
@@ -163,6 +164,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Servicios\ServTipoEquiposs.cs" />
     <Compile Include="Servicios\ServReservas.cs" />
     <Compile Include="Servicios\IServicio.cs" />
     <Compile Include="Servicios\ServBandas.cs" />

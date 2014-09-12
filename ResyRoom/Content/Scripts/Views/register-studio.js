@@ -5,7 +5,7 @@
 
         ko.applyBindings(vm.koViewModel);
         
-        loadStep(2);
+        loadStep(4);
 
         setDocumentEvents();
         cleanHistoryState();
@@ -26,7 +26,6 @@
         $(document).on("click", ".register-studio-form .equipment-header .enable-equipments", equipmentHelper.enableEquipment);
         $(document).on("change", "#Estudio_IdRegion", changeDdlRegiones);
         $(document).on("change, blur", ".register-studio-form form input", function () { validateForm($(this)); });
-        
 
         History.Adapter.bind(window, 'statechange', catchHistoryStateChange);
     },
@@ -263,7 +262,34 @@
 
         return studioRooms;
     },
-    catchHistoryStateChange = function() {
+    addExtraValidations = function () {
+        $.validator.addMethod('requiredif',
+            function (value, element, parameters) {
+                var id = '#' + parameters['dependentproperty'];
+
+                var targetvalue = parameters['targetvalue'];
+                targetvalue = (targetvalue == null ? '' : targetvalue).toString();
+
+                var control = $(id);
+                var controltype = control.attr('type');
+                var actualvalue = controltype === 'checkbox' ? control.is(':checked').toString() : control.val();
+  
+                if (targetvalue === actualvalue)
+                    return $.validator.methods.required.call(this, value, element, parameters);
+   
+                return true;
+            }
+        );
+
+        $.validator.unobtrusive.adapters.add('requiredif', ['dependentproperty', 'targetvalue'], function (options) {
+                options.rules['requiredif'] = {
+                        dependentproperty: options.params['dependentproperty'],
+                        targetvalue: options.params['targetvalue']
+                };
+            options.messages['requiredif'] = options.message;
+        });
+   },
+   catchHistoryStateChange = function() {
         var state = History.getState();
 
         if (state.data != null && state.data.StepNumber != null)
@@ -324,7 +350,7 @@
     loadStepHtml = function(data, direction) {
         var htmlData = $(data);
         var idComuna = vm.koViewModel.Estudio.IdComuna();
-        
+
         updateViewModel(htmlData);
 
         $(".register-studio-form").html(htmlData);
@@ -335,11 +361,10 @@
                 $("#Estudio_IdComuna").val(idComuna);
         });
         else $(".register-studio-form > div").show();
-
+        
         rebindViewModel($(".register-studio-form").children().get(0));
 
         setJqueryPlugins();
-        
         cleanPage();
         
         reBindFormValidations();
@@ -355,7 +380,7 @@
             
             return;
         }
-
+        
         $.post("/User/ComunasDeUnaRegion", { id: idRegion }, function (data) {
             $("select[id$=Estudio_IdComuna] > option").remove();
 
@@ -371,6 +396,8 @@
         $(".register-studio-form form").removeData("validator");
         $(".register-studio-form form").removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse(".register-studio-form form");
+
+        addExtraValidations();
 
         $(".field-validation-error").html("");
         $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");

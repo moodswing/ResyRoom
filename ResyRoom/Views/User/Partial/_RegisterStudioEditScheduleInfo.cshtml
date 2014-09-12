@@ -35,6 +35,15 @@
         </div>
         <div class="div-table form-row">
             <div class="div-cell label">
+                @Html.LabelFor(u => u.PrecioPorBloque)
+            </div>
+            <div class="div-cell value">
+                @Html.TextBoxFor(u => u.PrecioPorBloque, new { @class = "txt", data_bind = "value: PrecioPorBloque" })
+                @Html.ValidationMessageFor(u => u.PrecioPorBloque)
+            </div>
+        </div>
+        <div class="div-table form-row">
+            <div class="div-cell label">
                 @Html.LabelFor(u => u.DiasAbierto)
             </div>
             <div class="div-cell value special-validation">

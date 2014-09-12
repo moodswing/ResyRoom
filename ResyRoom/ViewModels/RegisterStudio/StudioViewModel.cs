@@ -9,23 +9,25 @@ namespace ResyRoom.ViewModels.RegisterStudio
 {
     public class StudioViewModel : BaseViewModel, IStudioViewModel
     {
-        [DisplayName("Nombre del Estudio")]
+        [DisplayName("Nombre del Estudio (*)")]
         [Required(ErrorMessage = "Favor ingresar su nombre")]
         public string Nombre { get; set; }
-        
-        [DisplayName("Dirección")]
+
+        [DisplayName("Dirección (*)")]
         [Required(ErrorMessage = "Favor ingresar la dirección del estudio")]
         public string Direccion { get; set; }
-        
-        [DisplayName("Región")]
+
+        [DisplayName("Región (*)")]
+        [Range(1, int.MaxValue, ErrorMessage = "Favor ingresar la región en que se ubica del estudio")]
         [Required(ErrorMessage = "Favor ingresar la región en que se ubica del estudio")]
         public int IdRegion { get; set; }
-        
-        [DisplayName("Comuna")]
+
+        [DisplayName("Comuna (*)")]
+        [Range(1, int.MaxValue, ErrorMessage = "Favor ingresar la comuna en que se ubica del estudio")]
         [Required(ErrorMessage = "Favor ingresar la comuna en que se ubica del estudio")]
         public int IdComuna { get; set; }
-        
-        [DisplayName("Email de Contacto")]
+
+        [DisplayName("Email de Contacto (*)")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Favor ingresar el email de contacto del estudio")]
         public string Email { get; set; }
@@ -36,7 +38,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [DisplayName("Teléfono Movil")]
         public string Celular { get; set; }
 
-        [Display(Name = "Nombre de la Url", Description = "Para un acceso mas fácil elige un nombre, ej. resyroom.com/tuEstudio")]
+        [Display(Name = "Nombre de la Url (*)", Description = "Para un acceso mas fácil elige un nombre, ej. resyroom.com/tuEstudio")]
         [Required(ErrorMessage = "Favor ingresar la url de acceso del estudio")]
         public string UrlName { get; set; }
         

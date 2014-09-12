@@ -1,8 +1,18 @@
 ﻿@using ResyRoom.Infraestructura.Extensiones
+@using ResyRoom.Models
 @model ResyRoom.ViewModels.RegisterStudio.RoomEquipmentViewModel
 
 <div class="register-studio-equipment new-equipment">
     <form>
+        <div class="div-table form-row">
+            <div class="div-cell label">
+                @Html.LabelFor(u => u.IdTipoEquipo)
+            </div>
+            <div class="div-cell value">
+                @Html.DropDownListFor(u => u.IdTipoEquipo, ((List<TipoEquipo>)ViewBag.TipoEquipos).ToSelectListItem(), new { @class = "select w120px", data_bind = "value: IdTipoEquipo" })
+                @Html.ValidationMessageFor(u => u.IdTipoEquipo)
+            </div>
+        </div>
         <div class="div-table form-row">
             <div class="div-cell label">
                 @Html.LabelFor(u => u.Nombre)
@@ -35,6 +45,7 @@
             <div class="div-cell value">
                 @Html.CheckBoxFor(u => u.TieneUnPrecioAdicional, new { data_bind = "checked: TieneUnPrecioAdicional" })
                 @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt", data_bind = "enable: TieneUnPrecioAdicional, value: PrecioAdicional" })
+                @Html.ValidationMessageFor(u => u.PrecioAdicional)
             </div>
         </div>
     </form>

@@ -34,7 +34,6 @@
                     </div>
                     <div class="div-cell value">
                         @Html.DropDownListFor(u => u.Estudio.IdRegion, Model.Regiones.ToSelectListItem(), new { @class = "select", data_bind = "value: Estudio.IdRegion" })
-                        @Html.ValidationMessageFor(u => u.Estudio.IdRegion)
                     </div>
                 </div>
                 <div class="div-table form-row">

@@ -9,6 +9,7 @@ namespace ResyRoom.Models
     {
         public static readonly Comuna ComunaSinSeleccion = new Comuna { Descripcion = "Seleccione Región", IdComuna = 0 };
         public static readonly Region RegionSinSeleccion = new Region { Descripcion = "Seleccione ...", IdRegion = 0 };
+        public static readonly TipoEquipo TipoEquipoSinSeleccion = new TipoEquipo { Descripcion = "Seleccione ...", IdTipoEquipo = 0 };
 
         public static string SessionKey = "UserSession";
 
