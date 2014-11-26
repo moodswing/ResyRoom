@@ -37,6 +37,11 @@ namespace ResyRoom
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
+
+            if (ex.Message == "File does not exist.")
+            {
+                throw new Exception(string.Format("{0} {1}", ex.Message, HttpContext.Current.Request.Url), ex);
+            }
         }
 
         protected void Application_BeginRequest()
@@ -58,7 +63,7 @@ namespace ResyRoom
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
             var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie != null)
+            if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
             {
                 var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 

@@ -38,6 +38,7 @@ namespace ResyRoom.Infraestructura.MappingsProfile
                 CreateMap<RoomViewModel, Sala>()
                     .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Nombre))
                     .ForMember(dest => dest.Tamaño, opt => opt.MapFrom(src => src.Tamaño))
+                    .ForMember(dest => dest.Precio, opt => opt.MapFrom(src => src.PrecioPorHora))
                     .IgnoreAllNonExisting()
                     .ReverseMap()
                     .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Nombre))
@@ -56,13 +57,6 @@ namespace ResyRoom.Infraestructura.MappingsProfile
                     .ForMember(dest => dest.DiasAbierto, opt => opt.MapFrom(src => src.DíasAbierto))
                     .ForMember(dest => dest.HoraCierre, opt => opt.MapFrom(src => src.HoraCierre))
                     .ForMember(dest => dest.HoraApertura, opt => opt.MapFrom(src => src.HoraApertura))
-                    .IgnoreAllNonExistingSource();
-
-                CreateMap<RoomScheduleViewModel, Sala>()
-                    .ForMember(dest => dest.Precio, opt => opt.MapFrom(src => src.PrecioPorBloque))
-                    .IgnoreAllNonExisting()
-                    .ReverseMap()
-                    .ForMember(dest => dest.PrecioPorBloque, opt => opt.MapFrom(src => src.Precio))
                     .IgnoreAllNonExistingSource();
 
                 CreateMap<RoomEquipmentViewModel, Equipo>()

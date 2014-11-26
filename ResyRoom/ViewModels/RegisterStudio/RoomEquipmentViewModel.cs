@@ -21,7 +21,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public bool TieneUnPrecioAdicional { get; set; }
 
         [Display(Name = "Precio Adicional", Description = "Puedes especificar el valor adicional que posee este equipo")]
-        [RequiredIf("TieneUnPrecioAdicional", true, ErrorMessage = "You must specify the City if UK resident")]
+        [RequiredIf("TieneUnPrecioAdicional", true, ErrorMessage = "Debes ingresar el precio adicional")]
+        [DataType(DataType.Text)]
         public int? PrecioAdicional { get; set; }
 
         public string Fotografia { get; set; }

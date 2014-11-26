@@ -21,7 +21,7 @@
                     @Html.LabelFor(u => u.Estudio.UrlName)
                 </div>
                 <div class="div-cell value">
-                    @Html.TextBoxFor(u => u.Estudio.UrlName, new { @class = "txt", data_bind = "value: Estudio.UrlName" })
+                    @Html.TextBoxFor(u => u.Estudio.UrlName, new { @class = "txt", data_bind = "value: Estudio.UrlName", maxlength = "16" })
                     @Html.ValidationMessageFor(u => u.Estudio.UrlName)
                     @Html.DescriptionFor(u => u.Estudio.UrlName)
                 </div>
@@ -71,7 +71,7 @@
                         @Html.LabelFor(u => u.Estudio.Telefono)
                     </div>
                     <div class="div-cell value">
-                        @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono" })
+                        @Html.TextBoxFor(u => u.Estudio.Telefono, new { @class = "txt", data_bind = "value: Estudio.Telefono", maxlength = "16" })
                     </div>
                 </div>
                 <div class="div-table form-row">
@@ -79,7 +79,7 @@
                         @Html.LabelFor(u => u.Estudio.Celular)
                     </div>
                     <div class="div-cell value">
-                        @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular" })
+                        @Html.TextBoxFor(u => u.Estudio.Celular, new { @class = "txt", data_bind = "value: Estudio.Celular", maxlength = "16" })
                     </div>
                 </div>
                 <div class="div-table form-row">

@@ -9,6 +9,7 @@ namespace ResyRoom.App_Start
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Content/Scripts/jquery-1.*"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include("~/Content/Scripts/jquery-ui-1.9.2.custom.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery-mask").Include("~/Content/Scripts/jquery.mask.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Content/Scripts/jquery.unobtrusive*",
@@ -24,6 +25,7 @@ namespace ResyRoom.App_Start
             bundles.Add(new ScriptBundle("~/bundles/history").Include("~/Content/Scripts/jquery.history.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/RegisterStudio").Include("~/Content/Scripts/Views/register-studio.js"));
+            bundles.Add(new ScriptBundle("~/bundles/extra-validations").Include("~/Content/Scripts/extra-validations.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/time-entry").Include(
                         "~/Content/Scripts/jquery.plugin.js", 

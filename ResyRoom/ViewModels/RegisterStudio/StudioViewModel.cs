@@ -33,7 +33,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public string Email { get; set; }
         
         [DisplayName("Teléfono")]
-        public string Telefono { get; set; }
+        public string Telefono { get; set; } 
         
         [DisplayName("Teléfono Movil")]
         public string Celular { get; set; }
@@ -41,7 +41,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Display(Name = "Nombre de la Url (*)", Description = "Para un acceso mas fácil elige un nombre, ej. resyroom.com/tuEstudio")]
         [Required(ErrorMessage = "Favor ingresar la url de acceso del estudio")]
         public string UrlName { get; set; }
-        
+
+        [Display(Name = "Sitio Web")]
         public string SitioWeb { get; set; }
 
         public IList<RoomViewModel> Salas { get; set; }

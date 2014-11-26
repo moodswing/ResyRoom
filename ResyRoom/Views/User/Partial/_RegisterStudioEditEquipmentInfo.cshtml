@@ -44,7 +44,7 @@
             </div>
             <div class="div-cell value">
                 @Html.CheckBoxFor(u => u.TieneUnPrecioAdicional, new { data_bind = "checked: TieneUnPrecioAdicional" })
-                @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt", data_bind = "enable: TieneUnPrecioAdicional, value: PrecioAdicional" })
+                @Html.TextBoxFor(u => u.PrecioAdicional, new { @class = "txt w112px", data_bind = "enable: TieneUnPrecioAdicional, value: PrecioAdicional", maxlength = "7" })
                 @Html.ValidationMessageFor(u => u.PrecioAdicional)
             </div>
         </div>

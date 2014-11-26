@@ -42,12 +42,18 @@
         var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
             replace = $.parseJSON(container.attr("data-valmsg-replace")) !== false;
 
+        var isNewError = container.find("span").length == 0;
         container.removeClass("field-validation-valid").addClass("field-validation-error");
         error.data("unobtrusiveContainer", container);
 
         if (replace) {
             container.empty();
             error.removeClass("input-validation-error").appendTo(container);
+            
+            if (container.parents(".register-studio-form").length > 0 && isNewError) {
+                container.hide();
+                container.show('slide', { direction: 'left' }, 350);
+            }
         }
         else {
             error.hide();

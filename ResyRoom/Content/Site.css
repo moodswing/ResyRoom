@@ -24,6 +24,10 @@ header, footer, nav, section
     width: 120px;
 }
 
+.w112px {
+    width: 112px;
+}
+
 .padleft26 {
     padding-left: 26px;
 }

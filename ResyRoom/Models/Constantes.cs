@@ -7,7 +7,7 @@ namespace ResyRoom.Models
 {
     public static class Constantes
     {
-        public static readonly Comuna ComunaSinSeleccion = new Comuna { Descripcion = "Seleccione Región", IdComuna = 0 };
+        public static readonly Comuna ComunaSinSeleccion = new Comuna { Descripcion = "Seleccione Comuna", IdComuna = 0 };
         public static readonly Region RegionSinSeleccion = new Region { Descripcion = "Seleccione ...", IdRegion = 0 };
         public static readonly TipoEquipo TipoEquipoSinSeleccion = new TipoEquipo { Descripcion = "Seleccione ...", IdTipoEquipo = 0 };
 

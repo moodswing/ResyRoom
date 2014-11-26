@@ -19,12 +19,13 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Display(Name = "Posee esta sala un set de platos")]
         public bool SetDePlatos { get; set; }
 
-        [Range(0, int.MaxValue, ErrorMessage = "Favor ingresar el valor de la hora en la sala")]
-        public string PrecioPorHora { get; set; }
+        public string PrecioPorHora { get { return Horario.PrecioPorBloque; } }
 
         public bool SinEquipos { get; set; }
 
         public RoomScheduleViewModel Horario { get; set; }
+        public List<RoomScheduleViewModel> Horarios { get { return new List<RoomScheduleViewModel> { Horario }; } }
+
         public List<RoomEquipmentViewModel> Equipos { get; set; }
 
         public RoomViewModel()
@@ -47,13 +48,14 @@ namespace ResyRoom.ViewModels.RegisterStudio
         string Nombre { get; set; }
         string Tamaño { get; set; }
         bool SetDePlatos { get; set; }
-        string PrecioPorHora { get; set; }
-        
+        string PrecioPorHora { get; }
+
         int IndiceSeleccionado { get; set; }
 
         bool SinEquipos { get; set; }
 
         RoomScheduleViewModel Horario { get; set; }
+        List<RoomScheduleViewModel> Horarios { get; }
         List<RoomEquipmentViewModel> Equipos { get; set; }
     }
 }

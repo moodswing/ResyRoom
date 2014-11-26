@@ -138,6 +138,8 @@ namespace ResyRoom.Servicios
         {
             if (estudio.IdEstudio.Equals(default(int))) _context.Estudios.Add(estudio);
             else _context.Entry(estudio).State = EntityState.Modified;
+
+            _context.SaveChanges();
         }
 
         public void Actualizar() { _context.SaveChanges(); }

@@ -16,14 +16,14 @@ namespace ResyRoom.Infraestructura
         [Dependency]
         public IServUsuarios ServUsuarios { get; set; }
 
-        public string[] UsuarioAutenticado(IdentificacionDeUsuario usuario)
+        public string[] AutenticarUsuario(IdentificacionDeUsuario usuario)
         {
             var user = ServUsuarios.AutenticarUsuario(usuario);
 
             return ObtenerRolesUsuario(user);
         }
 
-        public string[] UsuarioAutenticado(IdentificacionDeUsuarioPorFacebook usuarioFb)
+        public string[] AutenticarUsuario(IdentificacionDeUsuarioPorFacebook usuarioFb)
         {
             var user = ServUsuarios.AutenticarUsuario(usuarioFb);
 

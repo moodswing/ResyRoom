@@ -5,7 +5,7 @@
 
         ko.applyBindings(vm.koViewModel);
         
-        loadStep(4);
+        loadStep(2);
 
         setDocumentEvents();
         cleanHistoryState();
@@ -34,23 +34,25 @@
         $("[name=HoraCierre]").timeEntry({ ampmPrefix: ' ', useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 7, 30, 0), maxTime: new Date(0, 0, 0, 2, 0, 0) });
         $("[name=DuracionBloque]").timeEntry({ show24Hours: true, useMouseWheel: true, separator: ' : ', timeSteps: [1, 15, 0], minTime: new Date(0, 0, 0, 0, 15, 0), maxTime: new Date(0, 0, 0, 5, 0, 0) });
     },
+    setInputMasks = function() {
+        $("#Estudio_UrlName").mask('LL', { translation: { 'L': { pattern: /[a-zA-Z0-9_]/, recursive: true } }, maxlength: false });
+        $("#Estudio_Telefono").mask('NN', { translation: { 'N': { pattern: /[0-9- +]/, recursive: true } }, maxlength: false });
+        $("#Estudio_Celular").mask('NN', { translation: { 'N': { pattern: /[0-9- +]/, recursive: true } }, maxlength: false });
+        $("[name=PrecioAdicional]").mask('##', { reverse: true, maxlength: false });
+        $("[name=PrecioPorBloque]").mask('##', { reverse: true, maxlength: false });
+    },
     saveStudio = function() {
         if (validateForm($(".register-studio-form form"))) {
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/SaveStudio", model, function (data) {
-                var htmlData = $(data);
-                updateViewModel(htmlData);
-
-                $(".register-studio-form").html(htmlData);
-                rebindViewModel($(".register-studio-form").children().get(0));
-
-                var studioRooms = cleanPage();
-
-                $(studioRooms[index]).find("form").last().hide();
-                $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
-
-                reBindFormValidations();
+            $.ajax({
+                type: "POST",
+                url: "/User/SaveStudio",
+                data: getModel(),
+                dataType: 'json',
+                contentType: 'application/json',
+                crossDomain: true,
+                success: function (data) {
+                    window.location.href = data;
+                }
             });
         }
 
@@ -64,9 +66,8 @@
 
                 vm.koViewModel.Estudio.IndiceSeleccionado(index);
                 vm.koViewModel.Accion("AddNewEquipment");
-                var model = ko.toJSON(vm.koViewModel);
-
-                $.postJSON("/User/EditEquipment", model, function(data) {
+                
+                $.postJSON("/User/EditEquipment", getModel(), function (data) {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
 
@@ -78,6 +79,7 @@
                     $(studioRooms[index]).find("form").last().hide();
                     $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
 
+                    setInputMasks();
                     reBindFormValidations();
                 });
             }
@@ -90,9 +92,8 @@
 
             vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
             vm.koViewModel.Accion("EnableEquipment");
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/EditEquipment", model, function(data) {
+            
+            $.postJSON("/User/EditEquipment", getModel(), function (data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
@@ -108,9 +109,8 @@
 
             vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
             vm.koViewModel.Accion("DisableEquipment");
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/EditEquipment", model, function(data) {
+            
+            $.postJSON("/User/EditEquipment", getModel(), function (data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
@@ -128,9 +128,8 @@
             vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
             vm.koViewModel.Accion("EditEquipment");
             vm.koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/EditEquipment", model, function(data) {
+            
+            $.postJSON("/User/EditEquipment", getModel(), function (data) {
                 var htmlData = $(data);
                 updateViewModel(htmlData);
                 $(".register-studio-form").html(htmlData);
@@ -148,9 +147,8 @@
             vm.koViewModel.Estudio.IndiceSeleccionado(indexRoom);
             vm.koViewModel.Accion("DeleteEquipment");
             vm.koViewModel.Estudio.Salas()[indexRoom].IndiceSeleccionado(indexEquipment);
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/EditEquipment", model, function(data) {
+            
+            $.postJSON("/User/EditEquipment", getModel(), function (data) {
                 deleteButton.parents(".register-studio-equipment").hide('slide', { direction: 'left' }, 350, function() {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
@@ -209,9 +207,8 @@
         addNewRoom: function() {
             if (validateForm($(".register-studio-form form"))) {
                 vm.koViewModel.Accion("AddNewRoom");
-                var model = ko.toJSON(vm.koViewModel);
-
-                $.postJSON("/User/EditRoom", model, function(data) {
+                
+                $.postJSON("/User/EditRoom", getModel(), function (data) {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
 
@@ -234,9 +231,8 @@
 
             vm.koViewModel.Accion("DeleteRoom");
             vm.koViewModel.Estudio.IndiceSeleccionado(index);
-            var model = ko.toJSON(vm.koViewModel);
-
-            $.postJSON("/User/EditRoom", model, function(data) {
+            
+            $.postJSON("/User/EditRoom", getModel(), function (data) {
                 deleteButton.parents(".register-studio-room").hide('slide', { direction: 'left' }, 350, function() {
                     var htmlData = $(data);
                     updateViewModel(htmlData);
@@ -248,6 +244,24 @@
 
             return false;
         },
+    },
+    getModel = function() {
+        var model = {
+            Usuario: vm.koViewModel.Usuario,
+            Estudio: vm.koViewModel.Estudio,
+            Accion: vm.koViewModel.Accion,
+            PasoNumero: vm.koViewModel.PasoNumero
+        };
+        
+        for (var i = 0; i < model.Estudio.Salas().length; i++) {
+            var sala = model.Estudio.Salas()[i];
+
+            sala.EstudiosMasPopulares = null;
+            sala.EstudiosMejorEvaluados = null;
+            sala.Horarios = null;
+        }
+
+        return ko.toJSON(model);
     },
     cleanPage = function() {
         var studioRooms = $(".form .register-studio-form .input-form .register-studio-room");
@@ -263,33 +277,11 @@
         return studioRooms;
     },
     addExtraValidations = function () {
-        $.validator.addMethod('requiredif',
-            function (value, element, parameters) {
-                var id = '#' + parameters['dependentproperty'];
-
-                var targetvalue = parameters['targetvalue'];
-                targetvalue = (targetvalue == null ? '' : targetvalue).toString();
-
-                var control = $(id);
-                var controltype = control.attr('type');
-                var actualvalue = controltype === 'checkbox' ? control.is(':checked').toString() : control.val();
-  
-                if (targetvalue === actualvalue)
-                    return $.validator.methods.required.call(this, value, element, parameters);
-   
-                return true;
-            }
-        );
-
-        $.validator.unobtrusive.adapters.add('requiredif', ['dependentproperty', 'targetvalue'], function (options) {
-                options.rules['requiredif'] = {
-                        dependentproperty: options.params['dependentproperty'],
-                        targetvalue: options.params['targetvalue']
-                };
-            options.messages['requiredif'] = options.message;
-        });
-   },
-   catchHistoryStateChange = function() {
+        if (ExtraValidationsConfiguration != null) {
+            ExtraValidationsConfiguration().SetRequiredIfValidation();
+        }
+    },
+    catchHistoryStateChange = function() {
         var state = History.getState();
 
         if (state.data != null && state.data.StepNumber != null)
@@ -337,9 +329,8 @@
         }
 
         vm.koViewModel.PasoNumero(stepNumber);
-        var model = ko.toJSON(vm.koViewModel);
-
-        $.postJSON("/User/LoadStepView", model, function(data) {
+        
+        $.postJSON("/User/LoadStepView", getModel(), function (data) {
             if ($(".register-studio-form").html().trim() != "") {
                 $(".register-studio-form > div").hide('slide', { direction: direction1 }, 250, function() {
                     loadStepHtml(data, direction2);
@@ -365,6 +356,7 @@
         rebindViewModel($(".register-studio-form").children().get(0));
 
         setJqueryPlugins();
+        setInputMasks();
         cleanPage();
         
         reBindFormValidations();
@@ -396,7 +388,7 @@
         $(".register-studio-form form").removeData("validator");
         $(".register-studio-form form").removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse(".register-studio-form form");
-
+        
         addExtraValidations();
 
         $(".field-validation-error").html("");

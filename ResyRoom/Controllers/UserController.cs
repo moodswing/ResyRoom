@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using AutoMapper;
 using MoreLinq;
-using Newtonsoft.Json;
 using ResyRoom.Infraestructura;
 using ResyRoom.Infraestructura.Exceptions;
 using ResyRoom.Infraestructura.Extensiones;
@@ -58,7 +56,7 @@ namespace ResyRoom.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roles = UsuarioAutenticado(usuario.LoginUsuario);
+                var roles = AutenticarUsuario(usuario.LoginUsuario);
                 if (roles != null)
                 {
                     if (roles.Contains("Estudio"))
@@ -107,7 +105,7 @@ namespace ResyRoom.Controllers
                 if (ServUsuarios.EsUsuarioNuevo(usuario))
                     ServUsuarios.Guardar(usuario);
 
-                var roles = UsuarioAutenticado(usuario);
+                var roles = AutenticarUsuario(usuario);
                 if (roles != null)
                 {
                     if (roles.Contains("Estudio"))
@@ -290,9 +288,6 @@ namespace ResyRoom.Controllers
                     sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
                     sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit, Nombre = "equipo noix" + (sala.Equipos.Count() + 1).ToString() });
 
-                    if (ViewBag.TipoEquipos == null)
-                        ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
-
                     break;
                 case "EditEquipment":
                     sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
@@ -315,7 +310,8 @@ namespace ResyRoom.Controllers
 
                     break;
             }
-            
+
+            if (ViewBag.TipoEquipos == null) ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
             model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
 
             return PartialView("Partial/_RegisterStudioEquipmentInfo", model);
@@ -324,12 +320,29 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult SaveStudio(RegisterStudioViewModel model)
         {
-            var estudio = new Estudio();
-            Mapper.Map(model.Estudio, estudio);
+            if (ModelState.IsValid)
+            {
+                var usuario = model.Usuario;
+                ServUsuarios.Guardar(usuario);
 
-            model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
+                var estudio = new Estudio();
+                Mapper.Map(model.Estudio, estudio);
+                
+                ServEstudios.Guardar(estudio);
 
-            return PartialView("Partial/_RegisterStudioRoomsInfo", model);
+                var roles = AutenticarUsuario(new IdentificacionDeUsuario { Email = usuario.Email, Password = usuario.Password, Recordarme = true });
+                if (roles != null)
+                {
+                    if (roles.Contains("Estudio"))
+                        return RedirectToAction("SuccessfulRegister", "User");
+                    if (roles.Contains("Usuario"))
+                        return RedirectToAction("SuccessfulRegister", "User");
+                }
+
+                ModelState.AddModelError("", "Incorrect username and/or password");
+            }
+
+            return RedirectToAction("SuccessfulRegister", "User");
         }
 
         private Dictionary<int, string> StepsViews
