@@ -28,8 +28,8 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public int IdComuna { get; set; }
 
         [DisplayName("Email de Contacto (*)")]
-        [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Favor ingresar el email de contacto del estudio")]
+        [EmailAddress]
         public string Email { get; set; }
         
         [DisplayName("Teléfono")]

@@ -5,12 +5,18 @@ using System.Web;
 
 namespace ResyRoom.Infraestructura
 {
-    public static class EnumCollection
+    public enum ViewState
     {
-        public enum ViewState
-        {
-            Display = 1,
-            Edit = 2
-        }
+        Display = 1,
+        Edit = 2
+    }
+
+    public enum RegisterStudioPage 
+    {
+        AccountInfo = 1,
+        GeneralInfo = 2,
+        RoomsInfo = 3,
+        EquipmentInfo = 4,
+        ScheduleInfo = 5
     }
 }

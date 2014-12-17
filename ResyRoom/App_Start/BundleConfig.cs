@@ -20,11 +20,14 @@ namespace ResyRoom.App_Start
             bundles.Add(new ScriptBundle("~/bundles/facebook").Include("~/Content/Scripts/facebook-sdk-v2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockoutjs-with-mapping").Include("~/Content/Scripts/knockout*"));
+            bundles.Add(new ScriptBundle("~/bundles/layout").Include("~/Content/Scripts/Views/layout.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/gmap").Include("~/Content/Scripts/gmap3.js"));
             bundles.Add(new ScriptBundle("~/bundles/history").Include("~/Content/Scripts/jquery.history.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/RegisterStudio").Include("~/Content/Scripts/Views/register-studio.js"));
+            bundles.Add(new ScriptBundle("~/bundles/RegisterStudio").Include("~/Content/Scripts/Views/register-studio.js", 
+                        "~/Content/Scripts/Views/set-data-testing.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/extra-validations").Include("~/Content/Scripts/extra-validations.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/time-entry").Include(

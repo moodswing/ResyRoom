@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.UI;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 using ResyRoom.Controllers;
 using ResyRoom.Infraestructura.MappingsProfile;
+using ResyRoom.Infraestructura.Validators;
 using ResyRoom.Models;
 using ResyRoom.Servicios;
 using Microsoft.Practices.Unity;
+using ResyRoom.Validators;
 using ResyRoom.ViewModels;
 using ResyRoom.ViewModels.RegisterStudio;
 using Estudio = ResyRoom.Models.Estudio;
@@ -47,6 +50,7 @@ namespace ResyRoom.Infraestructura
                 .RegisterType<IStudioViewModel, StudioViewModel>()
                 .RegisterType<IRoomViewModel, RoomViewModel>()
                 .RegisterType<IConfigureStudioViewModel, ConfigureStudioViewModel>()
+                .RegisterType<IValidator<RegisterStudioViewModel>, StudioValidator>()
                 //.RegisterType<ResyRoomEntities>(new PerResolveLifetimeManager())
                 .RegisterType<ResyRoomEntities>(new HierarchicalLifetimeManager());
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ResyRoom.ViewModels;
 
 namespace ResyRoom.Models
 {
@@ -22,10 +23,11 @@ namespace ResyRoom.Models
         public string PasswordConfirmacion { get; set; }
     }
 
-    public class IdentificacionDeUsuario
+    public class IdentificacionDeUsuario : BaseViewModel
     {
         [Required(ErrorMessage = "Ingrese nombre de usuario")]
         [Display(Name = "Email")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

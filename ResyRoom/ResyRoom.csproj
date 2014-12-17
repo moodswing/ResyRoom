@@ -76,10 +76,20 @@
     <Compile Include="Infraestructura\Extensiones\ObjectQueryExt.cs" />
     <Compile Include="Infraestructura\Extensiones\StringExt.cs" />
     <Compile Include="Infraestructura\Extensiones\UnityExt.cs" />
+    <Compile Include="Infraestructura\FlowModelBinder.cs" />
     <Compile Include="Infraestructura\MappingsProfile\RegisterStudioMappingProfile.cs" />
     <Compile Include="Infraestructura\MvcConfig.cs" />
     <Compile Include="Infraestructura\UnityControllerActivator.cs" />
     <Compile Include="Infraestructura\UnityDependencyResolver.cs" />
+    <Compile Include="Infraestructura\Validators\BaseValidatableObject.cs" />
+    <Compile Include="Infraestructura\Validators\CustomModelError.cs" />
+    <Compile Include="Infraestructura\Validators\CustomModelValidator.cs" />
+    <Compile Include="Infraestructura\Validators\CustomValidationResult.cs" />
+    <Compile Include="Infraestructura\Validators\DefaultValidatorLocator.cs" />
+    <Compile Include="Infraestructura\Validators\FlowValidationResult.cs" />
+    <Compile Include="Infraestructura\Validators\ValidationChecker.cs" />
+    <Compile Include="Infraestructura\Validators\ValidationFactory.cs" />
+    <Compile Include="Infraestructura\Validators\ValidatorsInterfaces.cs" />
     <Compile Include="Models\Banda.cs">
       <DependentUpon>ResyRoom.tt</DependentUpon>
     </Compile>
@@ -175,6 +185,7 @@
     <Compile Include="Servicios\ServPaises.cs" />
     <Compile Include="Servicios\ServRegiones.cs" />
     <Compile Include="Servicios\ServUsuarios.cs" />
+    <Compile Include="Validators\StudioValidator.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ConfigureStudioViewModel.cs" />
     <Compile Include="ViewModels\RegisterStudio\RoomScheduleViewModel.cs" />
@@ -206,6 +217,11 @@
     <Content Include="Content\img\headphones.png" />
     <Content Include="Content\img\home16.png" />
     <Content Include="Content\img\info16.png" />
+    <Content Include="Content\img\inputerrormail.png" />
+    <Content Include="Content\img\inputerrorpassword.png" />
+    <Content Include="Content\img\inputmail.png" />
+    <Content Include="Content\img\inputpassword.png" />
+    <Content Include="Content\img\inputpassword1.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\logobig.png" />
     <Content Include="Content\img\mail16.png" />
@@ -254,7 +270,9 @@
     <Content Include="Content\Scripts\modernizr-1.7.min.js" />
     <Content Include="Content\Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Content\Scripts\moment.min.js" />
+    <Content Include="Content\Scripts\Views\layout.js" />
     <Content Include="Content\Scripts\Views\register-studio.js" />
+    <Content Include="Content\Scripts\Views\set-data-testing.js" />
     <Content Include="Content\Scripts\_references.js" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />

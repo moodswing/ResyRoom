@@ -32,7 +32,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         [Range(1, int.MaxValue, ErrorMessage = "Favor ingresar el tipo de equipo")]
         public int IdTipoEquipo { get; set; }
 
-        public EnumCollection.ViewState ViewState { get; set; }
+        public ViewState ViewState { get; set; }
     }
 
     public interface IRoomEquipmentViewModel
@@ -44,6 +44,6 @@ namespace ResyRoom.ViewModels.RegisterStudio
         int? PrecioAdicional { get; set; }
         string Fotografia { get; set; }
         int IdTipoEquipo { get; set; }
-        EnumCollection.ViewState ViewState { get; set; }
+        ViewState ViewState { get; set; }
     }
 }

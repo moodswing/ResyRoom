@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ResyRoom.Infraestructura;
+using ResyRoom.Infraestructura.Validators;
 using ResyRoom.Models;
 using Estudio = ResyRoom.Models.Estudio;
 
 namespace ResyRoom.ViewModels
 {
-    public abstract class BaseViewModel
+    public abstract class BaseViewModel : BaseValidatableObject
     {
         public List<Notificacion> Notificaciones { get; set; }
         public bool MostrarNotificacion { get; set; }
@@ -26,5 +27,12 @@ namespace ResyRoom.ViewModels
         public string Accion { get; set; }
 
         public bool UserLogged { get { return HttpContext.Current.User.Identity.IsAuthenticated; } }
+
+        public ValidationChecker ValidatorTrigger { get; set; }
+
+        public BaseViewModel()
+        {
+            ValidatorTrigger = new ValidationChecker();
+        }
     }
 }

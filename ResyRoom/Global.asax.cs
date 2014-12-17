@@ -32,6 +32,8 @@ namespace ResyRoom
 
             _container = Bootstrapper.ConfigureUnityContainer();
             MvcConfig.Register(_container, _unityGuid);
+
+            ModelBinders.Binders.DefaultBinder = new FlowModelBinder();
         }
 
         protected void Application_Error(object sender, EventArgs e)

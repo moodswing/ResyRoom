@@ -220,34 +220,35 @@ namespace ResyRoom.Controllers
         [HttpPost]
         public ActionResult LoadStepView(RegisterStudioViewModel model)
         {
-            if (model.PasoNumero == 2) // Información general
-            {
-                model.Regiones = ServRegiones.RegionesChilenas();
-
-                if (model.Estudio.IdRegion != 0)
-                    model.Comunas = ServComunas.TodasDeUnaRegion(model.Estudio.IdRegion);
-                else
-                    model.Comunas = new List<Comuna>(); 
-            }
-            else if (model.PasoNumero == 4) // Información de equipos
-            {
-                ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
-            }
-
             string view;
             StepsViews.TryGetValue(model.PasoNumero, out view);
 
-            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+            if (model.PasoNumero == (int)RegisterStudioPage.GeneralInfo || (!ModelState.IsValid && model.PasoActual == (int)RegisterStudioPage.GeneralInfo))
+            {
+                model.Regiones = ServRegiones.RegionesChilenas();
+                model.Comunas = model.Estudio.IdRegion != 0 ? ServComunas.TodasDeUnaRegion(model.Estudio.IdRegion) : new List<Comuna>();
+            }
+            else if (model.PasoNumero == (int)RegisterStudioPage.EquipmentInfo || (!ModelState.IsValid && model.PasoActual == (int)RegisterStudioPage.EquipmentInfo))
+                ViewBag.TipoEquipos = ServTipoEquipos.TiposDeEquipos();
+
+            if (model.PasoActual != 0 && !ModelState.IsValid)
+            {
+                model.PasoNumero = model.PasoActual;
+
+                StepsViews.TryGetValue(model.PasoNumero, out view);
+                model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
+                return PartialView(view, model);
+            }
+
+            model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = ViewState.Display));
             var sala = model.Estudio.Salas.FirstOrDefault();
             if (sala != null)
             {
                 var equipo = sala.Equipos.LastOrDefault();
-                if (equipo != null)
-                    equipo.ViewState = EnumCollection.ViewState.Edit;
+                if (equipo != null) equipo.ViewState = ViewState.Edit;
             }
 
             model.JsonModelResult = new JavaScriptSerializer().Serialize(model);
-
             return PartialView(view, model);
         }
 
@@ -258,12 +259,12 @@ namespace ResyRoom.Controllers
             {
                 case "AddNewRoom":
                     model.Estudio.Salas.Add(new RoomViewModel { Nombre = "noix" + (model.Estudio.Salas.Count() + 1).ToString() });
-                    model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display));
+                    model.Estudio.Salas.ForEach(s => s.Equipos.ForEach(e => e.ViewState = ViewState.Display));
                     var sala = model.Estudio.Salas.FirstOrDefault();
                     if (sala != null)
                     {
                         var equipo = sala.Equipos.FirstOrDefault();
-                        if (equipo != null) equipo.ViewState = EnumCollection.ViewState.Edit;
+                        if (equipo != null) equipo.ViewState = ViewState.Edit;
                     }
                     break;
                 case "DeleteRoom":
@@ -285,14 +286,14 @@ namespace ResyRoom.Controllers
             switch (model.Accion)
             {
                 case "AddNewEquipment":
-                    sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
-                    sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = EnumCollection.ViewState.Edit, Nombre = "equipo noix" + (sala.Equipos.Count() + 1).ToString() });
+                    sala.Equipos.ForEach(e => e.ViewState = ViewState.Display);
+                    sala.Equipos.Add(new RoomEquipmentViewModel { ViewState = ViewState.Edit, Nombre = "equipo noix" + (sala.Equipos.Count() + 1).ToString() });
 
                     break;
                 case "EditEquipment":
-                    sala.Equipos.ForEach(e => e.ViewState = EnumCollection.ViewState.Display);
+                    sala.Equipos.ForEach(e => e.ViewState = ViewState.Display);
                     var equipo = sala.Equipos.ElementAt(sala.IndiceSeleccionado);
-                    equipo.ViewState = EnumCollection.ViewState.Edit;
+                    equipo.ViewState = ViewState.Edit;
 
                     break;
                 case "DeleteEquipment":

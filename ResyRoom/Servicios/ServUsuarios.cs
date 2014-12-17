@@ -15,6 +15,7 @@ namespace ResyRoom.Servicios
         void Guardar(IdentificacionDeUsuarioPorFacebook usuario);
         Usuario AutenticarUsuario(IdentificacionDeUsuario usuario);
         Usuario AutenticarUsuario(IdentificacionDeUsuarioPorFacebook usuario);
+        bool EmailYaUsado(string email);
     }
 
     public class ServUsuarios : IServUsuarios
@@ -73,6 +74,11 @@ namespace ResyRoom.Servicios
         public Usuario AutenticarUsuario(IdentificacionDeUsuarioPorFacebook usuario)
         {
             return _context.Usuarios.Include(u => u.Roles).FirstOrDefault(u => u.Email == usuario.Email);
+        }
+
+        public bool EmailYaUsado(string email)
+        {
+            return _context.Usuarios.Any(u => u.Email == email);
         }
     }
 }

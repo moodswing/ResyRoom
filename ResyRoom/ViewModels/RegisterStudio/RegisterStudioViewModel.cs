@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ResyRoom.Infraestructura.Validators;
 using ResyRoom.Models;
 
 namespace ResyRoom.ViewModels.RegisterStudio
@@ -9,6 +11,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         public RegistroDeUsuario Usuario { get; set; }
         
         public int PasoNumero { get; set; }
+        public int PasoActual { get; set; }
         
         public IList<Region> Regiones { get; set; }
         public IList<Comuna> Comunas { get; set; }
@@ -32,6 +35,7 @@ namespace ResyRoom.ViewModels.RegisterStudio
         RegistroDeUsuario Usuario { get; set; }
 
         int PasoNumero { get; set; }
+        int PasoActual { get; set; }
         string JsonModelResult { get; set; }
 
         string TituloMensaje { get; set; }

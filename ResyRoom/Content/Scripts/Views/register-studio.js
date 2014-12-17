@@ -1,11 +1,11 @@
 ﻿var RegisterStudioConfiguration = function (vmkoViewModel) {
     var init = function() {
         vm = vmkoViewModel;
-        setViewModelData();
+        SetDataTesting(vm).RegisterEstudio();
 
         ko.applyBindings(vm.koViewModel);
         
-        loadStep(2);
+        loadStep(1);
 
         setDocumentEvents();
         cleanHistoryState();
@@ -59,30 +59,30 @@
         return false;
     },
     equipmentHelper = {
-        addNewEquipment: function(event) {
-            if (validateForm($(".register-studio-form form"))) {
-                var element = $(event.srcElement);
-                var index = $(".register-studio-room").index(element.parents(".register-studio-room"));
+        addNewEquipment: function (event) {
+            if (!validateForm($(".register-studio-form form"))) return false;
+            
+            var element = $(event.srcElement);
+            var index = $(".register-studio-room").index(element.parents(".register-studio-room"));
 
-                vm.koViewModel.Estudio.IndiceSeleccionado(index);
-                vm.koViewModel.Accion("AddNewEquipment");
+            vm.koViewModel.Estudio.IndiceSeleccionado(index);
+            vm.koViewModel.Accion("AddNewEquipment");
                 
-                $.postJSON("/User/EditEquipment", getModel(), function (data) {
-                    var htmlData = $(data);
-                    updateViewModel(htmlData);
+            $.postJSON("/User/EditEquipment", getModel(), function (data) {
+                var htmlData = $(data);
+                updateViewModel(htmlData);
 
-                    $(".register-studio-form").html(htmlData);
-                    rebindViewModel($(".register-studio-form").children().get(0));
+                $(".register-studio-form").html(htmlData);
+                rebindViewModel($(".register-studio-form").children().get(0));
 
-                    var studioRooms = cleanPage();
+                var studioRooms = cleanPage();
 
-                    $(studioRooms[index]).find("form").last().hide();
-                    $(studioRooms[index]).find("form").last().show("slide", { directio: "right" }, 350);
+                $(studioRooms[index]).find("form").last().hide();
+                $(studioRooms[index]).find("form").last().show("slide", { direction: "right" }, 350);
 
-                    setInputMasks();
-                    reBindFormValidations();
-                });
-            }
+                setInputMasks();
+                reBindFormValidations();
+            });
 
             return false;
         },
@@ -121,6 +121,8 @@
             return false;
         },
         editEquipment: function(event) {
+            if (!validateForm($(".register-studio-form form"))) return false;
+
             var editButton = $(event.srcElement);
             var indexEquipment = editButton.parents(".register-studio-room").find(".register-studio-equipment").index(editButton.parents(".register-studio-equipment"));
             var indexRoom = $(".register-studio-room").index(editButton.parents(".register-studio-room"));
@@ -135,6 +137,8 @@
                 $(".register-studio-form").html(htmlData);
 
                 cleanPage();
+                rebindViewModel($(".register-studio-form").children().get(0));
+                reBindFormValidations();
             });
 
             return false;
@@ -155,6 +159,8 @@
                     $(".register-studio-form").html(htmlData);
 
                     cleanPage();
+                    rebindViewModel($(".register-studio-form").children().get(0));
+                    reBindFormValidations();
                 });
             });
 
@@ -250,7 +256,8 @@
             Usuario: vm.koViewModel.Usuario,
             Estudio: vm.koViewModel.Estudio,
             Accion: vm.koViewModel.Accion,
-            PasoNumero: vm.koViewModel.PasoNumero
+            PasoNumero: vm.koViewModel.PasoNumero,
+            PasoActual: vm.koViewModel.PasoActual
         };
         
         for (var i = 0; i < model.Estudio.Salas().length; i++) {
@@ -313,10 +320,13 @@
     changeStep = function(event) {
         if (!validateForm($(".register-studio-form form"))) return;
 
+        vm.koViewModel.PasoActual(vm.koViewModel.PasoNumero());
+
         var stepNumber;
         if ($(event.srcElement).is("[value=Anterior]")) stepNumber = vm.koViewModel.PasoNumero() - 1;
         else stepNumber = vm.koViewModel.PasoNumero() + 1;
 
+        cleanHistoryState();
         History.pushState({ StepNumber: stepNumber }, 'ResyRoom - Registra tu estudio: Paso ' + stepNumber, null);
     },
     loadStep = function(stepNumber) {
@@ -331,7 +341,7 @@
         vm.koViewModel.PasoNumero(stepNumber);
         
         $.postJSON("/User/LoadStepView", getModel(), function (data) {
-            if ($(".register-studio-form").html().trim() != "") {
+            if ($(".register-studio-form").html().trim() != "" && $(data).find(".field-validation-error").length == 0) {
                 $(".register-studio-form > div").hide('slide', { direction: direction1 }, 250, function() {
                     loadStepHtml(data, direction2);
                 });
@@ -347,7 +357,7 @@
         $(".register-studio-form").html(htmlData);
         $(".register-studio-form > div").hide();
 
-        if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250, function() {
+        if (direction != null) $(".register-studio-form > div").show('slide', { direction: direction }, 250, function () {
             if ($("#Estudio_IdComuna").length > 0)
                 $("#Estudio_IdComuna").val(idComuna);
         });
@@ -391,9 +401,18 @@
         
         addExtraValidations();
 
-        $(".field-validation-error").html("");
-        $(".field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
-        if ($(".register-studio-form form").length > 0) $(".register-studio-form form").validate().resetForm();
+        //var limpiaErrores = $(".field-validation-error");
+
+        for (var i = 0; i < serverValidations.length; i++) {
+            //limpiaErrores = limpiaErrores.not("[data-valmsg-for='" + serverValidations[i] + "']");
+            $(".field-validation-error[data-valmsg-for='" + serverValidations[i] + "']").next(".field-info-description").hide();
+            $("[data-valmsg-for='" + serverValidations[i] + "']").hide();
+            $("[data-valmsg-for='" + serverValidations[i] + "']").show('slide', { direction: 'left' }, 350);
+        }
+        
+        //limpiaErrores.html("");
+        //limpiaErrores.removeClass("field-validation-error").addClass("field-validation-valid");
+        //if ($(".register-studio-form form").length > 0) $(".register-studio-form form").validate().resetForm();
     },
     cleanHistoryState = function() {
         History.replaceState({ randomData: window.Math.random() }, '', null);
@@ -402,19 +421,7 @@
         var model = data.find("#JsonModelResult").val();
         data.find("#JsonModelResult").remove();
 
-        var newModel = ko.mapping.fromJS(JSON.parse(model));
-        vm.koViewModel = newModel;
-    },
-    setViewModelData = function() {
-        vm.koViewModel.Usuario.Nombre("Robinson Aravena");
-        vm.koViewModel.Usuario.Email("rob.arav@gmail.com");
-        vm.koViewModel.Usuario.Password("esurance");
-        vm.koViewModel.Usuario.PasswordConfirmacion("esurance");
-        vm.koViewModel.Estudio.Nombre("Noix Studio");
-        vm.koViewModel.Estudio.UrlName("noixStudio");
-        vm.koViewModel.Estudio.Email("noix.studio@noix.cl");
-        vm.koViewModel.Estudio.Direccion("noix street 123");
-        vm.koViewModel.Estudio.Salas()[0].Nombre("noix 1");
+        vm.koViewModel = ko.mapping.fromJS(JSON.parse(model));
     },
     rebindViewModel = function(container) {
         setExtraBindViewModel();
@@ -469,6 +476,7 @@
             horario.DuracionBloque = ko.computed(function () { return this.DuracionBloqueDisplay().split(" ").join(""); }, horario);
         }
     },
+    serverValidations = ["Usuario.Email", "Estudio.Nombre", "Estudio.UrlName"],
     vm;
 
     return {

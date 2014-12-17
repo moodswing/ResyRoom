@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
     <link href="../../Content/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet"
-          type="text/css" />
+        type="text/css" />
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/css/jquery")
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
@@ -17,14 +17,9 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/extensions")
     @Scripts.Render("~/bundles/facebook")
+    @Scripts.Render("~/bundles/layout")
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#LoginUsuario_Email, #LoginUsuario_Password").keypress(function (e) {
-                if (e.which == 13) {
-                    $('#LoginForm').submit();
-                }
-            });
-        })
+        LayoutConfiguration().Init();
     </script>
 </head>
 <body>
@@ -34,27 +29,27 @@
             </div>
             <div class="header-container">
                 <div class="HeaderMenu">
-                <ul class="menu">
-                    <li>
-                        <img src="../../Content/img/home16.png" alt="Inicio" />
-                        @Html.ActionLink("Inicio", "Index", "User")</li>
-                    @if (!Model.UserLogged)
-                    {
+                    <ul class="menu">
+                        <li>
+                            <img src="../../Content/img/home16.png" alt="Inicio" />
+                            @Html.ActionLink("Inicio", "Index", "User")</li>
+                        @if (!Model.UserLogged)
+                        {
+                            <li>
+                                <img src="../../Content/img/mic.png" alt="Inicio" />
+                                @Html.ActionLink("Registro", "RegisterUser", "User")</li>    
+                        }
                         <li>
                             <img src="../../Content/img/mic.png" alt="Inicio" />
-                            @Html.ActionLink("Registro", "RegisterUser", "User")</li>    
-                    }
-                    <li>
-                        <img src="../../Content/img/mic.png" alt="Inicio" />
-                        @Html.ActionLink("Registro de Estudio", "RegisterStudio", "User")</li>
-                    <li>
-                        <img src="../../Content/img/info16.png" alt="Inicio" />
-                        @Html.ActionLink("Acerca", "Index", "User")</li>
-                    <li>
-                        <img src="../../Content/img/mail16.png" alt="Inicio" />
-                        @Html.ActionLink("Contacto", "Index", "User")</li>
-                </ul>
-            </div>
+                            @Html.ActionLink("Registro de Estudio", "RegisterStudio", "User")</li>
+                        <li>
+                            <img src="../../Content/img/info16.png" alt="Inicio" />
+                            @Html.ActionLink("Acerca", "Index", "User")</li>
+                        <li>
+                            <img src="../../Content/img/mail16.png" alt="Inicio" />
+                            @Html.ActionLink("Contacto", "Index", "User")</li>
+                    </ul>
+                </div>
                 <div class="login-div @(User != null && User.IsFacebookLogin ? "facebook-login-div" : "")">
                     <div class="login-ico">
                         <img src="../../Content/img/user.png" alt="Inicio" />
@@ -64,7 +59,7 @@
                     {
                         if (User != null && User.IsFacebookLogin)
                         {
-                            <img class="facebook-avatar" src="http://graph.facebook.com/@(User.FacebookId)/picture" alt="facebook-avatar"/>
+                        <img class="facebook-avatar" src="http://graph.facebook.com/@(User.FacebookId)/picture" alt="facebook-avatar"/>
                         }
                         <span class="facebook-login-links">
                             @User.Nombre
@@ -78,16 +73,43 @@
                     {
                         using (Html.BeginForm("Index", "User", FormMethod.Post, new { Id = "LoginForm" }))
                         {
-                            <span class="email-cell">@Html.LabelFor(u => u.LoginUsuario.Email)</span>
-                            @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "txt" })
-                            <span class="password-cell">@Html.LabelFor(u => u.LoginUsuario.Password)</span>
-                            @Html.TextBoxFor(u => u.LoginUsuario.Password, new { @class = "txt" })
-                            <span class="remember-cell">
-                                @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
-                                @Html.LabelFor(m => m.LoginUsuario.Recordarme)
-                            </span>
-                            <span class="separator-link">|</span>
-                            <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>
+                        @*<span class="email-cell">@Html.LabelFor(u => u.LoginUsuario.Email)</span>
+                        @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "txt" })
+                        <span class="password-cell">@Html.LabelFor(u => u.LoginUsuario.Password)</span>
+                        @Html.TextBoxFor(u => u.LoginUsuario.Password, new { @class = "txt" })
+                        <span class="remember-cell">
+                            @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
+                            @Html.LabelFor(m => m.LoginUsuario.Recordarme)
+                        </span>
+                        <span class="separator-link">|</span>
+                            <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>*@
+                        
+                        <div class="login-form">
+                            <div class="login-form-title">Ingresa a tu cuenta</div>
+                            <div class="login-form-content">
+                                <div>
+                                    @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "icon-input mail-icon-input", placeholder="correo" })
+                                </div>
+                                <div>
+                                    @Html.PasswordFor(u => u.LoginUsuario.Password, new { @class = "icon-input password-icon-input", placeholder="contraseña" })
+                                </div>
+                                <div class="login-options">
+                                    <div class="div-cell">
+                                        @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
+                                        @Html.LabelFor(m => m.LoginUsuario.Recordarme)
+                                    </div>
+                                    <div class="div-cell password-forgotten">
+                                        <a>olvidaste tu password?</a>
+                                    </div>
+                                </div>
+                                <div><input type="submit" class="login-button" value="Login" /></div>
+                                <div class="centered-line"><span>o</span></div>
+                                <div class="fb-button">
+                                    <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>
+                                    <span>usa tu cuenta de facebook</span>
+                                </div>
+                            </div>
+                        </div>
                         }
                     }
                 </div>

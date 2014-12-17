@@ -17,6 +17,8 @@ namespace ResyRoom.Servicios
         IEnumerable<Estudio> Busqueda(Busqueda param);
         Estudio CargarEstudioPorId(int idEStudio);
         Estudio CargarEstudioPorUrl(string urlEstudio);
+        bool NombreEstudioYaUsado(string nombre);
+        bool UrlEstudioYaUsado(string url);
     }
 
     public class ServEstudios : IServEstudios
@@ -132,6 +134,16 @@ namespace ResyRoom.Servicios
                                    .Include(e => e.Salas.Select(s => s.Equipos));
 
             return estudios.First(s => s.UrlName == urlEstudio);
+        }
+
+        public bool NombreEstudioYaUsado(string nombre)
+        {
+            return _context.Estudios.Any(e => e.Nombre == nombre);
+        }
+
+        public bool UrlEstudioYaUsado(string url)
+        {
+            return _context.Estudios.Any(e => e.UrlName == url);
         }
 
         public void Guardar(Estudio estudio)

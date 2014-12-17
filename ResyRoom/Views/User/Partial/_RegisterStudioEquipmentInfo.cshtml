@@ -45,11 +45,11 @@
                     foreach (var equipo in sala.value.Equipos.Select((value, i) => new { i, value }))
                     {
                         <div data-bind="with: Estudio.Salas()[@(sala.i)].Equipos()[@equipo.i]">
-                            @if (equipo.value.ViewState == EnumCollection.ViewState.Display)
+                            @if (equipo.value.ViewState == ViewState.Display)
                             {
                                 @Html.Partial("Partial/_RegisterStudioDisplayEquipmentInfo", equipo.value)
                             }
-                            else if (equipo.value.ViewState == EnumCollection.ViewState.Edit)
+                            else if (equipo.value.ViewState == ViewState.Edit)
                             {
                                 @Html.Partial("Partial/_RegisterStudioEditEquipmentInfo", equipo.value)
                             }

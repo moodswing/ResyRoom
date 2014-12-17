@@ -311,8 +311,12 @@ select
     text-align: center;
 }
 
-.login-div form {
-    display: none;
+.login-div:hover {
+    cursor: pointer;
+}
+
+.login-div .login-form:hover {
+    cursor: default;
 }
 
 .login-div .login-ico {
@@ -338,6 +342,117 @@ select
 .login-div .remember-cell input,
 .login-div .remember-cell label {
     vertical-align: middle;
+}
+
+.login-form {
+    position: absolute;
+    background-color: rgb(250, 250, 250);
+    right: 15px;
+    top: 65px;
+    text-align: left;
+    border-right: 3px solid #A1B1A4;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.65);
+    z-index: 1;
+}
+
+.login-form .login-form-content {
+    padding: 12px 10px 20px;
+}
+
+.login-form .login-options {
+    display: table;
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+.login-form .login-form-title
+{
+    padding: 10px 0;
+    text-align: center;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 20px;    
+    background-color: gainsboro;
+    color: gray;
+}
+
+.login-form .password-forgotten {
+    vertical-align: bottom;
+    text-align: right;
+}
+
+.login-form .password-forgotten a {
+    text-decoration: none;
+    color: #4F9AFF;
+}
+
+.login-form .password-forgotten a:hover {
+    color: #4F9AFF;
+    cursor: pointer;
+}
+
+.login-div .login-button {
+    width: 100%;
+    color: #747474;
+    border: 1px solid rgb(212, 212, 212);
+    display: block;
+    height: 28px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 28px;
+    background: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.login-div .fb-button:hover,
+.login-div .login-button:hover {
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.login-div .fb-button {
+    color: #747474;
+    border: 1px solid rgb(212, 212, 212);
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 5px 0;
+}
+
+.login-div .fb-button span {
+    padding-left: 5px;
+}
+
+.centered-line {
+    text-align: center;
+    padding: 8px 0;
+}
+
+.centered-line span {
+  display: inline-block;
+  position: relative;  
+}
+
+.centered-line span:before,
+.centered-line span:after {
+  content: "";
+  position: absolute;
+  height: 9px;
+  border-bottom: 1px solid gainsboro;
+  top: 0;
+  width: 88px;
+}
+
+.centered-line span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.centered-line span:after {
+  left: 100%;
+  margin-left: 15px;
 }
 
 .register-user-div {
@@ -537,7 +652,7 @@ select
 .studio-profile-title {
     border-bottom: 1px solid gainsboro;
     margin-bottom: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .studio-tab {
