@@ -14,7 +14,7 @@
             openerLoginModal.on('click', showLoginModal);
         },
         submitLoginForm = function() {
-            var form = getLoginModal().parents("form");
+            var form = getLoginModal().find("form");
             var loginModal = getLoginModal();
             cleanErrorSummary();
             
@@ -59,7 +59,7 @@
             $("#LoadingLogin").hide();
         },
         cleanErrorSummary = function() {
-            var form = getLoginModal().parents("form");
+            var form = getLoginModal().find("form");
             form.find(".validation-summary-errors").remove();
         },
         getLoginButton = function () { return $('#LoginButton'); },
