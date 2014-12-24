@@ -303,12 +303,25 @@ select
     display: table-cell;
 }
 
+.login-container {
+    display: table-cell;
+    vertical-align: top;
+    text-align: right; 
+}
+
 .login-div {
     display: table-cell;
     vertical-align: middle;
     background-color: #BF273B;
     width: 200px;
     text-align: center;
+}
+
+.logged-div {
+    background-color: gainsboro;
+    border-bottom-left-radius: 5px;
+    padding: 5px;
+    float: right;
 }
 
 .login-div:hover {
@@ -388,6 +401,15 @@ select
 .login-form .password-forgotten a:hover {
     color: #4F9AFF;
     cursor: pointer;
+}
+
+.login-form .validation-summary-errors ul {
+    margin: 0 0 10px;
+}
+
+.login-form .validation-summary-errors li {
+    list-style: none;
+    color: #975755;
 }
 
 .login-div .login-button {
@@ -537,33 +559,35 @@ select
     width: 32px;
     border: 1px solid gainsboro;
     border-radius: 3px;
-    display: table-cell;
-    margin-right: 8px;
+    padding-right: 15px;
+    padding-left: 5px;
 }
 
-.login-div.facebook-login-div {
+.logged-div .facebook-login-div {
     margin-top: -10px;
     display: table;
 }
 
-.login-div.facebook-login-div .facebook-login-links
+.logged-div .facebook-login-links
 {
-    vertical-align: bottom;
-    display: table-cell;
+    font-size: 12px;
+    padding-right: 15px;
+    float: right;
+    padding-top: 10px;
 }
 
-.login-div .separator-link {
+.logged-div .separator-link {
     padding: 0 10px;
 }
 
-.login-div a {
-    text-decoration: underline;
-    color: #747474;
+.logged-div a,
+.logged-div a:visited {
+    color: #4F9AFF;
 }
 
-.login-div a:hover {
+.logged-div a:hover {
     text-decoration: underline;
-    color: #747474;
+    color: #4F9AFF;
 }
 
 .studio-search-page {

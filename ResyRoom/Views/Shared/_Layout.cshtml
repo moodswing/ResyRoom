@@ -18,6 +18,7 @@
     @Scripts.Render("~/bundles/extensions")
     @Scripts.Render("~/bundles/facebook")
     @Scripts.Render("~/bundles/layout")
+    @Scripts.Render("~/bundles/knockoutjs-with-mapping")
     <script type="text/javascript">
         LayoutConfiguration().Init();
     </script>
@@ -50,16 +51,12 @@
                             @Html.ActionLink("Contacto", "Index", "User")</li>
                     </ul>
                 </div>
-                <div class="login-div @(User != null && User.IsFacebookLogin ? "facebook-login-div" : "")">
-                    <div class="login-ico">
-                        <img src="../../Content/img/user.png" alt="Inicio" />
-                        <span>LOGIN</span>
-                    </div>
-                    @if (Model.UserLogged && User != null)
-                    {
-                        if (User != null && User.IsFacebookLogin)
+                @if (Model.UserLogged && User != null)
+                {
+                    <div class="logged-div">
+                        @if (User != null && User.IsFacebookLogin)
                         {
-                        <img class="facebook-avatar" src="http://graph.facebook.com/@(User.FacebookId)/picture" alt="facebook-avatar"/>
+                            <img class="facebook-avatar" src="http://graph.facebook.com/@(User.FacebookId)/picture" alt="facebook-avatar"/>
                         }
                         <span class="facebook-login-links">
                             @User.Nombre
@@ -68,51 +65,12 @@
                             <span class="separator-link">|</span>
                             @Html.ActionLink("Cerrar sesión", "CloseSession", "User")
                         </span>
-                    }
-                    else
-                    {
-                        using (Html.BeginForm("Index", "User", FormMethod.Post, new { Id = "LoginForm" }))
-                        {
-                        @*<span class="email-cell">@Html.LabelFor(u => u.LoginUsuario.Email)</span>
-                        @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "txt" })
-                        <span class="password-cell">@Html.LabelFor(u => u.LoginUsuario.Password)</span>
-                        @Html.TextBoxFor(u => u.LoginUsuario.Password, new { @class = "txt" })
-                        <span class="remember-cell">
-                            @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
-                            @Html.LabelFor(m => m.LoginUsuario.Recordarme)
-                        </span>
-                        <span class="separator-link">|</span>
-                            <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>*@
-                        
-                        <div class="login-form">
-                            <div class="login-form-title">Ingresa a tu cuenta</div>
-                            <div class="login-form-content">
-                                <div>
-                                    @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "icon-input mail-icon-input", placeholder="correo" })
-                                </div>
-                                <div>
-                                    @Html.PasswordFor(u => u.LoginUsuario.Password, new { @class = "icon-input password-icon-input", placeholder="contraseña" })
-                                </div>
-                                <div class="login-options">
-                                    <div class="div-cell">
-                                        @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
-                                        @Html.LabelFor(m => m.LoginUsuario.Recordarme)
-                                    </div>
-                                    <div class="div-cell password-forgotten">
-                                        <a>olvidaste tu password?</a>
-                                    </div>
-                                </div>
-                                <div><input type="submit" class="login-button" value="Login" /></div>
-                                <div class="centered-line"><span>o</span></div>
-                                <div class="fb-button">
-                                    <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>
-                                    <span>usa tu cuenta de facebook</span>
-                                </div>
-                            </div>
-                        </div>
-                        }
-                    }
-                </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.Partial("_LoginModal")
+                }
             </div>
         </div>
         @RenderBody()

@@ -345,6 +345,7 @@
     <Content Include="Views\User\Partial\_RegisterStudioDisplayEquipmentInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioScheduleInfo.cshtml" />
     <Content Include="Views\User\Partial\_RegisterStudioEditScheduleInfo.cshtml" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

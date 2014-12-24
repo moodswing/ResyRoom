@@ -64,7 +64,6 @@ select
 
 a:link, a:visited
 {
-    color: #747474;
     text-decoration: none;
 }
 .login-div a:link, .login-div a:visited

@@ -1,0 +1,39 @@
+﻿@model ResyRoom.ViewModels.BaseViewModel
+
+@Styles.Render("~/Content/css/loading")
+<div class="login-div @(User != null && User.IsFacebookLogin ? "facebook-login-div" : "")">
+    <div class="login-ico">
+        <img src="../../Content/img/user.png" alt="Inicio" />
+        <span>LOGIN</span>
+    </div>
+    <form id="LoginForm">
+        <div class="login-form">
+            <div class="login-form-title">Ingresa a tu cuenta</div>
+            <div class="login-form-content">
+                <div>
+                    @Html.TextBoxFor(u => u.LoginUsuario.Email, new { @class = "icon-input mail-icon-input", placeholder = "correo" })
+                </div>
+                <div>
+                    @Html.PasswordFor(u => u.LoginUsuario.Password, new { @class = "icon-input password-icon-input", placeholder = "contraseña" })
+                </div>
+                <div class="login-options">
+                    <div class="div-cell">
+                        @Html.CheckBoxFor(u => u.LoginUsuario.Recordarme)
+                        @Html.LabelFor(m => m.LoginUsuario.Recordarme)
+                    </div>
+                    <div class="div-cell password-forgotten">
+                        <a>olvidaste tu password?</a>
+                    </div>
+                </div>
+                <div id="LoadingLogin"></div>
+                @Html.ValidationSummary(true)
+                <div><a id="LoginButton" class="login-button">Login</a></div>
+                <div class="centered-line"><span>o</span></div>
+                <div class="fb-button">
+                    <fb:login-button scope="public_profile,email" size="icon" onlogin="checkLoginState();"></fb:login-button>
+                    <span>usa tu cuenta de facebook</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

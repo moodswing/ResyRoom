@@ -52,23 +52,32 @@ namespace ResyRoom.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(IndexUserViewModel usuario)
+        public ActionResult Autentificar(IndexUserViewModel usuario)
         {
+            var estudiosMejorEvaluados = ServEstudios.EstudiosMejorEvaluados(5);
+            var estudiosMasPopulares = ServEstudios.EstudiosMasPopulares(5);
+
+            var listadoRegiones = ServRegiones.RegionesChilenas();
+            var listadoComunas = new List<Comuna> { Constantes.ComunaSinSeleccion };
+
             if (ModelState.IsValid)
             {
                 var roles = AutenticarUsuario(usuario.LoginUsuario);
                 if (roles != null)
                 {
                     if (roles.Contains("Estudio"))
-                        return RedirectToAction("Index", "User");
+                        //return RedirectToAction("Index", "User");
+                        return Json(new { result = "Redirect", url = Url.Action("Index", "User") });
                     if (roles.Contains("Usuario"))
-                        return RedirectToAction("Index", "User");
+                        //return RedirectToAction("Index", "User");
+                        return Json(new { result = "Redirect", url = Url.Action("Index", "User") });
                 }
 
-                ModelState.AddModelError("", "Incorrect username and/or password");
+                ModelState.AddModelError("", "Correo o contraseña incorrectos");
+                return PartialView("_LoginModal", new IndexUserViewModel(estudiosMejorEvaluados, estudiosMasPopulares, listadoRegiones, listadoComunas));
             }
 
-            return View(new IndexUserViewModel());
+            return Json(new {result = "Redirect", url = Url.Action("Index", "User")});
         }
         #endregion
 
