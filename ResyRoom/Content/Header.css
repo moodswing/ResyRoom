@@ -24,7 +24,10 @@
     margin: 0px 3px;
     text-transform: uppercase;
 }
-.header-container ul.menu li a { color: #696969; }
+.header-container ul.menu li a {
+    color: #696969;
+    font-family: 'Raleway', sans-serif;
+}
 .header-container ul.menu li img { margin-right: 10px; }
 .header-container ul.menu li:hover { color: black;border-bottom: 2px solid gainsboro; }
 .header-container ul.menu li:active { color: black; text-decoration: none; }

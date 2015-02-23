@@ -48,7 +48,7 @@
                 loginModal.hide();
         },
         submitLoginOnEnterPress = function (e) {
-            if (e.which == 13) $('#LoginForm').submit();
+            if (e.which == 13) submitLoginForm();
         },
         showLoadingLogin = function() {
             $("#LoadingLogin").html("<div id='loading' style='padding-bottom: 5px;'><div class='bubblingG' style='margin: auto;'><span id='bubblingG_1'>" +
